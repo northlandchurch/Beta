@@ -1,0 +1,28 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:jwplayer="http://developer.longtailvideo.com/">
+  <channel>
+    <title>Playlist with RTMP Dynamic Streaming</title>
+
+    <item>
+      <title>Big Buck Bunny</title>
+      <description>Big Buck Bunny is a short animated film by the Blender Institute,
+         part of the Blender Foundation.</description>
+     
+     {exp:channel:entries channel="media" url_title="{segment_3}" status="not closed" limit="1" dynamic="off"}
+     
+     <media:group>
+
+        {if media-hd}
+        <media:content bitrate="2500" url="mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_hd.mp4"  width="720" />
+        {/if}	
+        <media:content bitrate="1500" url="mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4" width="640"/>
+        <media:content bitrate="800" url="mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4" width="640" />
+        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_low.mp4" width="640" />
+
+      </media:group>
+      {/exp:channel:entries}
+      <jwplayer:streamer>rtmp://video.northlandchurch.net:1935/vods3/_definst_</jwplayer:streamer>
+    </item>
+
+  </channel>
+</rss>

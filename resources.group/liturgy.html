@@ -1,0 +1,420 @@
+<script type="text/javascript">
+	if(window.location.hash){
+		var reading = window.location.hash;
+		console.log(reading);
+	}
+</script>
+
+{embed="_assets/header" htmltitle="Daily Liturgy"}
+{embed="_assets/navbar"}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$('.favorite').click(function() {		
+		var classname 	= $(this).attr('id');
+		var count 		= $("span." + classname).html();
+		var link 		= $(this).attr('href');
+
+		if (($(this).text() != "You've read this.") && ($(this).text() != "favorite Marked as read") )
+		{
+			// Call favorite link
+			$('.result').load(link, function() {
+//				$("span." + classname).html(parseInt(count)+1);
+			});
+			$("span." + classname).html(parseInt(count)+1);
+			$(this).text("You've read this.");
+		} else {
+			console.log("Nothing happens");
+		}
+
+		return false;
+    });
+
+});
+</script>
+
+<script type="text/javascript">
+$(function() {
+	$('#datepicker').datepicker({
+		showOn: "both",
+		dateFormat: "yy-mm-dd",
+		maxDate: "$date",
+		onSelect: function (dateText, inst) {
+			document.location.href = "/resources/liturgy/" + dateText;
+		}
+	});
+});
+
+$(document).ready(function() {
+	$("ul#calendar li:first-child").addClass('active');
+	$("ul#calendar li").hover(function(){
+		var imgTitle = $(this).find('a').attr("href");
+		var imgLink = $(this).find('a').attr("id");
+
+		if ($(this).is(".active")) {
+			return false;
+		} else {
+			$("#calendar-slider a").attr({ href: imgTitle});
+			$("#calendar-slider img").attr({ src: imgLink});
+		}
+
+		$("ul#calendar li").removeClass('active');
+		$(this).addClass('active');
+		return false; 
+	});
+});
+</script>
+	
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+	
+		<div class='g'>
+			<div class="g-b g-b--m--3of4">
+				<h1 class="heading heading--xl">Daily Liturgy</h1>
+				<p class='mbxl tss' data-swiftype-index='true'>
+					<span>Study God's Message to You Often</span><br>
+					I am watching over My Word to perform it.
+					<em>-God (Jeremiah 1:12, NASB)</em>
+				</p>
+			</div>
+			<div class="g-b g-b--m--1of4">
+				<div id="datepicker" class="bible-page"></div>
+			</div>
+			{!--			
+			<div class="g-b g-b--m--1of2">
+				<div class="bible-side-mid">
+					<div class="readthebible_side-right" style="padding-left:0;">Praying Scripture Together <span>by Sean Cooper</span></div><div class="clear"></div>
+					<p>God is listening to the prayers of people around the world right now. Our Creator, who never sleeps nor slumbers, made us to be communicators, and not just with one another. Somehow in the majesty of God’s thoughtfulness, your words mean something significant. This means many great things for each of us. Most amazingly, though, it speaks much about God.</p>
+					<p class="bible-info" style="text-align:right;">
+						<a href="/articles/praying_scripture_together/">Read More</a>
+					</p>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="bible-side-mid">
+					<div class="readthebible_side-right" style="padding-left:0;">Reading the Bible <span><br>by Vernon Rainwater</span></div><div class="clear"></div>
+					<p>Why should we read the Bible? There are lots of ways I could approach a topic like this. I could talk about why we gravitate toward a certain translation of the Bible. I could explain why we believe the Bible is historically accurate and inerrant in the original text. I think I can make a fairly convincing case for why we can trust the Bible to be historically accurate, authoritative … that it's true in our lives and for our lives.</p>
+					<p class="bible-info" style="text-align:right;">
+						<a href="/articles/reading_the_bible/">Read More</a>
+					</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+			--}			
+		</div>		
+	
+		{embed="_assets/resource_nav"}
+		
+		<!-- segment_4: {segment_4} -->
+		<!-- segment_3: {segment_3} -->
+		<!-- segment_2: {segment_2} -->
+		<!-- segment_1: {segment_1} -->
+		{if segment_3 != ''}
+		{!-- All liturgy entries are from 2014. Any date with a year past 2014 will not 
+		return any results. Thus, we must parse segment3 for the month-day, and 
+		concat "2014" in order to generate a query to retrieve a past day's reading. --}
+		<?php
+			$query = "2014" . date("-m-j", strtotime('{segment_3}'));
+		?>
+		{/if}
+	
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		<!-- 							Morning liturgy 									-->
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		
+		<div class='has-editorials' id='morning'>
+			{if segment_3 == ''}
+				{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="2014-{current_time format='%m-%d'} 00:00" stop_before="2014-{current_time format='%m-%d'} 23:59" search:liturgy-sequence="=Morning" cache="yes" refresh="120"}	
+				<!-- normal retrieval -->
+			{if:elseif segment_3 != ''}
+				{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="<?php echo $query; ?> 00:00" stop_before="<?php echo $query; ?> 23:59" display_by="day" search:liturgy-sequence="=Morning" cache="yes" refresh="120"}
+				<!-- calendar retrieval -->
+			{/if}
+				<div class="card" style="padding-left: 24px;">
+					<h1 class='heading heading--l title'>Rising <span>(morning)</span></h1>
+					<h4 class='meta-author'>
+						<span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</span> <span>{entry_date format="%F %j"}</span> 
+					</h4>
+					{!-- <p class='mbl tss'>
+						{exp:favorites:entry_count entry_id="{entry_id}"}						
+							<span class="people-read">
+							{if favorites_count_public == 0}
+								<span class="count entry{entry_id}">{favorites_count_public}</span> people have read {if total_results == 1}this{if:else}these{/if}</span>
+							{if:else}
+								<span class="count entry{entry_id}">{favorites_count_public}</span> {if favorites_count_public>1}people have{if:else}person has{/if} read {if total_results == 1}this{if:else}these{/if}</span>
+							{/if}	  
+						{/exp:favorites:entry_count}
+					</p> --}
+				</div>
+
+				<div class='g-b g-b--m--3of4 liturgy-verse morning'>
+					<div class='card' style="padding-top: 60px; padding-left: 5px;">
+						<article class='article'>
+							{liturgy-scripture}
+						</article>
+						<div class='liturgy-card-options' id="entry{entry_id}">
+							<div class='liturgy-number tss'>
+							{exp:favorites:entry_count entry_id="{entry_id}"}						
+								{if favorites_count_public == 0}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								{if:else}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									{if favorites_count_public>1} people have
+									{if:else} person has
+									{/if}
+									<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								{/if}	  
+							{/exp:favorites:entry_count}
+							</div>
+
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}"><i class="material-icons" style="vertical-align:middle;">favorite</i> Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+								{!-- <div class='liturgy-card-options' id="entry{entry_id}" > --}
+									<a class="favorite btn" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}"><i class="material-icons"  style="vertical-align:middle;">favorite_border</i> Mark as read</a>					
+								{!-- </div>	--}	
+								{/if}
+							{/exp:favorites:saved}
+							<div class="social_share_options">
+								<!-- {title_permalink} -->
+								<!-- {url_title} -->
+								<div class="fb_share">
+									<a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23morning" target="_blank">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg">
+									</a>
+								</div>
+
+								<div class="twitter_share">
+									<a class="btn" href="https://twitter.com/intent/tweet?url=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23morning">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg">
+									</a>
+								</div>
+								<div class="email_share">
+									<a class="btn" href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/#midday">
+										<i class="material-icons">email</i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				{/exp:channel:entries}
+		</div>
+
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		<!-- 							Midday liturgy 										-->
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		<div class='has-editorials' id='midday'>
+			{if segment_3 == ''}
+				{exp:channel:entries 
+					channel="liturgy"
+					orderby="date"
+					sort="asc"
+					show_future_entries="yes"
+					start_on="2014-{current_time format='%m-%d'} 00:00"
+					stop_before="2014-{current_time format='%m-%d'} 23:59"
+					search:liturgy-sequence="=Midday"
+					limit="1"
+				}
+				<!-- normal retrieval -->
+			{if:elseif segment_3 != ''}
+				<?php echo "<!-- going to do a loop -->"; ?>
+				{exp:channel:entries 
+					channel="liturgy"
+					orderby="date" 
+					sort="asc"
+					show_future_entries="yes"
+					start_on="<?php echo $query; ?> 00:00" 
+					stop_before="<?php echo $query; ?> 23:59" 
+					search:liturgy-sequence="=Midday"
+					limit="1"
+				}
+				<!-- calendar retrieval -->
+			{/if}
+				<!-- count is {count} -->
+				<!-- total_results is {total_results} -->
+			<div class="card" style="padding-left: 24px;">
+				<h1 class='heading heading--l title'>Reconnecting <span>(midday)</span></h1>							
+				<h4 class='meta-author'>
+					<span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</span> <span>{entry_date format="%F %j"}</span> 
+				</h4>
+				{!-- <p class='mbl tss'>
+					{exp:favorites:entry_count entry_id="{entry_id}"}						
+						<span class="people-read">
+						{if favorites_count_public == 0}
+							<span class="count entry{entry_id}">{favorites_count_public}</span> people have read {if total_results == 1}this{if:else}these{/if}</span>
+						{if:else}
+							<span class="count entry{entry_id}">{favorites_count_public}</span> {if favorites_count_public>1}people have{if:else}person has{/if} read {if total_results == 1}this{if:else}these{/if}</span>
+						{/if}	  
+					{/exp:favorites:entry_count}
+				</p> --}
+			</div>
+
+			<div class='g-b g-b--m--3of4 liturgy-verse midday'>
+				<div class='card' style="padding-top: 60px; padding-left: 5px;">
+					<article class='article'>
+							{liturgy-scripture}
+						</article>
+						<div class='liturgy-card-options' id="entry{entry_id}">
+							<div class='liturgy-number tss'>
+							  {exp:favorites:entry_count entry_id="{entry_id}"}						
+								  {if favorites_count_public == 0}
+									  <span class="count entry{entry_id}">{favorites_count_public}</span>
+									  <span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								  {if:else}
+									  <span class="count entry{entry_id}">{favorites_count_public}</span>
+									  {if favorites_count_public>1} people have
+									  {if:else} person has
+									  {/if}
+									  <span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								  {/if}	  
+							  {/exp:favorites:entry_count}
+							</div>
+						
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}"><i class="material-icons" style="vertical-align:middle;">favorite</i> Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+								{!-- <div class='liturgy-card-options' id="entry{entry_id}" > --}
+									<a class="favorite btn" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}"><i class="material-icons"  style="vertical-align:middle;">favorite_border</i> Mark as read</a>					
+								{!-- </div>	--}	
+								{/if}
+							{/exp:favorites:saved}
+							<div class="social_share_options">
+								<!-- {title_permalink} -->
+								<!-- {url_title} -->
+								<div class="fb_share">
+									<a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23midday" target="_blank">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg">
+									</a>
+								</div>
+
+								<div class="twitter_share">
+									<a class="btn" href="https://twitter.com/intent/tweet?url=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23midday">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg">
+									</a>
+								</div>
+								<div class="email_share">
+									<a class="btn" href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/#midday">
+										<i class="material-icons">email</i>
+									</a>
+								</div>
+							</div>
+							
+						</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			{/exp:channel:entries}
+		</div>
+
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		<!-- 							Evening liturgy 									-->
+		<!-- ////////////////////////////////////////////////////////////////////////////// -->
+		{if segment_3 == ''}
+		{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="2014-{current_time format='%m-%d'} 00:00" stop_before="2014-{current_time format='%m-%d'} 23:59" search:liturgy-sequence="=Evening" cache="yes" refresh="120"}	
+			<!-- normal retrieval -->
+		{if:elseif segment_3 != ''}
+		{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="<?php echo $query; ?> 00:00" stop_before="<?php echo $query; ?> 23:59" display_by="day" search:liturgy-sequence="=Evening" cache="yes" refresh="120"}
+			<!-- calendar retrieval -->
+		{/if}
+		<div class='has-editorials' id='evening'>
+			<div class="card" style="padding-left: 24px;">
+				<h1 class='heading heading--l title'>Resting <span>(evening)</span></h1>							
+				<h4 class='meta-author'>
+					<span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</span> <span>{entry_date format="%F %j"}</span> 
+				</h4>
+				{!-- <p class='mbl tss'>
+					{exp:favorites:entry_count entry_id="{entry_id}"}						
+						<span class="people-read">
+						{if favorites_count_public == 0}
+							<span class="count entry{entry_id}">{favorites_count_public}</span> people have read {if total_results == 1}this{if:else}these{/if}</span>
+						{if:else}
+							<span class="count entry{entry_id}">{favorites_count_public}</span> {if favorites_count_public>1}people have{if:else}person has{/if} read {if total_results == 1}this{if:else}these{/if}</span>
+						{/if}	  
+					{/exp:favorites:entry_count}
+				</p> --}
+			</div>
+
+			<div class='g-b g-b--m--3of4 liturgy-verse evening'>
+				<div class='card' style="padding-top: 60px; padding-left: 5px;">
+					<article class='article'>
+						{liturgy-scripture}
+					</article>
+					<div class='liturgy-card-options' id="entry{entry_id}">
+					
+							<div class='liturgy-number tss'>
+							  {exp:favorites:entry_count entry_id="{entry_id}"}						
+								  {if favorites_count_public == 0}
+									  <span class="count entry{entry_id}">{favorites_count_public}</span>
+									  <span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								  {if:else}
+									  <span class="count entry{entry_id}">{favorites_count_public}</span>
+									  {if favorites_count_public>1} people have
+									  {if:else} person has
+									  {/if}
+									  <span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								  {/if}	  
+							  {/exp:favorites:entry_count}
+							</div>
+						
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}"><i class="material-icons" style="vertical-align:middle;">favorite</i> Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+								{!-- <div class='liturgy-card-options' id="entry{entry_id}" > --}
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}"><i class="material-icons"  style="vertical-align:middle;">favorite_border</i> Mark as read</a>					
+								{!-- </div>	--}	
+								{/if}
+							{/exp:favorites:saved}
+							
+							<div class="social_share_options">
+								<!-- {title_permalink} -->
+								<!-- {url_title} -->
+								<div class="fb_share">
+									<a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23evening" target="_blank">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg">
+									</a>
+								</div>
+
+								<div class="twitter_share">
+									<a class="btn" href="https://twitter.com/intent/tweet?url=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/%23evening">
+										<img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg">
+									</a>
+								</div>
+								<div class="email_share">
+									<a class="btn" href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body=http://www.northlandchurch.net/resources/liturgy/{current_time format='%Y-%m-%d'}/#evening">
+										<i class="material-icons">email</i>
+									</a>
+								</div>
+							</div>
+							
+							
+						</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		{/exp:channel:entries}
+
+		<span class="result" style="display:none;"></span>
+	</div>
+</div>
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+
+
+
+
+

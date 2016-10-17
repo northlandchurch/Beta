@@ -1,0 +1,70 @@
+<?php 
+	header("location: http://www.northlandchurch.net/series/askapastor"); 
+	exit;
+?>
+{!--
+{embed="_includes/html_open" htmltitle="Ask A Pastor"}
+{embed="_includes/header"}
+{embed="_includes/nav" {if segment_2 == 'mvb'}active="about"{if:else}active="resources"{/if}}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Ask A Pastor</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	
+	<div id="article-main" style="width:100%">
+		<!--<div class="article-top">
+			<h1>Ask A Pastor</h1>
+		</div>-->
+		<div class="article-box" style="background-color:white;box-shadow: 0px 0px 5px 5px #ddd; margin:20px;padding:20px;width:100%">
+							<div>
+													<h2 style="border:none;line-height: initial;margin-bottom: 10px;">Nearly every week we spend a part of our worship services in dialogue during a time of questions and answers so that we can work out our faith together. Have a question for our pastoral team? Email and we'll respond by video or email within a week.</h2>
+			</div>
+
+				<div style="float:right;max-width:300px">
+<div id="wufoo-x1fw358505s45ea">
+Fill out my <a href="https://northlandchurch.wufoo.com/forms/x1fw358505s45ea">online form</a>.
+</div>
+<script type="text/javascript">var x1fw358505s45ea;(function(d, t) {
+var s = d.createElement(t), options = {
+'userName':'northlandchurch',
+'formHash':'x1fw358505s45ea',
+'autoResize':true,
+'height':'514',
+'async':true,
+'host':'wufoo.com',
+'header':'hide',
+'ssl':true};
+s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+s.onload = s.onreadystatechange = function() {
+var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+try { x1fw358505s45ea = new WufooForm();x1fw358505s45ea.initialize(options);x1fw358505s45ea.display(); } catch (e) {}};
+var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+})(document, 'script');</script>
+		</div>
+			<iframe width="640" height="360" src="//www.youtube.com/embed/videoseries?list=PLcil-PnYkO7HgNjguLnA0pTYObXTBQoa_" frameborder="0" allowfullscreen></iframe>
+		</div>
+<!--		<div class="article-btm"></div>-->
+	</div>
+	
+	<!--<div id="article-list">
+		<h3>All Articles</h3>
+			<ul>
+				{exp:channel:entries channel="article"}
+					<li><a href="/articles/{url_title}"><strong>{title}</strong></a></li>
+				{/exp:channel:entries}
+			</ul>
+	</div>-->
+</div>
+<div class="clear marg-b-60">&nbsp;</div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}--}

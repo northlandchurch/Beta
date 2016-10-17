@@ -1,0 +1,7 @@
+{exp:channel:entries channel="media" dynamic="on" limit="1" require_entry="yes"}
+	{if no_results}
+		{redirect="/video/"}
+	{/if}
+	{embed="_includes/html_open-beta" htmltitle=""}
+	
+{/exp:channel:entries}

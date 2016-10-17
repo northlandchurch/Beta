@@ -1,0 +1,131 @@
+{embed="responsive/html_open"}
+
+<meta property="og:type" content="blog" /> 
+	<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+	<meta property="og:title" content="Northland, A Church Distributed" /> 
+	<meta property="og:description" content="We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe." />
+
+{embed="responsive/header"}
+
+{embed="responsive/nav" active="home"}
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<style type="text/css">
+	/* Background color for home only */
+	body {
+		background-color: #EEE;
+	}
+</style>
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if service_live=="true"}
+		<script type="text/javascript">
+		function UpdateCount(updatetime) {
+			$.get('/scripts/totalgroupsize.txt', function(data) {
+				$('#current-viewers').html('<p>' + data + '</p>');
+			});
+
+			if (updatetime) {
+				setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+			}
+		}
+
+
+		$(document).ready(function() {
+			UpdateCount(5000);
+		});
+		</script>
+		<div class="container_12 liveworship_container">
+			<div class="liveworship_home" onclick="location.href='/worship';" style="cursor:pointer;">
+				<h1>LIVE <span>WORSHIP ONLINE</span> NOW</h1>
+				<h2>Join with the <p id="current-viewers"></p> around the world worshiping with us right now!</h2>
+			</div>
+		</div>
+	{/if}
+{/exp:channel:entries}
+
+	<div class="container_12 masters_holder">
+		<div class="grid_8 masters">
+			<div class="home_main">
+				{if service_live=="false"}
+					<h2 class="home_title">Current Series:</h2>
+				{/if}
+				{exp:channel:entries channel="series" dynamic="on" show_future_entries="no" limit="1" category="286"}
+					<img src="{v2-image-asset-url}/series/{series-image}" alt="{title}" style="max-width:100%;repeat:no-repeat"><br>
+					<div class="home_description">
+						{series-description}
+					</div>
+				{/exp:channel:entries}	
+				
+				<div class="clear"></div><br>
+				<div class="home_lastweek">
+					{exp:channel:entries channel="media" category="48" limit="1"}
+						<p>Watch last week's service: <a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>"{title}"</strong></a></p>
+					{/exp:channel:entries}
+				</div>
+				<h2 class="home_title" style="margin-top:40px;">Previous Series:</h2>
+				<div class="home_previous">
+					<p>Connect with God through His word, taught in our <a href="/series">previous sermon series</a>. Check out a recent series below or <a href="/media">click here</a> for a full list of all of our online sermons and series.</p>
+					{exp:channel:entries channel="series" limit="2" sort="desc" offset="1" show_future_entries="no"}
+						<a href="/series/{url_title}"><img src="http://northlandchurch.net/_img/uploads/{series-image}"></a>
+					{/exp:channel:entries}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="spacer-right default_visible"></div>
+		<div class="grid_4 beacon masters" style="margin-top:45px">
+			<!-- <div class="joinus">
+				<h4 style="font-size:16px;background-color:rgba(255, 255, 0, 0.2);padding:10px;margin-bottom:10px;"><a href="http://facebook.com/northlandchurch">Our Disaster Response team is serving the community in Far Rockaway, NY affected by Hurricane Sandy. Follow their progress and service here.</a></h4>
+			</div> -->
+			{embed="_component/side-wegather"}
+			{embed="_component/side-whatscurrent"}
+			{embed="_component/side-liturgy"}
+			{embed="_component/side-generous"}
+			{embed="_component/side-prayer"}
+		</div>
+	</div>
+	
+	{!-- BOTTOM --}
+	
+	<div class="clear"></div>
+	<div class="marg-b-40"></div>
+	
+{embed="_includes/footer"}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+{embed="_includes/html_close"}

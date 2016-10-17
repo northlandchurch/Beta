@@ -1,0 +1,271 @@
+<?php 
+header('Location: http://www.northlandchurch.net/volunteer');
+exit;
+?>
+{embed="responsive/html_open" htmltitle="Serve at Northland, A Church Distributed"}
+{embed="responsive/respond-header"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}" />
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$(".respond-serve-button a").click(function(){
+		whichIDtoLoadAfterLogin = $(this).closest(".serve-beautiful").attr("id");	
+		$('.login_form [name=RET]').val("!"+whichIDtoLoadAfterLogin);
+	});
+	if (location.href.indexOf("!")>-1){
+		var bang_position_in_url = location.href.indexOf("!")+1;
+		var id_name_to_target = location.href.substr(bang_position_in_url,location.href.length);
+		id_name_to_target = id_name_to_target.substr(0,id_name_to_target.length-1);
+		console.log(id_name_to_target);
+		var id_of_form_to_load = "#" + id_name_to_target + " a";
+		console.log(id_of_form_to_load);
+		$(id_of_form_to_load).trigger("click");
+	}
+	$("#ccbformbutton").live("click", function(event) {
+		event.preventDefault();
+		
+		// Put the Validation code
+		var isValidated = true;
+		$("span[style|='color:red;']").each (function(index) {
+			
+			var el_input = $(this).parent().parent().find("input");			
+			var el_textarea = $(this).parent().parent().find("textarea");			
+			var el_select = $(this).parent().parent().find("select");
+			var val_input = el_input.val();
+			var val_textarea = el_textarea.val();
+			var val_select = el_select.val();
+//			console.log(index + ": " + val_input);
+//			console.log(index + ": " + val_textarea);
+//			console.log(index + ": " + val_select);
+
+			if (val_input !== undefined) {
+				if (val_input == null || val_input == '') {
+					isValidated = false;
+//					console.log("You have to enter input field.");
+					alert("You have to enter input field.");
+					$(el_input).focus();
+					return false;
+				}
+			} else if (val_textarea !== undefined) {
+				if (val_textarea == null || val_textarea == '') {
+					isValidated = false;
+//					console.log("You have to enter textarea field.");
+					alert("You have to enter textarea field.");
+					$(el_textarea).focus();
+					return false;
+				}			
+			} else if (val_select !== undefined) {
+				if (val_select == null || val_select == '') {
+					isValidated = false;
+//					console.log("You have to choose select field.");
+					alert("You have to choose select field.");
+					$(el_select).focus();
+					return false;
+				}			
+			}
+		
+		});
+//		
+//		console.log("Is Validated1? " + isValidated);
+		if (isValidated) {
+//			console.log("Is Validated2? " + isValidated);
+			$('#main-form').prop("target", "ccb");
+			$("#main-form").trigger('submit');	
+
+			// Count the number of people signed up
+			var count = parseInt($("#serve" + entryid_form + " .serve-number").text()) + 1;
+		
+			// Favorite entry
+			$.get("/_component/favorite-add/" + entryid_form);
+		
+			// Change people count
+			$("#serve" + entryid_form + " .count").fadeOut('fast', function() {
+				// Show how many people signed up
+				if (count == 0) {
+					$("#serve" + entryid_form + " .count").html("You signed up");
+				}
+				else if (count == 1) {
+					$("#serve" + entryid_form + " .count").html("You and 1 other signed up");
+				}
+				else {
+					$("#serve" + entryid_form + " .count").html("You and " + count + " others signed up");
+				}
+				$("#serve" + entryid_form + " .count").fadeIn('fast');
+			});
+			// Change button to show user signed up
+			$("#serve" + entryid_form + " .respond-serve-button").html("I SIGNED UP");
+
+			// Thank them for signing up		
+
+		} 			
+	});
+
+/*
+	// Do the following on form submit
+	$("#main-form").live("submit",function(){
+		// Count the number of people signed up
+		var count = parseInt($("#serve" + entryid_form + " .serve-number").text()) + 1;
+		
+		$('#main-form').prop("target", "ccb");
+
+		// Submit the form to CCB
+		$.ajax({
+			url: "/scripts/email_volunteer_registration.php?email="+$("#form-response-row-email").val(),
+		});
+    	
+		// Thank them for signing up		
+		
+		// Favorite entry
+		$.get("/_component/favorite-add/" + entryid_form);
+		
+		// Change people count
+		$("#serve" + entryid_form + " .count").fadeOut('fast', function() {
+			// Show how many people signed up
+			if (count == 0) {
+				$("#serve" + entryid_form + " .count").html("You signed up");
+			}
+			else if (count == 1) {
+				$("#serve" + entryid_form + " .count").html("You and 1 other signed up");
+			}
+			else {
+				$("#serve" + entryid_form + " .count").html("You and " + count + " others signed up");
+			}
+			$("#serve" + entryid_form + " .count").fadeIn('fast');
+		});
+		// Change button to show user signed up
+		$("#serve" + entryid_form + " .respond-serve-button").html("I SIGNED UP");
+    	
+		//return false;
+	});
+*/
+});
+
+</script>	
+<div id="respond-serve">
+	<div class="container_12">
+		<div class="grid_12">
+			<div id="serve-title">
+				<div class="serve-title-left grid_8">
+					<h1 style="margin-top:20px;">SERVE</h1>
+					<div class="clear"></div>
+				</div>	
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div id="respond-serve-left" class="grid_8">
+			<h2 class="respond-serve-header" style="font-size:18px;font-weight:normal;">Every week hundreds of people volunteer to serve their Northland family by meeting the practical needs of our congregation. Below are current needs for service at our locations.</h2>
+			
+			{!-- Drop-down filter (except on Community and Disaster Response pages) --}	
+			<div class="respond-serve-select">
+				<select name="ministries">
+						<option value="all">Sort by Ministry</option>
+						<option value="all">Show All Ministries</option>
+            
+						{exp:channel:categories channel="serve_opportunities" style="linear" sort="asc"}
+							{if parent_id == "500"}
+								<option value="cat{category_id}">{category_name}</option>
+							{/if}
+						{/exp:channel:categories}
+				</select>
+			</div>
+			
+			<div class="clear"></div>
+			
+			<div id="serve-today"></div>
+			<div id="respond-serve-contain">
+				<div class="respond-serve-sites">
+					{embed="_component/serve-all"}
+					<div class="respond-serve-opp serve-beautiful cat500 cat496 " id="serve32854">
+							<div class="respond-serve-tinter">
+								<div class="respond-serve-information">			
+									<h2>HAT Mentor</h2>
+
+									<div class="clear"></div>
+
+									<p></p><p>Mentor men and women who have returned from incarceration and currently in the Healing and Transition Program.&nbsp; Show God’s love and encourage accountability.</p><p></p>
+									<p></p>
+
+									<div class="respond-serve-count">
+
+																<h3>10 people still needed</h3>
+
+
+
+
+																																											<h4 class="count">3 people signed up</h4>
+																											<div class="serve-number">2</div>
+
+
+									</div>
+
+									<span class="ccb_link">https://northland.ccbchurch.com/w_form_response.php?form_id=675</span>
+
+									<div class="respond-serve-fave">
+																<div class="respond-serve-button"><a class="user-login" href="#login-register-box">SIGN ME UP</a></div>
+														</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+						</div>
+				</div>
+				
+				
+				{!-- NO RESULTS --}
+				<div class="serve-beautiful" id="no_results" style="display: none;">
+					<div class="respond-serve-tinter">
+						<div class="respond-serve-information">
+							<h2></h2>
+							<div class="clear"></div>
+							
+							<p>Right now we don't have specific needs identified, but we'd love to connect with you so that when the need does arise again (and it will!) we're ready to go.</p>
+							
+							<div class="respond-serve-fave">
+								{if logged_in && (screen_name!="Anonymous Member")}	
+									<a class="user-login" href="#ccbform" onclick="openCCBForm('https://northland.ccbchurch.com/w_form_response.php?form_id=641','Volunteer: Need More Information','no_results')"><div class="respond-serve-button">SIGN ME UP</div></a>
+								{if:else}
+									<div class="respond-serve-button"><a class="user-login" href="#login-register-box">SIGN ME UP</a></div>
+								{/if}
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				{!-- LOADING --}
+				<div id="serve-loading" style="display: none;">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/icons/ajax-loader.gif">
+						<p>Loading Opportunities</p>
+				</div>
+				
+				
+			</div>					
+			<div class="clear marg-b-20"></div>
+		</div>
+		
+		<div id="respond-serve-right" class="grid_4">			
+			{embed="_component/serveopps-side"}
+		</div>	
+		<div class="clear"></div>	
+	</div>
+	<div class="clear"></div>
+</div>
+	
+<div class="clear"></div>
+<input type="hidden" id="screen_name" name="screen_name" value="{screen_name}" />
+<input type="hidden" id="formemail" name="formemail" value="{email}" />
+{exp:user:edit} 
+<input type="hidden" id="street" name="street" value="{street}" />
+<input type="hidden" id="city" name="city" value="{city}" />
+<input type="hidden" id="state" name="state" value="{state}" />
+<input type="hidden" id="zipcode" name="zipcode" value="{zipcode}" />
+<input type="hidden" id="phone" name="phone" value="{phone}" />
+{/exp:user:edit}
+
+
+{embed="_includes/footer"}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+{embed="_includes/html_close"}

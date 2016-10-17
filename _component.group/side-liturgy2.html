@@ -1,0 +1,57 @@
+<div id="readbible-top"></div>
+{if {current_time format="%H%i"} < 1100}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Morning" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+			Read the Bible - Morning
+			</div>
+			<div class="readbible_icon"></div>
+			<div class="clear"></div>
+			<div class="readbible_verse" style="margin-top:-8px">
+				<p class="readbible_verse-txt">{title}</p>
+			</div>
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{if:elseif {current_time format="%H%i"} < 1700}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Midday" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+			Read the Bible - Midday
+			</div>
+			<div class="readbible_icon"></div>
+			<div class="clear"></div>
+			<div class="readbible_verse" style="margin-top:-8px">
+				<p class="readbible_verse-txt">{title}</p>
+			</div>
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{if:else}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Evening" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+			Read the Bible - Evening
+			</div>
+			<div class="readbible_icon"></div>
+			<div class="clear"></div>
+			<div class="readbible_verse" style="margin-top:-8px">
+				<p class="readbible_verse-txt">{title}</p>
+			</div>
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{/if}
+
+<div id="readbible-bottom">
+	<div class="readbible-finish"><a href="/respond/readthebible" target="_blank">
+		<div class="readbible_more">Read More</div></a>
+	</div>
+	<div class="readbible-corner"></div>
+</div>

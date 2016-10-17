@@ -1,0 +1,130 @@
+3<script src="/_assets/js/resources/isotope.pkgd.min.js"></script>
+<script src="/_assets/js/resources/packery-mode.pkgd.min.js"></script>
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js"></script>
+<script src="http://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js"></script>
+-->
+<script src="//www.northlandchurch.net/index.php/_assets/cellsByColumn"></script>
+
+<script>
+$(document).ready( function() {
+  
+	$('navigation-ministries-list').isotope({
+    layoutMode: 'cellsByColumn',
+    itemSelector: '.minli',
+    cellsByColumn: {
+      columnWidth: 310,
+      rowHeight: 30
+    }
+  });
+  });
+
+</script>
+{!--{embed="_assets/ministrylist"}--}
+
+<nav class="navigation">
+ 	<div class="navigation-ministries">
+	        <ul id="navigation-ministries-list">
+            	{!--<?php
+                	$data = file_get_contents('http://www.northlandchurch.net/_assets/ministrylist/');
+                	$TOTAL = count($data->groups);
+
+					// Event ID array to check duplicate events.
+					$COLLIMIT = 4; // we want dropdown to be only four columns wide
+					$OFFSET = ceil ($TOTAL / $COLLIMIT); // calculate the offset needed to have each column in alphabetical order
+					
+					for($i = 0; $i < $OFFSET; $i++) {
+						for($j = 0; ($i + ($OFFSET * $j)) < $TOTAL; $j++) {
+							$group = $data->groups[$i + ($OFFSET * $j)]->group;
+                            echo "<!-- row " . $i . " -->";
+							echo "<!--<li class='minli'><a class='minnavlink' href='" . $group->localist_url . "'>" . $i . " " .  $group->name . "</a></li>-->";
+						}
+					}
+                ?>--}
+            
+               <?php echo file_get_contents('http://ee-dev.northlandchurch.net/_assets/ministrylist/'); ?>
+            </ul>
+	</div>
+     <div class="holding-box">
+        <div class="logo-box" data-swiftype-index='false'>
+          <div class="logo">
+            <a class="logo-box-primary" href="/">Northland</a>
+            <a class="logo-box-secondary" href="/distributedchurch">A Church Distributed</a>
+          </div>
+        </div>
+        <div class="has-toggle">
+          <div class="toggle"></div>
+        </div>
+        {exp:channel:entries limit="1"}
+      	  <?php
+          	$title="{exp:trunchtml chars='45'' inline='...''}{title}{/exp:trunchtml}";
+            $channel="{channel}";
+            if (($channel=="Blogs") || ($channel=="Media") || ($channel=="Articles") || ($channel=="Team")){
+            	$show_small_nav = FALSE;
+            }else{
+            	$show_small_nav = TRUE;
+            }
+          ?>
+        {/exp:channel:entries}
+        <div class="navigation-group" data-swiftype-index='false'>
+          <div class="navigation-search">
+            <i class="material-icons" id="navigation-searchOpen">search</i>
+            <input id="search" name="search" placeholder="Search..." type="text" class="st-default-search-input">
+          </div>
+          <div class="navigation-primary"<?php if ($show_small_nav){ echo "style='display:block;'"; } ?>>
+            <a href="/connect">Connect</a>
+            <a href="/resources">Resources</a>
+            <a href="/about">About</a>
+          </div>
+          <div class="navigation-secondary"<?php if ($show_small_nav){ echo "style='display:block;'"; } ?>>
+            <a href="http://calendar.northlandchurch.net">Calendar</a>
+            <a href="/main/ministries" id="minlink">Ministries</a>
+            <a href="/main/ministries" id="mobileminlink">Ministries</a>
+            <a href="/need-help">Need Help?</a>
+            <a href="https://giving.northlandchurch.net/">Give</a>
+          </div>
+          <div class="navigation-article-specific"<?php if ($show_small_nav){ echo "style='display:none;'"; } ?>>
+          	<span class="share">Share </span> <span><?php echo $title ?></span>
+			{exp:channel:entries limit="1"}
+			<?php
+				$channel="{channel}";
+				if ($channel=="Blogs") {
+			?>
+				<a href="https://twitter.com/intent/tweet?url={exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}" target="_blank"><img style="vertical-align:middle;margin-left:3px;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg"></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u={exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}&app_id=112575096276" target="_blank"><img style="vertical-align:middle;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg"></a>
+				<a href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body={exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><i class="material-icons" style="vertical-align:middle;color: white;margin: 0 2px;">email</i></a>
+			<?php
+				} else if ($channel=="Media") {
+			?>
+				<a href="https://twitter.com/intent/tweet?url={exp:low_replace find='index.php/'}{title_permalink='video'}{/exp:low_replace}" target="_blank"><img style="vertical-align:middle;margin-left:3px;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg"></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u={exp:low_replace find='index.php/'}{title_permalink='video'}{/exp:low_replace}&app_id=112575096276" target="_blank"><img style="vertical-align:middle;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg"></a>
+				<a href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body={exp:low_replace find='index.php/'}{title_permalink='video'}{/exp:low_replace}"><i class="material-icons" style="vertical-align:middle;color: white;margin: 0 2px;">email</i></a>
+			<?php
+				} else if ($channel=="Articles") {
+			?>
+				<a href="https://twitter.com/intent/tweet?url={exp:low_replace find='index.php/'}{title_permalink='articles'}{/exp:low_replace}" target="_blank"><img style="vertical-align:middle;margin-left:3px;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg"></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u={exp:low_replace find='index.php/'}{title_permalink='articles'}{/exp:low_replace}&app_id=112575096276" target="_blank"><img style="vertical-align:middle;" src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg"></a>
+				<a href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body={exp:low_replace find='index.php/'}{title_permalink='articles'}{/exp:low_replace}"><i class="material-icons" style="vertical-align:middle;color: white;margin: 0 2px;">email</i></a>
+			<?php
+				} else {
+			?>
+				<a href="https://twitter.com/intent/tweet?url=www.northlandchurch.net" target="_blank"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg" style="vertical-align:middle;margin-left:3px;"></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=www.northlandchurch.net&app_id=112575096276" target="_blank"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg"  style="vertical-align:middle;"></a>
+				<a href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body={exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><i class="material-icons" style="vertical-align:middle;color: white;margin: 0 2px;">email</i></a>
+			<?php
+				}
+			?>
+
+            {!-- <a href="https://www.youtube.com/user/NorthlandChurch"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-youtube-white.svg"></a> --}
+			{/exp:channel:entries}
+		<div class="social social--navigation">
+            <a href="https://twitter.com/northlandchurch"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg">
+            </a>
+            <a href="https://www.facebook.com/northlandchurch"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-facebook-white.svg">
+            </a>
+            <a href="https://www.youtube.com/user/NorthlandChurch"><img src="https://northlandchurch.github.io/Website-Styles/assets/images/icon-youtube-white.svg">
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>

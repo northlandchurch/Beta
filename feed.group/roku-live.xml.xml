@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	{if service_live == "true"}
+	<feed>
+		<resultLength>20</resultLength>
+		<endIndex>20</endIndex>
+		
+		<item sdImg="{if media-primary != ''}http://www.northlandchurch.net/_img/uploads/{media-primary}{/if}{if media-primary == ''}http://www.northlandchurch.net/_img/uploads/{media-image}{/if}" hdImg="{if media-primary != ''}http://www.northlandchurch.net/_img/uploads/{media-primary}{/if}{if media-primary == ''}http://www.northlandchurch.net/_img/uploads/{media-image}{/if}">
+			<title>{title}</title>
+			<contentId>{entry_id}</contentId>
+			<contentType>Talk</contentType>
+			<contentQuality>SD</contentQuality>
+			<streamFormat>hls</streamFormat>
+	          <media>
+				<streamQuality>SD</streamQuality>
+				<streamBitrate>0</streamBitrate>
+				{!--<streamUrl>http://video.northlandchurch.net/live/smil:roku.smil/playlist.m3u8</streamUrl>--}
+				<streamUrl>http://WtIDGlE-lh.akamaihd.net/i/northlandlive_1@188060/master.m3u8?attributes=off</streamUrl>
+		     </media>
+		
+			<synopsis>Live service in progress.  Northland's LIVE worship services are at the following times: Saturdays at 5pm, Sundays at 9am, 11am &amp; 5pm, and Mondays at 7pm (Eastern). For more information, go to www.northlandchurch.net.</synopsis>
+			<genres>Live</genres>
+			<runtime>1260</runtime>
+		</item>	
+	
+	</feed>
+		
+	{if:else}
+	<feed>
+		<resultLength>20</resultLength>
+		<endIndex>20</endIndex>
+		
+		<item sdImg="{if media-primary != ''}http://www.northlandchurch.net/_img/uploads/{media-primary}{/if}{if media-primary == ''}http://www.northlandchurch.net/_img/uploads/{media-image}{/if}" hdImg="{if media-primary != ''}http://www.northlandchurch.net/_img/uploads/{media-primary}{/if}{if media-primary == ''}http://www.northlandchurch.net/_img/uploads/{media-image}{/if}">
+			<title>{title}</title>
+			<contentId>{entry_id}</contentId>
+			<contentType>Talk</contentType>
+			<contentQuality>SD</contentQuality>
+			<streamFormat>mp4</streamFormat>
+	         <media>
+				<streamQuality>SD</streamQuality>
+				<streamBitrate>400</streamBitrate>
+				<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/rokuwelcome1_service_high.mp4</streamUrl>
+			</media>
+	               	
+			<synopsis>You are invited to join Northland Church for LIVE worship services each weekend. Northland's LIVE worship services are at the following times: Saturdays at 5pm, Sundays at 9am, 11am &amp; 5pm, and Mondays at 7pm (Eastern). For more information, go to www.northlandchurch.net.</synopsis>
+			<genres></genres>
+			<runtime>1260</runtime>
+		</item>	
+	
+	</feed>
+	{/if}
+
+{/exp:channel:entries}

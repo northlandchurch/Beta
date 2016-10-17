@@ -1,0 +1,23 @@
+<?php
+	if ($this->EE->session->userdata('group_id') == 1 || $this->EE->session->userdata('group_id') == "22" || $this->EE->session->userdata('group_id') == "13" || $this->EE->session->userdata('group_id') == "19") {
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		date_default_timezone_set('America/New_York');
+		
+		mysql_select_db(EE_DB_NAME, $con);
+		
+		if (isset($_GET['member_id']) && isset($_GET['name']) && isset($_GET['location'])) {
+			$sql="INSERT INTO onlinefeaturedusers (id, fullname, location) VALUES (" . $_GET['member_id'] . ", " . $_GET['name'] . ", " . $_GET['location'] . ")";	
+			
+			$result = mysql_query($sql);
+			echo "Success";
+		}
+		else {
+			echo "Invalid input";
+			die();
+		}
+	}	
+?>

@@ -1,0 +1,93 @@
+<?php 
+
+	//$urlstr = 'http://calendar.northlandchurch.net/api/2/events?days=90&distinct=true&keyword[]=Featured&match=all';
+	  $urlstr = 'http://calendar.northlandchurch.net/api/2/events?days=90&distinct=true&featured=true';
+	
+	$ch = curl_init($urlstr);
+	
+	curl_setopt( $ch, CURLOPT_HEADER, 0);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+	
+	$localist_groups = curl_exec($ch);
+	curl_close($ch);
+	
+	$data = json_decode($localist_groups);
+	$total = count($data->events);
+	
+	// Event ID array to check duplicate events.
+	$result = "";
+    if (intval("{embed:offset}") > $total) {
+		 echo "<!-- not enough -->";
+	}
+	else {
+		$x = intval('{embed:offset}');
+		echo "<!-- offset is $x, total is $total -->";
+		echo ("<!-- $x < $total is " . ($x < $total) . " -->");
+	}
+
+	switch ("{embed:offset}"){
+		case "1": $event = $data->events[1]->event; break;
+		case "2": $event = $data->events[2]->event; break;
+		case "3": $event = $data->events[3]->event; break;
+		case "4": $event = $data->events[4]->event; break;
+		default: $event = $data->events[0]->event; break;
+	}
+	
+	$eventLogo = false;
+	foreach($event->tags as $eventtag) {
+		if($eventtag == "eventlogo") {
+			$eventLogo = true;
+		}
+		echo("<!-- " . $eventtag . " " . $eventLogo . " -->");
+	}
+	
+	if ("{embed:page}"=="Homepage"){
+		if($eventLogo == true) {
+	?>
+		<div class="g-b g-b--m--1of3">
+			<a 	
+			  class="media media--large media--text--no--overlay" 
+			  style="background-image: url(<?php echo $event->photo_url ?>)" 
+			  href="<?php echo $event->localist_url ?>"
+			>
+				<div class="media-content">
+					<div class="btn btn--small btn--transparent">Learn More</div>
+				</div>
+			</a>
+		</div>
+	<?php
+		}
+		else {
+	?>
+		<div class="g-b g-b--m--1of3">
+			<a 
+			  class="media media--large media--text" 
+			  style="background-image: url(<?php echo $event->photo_url ?>)" 
+			  href="<?php echo $event->localist_url ?>"
+			>
+				<div class="media-content">
+					<h3><?php echo $event->title ?></h3>
+					<!--<p>Randomized? event</p>
+					<div><?php echo $event->first_date ?></div>-->
+					<div class="btn btn--small btn--transparent">Learn More</div>
+				</div>
+			</a>
+		</div>
+	<?php
+		}
+	}
+	if ("{embed:page}"=="Connect"){
+	?>
+		<div class="g-b g-b--m--1of3">
+			<a class="media media--large media--connect" style="background-image: url(<?php echo $event->photo_url ?>)" href="<?php echo $event->localist_url ?>">
+				<div class="media-content">
+					<h3><?php echo $event->title ?></h3>
+					<!--<p>Randomized? event</p>-->
+					<!--<div class="btn btn--small btn--transparent">Learn More</div>-->
+				</div>
+			</a>
+		</div>	
+	<?php
+	}
+?>

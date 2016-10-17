@@ -1,0 +1,71 @@
+<script type="text/javascript" src="/_assets/js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.form.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() {
+	var options = {	success: successResponse, dataType: 'json' };
+	$('#notes_safecracker').ajaxForm(options);
+
+	$('#notes_safecracker').submit(function() { return false; });
+});
+
+tinyMCE.init({
+    mode : "exact",
+    elements: "notes-note",
+    theme : "simple",   //(n.b. no trailing comma, this will be critical as you experiment later)
+    setup: function (ed) {
+    	ed.onKeyPress.add(function(ed, l) {
+    		SyncNote();
+    	});
+    }
+});
+
+var updatenote_flag = 0; // Is timer currently going?
+function SyncNote() {
+	if (updatenote_flag == 0) {
+		var t = setTimeout("UpdateNote()", 10000); // Makes sure notes save at most once every 20 seconds
+		updatenote_flag = 1;
+	}
+}
+
+function UpdateNote() {
+	//$('#notes-submit').trigger('click');
+	$('#notes_safecracker').submit();
+		
+	var now = new Date();
+	var hours;
+	var minutes;
+	var ampm = "am";
+	
+	if (now.getHours() > 12) {
+		hours = now.getHours() - 12; 
+	 	ampm = "pm";
+	}
+	else { hours = now.getHours(); }
+	
+	if (now.getMinutes() < 10) { minutes = "0" + now.getMinutes(); }
+	else { minutes = now.getMinutes(); }
+		
+	$('#notes-lastsaved').html("Last Saved at " + hours + ":" + minutes + ampm);
+	updatenote_flag = 0;
+}
+</script>
+	{exp:channel:entries channel="notes" author_id="CURRENT_USER" search:notes-mediaentryid="{embed:mediaentryid}" limit="1" dynamic="no"}		
+	{if no_results}
+		{exp:channel:form channel="notes" include_jquery="no" return="worshipbeta" status="Open" id="notes_safecracker" json="yes" include_assets="no"}
+			<input type="text" name="title" id="title" value="{logged_in_member_id}_{embed:series}_{embed:week}_{embed:mediaentryid}" style="display:none">
+			<input type="text" name="notes-week" id="notes-week" value="{embed:week}" style="display:none">
+			<input type="text" name="notes-series" id="notes-series" value="{embed:series}" style="display:none">
+			<input type="text" name="notes-mediaentryid" value="{embed:mediaentryid}" style="display:none">
+			<textarea id="notes-note" name="notes-note" style="width: 100%; height: 300px">{embed:defaulttext}</textarea>
+		{/exp:channel:form}
+		<div id="notes-lastsaved" class="below_notes">Notes will be saved to your profile and viewable when you watch this video again.</div>
+	{/if}
+	{exp:channel:form channel="notes" include_jquery="no" return="worshipbeta" status="Open" entry_id="{entry_id}" id="notes_safecracker" json="yes" include_assets="no"}
+		<input type="text" name="title" id="title" value="{logged_in_member_id}_{embed:series}_{embed:week}_{embed:mediaentryid}" style="display:none">
+		<input type="text" name="notes-week" id="notes-week" value="{embed:week}" style="display:none">
+		<input type="text" name="notes-series" id="notes-series" value="{embed:series}" style="display:none">
+		<input type="text" name="notes-mediaentryid" value="{embed:mediaentryid}" style="display:none">
+		<textarea id="notes-note" name="notes-note" style="width: 100%; height: 300px">{notes-note}</textarea>
+	{/exp:channel:form}
+	<div id="notes-lastsaved" class="below_notes">Last Edited on {edit_date format="%m/%j/%y"}</div>
+{/exp:channel:entries}

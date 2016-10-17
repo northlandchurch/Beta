@@ -1,0 +1,97 @@
+<?php 
+{if segment_2==""}
+	header('Location: http://www.northlandchurch.net/');
+	exit;
+{/if}
+
+?>
+
+{embed="_assets/header" htmltitle="{exp:channel:entries channel="article" dynamic="on" limit="1"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/navbar" active="resources"}
+
+<?php
+	$doctrine_mission = false;
+?>
+{exp:channel:entries channel="article" limit="1" dynamic="on" require_entry="yes"}
+	{if no_results}
+		{redirect="/"}
+	{/if}
+	
+	{if doctrine_mission == "Yes"}
+		<?php $doctrine_mission = true;?>
+	{/if}
+<div class='row--inverted'>
+	<div class='cell well'>
+		<div class="card">
+			<h1 class='heading heading--l title'>{title}</h1>
+		</div>
+	</div>
+</div>
+{/exp:channel:entries}
+
+<div class='row--inverted entry'>
+	<div class='cell well'>
+		<div class='g'>
+			<div class='g-b g-b--m--3of4'>
+				<div class='card'>
+					<article class='article' style='margin-top: -102px;' data-swiftype-index='true'>
+						{exp:channel:entries channel="article" dynamic="on" limit="1"}
+						{article-body}
+						{/exp:channel:entries}
+						{embed="_assets/social" contentchannel="articles"}
+					</article>
+					<!-- For Social Media -->
+					<!-- <div id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=112575096276&version=v2.0";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-like" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+
+					<div><a href="https://twitter.com/share" class="twitter-share-button" data-count="none"></a></div>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					-->
+					<!-- End of Social Media -->
+					<div class="clear"></div>
+					<hr class="rule rule--transparent mbl">
+				</div>
+			</div>
+			
+			{!-- SIDEBAR --}
+			<?php
+			if($doctrine_mission == true) {
+			?>
+			<div class="g-b g-b--m--1of4"><!-- sidebar -->
+			<div class="card">
+				<h3 class="heading--s">More Articles</h3>
+				<ul>
+					{exp:channel:entries channel="article" dynamic="off"}
+						{if doctrine_mission == "Yes"}
+						<li><a href="/articles/{url_title}"><strong>{title}</strong></a></li>
+						{/if}
+					{/exp:channel:entries}
+				</ul>
+			</div>
+			</div><!-- end sidebar -->
+			<?php
+			}
+			else {
+			?>
+			<!-- sidebar -->
+			<div class='g-b g-b--m--1of4'>
+			  {embed="_assets/sidebar" whichCategory="<?php echo $category ?>"}
+			</div>
+			<!-- end sidebar -->
+			<?php
+			}
+			?>
+
+		</div><!-- g -->
+	</div><!--cell well-->
+</div><!--row--inverted-->
+<div class="clear"></div>
+
+{embed="_assets/footer"}

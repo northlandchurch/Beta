@@ -1,0 +1,15 @@
+<div id="whatscurrent_holder">
+	<div id="whatscurrent-top"></div>
+	<div id="whatscurrent-mid"></div>
+	<div id="whatscurrent-bottom">
+		<div class="whatscurrent-finish">
+			<h2>Current Worship Series</h2>
+		</div>
+		<div class="whatscurrent-corner"></div>
+	</div>
+	<div class="current-series">
+		{exp:channel:entries channel="series" limit="1" cache="yes" refresh="30"}
+			<a href="/series/{url_title}"><img src="/_assets/img/v2/series/{series-image}"></a>
+		{/exp:channel:entries}
+	</div>
+</div>

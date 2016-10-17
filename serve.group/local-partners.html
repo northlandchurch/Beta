@@ -1,0 +1,59 @@
+{embed="responsive/html_open" htmltitle="Northland: Serving Locally"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Local Partners</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	
+	<div class="grid_8">
+		<p class="large">Northland partners with a number of local organizations that work to serve those in need within our community. Part of being a church distributed is making connections and building relationships for greater Kingdom impact. Our partners give us a better view of the needs within the local area, providing Northland’s staff and congregation with opportunities to share God’s love with others in tangible and practical ways.</p>
+	
+		{exp:channel:entries channel="partners" category="27" orderby="date" sort="asc" url_title="not build_a_habitat_for_humanity_harmony_house"}
+		<h3>{title}</h3>
+		{mishpart-bio}<br /><br>
+		<strong>Location:</strong> {mishpart-location}<br />
+		<strong>Contact:</strong> {mishpart-contact}<br />
+		<strong>Website:</strong> {mishpart-websites}
+		<div class="marg-b-40"></div>
+		{/exp:channel:entries}		
+		<div class="marg-b-60"></div>
+	</div>
+
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Other Ways to Serve</h5>
+			<ul>
+				<li><a href="http://www.northlandchurch.net/serve/global">Global Partners</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/missionaries">Missionaries</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/northland">Serve at Northland</a></li>
+			</ul>
+
+			{embed="_component/bloglist-small" header="Local Partnership Blog" quantity="10" categorypass="164"}
+
+			<h5>Serve Team</h5>
+			<ul>
+				{exp:channel:entries channel="staff" dynamic="on" category="176"}
+				<li>
+					<a href="{exp:low_replace find='index.php/'}{url_title_path='staff'}{/exp:low_replace}">{title}</a><br />
+					<em>{staff-title}</em>
+				</li>
+				{/exp:channel:entries}
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

@@ -1,0 +1,135 @@
+{embed="_assets/header" htmltitle="Prayer Wall"}
+{embed="_assets/login"}
+{embed="_assets/navbar"}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// Init Isotope
+	var $grid = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+	});
+
+	// Load more entries when user scrolls to bottom of entries
+	var currently_lazyloading = 0; 						// Is window already attempting to load more entries?
+	var position = $("#lazyload_moreentries").offset().top;
+	var entries_offset = 9; 							// Current number of entries shown to skip over when loading new entries
+	console.log("Position: " + position);
+
+	$(window).scroll(function() 
+	{
+		var scrolldepth = $(window).scrollTop() + $(window).height();
+
+		if (scrolldepth > position) 
+		{
+			if (currently_lazyloading == 0) 
+			{
+				console.log("layload triggered");
+				$.get("/_component/lazyload_prayers_beta/{if segment_3 == "jail"}jail{if:else}all{/if}/" + entries_offset,function(data) 
+				{		
+					var $elems = $(data);
+					$grid.append($elems).isotope('appended', $elems);
+
+					position = $("#lazyload_moreentries").offset().top;
+					entries_offset += 9;
+
+					// Reset so can load more later, but if data length < 10 reached end of entries and stop trying to load new ones
+					if (data.length > 9) {
+						currently_lazyloading = 0;
+					}
+//					UpdateVisibility();
+				});			
+				currently_lazyloading = 1;
+			}
+		}
+	});
+
+	
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});	
+	
+	// Add favorite when clicked 'Pray Now' button
+	$('.pray-card-options').live("click", function() {
+		var whichID = $(this).attr('id');
+		var targetURL = $("#"+whichID+" .favorite").attr('href');
+		var count = $("#"+whichID+" .count").html();
+
+		$.ajax({
+			success: function(data){
+				var madeFave = $("#"+whichID+" .favorite").html();
+				if (madeFave!="<i class=\"material-icons\">favorite</i> You Prayed"){
+					$("#"+whichID+" .count").html(parseInt(count)+1);
+				}
+				$("#"+whichID+" .favorite").html("<i class=\"material-icons\" style=\"vertical-align:middle;\">favorite</i> You Prayed");
+			},
+			url: targetURL
+		});		
+
+		return false;
+	});	
+	
+});
+
+</script>
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+	
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				<h1 class='heading heading--xl'>Prayer</h1>
+			</div>
+			<div class="g-b g-b--m--1of2">
+				<p class='mbxl tss' data-swiftype-index='true'>
+					Prayer isn't just about asking God for help.
+				<br>Prayer also offers a unique opportunity to invite others to ask God for help on our behalf.
+				<br>Lift some of these requests up to God during your prayer time today.
+				<br>If you have a prayer request to share, click the button to the right so that others may pray for you.
+				</p>
+			</div>
+			<div class="g-b g-b--m--1of2">
+				<a class="btn mbxl" href="http://www.everystudent.com/wires/prayers.html">What is prayer?</a>
+
+				<a class="btn mbxl" href="http://www.northlandchurch.net/blogs/how_do_i_pray/">How do I pray?</a>
+
+				{if logged_in && (screen_name!="Anonymous Member")}
+					<a class="user-login btn mbxl" href="#submit-prayer-request"><div id="btn-request" class="grid_4">Submit Prayer Request</div></a>
+				{if:else}
+					<a class="user-login btn mbxl" href="#login-register-box"><div id="btn-request" class="grid_4">Submit Prayer Request</div></a>
+				{/if}
+				
+				<div style="display:none">
+					<div id="submit-prayer-request" class="modaling">
+						{embed="_component/prayer-post"}
+					</div>
+				</div>
+
+			</div>
+		</div>		
+	
+		{embed="_assets/resource_nav"}
+	
+		<div class='grid' id="entries">
+			<div class="grid-sizer"></div>
+			{embed="_component/lazyload_prayers_beta"}
+		</div>
+		<div id="lazyload_moreentries"></div>
+
+	</div>
+</div>
+
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+
+
+
+
+

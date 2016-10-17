@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed>
+	<resultLength>20</resultLength>
+	<endIndex>20</endIndex>
+
+ 
+	<!--  {categories}{category_id} {/categories}  -->
+	
+	
+	<item sdImg="http://www.northlandchurch.net/_img/uploads/kasey.jpg" hdImg="http://www.northlandchurch.net/_img/uploads/kasey.jpg">
+		<title>About Northland</title>
+		<contentId>1</contentId>
+		<contentType>Talk</contentType>
+		<contentQuality>SD</contentQuality>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>400</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/rokuwelcome1_service_low.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>800</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/rokuwelcome1_service_med.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>1500</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/rokuwelcome1_service_high.mp4</streamUrl>
+		</media>
+		<synopsis>Learn more about Northland Church.</synopsis>
+		<genres>Clip</genres>
+		<runtime>1260</runtime>
+	</item>	
+
+
+</feed>

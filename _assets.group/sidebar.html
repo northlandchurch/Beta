@@ -1,0 +1,174 @@
+{!--{exp:channel:entries channel="blogs|media" category="{embed:whichCategory}" url_title="not {last_segment}" limit="1" dynamic="off"}
+	<!-- entry from same category -->
+	{if channel=="Media"}
+		<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+			<div class='editorial-text'>
+				{categories}
+					{if category_name=='Spotlight'}
+						<img src="/_img/uploads/{media-primary}">
+					{/if}
+				{/categories}
+				<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+
+				<div class='editoral-video'>
+					<i class='material-icons'>play_arrow</i>
+				</div>
+
+				<div class='meta'>
+					<h4 class='meta-author'>{media-speaker}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+				{!-- {exp:tag:tags
+				    entry_id="{entry_id}"
+				    orderby="tag_name"
+				    sort="desc"
+				    limit="2"
+				}
+					<div class='tag'>{tag}</div>
+				{/exp:tag:tags} - -}
+			</div>
+		</a>
+	{/if}
+	{if channel=="Blogs"}
+		<?php
+		ob_start();
+		?>{blog-post}<?php
+		$obcontents = ob_get_contents();
+		ob_end_clean();
+
+		$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+		if(preg_match($pattern,	$obcontents, $match)){
+			$img = $match[1];
+		}
+		?>
+		<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url(<?php echo $img ?>)" href="/blogs/{url_title}">
+			<div class='editorial-text'>
+				{categories}
+					{if category_name=='Spotlight'}
+						<img src="<?php echo $img ?>">
+					{/if}
+				{/categories}
+				<h2 class='editorial-title'>{exp:trunchtml chars="35" inline="..."}{title}{/exp:trunchtml}</h2>
+				<div class='meta'>
+					{if blog-excerpt}<h4 class='meta-excerpt'>{blog-excerpt}</h4>{/if}
+					<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+				{!-- {exp:tag:tags
+				    entry_id="{entry_id}"
+				    orderby="tag_name"
+				    sort="desc"
+				    limit="2"
+				}
+					<div class='tag'>{tag}</div>
+				{/exp:tag:tags} - -}
+			</div>
+		</a>
+	{/if}
+{/exp:channel:entries}--}
+
+{!-- live services are category 58 so be sure to exclude those from the loop else the player will break --}
+{!-- 
+	channel="media|blogs|articles|podcasts"
+ --}
+
+{exp:tag:related_entries
+	channel="media|blogs|podcasts"
+	orderby="relevance"
+	sort="desc"
+	limit="2"
+	category="not 58"
+}
+	<!-- entry with related tags Tag Relevance:{tag_relevance} Tag Relevance Percent:{tag_relevance_percent} -->
+	{if channel=="Media"}
+		<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+			<div class='editorial-text'>
+				{categories}
+					{if category_name=='Spotlight'}
+						<img src="/_img/uploads/{media-primary}">
+					{/if}
+				{/categories}
+				<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+
+				<div class='editoral-video'>
+					<i class='material-icons'>play_arrow</i>
+				</div>
+
+				<div class='meta'>
+					<h4 class='meta-author'>{media-speaker}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+				{!-- {exp:tag:tags
+				    entry_id="{entry_id}"
+				    orderby="tag_name"
+				    sort="desc"
+				    limit="2"
+				}
+					<div class='tag'>{tag}</div>
+				{/exp:tag:tags} --}
+			</div>
+		</a>
+	{if:elseif channel=="Blogs"}
+		<?php
+		ob_start();
+		?>{blog-post}<?php
+		$obcontents = ob_get_contents();
+		ob_end_clean();
+		$photo_url = null;
+		$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+		if(preg_match($pattern,	$obcontents, $match)){
+			$img = $match[1];
+			$photo_url = str_replace("(", "\(", $match[1]);
+			$photo_url = str_replace(")", "\)", $photo_url);
+			$photo_url = htmlentities($photo_url);
+		}
+		?>
+		<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url('<?php if($photo_url) echo $photo_url; ?>')" href="/blogs/{url_title}">
+			<div class='editorial-text'>
+				{categories}
+					{if category_name=='Spotlight'}
+						<img src="<?php if($img) echo $img; ?>">
+					{/if}
+				{/categories}
+				<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+				<div class='meta'>
+					<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+				{!-- {exp:tag:tags
+				    entry_id="{entry_id}"
+				    orderby="tag_name"
+				    sort="desc"
+				    limit="2"
+				}
+					<div class='tag'>{tag}</div>
+				{/exp:tag:tags} --}
+			</div>
+		</a>
+	{!-- {if:elseif channel=="Articles"}
+		<a class="editorial editorial--sidebar" style="background-image: url('http://www.northlandchurch.net/_img/northland.jpg')" href="/articles/{url_title}">
+			<div class='editorial-text'>
+				<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+				{!-- {exp:tag:tags
+				    entry_id="{entry_id}"
+				    orderby="tag_name"
+				    sort="desc"
+				    limit="2"
+				}
+					<div class='tag'>{tag}</div>
+				{/exp:tag:tags} - -}
+			</div>
+		</a>--}
+		
+	{if:elseif channel=="Podcasts"}
+		<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url({podcast-episode-photo})" href="/podcast/{url_title}">
+			<div class='editorial-text'>
+				<h2 class='editorial-title'>{title}</h2>
+				<div class='meta'>
+					<h4 class='meta-author'>{podcast-episode-host}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+			</div>
+		</a>
+	{/if}
+{/exp:tag:related_entries}

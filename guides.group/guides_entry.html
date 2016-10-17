@@ -1,0 +1,170 @@
+{embed="embeds/head"}
+{embed="embeds/header"}
+<script type="text/javascript">
+	$(document).ready(function(){
+	    function SearchButton(form)
+	      {
+				form.letter.value = "";
+				form.generate_search.value = 1;
+				form.submit();
+			}
+			function SubmitOnEnter(myfield,e) {
+					var keycode;
+					if (window.event) {
+						keycode = window.event.keyCode;
+					} else if (e) {
+						keycode = e.which;
+					} else 
+						return true;
+					if (keycode == 13) {
+		                myfield.form.generate_search.value = 1;
+				   		myfield.form.submit();
+				   		return false;
+				   	} else {
+				   		return true;
+				   	}
+				}
+
+			if (GBrowserIsCompatible()) {
+				var map = new GMap2(document.getElementById('map'));
+				map.setCenter(new GLatLng(28.753105,-81.31375), 10);
+				map.addControl(new GLargeMapControl());
+				map.setMapType(G_NORMAL_MAP);
+				var mapControl = new GMapTypeControl();
+				map.addControl(mapControl);
+	
+		        var iconF = new GIcon();
+				iconF.image = '{site_url}/img/org_ico.png';
+				iconF.shadow = '';
+				iconF.iconSize = new GSize(32, 37);
+				iconF.shadowSize = new GSize(0, 0);
+				iconF.iconAnchor = new GPoint(15, 36);
+				iconF.infoWindowAnchor = new GPoint(0, 6);
+	
+				{exp:channel:entries channel="organizations"}
+					var point{entry_id} = new GLatLng({org_lat}, {org_long});
+					var html_text{entry_id}	= '<div class="infoContainer" style="width:310px;"><h2>{title}</h2><div style="width: 310px">{exp:low_replace find="\n" multiple="yes" regex="yes"}<p>{org_desc}<br>{org_email}<br>{org_site}<br>{org_phone}<br>{org_address}{/exp:low_replace}</p></div></div>';
+					var marker{entry_id} = new GMarker(point{entry_id}, iconF);
+					GEvent.addListener(marker{entry_id}, 'click', function() {
+						marker{entry_id}.openInfoWindowHtml(html_text{entry_id});
+					});
+					map.addOverlay(marker{entry_id});	
+				{/exp:channel:entries}
+			}	    
+
+	});
+</script>
+<script language="javascript"> 
+  function change_region_button(form)
+  {
+		tmp = window.open('cg.servicept.com/popups/popup_choose_region.php','','scrollbars=yes,width=300,height=400');
+    	}
+
+  function SearchButton(form)
+  {
+		form.letter.value = "";
+		form.generate_search.value = 1;
+		form.submit();
+	}
+	
+  function ClearButton(form)
+  {
+    if(confirm("Are you sure you want to clear all filters?"))
+    {
+			if(form.keyword_id)
+				form.keyword_id.value="";
+			if(form.generate_search)
+				form.generate_search.value="";
+			if(form.letter)
+				form.letter.value="";
+			if(form.searchterm)
+				form.searchterm.value="";
+			if(form.type)
+				form.type.value="";
+			if(form.city_id)
+				form.city_id.value="";
+			if(form.state_id)
+				form.state_id.value="";
+			if(form.county_id)
+				form.county_id.value="";
+			if(form.county_served_id)
+				form.county_served_id.value="";
+			if(form.county_served_option)
+				form.county_served_option.value="1";
+			if(form.zip)
+				form.zip.value="";
+			if(form.searchwhat)
+				form.searchwhat.value="";
+			form.submit();
+		}
+
+	}
+
+  function letterButton(form, letter)
+  {
+		form.letter.value = letter;
+        form.generate_search.value = 1;
+		form.submit();
+	}
+
+	function SubmitOnEnter(myfield,e) {
+		var keycode;
+		if (window.event) {
+			keycode = window.event.keyCode;
+		} else if (e) {
+			keycode = e.which;
+		} else 
+			return true;
+		if (keycode == 13) {
+            myfield.form.generate_search.value = 1;
+	   		myfield.form.submit();
+	   		return false;
+	   	} else {
+	   		return true;
+	   	}
+	}
+	//-->
+</script>
+	<div id="content">
+		<div class="container_12">
+			{exp:channel:entries channel="guides"}
+			<h1>{title}</h1><br />
+			<div class="grid_4">
+				<div class="line-v-r">
+					<h2>{guides_col1title}</h2>
+					<p>{guides_col1}</p>
+				</div>
+			</div>
+			<div  class="container_4">
+				<div class="grid_4">
+					<h2>{guides_col2title}</h2>
+					<p>{guides_col2}</p>
+				</div>
+				<div class="highlight_4" style="margin-top: 5px; margin-bottom: 5px;">
+					<h2>Search</h2>
+					<p>For a listing of resources (e.g. Food Pantry, Shelter, Mental Health Services, Transportation, Kids Support Groups, After Care/Child Care, Legal, Emergency Financial Services, Substance Abuse, Employment, Health Care Services, Food, Rent/Utility Assistance, Education, Clothing, Furniture, Disaster Relief, Seniors, Homeless, Shelter) available in Resource Point, search with any of the above mentioned keywords or enter the name of an organization. Then click on the search button below.</p>
+					<form action="http://www.mycommunitypt.com/northland/index.php" onsubmit="if(!beenSubmitted) { beenSubmitted = true; return true; } return false;">
+						<input type="hidden" name="option" value="com_cpx" />
+						<input type="hidden" name="task" value="search.query" />
+						<input type="hidden" name="search_history_id" value="-1" />
+						<strong>Search Term:</strong>
+						<input type="text" name="any" maxlength="100" title="Any of these words" value="">
+						<div align="right">
+							<input type="submit" name="submit" value="Search">
+						</div>
+					</form>
+				</div>
+				<div class="grid_4">
+					<p>{guides_col2btm}</p>
+				</div>
+			</div>
+			<div class="grid_4">
+				<div class="line-v-l">
+					<h2>{guides_col3title}</h2>
+					<p>{guides_col3}
+				</div>
+			</div>
+			{/exp:channel:entries}
+		</div>
+	</div>
+{embed="embeds/footer"}

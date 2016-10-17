@@ -1,0 +1,189 @@
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+?>
+
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+<meta content="telephone=no" name="format-detection">
+<html>
+<head>
+<title>Northland Online Worship - Mobile</title>
+
+{!-- <script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script> --}
+<script type="text/javascript" src="/_assets/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-966214-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css">
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	background-color: #111;
+}
+
+a {
+	-webkit-tap-highlight-color: rgba(0,0,0,0); 
+}
+
+
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.ui-content {
+	padding: 0;
+}
+
+#onlineworshipvid {
+	width: 100%;	
+	background-color: #000;
+}
+
+#onlineworshipvid_wrapper {
+	margin: 0 auto;
+}
+
+#seriesimage {
+	width: 100%;
+	opacity: 0.7;
+}
+
+#playbutton-bg {
+	width: 100px;
+	height: 100px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #CCC;
+	border-radius: 75px;
+	box-shadow: 0 0 12px #000;
+	background-color: #000;
+	position: absolute;
+	z-index: 2;
+}
+
+#playbutton {
+	border-color: transparent transparent transparent white;
+	border-style: solid;
+	border-width: 25px 0 25px 50px;
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	height: 0;
+	text-indent: -9999px;
+	width: 0;
+	z-index: 3;
+}
+
+#seriesdescription p {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+}
+
+#onlineworshipvid {
+	top: 0;
+	left: 0;
+}
+</style>
+
+<script type="text/javascript">
+	$(document).bind("mobileinit", function() {
+		$.mobile.page.prototype.options.headerTheme = "a";
+	    $.mobile.page.prototype.options.contentTheme    = "a";
+	    $.mobile.page.prototype.options.footerTheme = "a";
+	    $.mobile.hidePageLoadingMsg();
+	});
+
+	$(document).ready(function() {				
+		$("#seriesimage").load(function() { UpdatePositions(); });		
+		$(window).bind('orientationchange', function() { UpdatePositions(); });		
+		$(window).resize(function() { UpdatePositions(); });			
+			
+		$("#onlineworshipvid-iphone a").bind('vmousedown', function() {
+			$("#playbutton-bg").css('box-shadow', '0 0 0 #000');
+			$("#playbutton-bg").css('background-color', '#666');
+			$("#seriesimage").css('opacity', '0.5');
+		});		
+		
+		$("#onlineworshipvid-iphone a").bind('vmouseup', function() {
+			$("#playbutton-bg").css('box-shadow', '0 0 12px #000');
+			$("#playbutton-bg").css('background-color', '#000');
+			$("#seriesimage").css('opacity', '0.7');
+		});		
+		
+		UpdatePositions();
+	});
+	
+	function UpdatePositions() {
+		$("#playbutton-bg").css('left', ($("#seriesimage").width() / 2) - ($('#playbutton-bg').width() / 2));
+		$("#playbutton-bg").css('top', ($("#seriesimage").height() / 2));
+	}	
+</script>
+</head>
+<body>
+<div data-role="page" data-theme="a" id="p1"> 
+    <div data-role="header" >
+    	<h1>Now Online</h1>
+    	{!--<a class="ui-btn-right" data-theme="b">Login</a>--}
+    </div>     
+    <div data-role="content">
+		<ul id="viewers" data-theme="a" data-content-theme="a" style="margin: 0" data-role="listview">
+			<?php
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+
+			
+				$sql="SELECT * FROM onlineworshipheartbeat WHERE location NOT LIKE '%FL%'";	
+				$result = mysql_query($sql) or die();
+			
+				while ($row = mysql_fetch_array($result)) {
+					//if (strlen($row['fullname'])) {
+					if (strlen($row['fullname']) > 4 && strlen($row['location']) > 4) {
+						echo "<li style='padding: .7em 3px; height: 24px'><div style='width: 45%; float: left; text-align: right; padding: 0 5% 0 0; margin: 0; text-transform: capitalize'>" . ucwords(strtolower($row['fullname'])) . "</div><div style='width: 50%; float: left; text-align: left;'>" . $row['location'] . "</div></li>";
+					}
+					//}
+				}	
+				
+				$sql="SELECT * FROM onlineworshipheartbeat WHERE location LIKE '%FL%'";	
+				$result = mysql_query($sql) or die();
+			
+				while ($row = mysql_fetch_array($result)) {
+					//if (strlen($row['fullname'])) {
+					if (strlen($row['fullname']) > 4 && strlen($row['location']) > 4) {
+						echo "<li style='padding: .7em 3px; height: 24px'><div style='width: 45%; float: left; text-align: right; padding: 0 5% 0 0; margin: 0'>" . ucwords(strtolower($row['fullname'])) . "</div><div style='width: 50%; float: left; text-align: left;'>" . $row['location'] . "</div></li>";
+					}
+					//}
+				}	
+			?>	
+		</ul>			
+		</div>		
+	</div>
+</div>
+
+{/exp:channel:entries}
+</body></html>

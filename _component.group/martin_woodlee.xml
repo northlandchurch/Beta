@@ -1,0 +1,23 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:jwplayer="http://developer.longtailvideo.com/">
+     
+  <channel>
+    <title>Media</title>
+
+    
+    <item>
+      <title>Martin Woodlee</title>
+      <description>Martin Woodlee experienced a miracle when God freed him from his pornography addiction.</description>
+     <media:group>
+        <media:content bitrate="1500" url="mp4:amazons3/nacdvideo/misc/martin_woodlee_hd.mp4" width="640"/>
+        <media:content bitrate="800" url="mp4:amazons3/nacdvideo/misc/martin_woodlee_high.mp4" width="640" />
+        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/misc/martin_woodlee_med.mp4" width="640" />
+		<media:content birtrate="300" url="mp4:amazons3/nacdvideo/misc/martin_woodlee_low.mp4" width="640" />
+     	<media:thumbnail url="http://northlandchurch.net/_img/uploads/martin_woodlee.jpg"/>
+      </media:group>
+     
+     <jwplayer:streamer>rtmp://video.northlandchurch.net:1935/vods3/_definst/</jwplayer:streamer>
+    </item>
+
+  </channel>
+</rss>

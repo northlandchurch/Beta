@@ -1,0 +1,53 @@
+<div class="container_12">
+	<h1 style="color:black"><img src="http://northlandchurch.net/_img/icon_prayer.png" height="40" width="40"> Prayers I've Prayed</h1><br>
+		{exp:favorites:entries channel="prayers" favorites_count="yes"}
+		
+		{/exp:favorites:entries}
+
+		<ul>
+		{exp:favorites:entries channel="prayers" limit="6" paginate="bottom" paginate_base="profile/prayedfor"}
+
+		<li><h2>{title}</h2>
+		<p>Prayed on {favorites_date format="%l, %F %j, %Y at %g:%i %a"} | <a href="{title_permalink='respond/pray'}" target="blank">See The Prayer Again</a></li>
+		{paginate}
+		<br>
+		<p>Page {current_page} of {total_pages} pages {pagination_links}</i></p>
+		{/paginate}
+
+		{/exp:favorites:entries}
+		</ul>
+<br><br>
+	<h1 style="color:black"><img src="http://northlandchurch.net/_img/icon_prayerpost.png" height="40" width="40"> Prayers I've Posted</h1><br>
+		{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="6" paginate="bottom" paginate_base="profile/pray"} 
+		{if member_id==logged_in_member_id}
+	<div>
+	{exp:favorites:entry_count entry_id="{entry_id}"}
+		{if favorites_count_public}
+		
+		{/if}
+	{/exp:favorites:entry_count}
+</div>
+<div class="container_12">
+	{if member_id==logged_in_member_id}
+	<h2>{prayer-need}</h2>
+		<p>Shared on {entry_date format="%F %d, %Y at %g:%i %a"} | <a href="/respond/pray/{entry_id}" target="blank">Read What Was Posted</a>
+	<br>	<i>You've been prayed for by {embed="respond/prayer-roster" which_entry="{entry_id}" you="{logged_in_screen_name}"}</i></p>{/if}
+	{parents status="open" sort="desc" orderby="date" }
+		<strong>Update on {entry_date format="%F %d, %Y"}</strong>
+		<p>{parents:prayer-need}</p>
+	</div>
+	{/parents}
+	{paginate}
+	<br>
+	<p>Page {current_page} of {total_pages} pages {pagination_links}</p>
+	{/paginate}
+</div>
+
+<div>
+{exp:favorites:entry_count entry_id="{entry_id}"}
+{/exp:favorites:entry_count}
+</div>
+</div>
+{/if}
+{/exp:channel:entries}
+</div>

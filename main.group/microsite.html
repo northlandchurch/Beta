@@ -1,0 +1,109 @@
+{exp:channel:entries channel="microsite" dynamic="on"}
+	{preload_replace:msname="{segment_2}"}
+	{preload_replace:msid="{entry_id}"}
+	{preload_replace:msblogid="{microsite-blogid}"}
+	{preload_replace:mscalendarid="{microsite-eventid}"}
+	{preload_replace:mshomepage="{exp:playa:children limit='1'}{url_title}{/exp:playa:children}"}
+	
+{if microsite-header == "Northland"}
+	{embed="responsive/html_open" htmltitle="{title}"}
+	{embed="responsive/header"}
+	{embed="responsive/nav"}
+{if:else}
+	{embed="_includes/microsite-header" colors="{microsite-color}"}
+		{if microsite-header == "Thin"}
+			<div id="header-bar-small">
+				<div class="container_12">
+					<a href="http://www.northlandchurch.net" style="text-decoration: none" target="_blank"><h1 style="text-shadow:none;"><span>A ministry of</span> Northland <span>A Church Distributed</span></h1></a>
+				</div>
+				<div class="clear"></div>
+				<div class="nav-shadow"></div>
+			</div>
+			<div class="clear"></div>
+		{/if}
+
+{/if}
+{/exp:channel:entries}
+
+
+{if segment_2 == ""}
+	{redirect="main/index"}
+{if:else}
+	{exp:channel:entries channel="microsite"}
+		{if microsite-header == 'Northland'}
+			<div id="title-bar">
+				<div class="top"></div>
+				<div class="container_12">
+					<div class="grid_12">
+						{if microsite-logo}
+							<a href="/microsite/{msname}"><img src="{microsite-logo}" style="padding-bottom:5px"></a>
+						{if:else}
+							<h1>{title}</h1>
+						{/if}
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="btm">
+					<div class="container_12">
+						<div class="grid_12">
+							<ul class="mininav">
+								{exp:playa:children}
+										{if microsite-tabtitle == "Home" && segment_3 == ""}
+											<li class="active"><a href="/microsite/{msname}/{url_title}">{microsite-tabtitle}</a></li>
+										{if:else}
+											<li {if segment_3 == url_title}class="active"{/if}><a href="/microsite/{msname}/{url_title}">{microsite-tabtitle}</a></li>
+										{/if}
+								{/exp:playa:children}
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		{if:else}
+	<div id="subpage_container">{!-- This is out of proper indentation place to start the subpage container properly --}
+			<div class="container_12 subpage_header">
+				<div class="grid_5">
+					{if microsite-logo}
+						<a href="/microsite/{msname}"><img src="{microsite-logo}" style="padding-bottom:5px"></a>
+					{if:else}
+						<h1 style="color:{microsite-colors};text-transform:uppercase"><a href="/microsite/{msname}" style="text-decoration:none">{title}</a></h1>
+					{/if}
+				</div>
+				<div class="grid_7">
+					<ul class="mininav">
+						{exp:playa:children}
+								{if microsite-tabtitle != "Home"}<li {if segment_3 == url_title}class="active"{/if}><a href="/microsite/{msname}/{url_title}">{microsite-tabtitle}</a></li>{/if}
+						{/exp:playa:children}
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		{/if}
+		
+		<div class="container_12 subpage">
+			<div class="grid_12">
+			{if segment_3 == ""}
+				{embed="_component/microsite-home" url_title="{exp:playa:children limit='1'}{url_title}{/exp:playa:children}"}
+			{if:elseif segment_3 == "events"}
+				{embed="_component/microsite-event" eventid="{microsite-eventid}"}
+			{if:elseif segment_3 == "blog"}
+				{embed="_component/microsite-blog" blogid="{microsite-blogid}"}
+			{if:else}
+				{exp:playa:children url_title="{segment_3}"}
+					{microsite-body} 
+				{/exp:playa:children}
+			{/if}
+{/exp:channel:entries}
+			</div>
+		</div>
+	</div>
+{/if}
+</div class="clear"></div>
+
+{exp:channel:entries channel="microsite" dynamic="on"}
+	{if microsite-header == "Northland"}
+		{embed="_includes/footer"}
+		{embed="_includes/html_close"}
+	{/if}
+{/exp:channel:entries}

@@ -1,0 +1,127 @@
+{!-- LIST VIEW --}
+
+{if segment_3 == ''}
+
+	{embed="_assets/header" htmltitle="Global Partner Churches"}
+	{embed="_assets/navbar" active="resources"}
+
+	<div class='row row--inverted row--page'>
+		<div class='cell well'>
+			<ul class='breadcrumbs'>
+				<li><a href="../../">Home</a></li>
+				<li><a href="../">Partners</a></li>
+			</ul>
+			
+			<div class='g'>
+				<div class="g-b g-b--m--1of1">
+					<h1 class='heading heading--l'>Global Partner Churches</h1>
+					<p class="mbxl tss">
+						"Partners" are churches with whom Northland has ever-deepening relationships for mutual support and increased effectiveness for the Kingdom of God.
+						 We are not complete without each other. They further our understanding and appreciation of God.
+						 We connect with them on a personally fulfilling heart level and we work well together to bless others.
+						 Like all relationships, these partnerships are dynamic.
+						 They need to be renewed on a regular basis, or they will lose their vitality.
+						 We need to continue to work together to serve others in eternally significant ways.
+						 That is why we want you to get to know them. Be encouraged. Be challenged. Be international.
+						 Be distributed! See the available opportunities <a href="http://www.somedayistoday.net">here.</a>
+					</p>
+				</div>
+			</div>
+
+			<hr class="rule mbl">
+
+			<div class='g g--dib'>
+				{exp:channel:entries channel="partners" category="28" orderby="title" sort="asc"}
+					<div class="deck g-b g-b g-b--s--1of2 g-b--m--1of3">
+						<a href="/partners/churches/{url_title}">
+							<div class="card card--deck">
+								<h4 class="deck-title mbxs">{title}</h4>
+							</div><!-- ./card -->
+							<div class="media media--large mbf missionary-photo" style="background-image: url({image-asset-url}/uploads/{mishpart-image})"></div>
+						</a>
+					</div>
+				{/exp:channel:entries}
+				{!--<div class='g-b g-b--m--1of3'>
+					<h5>Other Northland Partners</h5>
+					<ul>
+						<li><a href="../local">Local Partners</a></li>
+						<li><a href="../missionaries">Missionaries</a></li>
+					</ul>
+
+					{embed="_component/bloglist-small" header="Global Partnership Blog" quantity="4" categorypass="75"}
+				</div>
+				--}
+			</div><!-- ./g -->
+		</div><!-- ./cell -->
+	</div><!-- ./row -->
+
+	{embed="_assets/footer"}
+
+{!-- INDIVIDUAL VIEW --}
+{if:elseif segment_3 != ''}
+	{exp:channel:entries channel="partners" category="28" dynamic="on" require_entry="yes"}
+	{if no_results}
+		{redirect="partners/churches/"}
+	{/if}
+	
+	{embed="_assets/header" htmltitle="Global Partner Church: {title}"}
+	{embed="_assets/navbar" active="resources"}
+	<div class='row row--inverted row--page'>
+		<div class='cell well'>
+			<ul class='breadcrumbs'>
+				<li><a href="../../../">Home</a></li>
+				<li><a href="../../">Partners</a></li>
+				<li><a href="../">Global Partner Churches</a></li>
+			</ul>
+			<h1 class='heading heading--italic heading--l title'>{title}</h1>
+			<div class='g mtl'>
+			
+				<div class='g-b g-b--m--2of5 mbl'>
+					{if mishpart-image}
+					<div class='media media--large missionary-photo' style='background-image: url({image-asset-url}/uploads/{mishpart-image})'></div>
+					<hr class='rule mbs'>
+					{if:else}
+					<hr class='rule mtf mbs'>
+					{/if}
+					<h2 class='heading--italic heading--m mbs'>
+						Contact
+					</h2>
+					<dl class='dictionary'>
+						{if mishpart-location}
+						<dd class='dictionary-definition'>
+							{if mishpart-map}
+							<a href='{mishpart-map}'>{mishpart-location} <i class="fa fa-map-marker" aria-hidden="true"></i></a>
+							{if:else}
+							{mishpart-location}
+							{/if}
+						</dd>
+						{/if}
+						{if mishpart-websites}
+						<dd class='dictionary-definition'>
+							<a href='{mishpart-websites}' target="_blank">Website <i class="fa fa-external-link"></i></a>
+						</dd>
+						{/if}
+						{if mishpart-facebook}
+						<dd class='dictionary-definition'>
+							<a href='{mishpart-facebook}' target="_blank">{mishpart-facebook} <i class="fa fa-facebook" aria-hidden="true"></i>
+						</dd>
+						{/if}
+						{if mishpart-contact}
+						<dd class='dictionary-definition'>{mishpart-contact}</dd>
+						{/if}
+					</dl>
+				</div><!-- ./g-b--m--2of5 -->
+				
+				<div class='g-b g-b--m--3of5 fr'>
+					<hr class="rule mtf mbl">
+					<h2 class='heading--italic heading--m mbl'>
+						About {title}
+					</h2>
+					<div class='bio tss'>{mishpart-bio}</div>
+				</div><!-- ./g-b--m--3of5 -->
+				
+			</div><!-- ./g -->
+		</div><!-- ./cell -->
+	</div><!-- ./row -->
+	{/exp:channel:entries}
+{/if}

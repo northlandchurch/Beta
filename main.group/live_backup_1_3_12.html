@@ -1,0 +1,65 @@
+{embed="_includes/html_open" videometa='
+<meta property="og:type" content="movie" /> 
+<meta property="og:video:height" content="420" /> 
+<meta property="og:video:width" content="640" /> 
+<meta property="og:title" content="Live Christmas Eve Service" /> 
+<meta property="og:description" content="<p>Live Video</p>" />
+<meta property="og:image" content="http://www.northlandchurch.net/_img/uploads/merry-christmas-small.jpg" />
+<meta property="og:video" content="http://www.northlandchurch.net/jw/jw54/player.swf?file=highwindsfail&skin=http%3A%2F%2Fwww.northlandchurch.net%2Fjw%2Fjw54%2Fskins%2Ffacebook%2Ffacebook.zip&autostart=true&provider=rtmp&streamer=rtmp%3A%2F%2Fhttp%3A%2F%2F184.73.206.117%3A1935%2Flive&gapro.accountid=UA-966214-1&gapro.height=349&gapro.pluginmode=FLASH&gapro.trackpercentage=true&gapro.trackstarts=true&gapro.tracktime=true&gapro.visible=true&gapro.width=620&gapro.x=0&gapro.y=0" /> 
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+
+'}
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12" style="padding-bottom:15px">
+		<!--<div style="margin:0 170px 15px"><h1>Merry Christmas!</h1>
+		<p style="color:white">You can join us for Christmas Day worship at 11 a.m. (There will be no other Sunday services tomorrow. There will be no Monday night service this week either.)</p>
+		</div>-->
+		<div class="vid_box" style="margin-left:170px">
+    	
+    	
+		<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+    	
+		
+			<div id="vid{entry_id}" >Loading the player...</div>
+		
+		<script type="text/javascript"> 
+		jwplayer("vid{entry_id}").setup({
+		   
+		    autostart: "true",
+		    height: 349,
+		    skin: "/jw/jw54/skins/glow/glow.zip",
+		    width: 620,
+		    plugins: {
+		    	"gapro-2":{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true}
+			    	},
+		    modes: [
+		         { type:"flash",
+		    	   src: "/jw/jw54/player.swf",
+			       config: {
+			    	provider: "rtmp",
+			    	streamer: "rtmp://184.73.206.117:1935/live",
+			    	file: "highwindsfail"
+			    		}
+		    	},
+		    	{ type: "html5",
+		    	  config: {
+		    	  		file:"http://video.northlandchurch.net:1935/live/backup/playlist.m3u8"
+		    	  		}
+		    	}
+		    ]
+		});
+		</script>    
+    	
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

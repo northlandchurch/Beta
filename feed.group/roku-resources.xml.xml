@@ -1,0 +1,52 @@
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed>
+	<resultLength>20</resultLength>
+	<endIndex>20</endIndex>
+	{exp:channel:entries channel="series" limit="1" show_future_entries="yes"}
+	{exp:channel:entries dynamic="off" channel="media" orderby="date" category="48 || 58" show_future_entries="yes" stop_before="2012-04-2 20:00"}	<!--  {categories}{category_id} {/categories}  -->
+	<?php $display = '{series-image}'; ?>
+	{parents channel="media" }
+	
+	<item sdImg="http://www.northlandchurch.net/_assets/img/v2/series/<?php echo $display; ?>"
+		  hdImg="http://www.northlandchurch.net/_assets/img/v2/series/<?php echo $display; ?>">	
+		<title>{parents:title} - Discussion</title>
+		<contentId>{parents:entry_id}</contentId>
+		<contentType>Talk</contentType>
+		<contentQuality>SD</contentQuality>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>HD</streamQuality>
+			<streamBitrate>2000</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/group_resources/{entry_date format='%y%m%d'}_group_hd.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>1500</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/group_resources/{entry_date format='%y%m%d'}_group_high.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>850</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/group_resources/{entry_date format='%y%m%d'}_group_med.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>400</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/group_resources/{entry_date format='%y%m%d'}_group_low.mp4</streamUrl>
+		</media>
+		{if media-description}
+		<synopsis>{exp:strip_html}{parents:media-description}{/exp:strip_html}</synopsis>
+		{if:else}
+		<synopsis>Group discussion questions from worship on {entry_date format="%F %d, %Y"}</synopsis>
+		{/if}
+		<genres>Clip</genres>
+		<runtime>1260</runtime>
+	</item>	
+	{/parents}
+	{/exp:channel:entries}
+
+</feed>

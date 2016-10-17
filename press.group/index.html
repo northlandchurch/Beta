@@ -1,0 +1,50 @@
+{embed="_assets/header" htmltitle="Press"}
+{embed="_assets/navbar" active=""}
+{exp:channel:entries channel="press" limit="1" dynamic="on"}
+<div class='hero hero--resource' style="background-color: #05253a; -webkit-filter: opacity(100%);">
+	<div class='hero-media' style='background-image: url("http://www.northlandchurch.net/_img/uploads/photo_(1).JPG");-webkit-filter: opacity(10%);'></div>
+	<div class='hero-content'>
+		<div class='cell'>
+			<ul class='breadcrumbs breadcrumbs--transparent'>
+				<li><a href="../">Home</a></li>
+				<li><a href="../resources/">Resources</a></li>
+				{categories}
+				<?php $category = ""; $category = htmlspecialchars("{category_id}"); ?>
+				<li><a href="/blogs/category/{category_url_title}">{category_name}</a></li>
+				{/categories}
+			</ul>
+		</div>
+	</div>
+	<div class='hero-extend' style="background:none;">
+		<div class='cell'>
+			<h1 class='heading heading--l'>{title}</h1>
+		</div>
+	</div>
+</div>
+{/exp:channel:entries}
+<div class='row--inverted'>
+	<div class='cell well'>
+		<div class='g-b g-b--m--3of4'>
+			<article class='article'>
+				{exp:channel:entries channel="press" limit="1"}
+				{press-body}
+				{/exp:channel:entries}
+			</article>
+			<div class="clear"></div>
+		</div>
+		<div id="g-b g-b--m--1of4">
+			<h3 class="heading--s">More Press</h3>
+			<ul>
+				{exp:channel:entries channel="press" dynamic="off"}
+					<li><a href="/press/{url_title}"><strong>{title}</strong></a></li>
+				{/exp:channel:entries}
+			</ul>
+		</div>
+
+
+	</div>
+
+</div>
+<div class="clear"></div>
+
+{embed="_assets/footer"}

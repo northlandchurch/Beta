@@ -1,0 +1,755 @@
+{embed="responsive/html_open" htmltitle="Northland Admin Panel"}
+<div id="header-bg" style="display:none">
+{embed="responsive/respond-header"}
+{embed="responsive/header"}	
+</div>
+
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/css-onlineworship.css" />
+
+<script type=text/javascript>
+// Called by Adapt.js
+/*function myCallback(i, width) {
+	
+}*/
+
+var ADAPT_CONFIG = {
+  // false = Only run once, when page first loads.
+  // true = Change on window resize and page tilt.
+  dynamic: true,
+
+  // First range entry is the minimum.
+  // Last range entry is the maximum.
+  // Separate ranges by "to" keyword.
+  path: '/_includes/adapt/',
+  //callback: myCallback,
+  range: [
+    '0px to 720px  = mobile.css',
+    '720px  	   = full.css'
+  ]	
+};
+</script>
+<script src="/_includes/adapt/adapt.js"></script>
+
+<div id="header-minimized">
+	<div id="header-bar-small">
+		<div class="container_12">
+			<div id="header-small-left">
+				<a href="http://www.northlandchurch.net" style="text-decoration: none" target="_blank"><h1>Northland <span>A Church Distributed</span></h1></a>
+			</div>
+			
+			<div id="header-small-right" class="default_visible">
+				{!-- user-login-box --}
+				{if logged_in}
+					<span>Logged in as <a href="/profile" target="_blank">{screen_name}</a> - <a onclick="ee_logout()" >Log Out</a></span>
+				{if:else}
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#login_link").click();
+						});
+					</script>
+					<span><a class="user-login" id="login_link" href="#login-register-box">Login</a></span>
+				{/if}	
+				
+			</div>
+		</div>
+	</div>
+	<div class="nav-shadow"></div>
+</div>
+
+{if group_id == "1" || group_id == "22" || group_id == "13" || group_id == "19"}
+<style type='text/css'>
+a, a:link, a:visited, a:active {
+	color: #FFF;
+	text-decoration: none;
+}
+a:hover {
+	color: #347197;
+}
+body {
+	color: #FFF;
+}
+
+.pray-card-mid {
+	color: #213;
+}
+
+.sidebar_div, .subheader {
+	color: #FFF;
+	background-color: rgba(0, 0, 0, 0.35);
+	border: 1px #000 solid;
+	border-radius: 4px;
+	padding: 10px;
+	box-shadow: 0 0 8px #222;
+	margin-top: 10px;
+}
+.sidebar_div h1, .subheader h1 {
+	font-size: 16px;
+	line-height: 24px;
+}
+
+#service_live a {
+	color: #347197;
+}
+
+#service_live a:hover {
+	color: #FFF;
+}
+
+#customstats_form input {
+	padding: 5px;
+	background-color: #222;
+	color: #FFF;
+	border: 1px #444 solid;
+	text-indent: 5px;
+}
+
+#viewers_count p {
+	padding: 0;
+}
+
+p, h2, h3, h4 {
+	color: #FFF;
+}
+
+#tabs ul {
+	margin: 20px 0 15px 0;
+}
+
+#tabs li {
+	display: inline;
+	margin: 0 3px;
+	font-size: 14px;
+	background-color: #222;
+	padding: 6px;
+	border: 1px black solid;
+	border-radius: 5px;
+}
+
+
+#tabs li.active {
+	background-color: #347197;
+}
+#tabs li.active a {
+	color: #FFF;
+}
+
+.multiple_names {
+	color: #FFF;
+	margin-top: 5px;
+}
+
+.mainpane {
+	margin: 10px 0px;
+}
+
+.individualuser, .individualcity {
+	padding: 2px 7px;
+}
+
+.individualuser:nth-child(odd), .individualcity:nth-child(odd) {
+	background-color: rgba(30, 30, 30, 0);
+}
+
+.individualuser:nth-child(even), .individualcity:nth-child(even) {
+	background-color: rgba(30, 30, 30, 0.3);
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-style: solid;
+	border-color: #000;
+}
+
+.featureduser, .featuredcity {
+	padding: 2px 7px;
+	background-color: rgba(255, 255, 0, 0.2);
+}
+</style>
+
+<!-- Chartbeat Code -->
+<script type="text/javascript">
+$(document).ready(function() {
+//	StartChartbeat();
+});
+
+function StartChartbeat() {
+	UpdateChartbeat();
+	setTimeout("StartChartbeat()", 5000);
+}
+
+function UpdateChartbeat() {
+	var current_pages_html;
+	var title; 
+	
+	$.getJSON('/scripts/chartbeat.php?type=current_pages', function(json) {
+		current_pages_html = "";
+		for (i = 0; i < json.length; i++) {
+			if (json[i].i.length > 33) { title = json[i].i.substring(0,33) + "…"; }
+			else { title = json[i].i; }
+			
+			if (title.length) {
+				if (json[i].visitors > 1) {
+					current_pages_html += json[i].visitors + " viewers - <strong><a target='_blank' href='http://www." + json[i].path + "'>" + title + "</a></strong><br>";
+				}
+				else {
+					current_pages_html += json[i].visitors + " viewer - <strong><a target='_blank' href='http://www." + json[i].path + "'>" + title + "</a></strong><br>";
+				}
+			}
+		}
+		
+		$("#current_pages").html(current_pages_html.substring(0, current_pages_html.length - 4));		
+	});
+	
+	$.getJSON('/scripts/chartbeat.php?type=quick_stats', function(json) {
+		$("#total_visitors").html(json.people);
+	});
+}
+</script>
+<!-- End Chartbeat Code -->
+
+{!--<!-- Chartbeat/Google Map Code -->
+<script type="text/javascript" src="/_assets/js/markerclusterer_packed.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="/_assets/js/infobox_packed.js"></script>
+<script type="text/javascript">
+	var map;
+	var markerCluster;
+	var usersArray = [];
+	var infobox_options = {
+		disableAutoPan: false,
+		pixelOffset: new google.maps.Size(-130, -175),
+		closeBoxURL: ""
+	};
+	var infoWindow = new InfoBox(infobox_options);
+/*		
+	$(document).ready(function() {
+		var mapOptions;
+			mapOptions = {
+				zoom: 1,
+				scrollwheel: true,
+				center: new google.maps.LatLng(18, 0),
+				mapTypeId: google.maps.MapTypeId.SATELLITE,
+				streetViewControl: false,
+				panControl: false,
+				overviewMapControl: false,
+				mapTypeControl: false,
+				zoomControlOptions: {
+					style: google.maps.ZoomControlStyle.SMALL
+				}
+			};
+		
+		map = new google.maps.Map(document.getElementById("map"), mapOptions);
+		markerCluster = new MarkerClusterer(map, [], { zoomOnClick: false, minimumClusterSize: 1, gridSize: 25 });
+	});
+*/	
+</script>
+<!-- End Chartbeat/Google Map Code -->--}
+
+<!-- Weekend Stats Code -->
+<script type="text/javascript">
+function LoadStats(week_offset) {
+	$("#changestatsweek").html("Loading…");
+	$("#worshipstats").load('/scripts/get-worshipstats.php?week_offset=' + week_offset);
+}
+
+$(document).ready(function() {
+	$("#worshipstats").load('/scripts/get-worshipstats.php');
+	
+	$("#customstats_form").submit(function() {
+		starttime = encodeURI($("#customstats_start").val());
+		endtime = encodeURI($("#customstats_end").val());
+//		console.log(starttime);
+//		console.log(endtime);
+		$("#worshipstats").load('/scripts/get-worshipstats.php?start=' + starttime + '&end=' + endtime);
+//		$("#worshipstats").load('/scripts/get-worshipstats.php?start=' + $("#customstats_start").val() + '&end=' + $("#customstats_end").val());
+		$("#customstats").hide();
+		return false;
+	});
+});
+</script>
+<!-- End Weekend Stats Code -->
+
+<!-- "Service is currently LIVE/OFF" Code -->
+<script type="text/javascript">
+$(document).ready(function() {
+	StartServiceLiveCheck();
+});
+
+function StartServiceLiveCheck() {
+	UpdateServiceLiveCheck();
+	setTimeout("StartServiceLiveCheck()", 5000);
+}
+
+function UpdateServiceLiveCheck() {
+	$.ajax({
+		url: "/_component/isservicelive",
+		success: function(data) {
+			if (data.indexOf("true") != -1) {
+				$("#service_live").html("<a style='cursor:pointer; text-decoration:none; font-size: 25px; font-weight: 100' onclick='confirm_turn_service_off()'>Service is currently LIVE</a>");
+			}
+			else {
+				$("#service_live").html("<a style='cursor:pointer; text-decoration:none; font-size: 25px; font-weight: 100' onclick='confirm_turn_service_on()'>Service is currently OFF</a>");
+			}
+		}
+	});
+}
+
+function confirm_turn_service_on() {
+	var r=confirm("Are you sure you want to turn service ON?");
+	if (r==true) { 
+		$.ajax({ 
+			url: "/_component/change_servicelive/on/"
+		}).done(function(data) {
+				if (data.indexOf("Only") != -1) {
+					ShowTextModal(data);
+				}
+				UpdateServiceLiveCheck();			
+			});
+	}
+}
+
+function confirm_turn_service_off() {
+	var r=confirm("Are you sure you want to turn service OFF?");
+	if (r==true) { 
+		$.ajax({ 
+			url: "/_component/change_servicelive/off/"
+		}).done(function(data) { 
+				if (data.indexOf("Only") != -1) {
+					ShowTextModal(data);
+				}
+				UpdateServiceLiveCheck(); 
+			});
+	}
+}
+</script>
+<!-- End "Service is currently LIVE/OFF" Code -->
+
+<!-- Current Online Worship Users Code -->
+<script type="text/javascript">
+	var online_worshipers_html;
+	var worshipers_json;
+	
+	$(document).ready(function() {
+		StartUpdateOnlineWorshipers();
+	//	UpdateCount(10000);
+	});
+	
+	function StartUpdateOnlineWorshipers() {
+		UpdateOnlineWorshipers();
+		setTimeout("StartUpdateOnlineWorshipers()", 10000);
+	}
+	
+	function UpdateOnlineWorshipers() {
+		/*$.getJSON('/scripts/worshipersjson.txt', function(json) { 
+			online_worshipers_html = "";
+			worshipers_json = json;
+			for (i = 0; i < json.length; i++) {
+				if (json[i][3]) {
+					online_worshipers_html += "<div id='" + json[i][2] + "'><strong><a onclick='LoadUserProfile(" + json[i][3] + ");'>" + json[i][4] + "</strong></a> - " + json[i][5] + "</div>";
+				}
+			}	
+			$("#current_worshipers").html(online_worshipers_html);
+		});		*/
+		$.getJSON('/scripts/get-onlineworshipers.php', function(json) {
+			online_worshipers_html = "";
+			worshipers_json = json;
+			worshipers_count = 0;
+			sites_count = 0;
+			for (i = 0; i < json.length; i++) {
+				if (json[i].groupsize) {
+					online_worshipers_html += "<div><strong><a onclick='LoadUserProfile(" + json[i].chatid + ");'>" + json[i].name + "</strong></a> - " + json[i].loc + "</div>";
+					sites_count++;
+					if (!isNaN(json[i].groupsize)) { worshipers_count += parseInt(json[i].groupsize); }
+					else { worshipers_count++; }
+				}
+			}	
+			$("#current_worshipers").html(online_worshipers_html);
+			$("#viewers_count").html("<p>" + worshipers_count + " worshipers at " + sites_count + " sites");
+		});
+	}
+	
+	/*function UpdateCount(updatetime) {
+		$.get('/scripts/totalgroupsize.txt', function(data) {
+			$('#viewers_count').html('<p>' +  data + '</p>');
+		});
+		
+		if (updatetime) {
+			setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+		}
+	}*/
+</script>
+<!-- End Current Online Worship Users Code -->
+
+<!-- User Search Code -->
+<script type="text/javascript">
+function LoadUserProfile(userid) {
+	$("#profile").prepend("<div style='text-align:center; color: #FFF; margin-bottom: 10px'><strong>Loading…</strong></div>");
+
+	// Replace spaces with underscores for SQL search of names with "like" function
+	if (isNaN(userid)) {
+		if (userid.indexOf(" ") != -1) {
+			userid = userid.split(' ').join('_');
+		}
+	}
+	
+	$("#profile").load("/admin/get_profile/" + userid);
+	
+	$('.mainpane').filter(function(){ return $(this).is(":visible"); }).fadeOut('fast', function() {
+		$("#profile").fadeIn('fast'); 
+	});
+}
+
+$(document).ready(function() {
+	$("#email_search").submit(function() {
+		if ($("#filter-search").val().indexOf("@") != -1) {
+			$.ajax({
+				url: '/scripts/getuserid.php?email=' + $("#filter-search").val(),
+				success: function(data) {
+					if (data == "0") {
+						$("#profile").html("<div style='text-align:center; color: #FFF'>Profile not found</div>");
+					}
+					else {
+						LoadUserProfile(data);
+					}
+				}
+			});
+		}
+		else {
+			LoadUserProfile($("#filter-search").val());
+		}
+	 	return false;
+	});
+	
+	LoadUserProfile({member_id});	
+});
+</script>
+<!-- End User Search Code -->
+
+<!-- Password Reset Code -->
+<script type="text/javascript">
+	function ConfirmPasswordReset(email) {
+		var r=confirm("Are you sure you want to reset " + email + "'s password?");
+		if (r==true) { 
+			$.ajax({ 
+				url: "/scripts/password_reset.php?email=" + email
+			}).done(function(data) { ShowTextModal(data); });
+		}
+	}
+	
+	function ShowPasswordManualSet(email) {
+		var password = prompt("Please enter the password you would like to use for '" + email + "'","northland1");
+		if (password != null && password != "") {
+			ConfirmPasswordManualSet(email, password);
+		}
+		else {
+			ShowTextModal("You must enter a password");
+		}
+		
+	}
+	
+	function ConfirmPasswordManualSet(email, password) {
+		var r=confirm("Are you sure you want to reset " + email + "'s password with new password '" + password + "'?");
+		if (r==true) { 
+			$.ajax({ 
+				url: "/_component/update_password/" + email + "/" + password
+			}).done(function(data) { ShowTextModal(data); });
+		}
+	}
+</script>
+<!-- End Password Reset Code -->
+
+<!-- Video Controls Code -->
+<script type="text/javascript">
+	function ShowVideoControls() {
+		$('.mainpane').filter(function(){ return $(this).is(":visible"); }).fadeOut('fast', function() {
+			$("#video_controls").fadeIn('fast'); 
+		});
+		
+		UpdateVideoWorshipers();
+	}	
+	
+	// Tabs controller
+	$(document).ready(function(){
+		$('#tabs div').hide();
+		$('#tabs div:first').show();
+		$('#tabs ul li:first').addClass('active');
+		 
+		$('#tabs ul li a').click(function(){
+			$('#tabs ul li').removeClass('active');
+			$(this).parent().addClass('active');
+			var currentTab = $(this).attr('href');
+			$('#tabs .tab_wrapper').filter(function(){ return $(this).is(":visible"); }).fadeOut('fast', function() {
+				$(currentTab).fadeIn('fast'); 
+			});
+			
+			return false;
+		});		
+	});
+	
+	function UpdateVideoWorshipers() {
+		$.getJSON("/scripts/worshipusersjson.txt", function(json) {
+			var individuals_html = "";			
+			
+			for (i = 0; i < json.length; i++) {
+				if (json[i][1].length > 2) {
+					individuals_html += "<div class='individualuser' id='individualuser_" + json[i][0] + "'><strong><a id='featured_" + json[i][0] + "' class='featureduserlink' onclick='FeatureUser(" + json[i][0] + ", \"" + json[i][1] + "\", \"" + json[i][2] + "\")'>Feature</a> &nbsp;&nbsp; <a onclick='LoadUserProfile(" + json[i][0] + ")'>" + json[i][1] + "</a></strong>";
+					if (json[i][2].length > 2) {
+						individuals_html += " - " + json[i][2];
+					}
+					individuals_html += "</div>";
+				}				
+			}			
+			
+			$("#individuals_tab").html(individuals_html);	
+			UpdateFeaturedUsers();
+		});
+		
+		$.getJSON("/scripts/admin-getworshiperscities.php", function(json) {
+			var cities_html = "";
+			
+			for (i = 0; i < json.length; i++) {
+				if (json[i].length > 2) {
+					cities_html += "<div class='individualcity'><strong><a class='featuredcitylink' onclick='FeatureCity(\"" + json[i] + "\")'>Feature</a></strong> &nbsp;&nbsp; " + json[i] + "</div>";
+				}
+			}
+			
+			$("#cities_tab").html(cities_html);	
+			UpdateFeaturedUsers();		
+		});
+	}
+	
+	function FeatureUser(userid, name, location) {
+		if ($("#individualuser_" + userid).hasClass("featureduser")) {
+			$.ajax({
+				url: "/admin/unfeatureuser/?member_id=" + userid
+			}).done(function(data) {
+				if (data.indexOf("Success") != -1) {
+					UpdateFeaturedUsers();
+				}
+				else {
+					ShowTextModal("Error featuring user.");
+				}
+			});			
+		}
+		else {
+			$.ajax({
+				url: "/admin/featureuser/?member_id=" + userid + "&name='" + name + "'&location='" + location + "'"
+			}).done(function(data) {
+				if (data.indexOf("Success") != -1) {
+					UpdateFeaturedUsers();
+				}
+				else {
+					ShowTextModal("Error featuring user.");
+				}
+			});
+		}	
+	}
+	
+	function FeatureCity(location) {
+		var featured_flag = 0;
+		$(".featuredcity").each(function() {
+			if ($(this).text().indexOf(location) != -1) { 
+					featured_flag = 1;
+			}
+		});
+		
+		if (featured_flag == 0) {
+			$.ajax({
+				url: "/admin/featurecity/?location='" + location + "'"
+			}).done(function(data) {
+				if (data.indexOf("Success") != -1) {
+					UpdateFeaturedUsers();
+				}
+				else {
+					ShowTextModal("Error featuring city.");
+				}
+			});	
+		}
+		else {
+			$.ajax({
+				url: "/admin/unfeaturecity/?location='" + location + "'"
+			}).done(function(data) {
+				if (data.indexOf("Success") != -1) {
+					UpdateFeaturedUsers();
+				}
+				else {
+					ShowTextModal("Error featuring city.");
+				}
+			});	
+		}
+	}
+	
+	function UpdateFeaturedUsers() {
+		$.getJSON("/scripts/admin-getfeaturedusers.php", function(json) {
+			$(".featureduser").removeClass("featureduser").addClass("individualuser");		
+			$(".featureduserlink").html("Feature");
+			
+			for (i = 0; i < json.length; i++) {
+				$("#featured_" + json[i][0]).html("Unfeature");	
+				$("#individualuser_" + json[i][0]).removeClass("individualuser").addClass("featureduser");
+			}
+		});
+		
+		$.getJSON("/scripts/admin-getfeaturedcities.php", function(json) {
+			$(".featuredcity").removeClass("featuredcity").addClass("individualcity");		
+			$(".featuredcitylink").html("Feature");
+		
+			for (i = 0; i < json.length; i++) {
+				$(".individualcity").each(function() {
+					if ($(this).text().indexOf(json[i]) != -1) {
+						$(this).removeClass("individualcity").addClass("featuredcity");
+						$(this).find("a").html("Unfeature");
+					}
+				});
+			}
+		});
+	}
+	
+	function ClearAllFeatured() {
+		var r=confirm("Are you sure you want to clear all featured cities and users?");
+		if (r==true) { 
+			$.ajax({ 
+				url: "/admin/unfeatureall"
+			}).done(function() { UpdateFeaturedUsers(); });
+		}
+	}	
+</script>
+<!-- End Video Controls Code -->
+
+<!-- Pastor Widgets Code -->
+<script type="text/javascript">
+	function ShowPastorControls() {
+		$('.mainpane').filter(function(){ return $(this).is(":visible"); }).fadeOut('fast', function() {
+			$("#pastor_widgets").fadeIn('fast', function() { BirthdayCheck(); }); 
+		});	
+	}
+
+	$(document).ready(function() {
+		StartBirthdayCheck();
+	});
+	
+	function StartBirthdayCheck() {
+		BirthdayCheck();
+		setTimeout("StartBirthdayCheck()", 60000);	
+	}	
+	
+	function BirthdayCheck() {
+		$("#birthdays").load("/scripts/admin-getbirthdays.php");
+	}
+</script>
+<!-- End Pastor Widgets Code -->
+
+<div class="container_12" style="margin-top:15px;">
+	<div class="shinethelight">
+		{if logged_in}
+			<h1 style="font-size: 22px; text-align:center; line-height: 1.5em; margin-bottom: 10px">{screen_name} - <a onclick="ee_logout()" style="font-size:22px; font-weight: 100">Log Out</a>
+		{/if}		
+	</div>			
+	
+	<div class="grid_8">
+		<div style="text-align:center; font-size: 36px; text-shadow: black 2px 2px 3px; height: 75px">
+			<h1>Admin Panel</h1>
+			<div id="service_live"></div>			
+		</div>		
+		<div class="clear"></div>
+			
+			<div class="subheader" style="width: 95%">
+				<div id="search-box-input" style="color: #FFF; display:block;">	
+				<a style="font-size: 16px; line-height: 24px; float:left; margin: 2px 15px 0 15px" onclick="ShowVideoControls()">Video</a>
+				<a style="font-size: 16px; line-height: 24px; float:left; margin: 2px 30px 0 15px" onclick="ShowPastorControls()">Pastor</a>				
+				<h1 style="float:left; margin-top: 1px; margin-right: 10px">Search by name, email, or id:</h1>	
+					<form id="email_search">
+						<input id="filter-search" type="text" name="" value="" style="margin: 0; padding-left: 8px" />
+						<input id="filter-search-button" type="submit" name="" value="" style="margin: 0; padding: 0" />
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+			
+			<div id="map" class="mainpane" style="width:100%; height: 400px"></div>
+			
+			<div id="profile" class="mainpane"></div>
+			
+			<!-- Video Controls -->
+			<div id="video_controls" class="mainpane" style="display:none">
+				<h1 style="margin-bottom: 10px">Video Controls</h1>
+				<div id="tabs">
+					<ul>
+						<li><a href="#individuals_tab">Individuals</a></li>
+						<li><a href="#cities_tab">Cities</a></li>						
+					</ul>
+					<a onclick="ClearAllFeatured()" style="padding: 5px; margin-bottom: 10px; font-size:16px; font-weight: 500">Clear All Featured</a>
+					<div id="individuals_tab" class="tab_wrapper">
+						<h1>Individuals</h1>					
+					</div>
+					<div id="cities_tab" class="tab_wrapper">
+						<h1>Cities</h1>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Pastor Widgets -->
+			<div id="pastor_widgets" class="mainpane" style="display:none">
+				<h1>Pastor</h1>			
+			</div>
+	</div>
+	<div class="grid_4">
+		<div style="text-align:center; font-size: 36px; text-shadow: black 2px 2px 3px; height: 75px">
+			<h1 id="total_visitors" style="text-shadow: black 2px 2px 3px;">0</h1>
+			<div class="clear"></div>
+			<div style="font-size: 25px; font-weight: 100; color: #FFF; margin-top: 5px; text-shadow: black 2px 2px 3px;">
+				Active Visitors
+			</div>
+		</div>
+		<div class="sidebar_div">
+			<h1 style="text-align:center">Most Active Pages</h1>
+			<div class="clear"></div>
+			<div class="series-divider"></div>
+			<p style="padding: 0" id="current_pages">Loading…</p>
+		</div>
+			
+		
+		<div class="sidebar_div">
+			<h1 style="text-align:center">Birthdays</h1>
+			<div id="birthdays">Loading...</div>
+		</div>
+		
+		<div class="sidebar_div">
+			<h1 style="text-align:center">Worshipers in Environment</h1>
+			<div id="viewers_count" style="text-align:center"></div>			
+			<div class="clear"></div>
+			<div class="series-divider"></div>
+			<p style="padding: 0" id="current_worshipers">Loading…</p>
+		</div>	
+		
+		<div class="sidebar_div">
+			<h1 style="text-align:center">Online Worship Stats <a style="float:right; font-size:12px" onclick="$('#customstats').toggle()">Custom</a></h1>
+			<div class="clear"></div>
+			<div class="series-divider"></div>
+			<div id="worshipstats">
+			</div>
+			<div id='customstats' style='display:none'>
+				<h1>Custom stats:</h1>
+				(i.e. 'now', 'Saturday 8:00am', 'Yesterday 9:00am')
+				<form id='customstats_form'>
+					<div>Start:</div>
+					<input type='text' name='start' id='customstats_start' /><br>
+					<div>End:</div>
+					<input type='text' name='end' id='customstats_end' /><br>
+					<input type='submit'>
+				</form>
+			</div>
+		</div>			
+	</div>			
+
+{if:else}
+{group_id}
+<div style="text-align:center; color: #FFF; font-size: 15px">You must be an admin to access this page.</div>
+{/if}		
+</div>
+
+
+
+
+{embed="_assets/footer"}

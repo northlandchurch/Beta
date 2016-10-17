@@ -1,0 +1,18 @@
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav"}
+<h2>Change Your Password</h2>
+					{exp:user:edit}
+						<div class="editprofile_subtitle">Current Password:</div><input type="password" name="editcurpassword" 	id="editcurpassword" />
+						<div class='clear'></div>
+						<div class="editprofile_subtitle">New Password:</div><input type="password" name="editnewpassword"	id="editnewpassword" />
+						<div class='clear'></div>
+						<div class="editprofile_subtitle">Confirm New Password:</div><input type="password" name="editconfirmpassword"	id="editconfirmpassword" />
+						<div class='clear'></div>
+						<div id="editmismatched_passwords" class="editprofile-errormsg" style="display:none">Your passwords don't match.</div> 
+						<div id="edittooshort_password" class="editprofile-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+						<a href='#' id='editPasswordClick'><input type="submit" name="submit" value="Submit" style="float:right; width: 61px; cursor: pointer" /></a>
+					{/exp:user:edit}
+					
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

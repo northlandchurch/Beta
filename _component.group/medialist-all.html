@@ -1,0 +1,217 @@
+<script type="text/javascript">	
+function large_pageMedia(category, offset){
+	var toShow = "." + category;
+	if (category=="#"){
+		category="#/";
+	} else {
+		category = category + "/";
+	}
+	var theOffset = (offset-1) * 16;
+	if (theOffset < 0){
+		theOffset = 0;
+	}
+	$(toShow).show();
+	var loadString = '/_component/medialist-all/'+category+theOffset;
+	$("#media-list").load(loadString);
+}
+</script>
+
+{if embed:whichCat}
+<div id="media-list">
+	{if segment_2 != ""}
+		<h3>{if segment_3}{exp:channel:categories channel="media" category="not 58" offset="1" show="{embed:whichCat}" style="linear"}{category_name}{/exp:channel:categories}{if:else}All Media{/if}</h3>
+	{/if}
+	<div class="clear"></div>
+
+	<?php $counter = 0; ?>
+	{exp:channel:entries channel="media" dynamic="off" status="not closed" sort="desc" category="{embed:whichCat}" offset="{segment_4}" limit="18"}
+    	<?php if ("{media-image}"){ $counter = $counter + 1; } ?>
+		{if media-image}
+		<?php if ($counter < 17) { ?>
+		<div class="video-thumb <?php if ($counter % 4 == 0) { echo 'fourth'; } ?>">
+			<a href="/media/{url_title}"><div class="video-thumb-image" style="background-image: url('/_img/uploads/{media-image}')"></div></a>
+			<a href="/media/{url_title}"><strong>{title}</strong></a><br />
+			<span class="info">
+				{media-speaker}<br />
+				{entry_date format="%F %j, %Y"}
+			</span>
+		</div>
+		<?php } ?>
+    	<?php
+		if ($counter % 4 == 0) {
+			echo '<div class="clear"></div>';
+		}
+		?>
+    	{/if}
+	{/exp:channel:entries}
+	<div class="clear"></div>
+
+	<div id="pagination">
+		{exp:query sql="
+        
+		SELECT COUNT(DISTINCT ecp.entry_id) AS total_count 
+                    FROM exp_category_posts AS ecp 
+                    INNER JOIN exp_channel_titles AS ect ON ect.entry_id = ecp.entry_id
+                    WHERE ect.channel_id = 15 AND ecp.cat_id = 0{segment_3};
+        
+		"}
+			<?php
+			$entries = "{total_count}";
+			?>
+        
+		{/exp:query}
+	
+		<?php
+		if ($entries==0){ ?>
+			{exp:stats channel="media"}
+					<?php
+					$entries = "{total_entries}";
+					?>
+			{/exp:stats}
+		<?php }
+		if ("{segment_3}"==""){
+			$segment=0;
+		}else{
+			$segment = "{segment_3}";
+		}
+		$pages = floor ($entries / 18);
+		echo "Go to page: "; 	
+		$i = 1;
+		while ($i<$pages){
+			echo '<a class="plain" onclick="large_pageMedia('.$segment.','.$i.')">'.$i.' </a>';
+			$i++;
+		}
+
+		?>
+
+	</div>
+</div>
+
+
+{if:else}
+
+<div id="media-list">
+	{if segment_2 != ""}
+	<h4>{if segment_3}{exp:channel:categories channel="media" category="not 58" show="{segment_3}" style="linear"}{category_name}{/exp:channel:categories}{if:else}All Media{/if}</h4>
+	{/if}
+
+
+
+	<div id="series-filter-bar" style="margin: 0 0 10px 0">
+		
+		<div class="series-bar-left">			
+			<form id="aform" action="./" method="GET">
+				<label for="category-list">Media Categories</label>
+				<select name="category-list" onchange="large_pageMedia(this.options[this.selectedIndex].value,0)">
+					<option value="Choose">Choose a category...</option>
+					<option value="0">All Media</option>
+					{exp:channel:categories channel="media" show="48|57|281|356|45|47|56|46|327|226" style="linear"}
+					<option value="{category_id}">{category_name}</option>
+					{/exp:channel:categories}
+				</select>
+			</form>
+			
+		</div>
+		
+		<div class="filter-bar-right">
+			<form method="get" action="/search/results/">
+				<input type="image" src="{v2-image-asset-url}/buttons/search.png" value="Search" alt="Search" name="search" class="button" />
+				<input type="text" name="q" value="" size="30" suggest="yes" suggest_value='[{exp:channel:entries channel='media'}"{title}",{/exp:channel:entries}]'>
+			</form>
+		</div>	
+	</div>
+
+
+
+	<?php $counter = 0; ?>
+	
+	{if segment_3}
+		{exp:channel:entries channel="media" dynamic="off" status="not closed" sort="desc" offset="{segment_4}" category="{segment_3}" limit="18"}
+		
+	    	<?php if ("{media-image}"){ $counter = $counter + 1; } ?>
+			{if media-image}
+			<?php if ($counter < 17) { ?>
+			<div class="medialist-all grid_2" style="height: auto">
+				<a href="/media/{url_title}"><div class="medialist-all-image" style="background-image: url('/_img/uploads/{media-image}')"></div></a>
+				<a href="/media/{url_title}"><strong>{title}</strong></a><br />
+				<span class="info">
+					{entry_date format="%F %j, %Y"}
+				</span>
+			</div>
+			{switch="|||||<div class='clear'></div>"}
+			<?php } ?>
+	    	<?php
+				if ($counter % 4 == 0)
+				{
+					echo '';
+				}
+			?>
+	    	{/if}
+		{/exp:channel:entries}
+	{if:else}
+	<?php $counter = 0; ?>
+	
+		{exp:channel:entries channel="media" dynamic="off" status="not closed" category="not 58" offset="{segment_4}" sort="desc" limit="18"}
+    		<?php if ("{media-image}"){ $counter = $counter + 1; } ?>
+			{if media-image}
+			<?php if ($counter < 17) { ?>
+			<div class="medialist-all grid_2" style="height: auto">
+				<a href="/media/{url_title}"><div class="medialist-all-image" style="background-image: url('/_img/uploads/{media-image}')"></div></a>
+				<a href="/media/{url_title}"><strong>{title}</strong></a><br />
+				<span class="info">
+					{entry_date format="%F %j, %Y"}
+				</span>
+			</div>
+			{switch="|||||<div class='clear'></div>"}
+			<?php } ?>
+    		<?php
+				if ($counter % 4 == 0)
+				{
+					echo '';
+				}
+			?>
+    		{/if}
+		{/exp:channel:entries}
+	{/if}
+
+	<div class="clear"></div>
+	<div id="pagination">
+		{exp:query sql="
+        
+		SELECT COUNT(DISTINCT ecp.entry_id) AS total_count 
+                    FROM exp_category_posts AS ecp 
+                    INNER JOIN exp_channel_titles AS ect ON ect.entry_id = ecp.entry_id
+                    WHERE ect.channel_id = 15 AND ecp.cat_id = 0{segment_3};
+        
+		"}
+			<?php
+			$entries = "{total_count}";
+			?>
+		{/exp:query}
+        
+		<?php
+		if ($entries==0){ ?>
+			{exp:stats channel="media"}
+					<?php
+					$entries = "{total_entries}";
+					?>
+			{/exp:stats}
+		<?php }
+		if ("{segment_3}"==""){
+			$segment=0;
+		}else{
+			$segment = "{segment_3}";
+		}
+		$pages = floor ($entries / 18);
+		echo "Go to page: "; 	
+		$i = 1;
+		while ($i<$pages){
+			echo '<a class="plain" onclick="large_pageMedia('.$segment.','.$i.')">'.$i.' </a>';
+			$i++;
+		}
+
+		?>
+	</div>
+</div>
+
+{/if}

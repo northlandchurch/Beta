@@ -1,0 +1,153 @@
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+<!-- /////					Contents from Controller 							// -->
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+{exp:channel:entries channel="controller" url_title="resources_controller"}
+{exp:playa:children offset="1"}
+	{if channel=="Blogs"}
+	<div class="isotope blog stamp stamp2">
+		<div class='has-editorials'>
+			<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image:url(<?php
+					ob_start();
+					?>{blog-post}<?php
+					$obcontents = ob_get_contents();
+					ob_end_clean();
+
+					$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+					if(preg_match($pattern,	$obcontents, $match)){
+						echo $match[1];
+					}
+					?>)" href="/blogs/{url_title}">
+				<div class='editorial-text'>
+					<h2 class='editorial-title'>{title}</h2>
+					{if blog-excerpt}<p>{blog-excerpt}</p>{/if}
+					{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+				</div>
+				<div class='meta meta--bottom'>
+					<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+					<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+	{/if}
+	{if channel=="Media"}
+	<div class="isotope video stamp stamp1">
+		<div class='has-editorials'>
+			<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+				<div class='editorial-text'>
+					<h2 class='editorial-title'>{title}</h2>
+					<div class='editoral-video'>
+						<i class='material-icons'>play_arrow</i>
+					</div>
+					<div class='meta'>
+						<h4 class='meta-author'>{media-speaker}</h4>
+						<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+					</div>
+					{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+				</div>
+			</a>
+		</div>
+	</div>
+	{/if}
+{/exp:playa:children}
+{/exp:channel:entries}
+
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+<!-- /////				Contents from Volunteer and Serve						// -->
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+{exp:channel:entries channel="opportunities|serve_opportunities" orderby="date" sort="desc" limit="10" dynamic="off"}
+	{if channel=="Opportunities"}
+	<div class="isotope-grid-item serve">
+		<div class="grid-item respond-serve-opp {categories}cat{category_id} {/categories} volunteeropportunity serve" id="serve{entry_id}">
+			{!-- Which Location --}
+			<div class="respond-serve-marker heading--s">
+				{categories}
+					<span>{if category_id == "455"}Longwood{/if}
+					{if category_id == "457"}Mount Dora{/if}
+					{if category_id == "456"}Oviedo{/if}</span>
+				{/categories}
+			</div>
+			
+			<h2 class="heading heading--m isotitle">{title}</h2>
+			
+			<div class="clear"></div>
+			
+			<p class="tss">{desc}</p>
+			<p class="tss">{commitment}</p>
+			
+			<div class="respond-serve-count">
+				{!-- Display amount of people needed --}
+				{if people}
+					<h3 class="heading heading--s">{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+				{/if}
+			</div>
+			
+			<div class="respond-serve-fave">
+				<a class="btn" href="#" onclick="return openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">Sign Me Up</div></a>
+			</div>
+		</div>
+	</div>
+	{/if}
+	{if channel=="Serve Opportunities"}
+	<div class="isotope-grid-item serve">
+		<div class="grid-item respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} serveopportunity serve" id="serve{entry_id}">
+			<h2 class="heading heading--m isotitle">{title}</h2>
+			
+			<div class="clear"></div>
+			
+			<div class="tss">{serve-desc}</div>
+			<div class="tss">{serve-commitment}</div>
+		
+			<div class="respond-serve-count">
+				{!-- Display amount of people needed --}
+				{if serve-people}
+					<h3 class="heading heading--s">{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+				{/if}
+				<div class="respond-serve-fave">
+					<a class="btn" href="#" onclick="return openCCBFormServe('{serve-ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">SIGN ME UP</div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+{/exp:channel:entries}
+
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+<!-- /////						Contents from Prayer							// -->
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" dynamic="off" limit="10"}
+<div class="isotope-grid-item prayer">
+	<div class="grid-item prayer">
+		<div>
+			<h2 class="heading heading-m isotitle"><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+			<p class="tss">{exp:trunchtml chars="265"}{prayer-need}{/exp:trunchtml}</p>
+		</div>
+		<div>
+			<p class="tss">{entry_date format="%F %j, %Y"}</p>
+		</div>
+
+		<div class='pray-card-options' id="pray{entry_id}" >
+			{if logged_in && (screen_name!="Anonymous Member")}
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<a class="favorite faved btn" href="/_component/favorite-add/{entry_id}/">You Prayed</a>
+					{if:else}
+						<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now</a>					
+					{/if}
+				{/exp:favorites:saved}
+			{if:else}
+				<li id="pray-for-li"><a class="favorite btn" href="/_component/favorite-add/{entry_id}/">Pray Now</a></li>
+			{/if}
+
+			{exp:favorites:entry_count entry_id="{entry_id}"}
+				{if favorites_count_public}
+					<div class="prayer-number tss">
+						<span class="count">{favorites_count_public}</span> <span class="people-prayed">{if favorites_count_public>1}People have{if:else}Person has{/if} prayed</span>
+					</div>
+				{/if}
+			{/exp:favorites:entry_count}
+		</div>
+	</div>					
+</div>
+{/exp:channel:entries}
+

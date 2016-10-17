@@ -1,0 +1,185 @@
+{embed="_assets/header" htmltitle="Recent Blogs"}
+{embed="_assets/navbar"}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});
+	var $last_container = $('.grid-last').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+			sort:'.sort parseInt'
+		}
+	});
+
+	// Random order	
+//	$container.isotope({ sortBy : 'random' });
+	$('.grid').isotope({ filter: "*" });
+
+	
+	// Filter functions
+	var filterFns = {
+		// show if number is greater than 50
+		numberGreaterThan50: function() {
+			var number = $(this).find('.number').text();
+			return parseInt( number, 10 ) > 50;
+		},
+		// show if name ends with -ium
+		ium: function() {
+			var name = $(this).find('.name').text();
+			return name.match( /ium$/ );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', '.filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+		
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+	
+	// change is-checked class on buttons
+	$('.filters-button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', '.filter-item', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+	
+	////////////
+	
+	// Load more entries when user scrolls to bottom of entries
+		var currently_lazyloading 	= 0; 			// Is window already attempting to load more entries?
+		var blog_offset 			= 20;			// Current number of Blogs and Media entries shown to skip over when loading new entries
+		var position = $("#lazyload_moreentries").offset().top;
+//		console.log("Position: " + position);
+
+		$(window).scroll(function() 
+		{
+			var scrolldepth = $(window).scrollTop() + $(window).height();
+
+			if (scrolldepth > position) 
+			{
+				if (currently_lazyloading == 0) 
+				{
+//					console.log("lazyload triggered");
+					$.get("/_component/lazyload_blogs/" + blog_offset, function(data) 
+					{		
+						var $elems = $(data);
+						$last_container.append($elems).isotope('appended', $elems);
+
+						// trigger layout
+						$last_container.isotope('layout');
+
+						position = $("#lazyload_moreentries").offset().top;
+						blog_offset += 20;
+
+						// Reset so can load more later, but if data length < 1300 reached end of entries and stop trying to load new ones
+						if (data.length > 1300) {
+							currently_lazyloading = 0;
+						}
+	//					UpdateVisibility();
+						$('.grid-item').imagesLoaded({ background: true }, function() {
+							$(".grid-last").isotope({ sortBy : 'sort' });
+						});
+					});			
+					currently_lazyloading = 1;
+				}
+			}
+		});
+		$('.grid-item').imagesLoaded({ background: true }, function() {
+			$(".grid").isotope({ sortBy : 'sort' });
+			$(".grid-section").isotope({ sortBy : 'sort' });
+		});
+
+	/////////////
+});
+</script>
+
+<div class='row row--inverted'>
+    <div class='cell well' style="margin-top:104px">
+			<h4 style='font-family: "Archer A", "Archer B", Futura, "Trebuchet MS", Arial, sans-serif;
+			font-weight:700;text-transform:none;margin-bottom:40px;text-align:center;font-size:2rem'>Recent Posts</h4>
+
+			{embed="_assets/resource_nav"}
+			
+			<div class="grid resources" style="padding-left:0;padding-right:0">
+				<?php $count=0; ?>
+				{exp:channel:entries channel="blogs" limit="20"}
+				<div class="grid-item blog 
+					<?php if($count==0){ ?> 
+						first<?php 
+					} elseif($count==0) { ?> first
+					<?php }?>" 
+					<?php if($count==0){ ?> 
+							style='width:60%' 
+					<?php }else if($count>0){ ?> 
+							style='width:30%' 
+					<?php } ?>
+					>
+					<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+					<div class='has-editorials'>
+						<?php
+						ob_start();
+						?>{blog-post}<?php
+						$obcontents = ob_get_contents();
+						ob_end_clean();
+						$img = '';
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$obcontents, $match)){
+							$img = $match[1];
+						}
+						//$size = getimagesize($img);
+						//$height = $size[1];
+						
+						?>
+						<a class="editorial editorial--sidebar editorial--spotlight" href="/blogs/{url_title}">
+							<div class='editorial-text'>
+								<img src="<?php echo $img ?>"{!--style="height:<?php echo $height.'px'; ?>"--}>
+								<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+									<h2 class='editorial-title'>{title}</h2>
+									<p class='meta-excerpt'>
+										{blog-excerpt}
+									</p>
+									<div class='meta'>
+										<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+										<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+									</div>
+								<?php if($count==1){ echo "</div>"; } ?>
+							</div>
+						</a>
+						
+					</div>
+				</div>
+				{/exp:channel:entries}
+			</div><!-- /grid resources -->
+	
+			<div class="grid-last resources" style="padding-left:0;padding-right:0">
+			</div>
+			
+			<div id="lazyload_moreentries"></div>
+	</div>
+</div>
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+
+
+
+

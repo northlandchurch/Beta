@@ -1,0 +1,230 @@
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+	if ($detect->isIphone()) {
+		//header('Location: http://northlandchurch.net/iphone'); exit();	
+	}
+?>
+
+{embed="_includes/html_open-beta"}
+
+{embed="_includes/header-beta"}
+{embed="_includes/nav"}
+
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+
+{if service_live=="true"}
+	{if "{current_time format='%m%d%Y'}" == "04062012"}
+		<div id="goodfriday-home" style="margin-bottom:20px;">
+			<div id="goodfriday-foreground">
+				<a href="/worship"><div id="goodfriday-joinworship"></div></a>
+			</div>
+			<div class="clear"></div>	
+		</div>
+	{if:else}
+		<div id="home-easter12-bg" <?php if ($detect->isIpad()) { ?> style='';<?php } ?>>
+			<div class="container_12">
+				<div class="grid_12">
+					<div class="clear"></div>
+					<div class="easter2012_logo"></div>
+					<div class="clear"></div>
+					<div class="home-easter-info">
+						<a class="live-nav-links" id="home-easter-login" href="/worship" style="margin-right:5px;"></a><p class="live-nav-text easter-text">Worship with the Northland community</p>
+						<div class="clear"></div>
+						<a class="live-nav-links" id="home-easter-mobile" href="/worship/mobile" style="margin-right:5px;"></a><p class="live-nav-text easter-text">Connect from your mobile device<br></p>
+						<div class="clear"></div>
+						<?php if (({current_time format="%G%i"} > 930) && ({current_time format="%G%i"} < 1400)) : ?>
+							<a class="live-nav-links" id="home-easter-espanol" href="/worship" style="margin-right:5px;"></a><p class="live-nav-text easter-text">En español</p>
+						<?php endif; ?>
+							<div class="clear"></div>
+						
+						<?php if (!$detect->isIpad()) { ?>
+                          	
+						<?php }else{ ?>
+							<div style="float:right;padding-top:90px; display:none">
+								<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
+				   				<video src="http://174.129.245.138:1935/live/iphonemed/playlist.m3u8" width="620" height="352" controls preload></video>
+							</div>
+							<div style="clear:both"></div>
+                          	
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>	
+		</div>
+	{/if}
+ {if:else}
+<div id="home-easter12-bg">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="clear"></div>
+			<div class="easter2012_logo"></div>
+		</div>
+	</div>
+	<div class="clear"></div>	
+</div>
+		
+
+{/if}
+</div>
+{if "{current_time format='%m%d%Y'}" == "04062012" AND service_live=="true"}
+{if:else}
+	<div id="bottom-bar-wrap">
+		<div id="easter-bottom-bar">	
+			<div class="container_12">
+				<div class="grid_12">
+					
+					<div id="easter-home-current" style="margin-top: 10px;">
+						{exp:channel:entries channel="series" limit="1" cache="yes" refresh="120" dynamic="off"}
+						<a href="/easter"><h2 style="color:#fff;text-transform:uppercase;text-shadow:1px 1px #000;">Easter Worship Services and Times</h2></a>
+					</div>
+						<img src="/_img/redletters/btm-spacer.png" style="max-height: 40px;">
+						{/exp:channel:entries}	
+						{exp:channel:entries channel="media" category="48" dynamic="off" limit="1" cache="yes" refresh="120"}	
+							<a href="/media/{url_title}"><img src="/_img/home_playbutton.png">	
+							<h2 style="color:#d03333;border-bottom:none;margin-top:10px;">
+								<a href="/media/{url_title}" style="color:#fff;font-size: 16px;text-transform:uppercase;text-shadow:1px 1px #000;">Watch Last Week's Message: {title}</a><br>
+							</h2>
+						{/exp:channel:entries}
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
+
+<div class="container_12">
+	
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-worshiponline.png" />
+		<p>
+			<strong>Saturday</strong> at 5 and 7 p.m.<br>
+			<strong>Sunday</strong> at 8 and 10 a.m., Noon and 5 p.m.<br>
+			<strong>Monday</strong> at 7 p.m.<br>
+			<em>All times Eastern Standard Time (E.S.T)</em><br><br>
+			We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a>, <a href="http://www.northlandchurch.net/locations/category/mountdora/">Mount Dora</a>, and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.
+			{if service_live=="true"}
+				<script type="text/javascript">
+				function UpdateCount(updatetime) {
+					$.get('/scripts/totalgroupsize.txt', function(data) {
+						$('#current-viewers').html('<p>' + data + '</p>');
+					});
+
+					if (updatetime) {
+						setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+					}
+				}
+
+
+				$(document).ready(function() {
+					UpdateCount(5000);
+				});
+				</script>
+				We also get together for LIVE worship online - <a href="/worship">join with the <span id="current-viewers" style="float:left;padding:0;height:10px;margin:0;text-decoration:underline;"> </span>  &nbsp; around the world</a> worshiping with us right now!</p>
+			{if:else}
+				We also get together for <a href="http://www.northlandchurch.net/locations/category/online/">LIVE worship online.</a>
+			{/if}
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-readthebible.png" />
+		<script type="text/javascript">
+		$(document).ready(function(){
+				var currtime = new Date();
+				var theHour = currtime.getHours();
+				if (theHour<11){
+					$(".rising").show();
+				}
+				if ((theHour>=11) && (theHour<17)){
+					$(".afternoon").show();
+
+				}
+				if (theHour>=17){
+					$(".night").show();
+				}
+
+				$(".liturgy-verse").hide();
+			});
+		</script>
+		{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" cache="yes" refresh="120"}
+			{if liturgy-sequence=="Morning"}
+				<p class="rising" style="display:none">
+					<strong>{title}</strong> - {current_time format="%F %j"} - Rising (Morning)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+			{if liturgy-sequence=="Midday"}
+				<p class="afternoon" style="display:none">
+					<strong>{title}</strong> - {current_time format="%F %j"} - Reconnecting (Midday)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+			{if liturgy-sequence=="Evening"}
+				<p class="night" style="display:none">
+					<strong>{title}</strong> - {current_time format="%F %j"} - Resting (Evening)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+		{/exp:channel:entries}
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-happeningnow.png" />
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="5" cache="yes" refresh="120"}
+		<p>
+			<a href="{happening-link}" title="{happening-description}"><strong>{title}</strong></a><br />
+			{happening-description}
+		</p>
+		{/exp:channel:entries}
+	</div>
+	
+</div>
+<div class="clear"></div>
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}

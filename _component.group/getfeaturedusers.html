@@ -1,0 +1,21 @@
+<?php
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+
+
+	$sql="SELECT * FROM onlineworshipheartbeat WHERE featured = '1'";	
+	$result = mysql_query($sql) or die();
+	
+	$number = mysql_num_rows($result);
+	$i = 1;
+	
+	while ($row = mysql_fetch_array($result)) {
+		echo ucwords(strtolower($row['fullname'])) . " - " . $row['location'];
+		if($i < $number) { echo "\n"; }	
+		$i++;
+	}
+?>

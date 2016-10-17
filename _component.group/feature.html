@@ -1,0 +1,13 @@
+<?php
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+		
+
+	$sql="UPDATE onlineworshipheartbeat SET featured = '1' WHERE member_id = '{last_segment}'";	
+	$result = mysql_query($sql) or die();
+?>
+{last_segment} featured

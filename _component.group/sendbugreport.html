@@ -1,0 +1,6 @@
+<script type="text/javascript" src="/_assets/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+	$.post("/scripts/bug_report.php", { page: "sendbugreport test", name: "Mike", memberid: "347900", feedback: "feedback yo", consolelog: "Sample console log" }, function(data) { alert(data); } );
+});
+</script>

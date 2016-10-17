@@ -1,0 +1,101 @@
+{embed="_includes/html_open"}
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Bookstore</h1>
+		</div>
+		<div class="clear"></div>
+	</div> 
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_4">
+		<!-- Bookstore Image Rotator Here !-->
+		<div class="clear"></div>
+		<img src="{site_url}/_img/bookstore_mini.jpg"><br><br>
+		{exp:channel:entries channel="bookstore-info" limit="1" entry_id="21653"}
+			{bookstore-info}
+		{/exp:channel:entries}
+	</div>
+	<div class="grid_5">
+		<h3>Recent Blog Entries</h3>
+		{exp:channel:entries channel="blogs" category="349" limit="5" offset="0"}
+		<div class="blog-post">
+			<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">{title}</a></h2>
+			<p class="info">
+				Posted {entry_date format="%F %j, %Y"} &nbsp;|&nbsp;
+				Written by: {if blog-author}{blog-author}{if:else}{author}{/if} 
+				<?php $show_tweet=1; ?>{categories}<?php if ("{category_id}"==70){ $show_tweet=0; } ?>{/categories}
+				<?php if ($show_tweet==1){ ?>
+					{exp:shortntweet title='{title}' url='{title_permalink=blogs}'}{/exp:shortntweet}
+				<?php } ?>
+			</p>
+			<?php
+			ob_start();
+			?>{blog-post}<?php
+			$test = ob_get_contents();
+			ob_end_clean();
+			
+			$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+			if(preg_match($pattern,	$test, $match)){
+				echo '<img class="preview" src='.$match[1].'>';
+			}
+			?>
+			<p>{exp:strip_html keep='a'}{exp:trunchtml chars="300" inline="..."}{blog-post}{/exp:trunchtml}{/exp:strip_html}  <a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>Read more.</strong></a></p>
+			<div class="clear"></div>
+		</div>
+
+
+		{paginate}
+		{if "{total_pages}" != 1}
+		<p id="pagination">Page {current_page} of {total_pages} pages {exp:low_replace find='index.php/'}{pagination_links}{/exp:low_replace}</p>
+		{/if}
+		{/paginate}
+
+		{/exp:channel:entries}
+	</div>
+	<!--<div id="aside2" class="grid_3">
+		<div class="top"></div>
+		<div class="mid">
+			<img src="{site_url}/_img/livechat_ico.png" align="left"> LIVE CHAT
+		</div>
+		<div class="btm"></div>
+		<div class="clear"></div>
+			<br />
+	-->
+		<div class="top"></div>
+		<div class="mid">
+			<h5>CLICK TO ORDER NOW</h5>
+			<p class="border-btm marg-b-20">
+				<a href="/crazy"><img src="{image-asset-url}/book4.jpg" class="left2" /></a>
+				Compact and compelling, <em>I Don’t Do Crazy Anymore</em> brings into focus the picture of who God really is and gives readers a deeper understanding of why He allows difficult people and circumstances into our lives, along with practical advice on how to deal with it all.
+			</p>
+			<p class="border-btm marg-b-20">
+				<a href="http://www.innerstate80.com"><img src="{image-asset-url}/book3.jpg" class="left2" /></a>
+				<em>Inner State 80</em> is a collection of inspirational readings by Dr. Joel C. Hunter. The book was developed from a ten-year preaching series designed to help people along on the journey toward spiritual maturity. 
+			</p>
+			<p class="border-btm marg-b-20">
+				<a href="http://www.amazon.com/New-Kind-Conservative-Joel-Hunter/dp/0830745335/ref=pd_bbs_sr_1?ie=UTF8&amp;s=books&amp;qid=1233759423&amp;sr=8-1"><img src="{image-asset-url}/book1.jpg" class="left2" /></a>
+				With <em>A New Kind of Conservative</em>, Dr. Hunter takes a provocative look at how faith and politics have interacted in America, giving civic-minded people a balanced and biblically-based approach to political involvement.
+			</p>
+			<p class="border-btm marg-b-0">
+				<a href="http://www.amazon.com/Church-Distributed-Joel-C-Hunter/dp/1604026472/ref=pd_bbs_3?ie=UTF8&amp;s=books&amp;qid=1233759423&amp;sr=8-3"><img src="{image-asset-url}/book2.jpg" class="left2" /></a>
+				What is the church distributed? It's a way to make the most of our differences, connecting individuals and organizations together for long-term support and effectiveness without trying to blur our distinctions.
+			</p>
+
+		</div>
+		<div class="btm"></div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

@@ -1,0 +1,41 @@
+{if logged_in && segment_3 && segment_4}
+<?php
+
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+	
+		$sql = "SELECT channel_id, field_id_501, field_id_504, field_id_507, field_id_510, field_id_513, field_id_514 FROM exp_channel_data WHERE entry_id={segment_3}";
+		$result = mysql_query($sql) or die(mysql_error());
+		
+		while ($row = mysql_fetch_array($result)) {
+			$channel = $row['channel_id'];
+			$total_need = (int)$row['field_id_501'] + (int)$row['field_id_504'] + (int)$row['field_id_507'] + (int)$row['field_id_510'] + (int)$row['field_id_513'];
+			$current_amount_received = $row['field_id_514'];
+			//$current_num_contributors = $row['field_id_515'];
+		}
+		
+		if ($channel == 116) {
+			$additional_amount = {segment_4};
+			if (is_numeric($additional_amount)) {
+				$total_amount = $current_amount_received + $additional_amount;
+				//$total_num_contributors = $current_num_contributors + 1;
+				
+				if ($total_amount >= $total_need) {
+					$sql = "UPDATE exp_channel_titles SET status = 'NeedsMet' WHERE channel_id='116' AND entry_id='{segment_3}'";
+					$result = mysql_query($sql) or die(mysql_error());
+				}
+			
+				$sql = "UPDATE exp_channel_data SET field_id_514 = " . $total_amount . " WHERE entry_id={segment_3}";
+				$result = mysql_query($sql) or die(mysql_error());
+				
+				echo $total_amount;
+			}
+		}
+		
+		else { echo "Fail"; }
+?>
+{/if}

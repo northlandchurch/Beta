@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:title" content="Northland Online Worship" />
+<meta property="og:type" content="video.other" />
+<meta property="og:description" content="Live online worship services on Saturday at 5pm, Sunday at 9am, 11am, 5pm, and Monday at 7pm." />
+{exp:channel:entries channel="series" limit="1" cache="yes" refresh="120"}
+<meta property="og:image" content="http://www.northlandchurch.net/_assets/img/v2/series/{series-image}" />
+{/exp:channel:entries}
+
+<meta http-equiv="X-UA-Compatible" content="IE=8" /> 
+<link rel="shortcut icon" href="/_img/favicon.png" />
+<title>{if embed:htmltitle != ''}{embed:htmltitle}{/if}{if embed:htmltitle == ''}Northland, A Church Distributed{/if}</title>
+<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/fancybox.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/bx-slider.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/main.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/datepicker.css" />
+<link type="text/css" href="/_assets/css/jixedbar/jx.stylesheet.css" rel="stylesheet" />
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.flow.1.2.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.validate.pack.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.cookies.2.2.0.min.js"></script>
+<script type="text/javascript" src="/_assets/js/yepnope.1.5.4-min.js"></script>
+
+<script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript" src="/_assets/js/swfobject.js"></script>
+<script type="text/javascript" src="/_assets/js/lazyload.js"></script>
+<script type="text/javascript" src="/_assets/js/fancybox.js"></script>
+
+<script type="text/javascript" src="/_assets/js/bx-slider.js"></script>
+
+<script type="text/javascript" src="/_assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+
+<script type="text/javascript" src="/_assets/js/nacd-global.js"></script>
+<script type="text/javascript" src="/_assets/js/nacd-registration.js"></script>
+{if embed:videometa !=''}{embed:videometa}{/if}
+
+
+
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+
+</head>
+
+<body>	

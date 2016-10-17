@@ -1,0 +1,10 @@
+{embed="responsive/html_open" htmltitle="Northland Groups and Ministries"}
+{embed="responsive/header"}
+{embed="responsive/nav" {if segment_2 == 'mvb'}active="about"{if:else}active="getinvolved"{/if}}
+
+<?php
+	echo file_get_contents("http://localhost/_component/groups_ministries");
+?>
+
+{embed="responsive/footer"}
+{embed="responsive/html_close"}

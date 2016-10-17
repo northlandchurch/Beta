@@ -1,0 +1,983 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<link rel="shorcut icon" href="/_img/favicon.png" />
+<title>Northland, A Church Distributed</title>
+<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/fancybox.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/bx-slider.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/index.php/_includes/main/" />
+<link rel="stylesheet" type="text/css" media="all" href="/index.php/_includes/datepicker/" />
+<link type="text/css" href="/_assets/css/jixedbar/jx.stylesheet.css" rel="stylesheet" />
+
+<script type="text/javascript" src="/_assets/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.flow.1.2.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.validate.pack.js"></script>
+
+<script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript" src="/_assets/js/swfobject.js"></script>
+<script type="text/javascript" src="/_assets/js/lazyload.js"></script>
+<script type="text/javascript" src="/_assets/js/fancybox.js"></script>
+
+<script type="text/javascript" src="/_assets/js/bx-slider.js"></script>
+
+<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+<script type="text/javascript" src="/_assets/js/ui.js"></script>
+
+</head>
+
+<body>	
+
+
+
+
+
+	
+<script type="text/javascript">
+$(function() {
+	var COOKIE_NAME = 'nacd-sitelocation';
+	var options = { path: '/', expires: +604800 };
+	$('a#longwood').click(function() {
+		$.cookie('nacd-sitelocation', 'Longwood', options);
+		return false;
+	});
+
+	$('a#mountdora').click(function() {
+		$.cookie('nacd-sitelocation', 'Mount Dora', options);
+		return false;
+	});
+	
+	$('a#westoaks').click(function() {
+		$.cookie('nacd-sitelocation', 'West Oaks', options);
+		return false;
+	});
+
+	$('a#oviedo').click(function() {
+		$.cookie('nacd-sitelocation', 'Oviedo', options);
+		return false;
+	});
+
+	$('a#online').click(function() {
+		$.cookie('nacd-sitelocation', 'Online', options);
+		return false;
+	});
+
+	// delete cookie
+	$('a#nolocation').click(function() {
+		$.cookie('nacd-sitelocation', null, options);
+		return false;
+	});
+	$('a.site').click(function(){
+			if ($.cookie('nacd-sitelocation')==null){location.reload();}else if ($.cookie('nacd-sitelocation')=="Mount Dora"){location.href="/locations/category/mountdora";}else if ($.cookie('nacd-sitelocation')=="West Oaks"){location.href="/locations/category/westoaks";}else{location.href="/locations/category/"+$.cookie('nacd-sitelocation');}
+
+	});
+	
+});
+
+ 
+	function setInnerHTML(divID, response){
+		var el = (document.getElementById) ? document.getElementById(divID) : document.all[divID];
+		if(el) { el.innerHTML = response; }
+	}
+	$("#logout").click(function(){
+		$.ajax({
+	  		
+		  	url: "http://www.northlandchurch.net/index.php?ACT=10",
+		  	success: function(){
+		  		alert("Peace out!");
+			}
+		});
+	})
+
+	$(function() {
+		$( ".accordion" ).accordion({
+			autoHeight: false,
+			navigation: false
+		});
+	});
+</script>
+
+
+
+<div id="header" class="container_12">
+	<a href="http://www.northlandchurch.net/main/"><img src="http://www.northlandchurch.net/_assets/img/v2/main/logo.png" class="logo" /></a>
+	
+	<div id="header-content">
+		<div id="meta-links">
+			<!--<div id="mylocation" class="choose-location">
+											<p>You can focus on your site if you want to get involved in your community. Select your location: 
+				<a href="http://www.northlandchurch.net/locations/category/longwood/" id="longwood" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Longwood</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/mountdora/" id="mountdora" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Mount Dora</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="online" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Online</a> or 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="oviedo" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Oviedo</a>.</p>
+			 
+			</div>-->
+			<div>
+				<script type="text/javascript">
+				$(document).ready(function() {
+				
+					$(".user-login, .login").fancybox({
+						'hideOnContentClick': true,
+						'width': 492,
+						'autoDimensions': true,
+						'padding': 0,
+						'scrolling': 'no',
+						'hideOnOverlayClick': true,
+						'hideOnContentClick': false,
+						'overlayOpacity': 0.9,
+						'overlayColor': '#10202b',
+						'transitionIn': 'fade',
+						'transitionOut': 'fade'
+					});
+				});			
+				</script>
+									<!--<p id="logged-in">Logged in as <strong>Nathan Clark</strong>  - <a href="http://www.northlandchurch.net/index.php?ACT=10">Log Out</a></p>-->
+								<a href="http://insite.northlandchurch.net/insitegiving/giving.do">Tithes &amp; Offerings</a>
+				
+			<div style="display: none">
+					<div id="user-login-box">
+						<h1>Login Below</h1>
+						<div id="login-divider"></div>
+						
+						<form method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="9" />
+<input type="hidden" name="RET" value="-2" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+							<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+							<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+							<div class="clear"></div>
+							<input type="submit" id="login-submit" name="submit" value="Login" />
+							<div id="login-forgot">
+								<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px" /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+								<p><a href="http://www.northlandchurch.net/index.php/prelaunchmain/forgot_password/">Forgot Your Username or Password?</a></p>
+							</div>	
+						</form>
+						
+						<div class="clear"></div>
+						
+						<div id="login-register">
+							<div id="login-icon"></div>
+							<p>Don't have an Account? <a href="/register">Sign up here!</a> </p>
+						</div>
+					</div>
+				</div>
+				
+				<div style="display: none">
+					<div id="testee-box">
+						<h1>Login Below</h1>
+						<div id="login-divider"></div>
+						
+						<form method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="9" />
+<input type="hidden" name="RET" value="-2" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+							<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+							<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+							<div class="clear"></div>
+							<input type="submit" id="login-submit" name="submit" value="Login" />
+							<div id="login-forgot">
+								<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px" /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+								<p><a href="http://www.northlandchurch.net/index.php/prelaunchmain/forgot_password/">Forgot Your Username or Password?</a></p>
+							</div>	
+						</form>
+						
+						<div class="clear"></div>
+						
+						<div id="login-register">
+							<div id="login-icon"></div>
+							<p>Don't have an Account? <a href="/register">Sign up here!</a> </p>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div style="display: none">
+						
+					
+						<div id="login-register-box">
+							
+							<div class="accordion">	
+								<h1><a href="#section1">Sign In</a></h1>
+									
+								<div id="feature-login">
+									
+									<div id="login-divider"></div>
+									<p class="marg-b-20">You must be logged in to use this feature. Have no fear! Signing in will not erase what you were working on.</p>
+									
+									<form method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="9" />
+<input type="hidden" name="RET" value="-2" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+										<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+										<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+										<div class="clear"></div>
+										<input type="submit" id="login-submit" name="submit" value="Login" />
+										<div id="login-forgot">
+											<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px" /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+											<!--<p><a href="http://www.northlandchurch.net/index.php/prelaunchmain/forgot_password/">Forgot Your Username or Password?</a></p>-->
+										</div>	
+									</form>
+									<div class="clear marg-b-20" ></div>
+								</div>	
+								
+								
+								<h1 class="pad-b-10"><a href="#section2">Create a New Account <br /><span>Have no fear! Logging in or creating a new account will not erase what you were working on.</span></a></h1>
+								<div id="feature-register">
+								
+									
+									
+									<div id="login-divider"></div>
+							
+									<form id="member_form" method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="98" />
+<input type="hidden" name="RET" value="http://www.northlandchurch.net/index.php/prelaunchmain/register_success" />
+<input type="hidden" name="params_id" value="XBIDkEGROnNRjpIPKnXGzFibS" />
+<input type="hidden" name="error_page" value="prelaunchinc/error_template" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+									
+										<div class="label_padding">
+											<label class="field" for="username">Username:</label> 
+											<input class="field" type="text" name="username" id="username" />
+											
+											<label class="field" for="screen_name">Screen Name:</label> 
+											<input class="field" type="text" name="screen_name" id="screen_name" />
+											
+											<label class="field" for="email">Email Address:</label> 
+											<input class="field" type="text" name="email" id="email" />
+											
+											<label class="field" for="password">Password:</label> 
+											<input class="field" type="password" name="password" id="password" />
+											
+											<label class="field" for="password_confirm">Confirm Password:</label> 
+											<input class="field" type="password" name="password_confirm" id="password_confirm" />
+										</div> 
+										
+																				
+										<div class="clear"></div>
+										
+										<!--><p><input type="checkbox" name="accept_terms" id="accept_terms" value="y" /> <label for="accept_terms">Accept Terms?</label></p>-->
+										
+										<p><input id="submit-register" type="submit" name="submit" value="Register" /></p>
+										
+																				<div class="clear pad-b-20"></div>
+									</form>
+							
+							
+									<div class="clear"></div>
+								
+								</div>	
+							</div>
+						</div>
+				</div>
+			
+			</div>	
+			
+		</div>
+		
+		
+							<div id="btn-live-worship">
+					<a href="http://insite.northlandchurch.net/insiteworship/worship.do"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/live-worship.png" /></a>
+				</div>
+						
+	</div>
+	
+</div>
+
+
+<script type="text/javascript">
+$(function() {
+       var zIndexNumber = 1000;
+       // Put your target element(s) in the selector below!
+       $(".nav-hover").each(function() {
+               $(this).css('zIndex', zIndexNumber);
+               zIndexNumber -= 10;
+       });
+});
+</script>
+
+<script type="text/javascript" language="Javascript">
+$(document).ready(function() {	
+	var $menu = $('div.nav-hover');
+	var $open = $('#nav-main li');
+	//create an emtpy object to keep track of the timeouts
+	var menuTimeouts = {};
+	//hide all of the menus
+	$menu.hide();
+	//hide all of the menus
+	$open.each(function() {
+		$(this).mouseenter(function() {
+			$menu.hide();
+			$('#' + this.id + ' .nav-hover').fadeIn('fast');
+			$('#' + this.id + ' .nav-hover').css('zIndex', '99999');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '-135px');
+		});
+		$(this).mouseleave(function() {
+			$('#' + this.id + ' .nav-hover').fadeOut('fast');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '0px');
+		});
+	});
+});
+</script>
+
+
+
+<div id="nav" class="container_12">
+	<div>
+		<div id="social">
+			<a href="http://www.facebook.com/northlandchurch"><img src="http://www.northlandchurch.net/_assets/img/v2/nav/facebook.png" /></a>
+			<a href="http://twitter.com/northlandchurch"><img src="http://www.northlandchurch.net/_assets/img/v2/nav/twitter.png" /></a>
+		</div>
+		<div id="search">
+			<form id="sitesearch" method="get" action="/search/results/">
+
+				<input 	onfocus="if (this.value === 'Search...') {this.value =''}" 
+						onblur="if (this.value === '') {this.value ='Search...'}"
+						type="text" name="q" id="keywords" value="Search...">
+
+			</form>
+		</div>
+		<ul id="nav-main">
+			<li id="bethechurch">
+				<a href="/respond" class="nav-main">Respond to God</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/bethechurch-header.png" class="marg-b-20" />
+						<div class="vert-line">
+							<div class="left-box">
+							<p>When we come to God, it is because we are responding to His voice. It is God who initiates; God who calls; God who saves. When we truly see Him for Who He is, we are compelled to worship HIm, to respond to HIs nature. When we respond, others are blessed. When we are the church, we respond to God for the benefit of others.</p> 
+							</div>
+							<div class="right-box">
+								<div><a href="/respond/worshipgod/">Worship God</a></div>
+								<div><a href="/respond/readthebible/">Read the Bible</a></div>
+								<div><a href="/respond/shareyourstory/">Share Your Story</a></div>
+								<div><a href="/respond/beincommunity/">Be in Community</a></div>
+								<div><a href="/respond/pray/">Pray</a></div>
+								<div><a href="/respond/serveothers/">Serve Others</a></div>
+								<div><a href="/respond/livegenerously/">Live Generously</a></div>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="getinvolved">
+				<a href="/get_involved/" class="nav-main">Get Involved</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/getinvolved-header.png" class="marg-b-20" />
+						<div class="vert-line">
+							<div class="left-box">
+								<p>The last thing Jesus did on Earth was entrust the church into the hands of regular people. Keep the tradition alive, get involved and be the church.</p>
+								<br />
+								<div id="mylocation" class="choose-location">
+																<p>You can focus on your site if you want to get involved in your community. Select your location: 
+				<a href="http://www.northlandchurch.net/locations/category/longwood/" id="longwood" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Longwood</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/mountdora/" id="mountdora" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Mount Dora</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="online" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Online</a> or 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="oviedo" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Oviedo</a>.</p>
+			 
+								</div>
+							</div>
+							<div class="right-box">
+								<div><a href="/classes/">Classes</a></div>
+								<!--<div><a href="/ministries/">Ministries</a></div>-->
+								<div><a href="/locations/">Locations</a></div>
+								<div><a href="/housechurch/">House Churches</a></div>
+								<div><a href="/serve/">Serving Opportunities</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="resources">
+				<a href="/resources/" class="nav-main">Resources</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/resources-header.png" class="marg-b-20" />
+						<div class="vert-line">
+							<div class="left-box">
+								<strong>Latest Series</strong>
+								
+								<p>
+									<a href="http://www.northlandchurch.net/series/money"><img src="/_assets/img/v2/series/money.jpg" class="preview left" /></a>
+									<a href="http://www.northlandchurch.net/series/money"><strong>Money</strong></a><br />
+									<em>January 31, 2011</em>
+								</p>
+								
+							</div>
+							<div class="right-box">
+								<div><a href="/blogs/">Blogs</a></div>
+								<div><a href ="/articles/">Articles</a></div>
+								<div>
+									
+									<a href="http://www.northlandchurch.net/newspaper/week_13_march_26_to_april_2">Latest Newspaper</a><br />
+									<em>Week 13: March 26 to April 2</em>
+									
+								</div>
+								<div><a href="/series/category/featured/">Studies &amp; Series</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="media">
+				<a href="/media/" class="nav-main">Media</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/media-header.png" class="marg-b-20" />
+						<div class="vert-line">
+							<div class="left-box">
+								
+								<p class="marg-b-20">
+									<a href="http://www.northlandchurch.net/media/the_camouflaged_sin"><img src="/_img/uploads/money_thumb.jpg" class="preview left" /></a>									<a href="http://www.northlandchurch.net/media/the_camouflaged_sin"><strong>The Camouflaged Sin</strong></a><br />
+									<em>March 20, 2011</em>
+								</p>
+								
+								<p >
+									<a href="http://www.northlandchurch.net/media/peace_in_the_face_of_cancer"><img src="/_img/uploads/dowhy-small.jpg" class="preview left" /></a>									<a href="http://www.northlandchurch.net/media/peace_in_the_face_of_cancer"><strong>Peace in the Face of Cancer</strong></a><br />
+									<em>March 20, 2011</em>
+								</p>
+								
+							</div>
+							<div class="right-box">
+								<p class="marg-b-10">The Media player is a helpful resource to help connect you to Christ through previous worship services, classes and stories. Missed last weeks sermon? Heard about an online class? It's available here.</p>
+								<a href="/media/"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/more-media.png" /></a>
+								<img src="http://www.northlandchurch.net/_assets/img/v2/main/divider.png" class="divider" />
+								<!--<div>Resource Well (outbound link)</div>-->
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="calendar">
+				<a href="/calendar/" class="nav-main">Calendar</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/calendar.png" class="marg-b-20" />
+						<div class="vert-line">
+							<div class="left-box">
+							<table id="calendar-nav">
+<tr class="month"><td colspan="7">March 2011</td></tr><tr class="days"><td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td></tr><tr class="week"><td><a href='http://www.northlandchurch.net/calendar/2011/03/'></a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/'></a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/1'>1</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/2'>2</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/3'>3</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/4'>4</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/5'>5</a></td></tr><tr class="week"><td><a href='http://www.northlandchurch.net/calendar/2011/03/6'>6</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/7'>7</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/8'>8</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/9'>9</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/10'>10</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/11'>11</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/12'>12</a></td></tr><tr class="week"><td><a href='http://www.northlandchurch.net/calendar/2011/03/13'>13</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/14'>14</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/15'>15</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/16'>16</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/17'>17</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/18'>18</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/19'>19</a></td></tr><tr class="week"><td><a href='http://www.northlandchurch.net/calendar/2011/03/20'>20</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/21'>21</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/22'>22</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/23'>23</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/24'>24</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/25'>25</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/26'>26</a></td></tr><tr class="week"><td><a href='http://www.northlandchurch.net/calendar/2011/03/27'>27</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/28'>28</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/29'>29</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/30'>30</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/31'>31</a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/'></a></td><td><a href='http://www.northlandchurch.net/calendar/2011/03/'></a></td></tr></table>
+
+<p class="meta">Click on a date above to see what's happening.</p>
+							</div>
+							<div class="right-box">
+								
+							<a href="/calendar/"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/more-events.png" /></a>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="about">
+				<a href="/main/about/" class="nav-main">About</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/about-header.png" class="marg-b-20" />
+						<div><a href="/main/about/">General Info</a></div>
+						<div><a href="/staff/dr._joel_c._hunter/">Senior Pastor Joel Hunter</a></div>
+						<div><a href="/staff/">Staff & Elders</a></div>
+						<div><a href="/partners">Partners</a></div>
+						<div><a href="/faq/">FAQs</a></div>
+						<div><a href="/articles/mvb/">Mission / Vision / Belief</a></div>
+						<div><a href="/main/employment/">Employment</a></div>
+					</div>
+				</div>
+			</li>
+			<div id="nav-divider"></div>
+			<li id="newtonorthland">
+				<a href="/new/" class="nav-main">New to Northland</a>
+				<div class="nav-hover">
+					<div class="inner">
+						<img src="http://www.northlandchurch.net/_assets/img/v2/nav/sub/new-header.png" class="marg-b-20" />
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-1.png" class="left" />
+							<a href="/new/">Click here</a> to access important content for those who are new to Northland.
+						</p>
+						<img src="http://www.northlandchurch.net/_assets/img/v2/main/divider.png" class="divider" />
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-2.png" class="left" />
+							<a href="/main/about/">Click here</a> to read more about Northland, A Church Distributed and learn about what we believe.
+						</p>
+						<img src="http://www.northlandchurch.net/_assets/img/v2/main/divider.png" class="divider" />
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-3.png" class="left" />
+							<a href="/locations/">Find a location</a> near you and get connected! We have many sites including <a href="/locations/category/online/">worship available live online!</a>
+						</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="nav-shadow"></div>
+
+<script type="text/javascript">
+var liveService = "FALSE";
+
+$(document).ready(function(){
+	$("#home-worship-vid, #live-stream").click(function(){
+		swfobject.embedSWF(player, "home-vid", "620","367", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+	});
+	
+});
+</script>
+
+
+
+
+		<div id="home-bg-long-test"  >
+	
+	<div class="container_12">
+		<div id="home-live-vid">
+			
+							<script type="text/javascript">	
+				var liveService = "TRUE";
+					var flashvars_home = {swfLocation:"http://www.northlandchurch.net/_flash/",
+						page:location.href,
+						file:"http://hwcdn.net/r3c3x6t9/fls/308344-nacd_basic2.smil",
+						titleLabel:'MONEY AS CAPTIVATING',
+						title:'Thanks A Million',
+
+						type:'highwinds',
+						autostart:'true',
+						stretching:'exactfit',
+						image:'/_img/uploads/money.jpg',
+
+						plugins:'gapro-1',
+						'gapro.accountid':'UA-966214-1',
+						'gapro.trackstarts':'true',
+						'gapro.trackpercentage':'true',
+						'gapro.tracktime':'true',
+						subtitle:'Dr. Joel C. Hunter'};
+				</script>
+						
+					
+						<script type="text/javascript">	
+							if (liveService!="TRUE"){
+							var flashvars_home = {swfLocation:"http://www.northlandchurch.net/_flash/",
+								page:location.href,
+								file:"http://hwcdn.net/r3c3x6t9/fms/service/110323_service_stream.mp4",
+								titleLabel:'MONEY AS CAPTIVATING',
+								title:'Thanks A Million',
+								type:'highwinds',
+								autostart:'true',
+								stretching:'exactfit',
+								image:'/_img/uploads/money.jpg',
+		
+								plugins:'gapro-1',
+								'gapro.accountid':'UA-966214-1',
+								'gapro.trackstarts':'true',
+								'gapro.trackpercentage':'true',
+								'gapro.tracktime':'true',
+								subtitle:'Dr. Joel C. Hunter'};
+							}
+							var params_home = {allowscriptaccess:"always",allowfullscreen:"true"};
+							var attributes_home = {id:'flashObject_home', name:'flashObject',bgcolor:'0x000000'};
+							var player="http://www.northlandchurch.net/_flash/player.swf"
+								
+							</script>
+							
+				
+		
+						
+						<div id="video-player">
+							<div id="home-vid"></div>
+						</div>
+					</div>
+		
+		
+		
+		
+		
+		<div id="home-live-options">
+			<div id="money-live-title"></div>
+			<h1>Worship is LIVE</h1>
+		   					
+				<div class="clear marg-b-10"></div>
+				
+				<a href="http://insite.northlandchurch.net/insiteworship/worship.do"><img src="/_assets/img/v2/home/money/login.png" /></a>
+				<p>Login to worship with the Northland community</p>
+				<div class="clear"></div>
+				<a href="/video-only"><img id="live-stream" src="/_assets/img/v2/home/money/video-only.png" /></a>
+				<p>View the video-only stream</p>
+				<div class="clear"></div>
+				<a href="http://apps.facebook.com/northlandchurch/"><img src="/_assets/img/v2/home/money/facebook.png" /></a>
+				<p>Connect with Facebook friends in our worship app</p>
+				<div class="clear"></div>
+				<a href="http://www.northlandchurch.net/iphone"><img src="/_assets/img/v2/home/money/mobile.png" /></a>
+				<p>Connect from your mobile device <br /><span><em>(iPhone, Blackberry, Android)</em></span></p>
+				<div class="clear"></div>
+				<a href="http://www.northlandchurch.net/espanol"><img src="/_assets/img/v2/home/money/espanol.png" /></a>
+				<p>En español</p>
+					</div>
+		
+		<div id="home-live-right"></div>
+		
+		
+	</div>
+	
+	
+
+</div>
+
+<!--<div class="container_12">	
+	
+	<div id="home-bottom">	
+		<div class="grid_4">
+			<p><span> ABOUT THE SERIES</span></p>
+			<div class="last-week-box">
+				<p>There are all kinds of appetites and habits that falsely govern our lives, and it’s time to be set free. <br /><a href="/series/freedom_begins_with_christ/">Explore this series</a></p>
+			</div>
+		</div>
+		
+		<div class="grid_4">
+			<p><span>LAST WEEK'S MESSAGE</span></p>
+			<div class="last-week-box">
+				
+					<a href="http://www.northlandchurch.net/media/category/worship_service/"><img src="/_img/uploads/freedom.jpg"></a>
+				
+						
+					<p><a href="http://www.northlandchurch.net/media/category/worship_service/">The Camouflaged Sin</a><br />
+					<span class="home-info">Dr. Joel C. Hunter</span><br></p><br>
+				
+			</div>	
+		</div>-->
+		
+		<!--<div id="christmas-schedule">
+			<p><span>CHRISTMAS EVE VIDEO</span></p>
+			<div class="last-week-box">
+					<a href="http://www.northlandchurch.net/media/the_actual_reality/"><img src="http://www.northlandchurch.net/_assets/img/v2/home/advent/christmas-schedule.jpg"></a>
+					<p><a href="http://www.northlandchurch.net/media/the_actual_reality/">Click here to watch our Christmas Eve worship service</a><br />
+			</div>	
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+</div>	-->
+
+
+
+
+<div class="container_12">
+
+	
+
+	<div class="grid_4 question">
+		<img src="http://www.northlandchurch.net/_assets/img/v2/home/hdr-worshiponline.png" />
+		<p>We gather for worship Saturdays at 5 p.m., Sundays at 9 a.m., 11 a.m. &amp; 6 p.m. and Mondays at 7 p.m. (EDT). We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a>, <a href="http://www.northlandchurch.net/locations/category/mountdora/">Mount Dora</a>, <a href="http://www.northlandchurch.net/locations/category/westoaks">West Oaks</a> and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.</p>
+		<p><a href="http://www.northlandchurch.net/locations/category/online/">We also get together for LIVE worship online.</a></p>
+	</div>
+
+	<div class="grid_4 question">
+		<img src="http://www.northlandchurch.net/_assets/img/v2/home/hdr-getconnected.png" />
+		<p>There are countless ways to connect with others at Northland. Here are some great places to start:</p>
+		<p>
+			<a href="http://www.northlandchurch.net/classes/">Take a class</a>.<br />
+			<a href="http://www.northlandchurch.net/serve/northland/">Serve at Northland</a>.<br />
+			<a href="http://www.northlandchurch.net/serve/local">Serve in the community</a>.
+		</p>
+	</div>
+
+	<div class="grid_4 question">
+		<img src="http://www.northlandchurch.net/_assets/img/v2/home/hdr-happeningnow.png" />
+		
+		<p>
+			<a href="http://www.northlandchurch.net/calendar/details/local_serve_day1/" title=""><strong>Local Serve Day — April 16</strong></a><br />
+			
+		</p>
+		
+		<p>
+			<a href="http://www.northlandchurch.net/calendar/details/easter_worship_2011/" title=""><strong>Easter Worship 2011</strong></a><br />
+			
+		</p>
+		
+		<p>
+			<a href="http://www.northlandchurch.net/fpu/" title=""><strong>FINANCIAL PEACE UNIVERSITY</strong></a><br />
+			
+		</p>
+		
+	</div>
+</div>
+<div class="clear"></div>
+
+<div id="light-divider" class="container_12"></div>
+
+<div id="adboxes">
+	<ul id="adboxes-controller" style="display: none;">
+		
+		<li class="adboxes-control">item</li>
+		
+		
+		
+		
+		
+	</ul>
+
+	<!--<div class="adboxes-arrow-left"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/arrow-blue-left.png" class="adboxes-prev" /></div>
+	<div class="adboxes-arrow-right"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/arrow-blue-right.png" class="adboxes-next" /></div>-->
+	
+	<div class="clear"></div>
+	
+	<div id="adboxes-slider">
+		
+		<div class="slide"><a href="http://www.facebook.com/northlandchurch" title="Facebook"><img src="http://www.northlandchurch.net/_img//boxes/facebook.jpg" height="120px" width="220px" alt="Facebook" /></a>
+		
+		<a href="http://www.northlandchurch.net/ministries/local_serving/" title="Serve Locally"><img src="http://www.northlandchurch.net/_img//boxes/box-servelocal.jpg" height="120px" width="220px" alt="Serve Locally" /></a>
+		
+		<a href="http://www.northlandchurch.net/series/belong_study/" title="Belong Study"><img src="http://www.northlandchurch.net/_img//boxes/box-belong.jpg" height="120px" width="220px" alt="Belong Study" /></a>
+		
+	</div>
+</div>
+
+
+<?php 
+$siteSet="none";
+if (isset($_COOKIE["nacd-sitelocation"])){
+	$siteSet = $_COOKIE["nacd-sitelocation"];
+}
+if ($siteSet!="none"){
+	if ($_COOKIE['nacd-sitelocation']=="Mount Dora"){$list=file_get_contents('http://nacddev2.northlandchurch.net/index.php/_component/thelatest/category/mountdora');}else if ($_COOKIE['nacd-sitelocation']=="West Oaks"){$list=file_get_contents('http://nacddev2.northlandchurch.net/index.php/_component/thelatest/category/westoaks');}else{$list=file_get_contents('http://nacddev2.northlandchurch.net/index.php/_component/thelatest/category/'.$siteSet);}
+}else{$list=file_get_contents('http://nacddev2.northlandchurch.net/index.php/_component/thelatest/');}
+echo $list; ?>
+
+
+
+<div id="thelatest" class="container_12">
+	<div class="grid_4">
+		<h5> Blogs</h5>
+		<ul id="blog-list">
+		
+			<li>
+				<a href="http://www.northlandchurch.net/blogs/a_short_walk_can_make_a_huge_difference"><strong>A Short Walk Can Make A Huge Difference</strong></a><br />
+				<span class="info">March 25, 2011</span>
+			</li>
+		
+			<li>
+				<a href="http://www.northlandchurch.net/blogs/restore_me_to_sanity"><strong>Restore Me to Sanity?</strong></a><br />
+				<span class="info">March 25, 2011</span>
+			</li>
+		
+			<li>
+				<a href="http://www.northlandchurch.net/blogs/volunteers_needed_for_joy_prom"><strong>Volunteers Needed for Joy Prom</strong></a><br />
+				<span class="info">March 23, 2011</span>
+			</li>
+		
+			<li class="more"><a href="/blogs/">View more Blogs</a></li>
+	</div>
+
+	<div class="grid_4">
+		<h5> Media</h5>
+		<ul id="media-list">
+		
+			<li>
+				<a href="http://www.northlandchurch.net/media/the_camouflaged_sin"><img src="/_img/uploads/money_thumb.jpg" /></a>				<a href="http://www.northlandchurch.net/media/the_camouflaged_sin"><strong>The Camouflaged Sin</strong></a><br />
+				<span class="info">March 20, 2011</span>
+				<div class="clear"></div>
+			</li>
+		
+			<li>
+				<a href="http://www.northlandchurch.net/media/peace_in_the_face_of_cancer"><img src="/_img/uploads/dowhy-small.jpg" /></a>				<a href="http://www.northlandchurch.net/media/peace_in_the_face_of_cancer"><strong>Peace in the Face of Cancer</strong></a><br />
+				<span class="info">March 20, 2011</span>
+				<div class="clear"></div>
+			</li>
+		
+			<li>
+				<a href="http://www.northlandchurch.net/media/crown_him_with_many_crowns"><img src="/_img/uploads/crown-him-many-crowns-small.jpg" /></a>				<a href="http://www.northlandchurch.net/media/crown_him_with_many_crowns"><strong>Crown Him With Many Crowns</strong></a><br />
+				<span class="info">March 13, 2011</span>
+				<div class="clear"></div>
+			</li>
+		
+			<li class="more"><a href="/media/">View more Media</a></li>
+		</ul>
+	</div>
+
+	<div class="grid_4">
+		<h5> Events</h5>
+		<ul id="calendar-list">
+			
+		
+
+		<li class="more"><a href="/calendar">View more Calendar Events</a></li>
+	</div>
+
+	<div class="clear"></div>
+</div>
+<div id="footer">
+	<div class="container_12">
+		<div class="nav">
+			<a href="http://insite.northlandchurch.net/insitegiving/giving.do" class="meta-link">Tithes &amp; Offerings</a>
+			<!--<a href="http://insite.northlandchurch.net/insiteprofile/profile.do" class="meta-link">Login</a>-->
+
+			<!--<a href="/bethechurch/">Be the Church</a>-->
+			<a href="/get_involved/">Get Involved</a>
+			<a href="/resources/">Resources</a>
+			<a href="/media/">Media</a>
+			<a href="/calendar/">Calendar</a>
+			<a href="/articles/history/">About</a>
+			<a href="/new/">New to Northland?</a>
+			<div class="clear"></div>
+		</div>
+
+		<div class="shade">
+			<div class="grid_3">
+				<a href=" " onclick="window.open('https://northlandchurch.wufoo.com/forms/m7x1w3/',  null, 'height=514, width=680, toolbar=0, location=0, status=1, scrollbars=1,resizable=1'); return false"><img src="/_assets/img/v2/buttons/request-help.png" /></a>
+				<a href="/resources/newsletter/"><img src="/_assets/img/v2/buttons/newsletter.png" class="marg-b-10" /></a>
+				<ul class="marg-b-10">
+					&copy; 2010 Northland, A Church Distributed<br />
+					530 Dog Track Road<br />
+					Longwood, FL 32750<br />
+					1 (407) 949-4000<br />
+					<a href="mailto:info@northlandchurch.net">info@northlandchurch.net</a>
+				</ul>
+				
+				<a href="http://www.ecfa.org/MemberProfile.aspx?ID=21254"><img src="/_img/ecfa.png" /></a>
+			</div>
+
+			<div class="grid_9">
+				<div class="last">
+					<ul>
+						<li><strong>Giving</strong></li>
+						<li><a href="http://insite.northlandchurch.net/insitegiving/giving.do">About Giving</a></li>
+					</ul>
+					<ul>
+						<li><strong>More Languages</strong></li>
+						<li><a href="/espanol/">En Español</a></li>
+					</ul>
+					
+				</div>
+				<div>
+					<ul>
+						<li><strong>General Info</strong></li>
+						<li><a href="/locations">Service Times &amp; Locations</a></li>
+						<li><a href="/articles/mvb">Mission/Values/Beliefs</a></li>
+						<li><a href="/articles/history">History</a></li>
+						<li><a href="/staff/dr._joel_c._hunter">Senior Pastor</a></li>
+						<li><a href="/staff/">Staff &amp; Elders</a></li>
+						<li><a href="/serve/local/">Local Partnerships</a></li>
+						<li><a href="/serve/global/">Global Partnerships</a></li>
+						<li><a href="/blogs/post_your_prayer_requests/">Prayer</a></li>
+						<li><a href="/faq/">FAQs</a></li>
+						<li><a href="/main/bookstore/">Bookstore</a></li>
+						<li><a href="/main/cafe/">Nature's Table Caf&eacute;</a></li>
+						<li><a href="/main/employment/">Employment</a></li>
+						<li><a href="mailto:robert.andrescik@northlandchurch.net">Media Inquires</a></li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li><strong>Get Involved</strong></li>
+						<li><a href="/serve/">About Serving</a></li>
+						<li><a href="/serve/northland/">Serve@Northland</a></li>
+						<li><a href="/serve/local/">Serve Locally</a></li>
+						<li><a href="/serve/global/">Serve Globally</a></li>
+					</ul>
+					<ul>
+						<li><strong>Media</strong></li>
+						<li><a href="/media/">Media Player</a></li>
+						<li><a href="/newspaper/">Northland Newspaper</a></li>
+						<li><a href="http://twitter.com/northlandchurch">Twitter</a></li>
+						<li><a href="http://www.facebook.com/northlandchurch">Facebook</a></li>
+						<li><a href="/blogs/">Blogs</a></li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li><strong>Worship</strong></li>
+						<li><a href="/articles/how_why_and_where_we_worship/">How, Why, & Where We Worship</a></li>
+						<li><a href="http://insite.northlandchurch.net/insiteworship/worship.do">LIVE Online Worship</a></li>
+						<li><a href="/housechurch/">Start a House Church</a></li>
+						<li><a href="/iphone">Mobile</a></li>
+					</ul>
+					<ul>
+						<li><strong>Locations</strong></li>
+						<li><a href="/locations/category/longwood/">Longwood</a></li>
+						<li><a href="/locations/category/oviedo">Oviedo</a></li>
+						<li><a href="/locations/category/mountdora">Mount Dora</a></li>
+						<li><a href="/locations/category/online">Online</a></li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li><strong>Ministries</strong></li>
+						<li><a href="/ministries/marriage-ministries/">Marriage</a></li>
+						<li><a href="/ministries/finance/">Personal Finance</a></li>
+						<li><a href="/ministries/parenting/">Parenting</a></li>
+						<li><a href="/ministries/divorce-recovery/">Divorce Recovery</a></li>
+						<li><a href="/ministries/access-ministries/">Disability</a></li>
+						<li><a href="/ministries/disaster_response/">Disaster Response</a></li>
+						<li><a href="/ministries/resource_point/">Resource Point</a></li>
+						<li><a href="/ministries/jail_and_prison_transition/">Prison & Jail</a></li>
+					</ul>
+					<ul>
+						<li><strong>Pastoral Care</strong></li>
+						<li><a href="/ministries/financial_help/">Financial Help</a></li>
+						<li><a href="/ministries/counseling/">Counseling</a></li>
+						<li><a href="/ministries/baptism/">Baptisms</a></li>
+						<li><a href="/ministries/funerals-memorials/">Funerals/Memorials</a></li>
+						<li><a href="/ministries/weddings/">Weddings</a></li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li><strong>Children</strong></li>
+						<li><a href="/ministries/category/children/">Children's Ministries</a></li>
+						<li><a href="/ministries/co-op/">Co-Op/Kindergarten</a></li>
+						<li><a href="/ministries/baby_dedication/">Baby Dedication</a></li>
+						<li><a href="/ministries/parenting/">Parenting Ministry</a></li>
+						<li><a href="http://www.childrensministrywarehouse.net/">Children's Curriculum</a></li>
+					</ul>
+					<ul>
+						<li><strong>Youth</strong></li>
+						<li><a href="/ministries/middle_school_ministries/">Middle School</a></li>
+						<li><a href="/ministries/high_school_ministries/">High School</a></li>
+						<li><a href="/ministries/young_adults/">College/Young Adult</a></li>
+					</ul>
+					
+				</div>
+				
+			</div>
+
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-966214-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

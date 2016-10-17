@@ -1,0 +1,166 @@
+{embed="_includes/html_open" htmltitle="Northland By The Numbers{if segment_2 != ''}: {exp:channel:entries channel="numbers" dynamic="on" limit="1"}{title}{/exp:channel:entries}{/if}"}
+{embed="_includes/header"}
+{embed="_includes/nav" {if segment_2 == 'mvb'}active="about"{if:else}active="resources"{/if}}
+
+<script type="text/javascript">
+ $(function() {
+     /** This code runs when everything has been loaded on the page */
+     /* Inline sparklines take their values from the contents of the tag */
+     $('.inlinesparkline').sparkline(myvalues, {width:'80px'}); 
+
+     /* Sparklines can also take their values from the first argument 
+     passed to the sparkline() function */
+     var myvalues = [10,8,5,7,4,4,1];
+     $('.dynamicsparkline').sparkline(myvalues);
+
+     /* The second argument gives options such as chart type */
+     $('.dynamicbar').sparkline(myvalues, {type: 'bar', barColor: 'green'} );
+
+     /* Use 'html' instead of an array of values to pass options 
+     to a sparkline with data in the tag */
+     $('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
+ });
+ </script>
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Numbers</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+<div class="container_12">
+{if segment_2 == ''}
+	
+	<div id="numbers-main">
+	{exp:channel:entries channel="numbers" limit="1" orderby="random" dynamic="off"}
+		<div class="numbers-top">
+			<h1>{title}</h1>
+		</div>
+		<div class="numbers-mid">
+		    <div>
+		     <p class="up">###</p>
+			<p class="left"><h2>Worship  <span class="inlinesparkline">6506,7164,6834,7825,6525</span></h2></p>
+			</div>
+			<div>
+			  <p class="down">1300</p>
+			<p class="left"><h3>Longwood <span class="inlinesparkline">6506,7164,6834,7825,6525</span></h3></p>
+			</div>
+			<div>
+			  <p class="down">22</p>
+			<p class="left"><h3>Oviedo <span class="inlinesparkline">363,337,292,327,305</span></h3></p>
+			</div>
+			<div>
+		      <p class="down">79</p>
+			<p class="left"><h3>Mount Dora <span class="inlinesparkline">244,224,220,269,190</span></h3></p>
+			</div>
+			<div>
+			  <p class="up">21</p>
+			<p class="left"><h3>Home Churches <span class="inlinesparkline">80,77,78,66,87</span></h3></p>
+			</div>
+			<div>
+			  <p class="down">1</p>
+			<p class="left"><h3>Jail Ministry <span class="inlinesparkline">90,108,78,83,82</span></h3></p>
+			</div>
+			<div>  
+			  <p class="up">Right Float</p>
+			<p class="left"><h2>Service</h2></p>
+			</div>
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h3>Community</h3></p>
+			</div>
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h3>On-Site</h3></p>
+			</div>
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h3>International</h3></p>
+			</div>
+			  
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h2>Training</h2></p>
+			</div>
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h3>Classes</h3></p>
+			</div>
+			<div>
+			  <p class="up">Right Float</p>
+			<p class="left"><h3>Bible Reading</h3></p>
+			</div>  
+			{/exp:channel:entries}
+			
+			<div>
+			  <p class="up">
+				<?php $carrier = 0; ?>
+			  	{exp:channel:entries channel="prayers" orderby="date" sort="desc" display_by="day" limit="7" sticky="no"} 
+				
+					{exp:favorites:entry_count entry_id="{entry_id}"}
+						<?php $carrier = $carrier + {favorites_count_public}; ?>
+					{/exp:favorites:entry_count}
+					
+				{/exp:channel:entries}
+			<?php echo $carrier; ?>
+			  </p>
+            <p class="left"><h2>Praying</h2></p>
+			</div>
+			
+			<div>  
+			  <p class="up">Right Float</p>
+			<p class="left"><h2>Web Traffic</h2></p>
+			</div>
+			
+			<div>  
+			  <p class="up">Right Float</p>
+			<p class="left"><h2>Giving</h2></p>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+		<div class="numbers-btm"></div>
+	</div>
+	
+	<div id="numbers-list">
+		<h3>All Numbers</h3>
+			<ul>
+				{exp:channel:entries channel="numbers"}
+					<li><a href="/numbers/{url_title}"><strong>{title}</strong></a></li>
+				{/exp:channel:entries}
+			</ul>
+	</div>
+	
+	{/if}
+		
+{if segment_2 != ''}
+	
+	<div id="numbers-main">
+		{exp:channel:entries channel="numbers" dynamic="on" limit="1"}
+			<div class="numbers-top">
+				<h1>{title}</h1>
+			</div>
+			<div class="numbers-mid">
+				<p>{numbers-body}</p>
+			</div>
+			<div class="numbers-btm"></div>
+		{/exp:channel:entries}
+	</div>
+	
+	<div id="numbers-list">
+		<h3>All Numbers</h3>
+			<ul>
+				{exp:channel:entries channel="numbers" dynamic="off"}
+					<li><a href="/numbers/{url_title}"><strong>{title}</strong></a></li>
+				{/exp:channel:entries}
+			</ul>
+	</div>
+{/if}
+</div>
+<div class="clear marg-b-60">&nbsp;</div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

@@ -1,0 +1,45 @@
+<?php	
+	$segments = array();
+	$entries = explode(",", $_GET['entries']);
+		
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+		
+
+	function IsEntryFavorited($entry_id, $member_id) {
+		$sql = "SELECT * FROM exp_favorites WHERE entry_id = '" . $entry_id. "' AND member_id = '" . $member_id . "'";	
+		$result = mysql_query($sql) or die(mysql_error());
+		if (mysql_num_rows($result) > 0) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	function NumberFavorited($entry_id) {
+		$sql = "SELECT COUNT(*) FROM exp_favorites WHERE entry_id = '" . $entry_id . "'";
+		$result = mysql_query($sql) or die(mysql_error());
+		while ($row = mysql_fetch_array($result)) {
+			return (int)$row['COUNT(*)'];
+		}
+	}
+	
+	if ($this->EE->session->userdata('member_id') != 0) {
+		$segments['logged_in'] = 1;
+	}
+	else {
+		$segments['logged_in'] = 0;
+	}
+	
+	foreach ($entries as $entryid) {
+		$segments[$entryid] = NumberFavorited($entryid);
+		$segments[$entryid . "_saved"] = IsEntryFavorited($entryid, $this->EE->session->userdata('member_id'));
+	}
+	
+	echo json_encode($segments);
+?>

@@ -1,0 +1,12 @@
+<?php $favorites=array(); ?>
+	{exp:favorites:entries favorites_member_id=member_id}
+	<?php $favorites[] = "{entry_id}"; ?> 
+	{/exp:favorites:entries}
+	var anon_faves = new Array();
+	<?php
+	$counter = 0; 
+	foreach ($favorites as $value) { ?>
+
+	anon_faves[<?php echo $counter; $counter++; ?>] = <?php echo $value ?>;
+		
+<?php } ?>

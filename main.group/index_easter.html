@@ -1,0 +1,520 @@
+{embed="responsive/html_open"}
+
+<meta property="og:type" content="blog" /> 
+	<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+	<meta property="og:title" content="Northland, A Church Distributed" /> 
+	<meta property="og:description" content="We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe." />
+
+{embed="responsive/header"}
+{embed="responsive/nav" active="home"}
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<style type="text/css">
+	/* Background color for home only */
+	body {
+		background-color: #EEE;
+	}
+</style>
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if service_live=="true"}
+		<script type="text/javascript">
+		function UpdateCount(updatetime) {
+			$.get('/scripts/totalgroupsize.txt', function(data) {
+				$('#current-viewers').html('<p>' + data + '</p>');
+			});
+
+			if (updatetime) {
+				setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+			}
+		}
+
+
+		$(document).ready(function() {
+			UpdateCount(5000);
+		});
+		</script>
+		<div class="container_12 liveworship_container">
+			<div class="liveworship_home" onclick="location.href='/worship';" style="cursor:pointer;">
+				<h1>LIVE <span>WORSHIP ONLINE</span> NOW</h1>
+				<h2>Join with the <p id="current-viewers"></p> around the world worshiping with us right now!</h2>
+			</div>
+		</div>
+	{/if}
+{/exp:channel:entries}
+
+	<div class="container_12 masters_holder">
+		<div class="grid_8 masters">
+			<div class="home_main">
+				{if service_live=="false"}
+					<h2 class="home_title">Current Series:</h2>
+				{/if}
+				<img src="http://www.northlandchurch.net/_assets/img/v2/series/backtobasics.jpg" alt="Back to Basics: Practical Discipleship" style="max-width:100%;repeat:no-repeat"><br>
+				<div class="home_description">
+					Historically, Lent was a time when the church went <strong>back to basics</strong> — rediscovering the essential truths of living out their faith together. This Lenten season, we’re doing the same … and making it personal. Beginning a journey through James, one of the most practical books in the Bible, we’ll be hearing from multiple voices with varying perspectives on the Scripture that teach us what it looks like to <strong>grow as a disciple</strong> of Jesus.<br><br>
+					<strong>What does Christianity mean for YOUR life?</strong> The six weeks leading up to Easter are ALL about that personal application! <a href="/respond/worshipgod">(LEARN MORE)</a>
+				</div>
+				<div class="clear"></div><br>
+				<div class="home_lastweek">
+					{exp:channel:entries channel="media" category="48" limit="1"}
+						<p>Watch last week's service: <a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>"{title}"</strong></a></p>
+					{/exp:channel:entries}
+				</div>
+				<h2 class="home_title" style="margin-top:40px;">Previous Series:</h2>
+				<div class="home_previous">
+					<p>Connect with God through His word, taught in our <a href="/series">previous sermon series</a>. Check out a recent series below or <a href="/media">click here</a> for a full list of all of our online sermons and series.</p>
+					{exp:channel:entries channel="series" limit="2" sort="desc" offset="1" show_future_entries="no"}
+						<a href="/series/{url_title}"><img src="http://northlandchurch.net/_img/uploads/{series-image}"></a>
+					{/exp:channel:entries}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="spacer-right default_visible"></div>
+		<div class="grid_4 beacon masters" style="margin-top:45px">
+			<!-- <div class="joinus">
+				<h4 style="font-size:16px;background-color:rgba(255, 255, 0, 0.2);padding:10px;margin-bottom:10px;"><a href="http://facebook.com/northlandchurch">Our Disaster Response team is serving the community in Far Rockaway, NY affected by Hurricane Sandy. Follow their progress and service here.</a></h4>
+			</div> -->
+			{embed="_component/side-wegather"}
+			{embed="_component/side-whatscurrent"}
+			{embed="_component/side-liturgy"}
+			{embed="_component/side-generous"}
+			{embed="_component/side-prayer"}
+		</div>
+	</div>
+	
+	{!-- BOTTOM --}
+	
+	<div class="clear"></div>
+	<div class="marg-b-40"></div>
+	<div class="container_12">
+		<div class="grid_4">
+			<h5>Blogs</h5>
+			<ul id="blog-list">
+			{exp:channel:entries channel="blogs" limit="4" dynamic="on"}
+				<li>
+					<a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+					<span class="info">{entry_date format="%F %j, %Y"}</span>
+				</li>
+			{/exp:channel:entries}
+				<li class="more"><a href="/blogs/">View more Blogs</a></li>
+		</div>
+	
+		<div class="grid_4">
+			<h5>Media</h5>
+			<ul id="media-list">
+			{exp:channel:entries channel="media" category="not 58" limit="4" dynamic="on"}
+				<li>
+					{if media-image}<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-image}" style="box-shadow: 0 0 10px #888"></a>{/if}
+					<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+					<span class="info">{entry_date format="%F %j, %Y"}</span>
+					<div class="clear"></div>
+				</li>
+			{/exp:channel:entries}
+				<li class="more"><a href="/media/">View more Media</a></li>
+			</ul>
+		</div>
+	
+		<div class="grid_4">
+			<h5>Events</h5>
+			<ul id="calendar-list">
+				
+				{embed="_component/events_footer"}
+	
+			<li class="more"><a href="/calendar">View more Calendar Events</a></li>
+		</div>
+	
+		<div class="clear"></div>
+	</div>
+	
+	<div id="footer">
+		<div class="container_12">
+			<div class="nav">
+				<a href="http://insite.northlandchurch.net/insitegiving/giving.do" class="meta-link">Tithes &amp; Offerings</a>
+	
+				<a href="/get_involved/">Get Involved</a>
+				<a href="/resources/">Resources</a>
+				<a href="/media/">Media</a>
+				<a href="/calendar/">Calendar</a>
+				<a href="/articles/history/">About</a>
+				<a href="/new/">New to Northland?</a>
+				<div class="clear"></div>
+			</div>
+			<div class="shade">
+				<div class="grid_3">
+					<a href=" " onclick="window.open('https://northlandchurch.wufoo.com/forms/m7x1w3/',  null, 'height=514, width=680, toolbar=0, location=0, status=1, scrollbars=1,resizable=1'); return false"><img src="/_assets/img/v2/buttons/request-help.png" /></a>
+					<a href="/resources/newsletter/"><img src="/_assets/img/v2/buttons/newsletter.png"></a>
+					<ul class="marg-b-10 marg-t-10" style="font-size:11px;">
+						&copy; <?php echo date('Y');?> Northland, A Church Distributed<br />
+						530 Dog Track Road<br />
+						Longwood, FL 32750<br />
+						Phone: 1 (407) 949-4000<br />
+						Fax: 1 (407) 949-4020<br />
+						<a href="mailto:info@northlandchurch.net">info@northlandchurch.net</a>
+					</ul>
+	
+					<a href="http://www.ecfa.org/MemberProfile.aspx?ID=21254"><img src="/_img/ecfa.png" /></a>
+				</div>
+	
+				<div class="grid_9">
+					<div class="footer_links">
+						<ul>
+							<li><strong>General Info</strong></li>
+							<li><a href="/locations">Service Times &amp; Locations</a></li>
+							<li><a href="/articles/mvb">Mission/Values/Beliefs</a></li>
+							<li><a href="/articles/history">History</a></li>
+							<li><a href="/team/dr_joel_c_hunter">Senior Pastor</a></li>
+							<li><a href="/team/">Meet the Team</a></li>
+							<li><a href="/serve/local/">Local Partnerships</a></li>
+							<li><a href="/serve/global/">Global Partnerships</a></li>
+							<li><a href="/respond/pray/">Prayer</a></li>
+							<li><a href="/faq/">FAQs</a></li>
+							<li><a href="/bookstore/">Bookstore</a></li>
+							<li><a href="/main/cafe/">Nature's Table Caf&eacute;</a></li>
+							<li><a href="/employment/">Employment</a></li>
+							<li><a href="mailto:robert.andrescik@northlandchurch.net">Media Inquires</a></li>
+						</ul>
+					</div>
+					<div class="footer_links">
+						<ul>
+							<li><strong>Get Involved</strong></li>
+							<li><a href="/serve/">About Serving</a></li>
+							<li><a href="/volunteer/">Volunteer at Northland</a></li>
+							<li><a href="/serve/local/">Serve Locally</a></li>
+							<li><a href="/serve/global/">Serve Globally</a></li>
+						</ul>
+						<ul>
+							<li><strong>Media</strong></li>
+							<li><a href="/media/">Media Player</a></li>
+							<li><a href="/newspaper/">Northland Newspaper</a></li>
+							<li><a href="http://twitter.com/northlandchurch">Twitter</a></li>
+							<li><a href="http://www.facebook.com/northlandchurch">Facebook</a></li>
+							<li><a href="/blogs/">Blogs</a></li>
+						</ul>
+					</div>
+					<div class="footer_links">
+						<ul>
+							<li><strong>Worship</strong></li>
+							<li><a href="/articles/how_why_and_where_we_worship/">How, Why, & Where We Worship</a></li>
+							<li><a href="/worship">LIVE Online Worship</a></li>
+							<li><a href="/housechurch/">Start a House Church</a></li>
+						</ul>
+						<ul>
+							<li><strong>Locations</strong></li>
+							<li><a href="/locations/category/longwood/">Longwood</a></li>
+							<li><a href="/locations/category/oviedo">Oviedo</a></li>
+							<li><a href="/locations/category/mountdora">Mount Dora</a></li>
+							<li><a href="/locations/category/online">Online</a></li>
+							<li><a href="/housechurch">House Churches</a></li>
+						</ul>
+					</div>
+					<div class="footer_links">
+						<ul>
+							<li><strong>Ministries</strong></li>
+							<li><a href="/ministry/marriage-ministries/">Marriage</a></li>
+							<li><a href="/ministry/finance_ministries/">Personal Finance</a></li>
+							<li><a href="/ministry/parenting/">Parenting</a></li>
+							<li><a href="/ministry/divorcecare/">DivorceCare</a></li>
+							<li><a href="/ministry/griefshare/">GriefShare</a></li>
+							<li><a href="/ministry/access-ministries/">Disability</a></li>
+							<li><a href="/ministry/disaster_response/">Disaster Response</a></li>
+							<li><a href="/ministry/lifehope/">LifeHope (Benevolence)</a></li>
+							<li><a href="/ministry/resource_point/">Resource Point</a></li>
+							<li><a href="/ministry/peaceseekers/">PeaceSeekers</a></li>
+							<li><a href="/ministry/jail_and_prison_transition/">Prison & Jail</a></li>
+						</ul>
+						<ul>
+							<li><strong>Pastoral Care</strong></li>
+							<!--<li><a href="/ministries/financial_help/">Financial Help</a></li>-->
+							<li><a href="/ministries/counseling/">Counseling</a></li>
+							<li><a href="/ministries/baptism/">Baptisms</a></li>
+							<li><a href="/ministries/funerals-memorials/">Funerals/Memorials</a></li>
+							<li><a href="/ministries/weddings/">Weddings</a></li>
+						</ul>
+					</div>
+					<div class="footer_links">
+						<ul>
+							<li><strong>Children</strong></li>
+							<li><a href="/ministry/childrens_church/" target="_blank">Children's Ministries</a></li>
+							<li><a href="/ministry/co-op/">Co-Op/Kindergarten</a></li>
+							{!--<li><a href="/ministries/baby_dedication/">Baby Dedication</a></li>!--}
+							<li><a href="/ministry/parenting/">Parenting Ministry</a></li>
+							<li><a href="http://resourcewell.org/children-ministry/">Children's Curriculum</a></li>
+						</ul>
+						<ul>
+							<li><strong>Youth</strong></li>
+							<li><a href="/ministry/middle_school_ministries/">Middle School</a></li>
+							<li><a href="/ministry/high_school_ministries/">High School</a></li>
+							<li><a href="/ministry/college_ministries/">College</a></li>
+							<li><a href="/ministry/young_adult_ministries/">Young Adult</a></li>
+						</ul>
+					</div>
+					<div class="footer_links">
+						<ul>
+							<li><strong>Giving</strong></li>
+							<li><a href="http://insite.northlandchurch.net/insitegiving/giving.do">About Giving</a></li>
+						</ul>
+						<ul>
+							<li><strong>More Languages</strong></li>
+							<li><a href="/espanol/">En Español</a></li>
+						</ul>
+						
+					</div>
+				</div>
+	
+			</div>
+	
+		</div>
+		<div class="clear"></div>
+	</div>
+{embed="_includes/html_close"}
+
+
+{embed="_includes/html_open-beta"}
+
+{embed="_includes/header-beta"}
+{embed="_includes/nav"}
+
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+
+{if service_live=="false"}
+		<div id="home-easter12-bg" <?php if ($detect->isIpad()) { ?> style='';<?php } ?>>
+			<div class="container_12">
+				<div class="grid_12">
+					<div class="clear"></div>
+					<div class="easter2012_logo"></div>
+					<div class="clear"></div>
+					<div class="home-easter-info">
+						<a class="live-nav-links" id="home-easter-login" href="/worship" style="margin-right:5px;"></a><p class="live-nav-text easter-text">Login to worship with the Northland community</p>
+						<div class="clear"></div>
+						<a class="live-nav-links" id="home-easter-mobile" href="/worship/mobile" style="margin-right:5px;"></a><p class="live-nav-text easter-text">Connect from your mobile device<br></p>
+						<div class="clear"></div>
+						<?php if (({current_time format="%G%i"} > 700) && ({current_time format="%G%i"} < 1300)) : ?>
+							<a class="live-nav-links" id="home-easter-espanol" href="/espanol" style="margin-right:5px;"></a><p class="live-nav-text easter-text">En español</p>
+						<?php endif; ?>
+							<div class="clear"></div>
+						
+						<?php if (!$detect->isIpad()) { ?>
+                          	
+						<?php }else{ ?>
+							<div style="float:right;padding-top:90px; display:none">
+								<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
+				   				<video src="http://174.129.245.138:1935/live/iphonemed/playlist.m3u8" width="620" height="352" controls preload></video>
+							</div>
+							<div style="clear:both"></div>
+                          	
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>	
+		</div>
+	
+ {if:else}
+<div id="home-easter12-bg">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="clear"></div>
+			<div class="easter2012_logo"></div>
+		</div>
+	</div>
+	<div class="clear"></div>	
+</div>
+		
+
+{/if}
+</div>
+
+<div id="bottom-bar-wrap">
+	<div id="easter-bottom-bar">	
+		<div class="container_12">
+			<div class="grid_12">
+				
+				<div id="easter-home-current" style="margin-top: 10px;">
+					{exp:channel:entries channel="series" limit="1" cache="yes" refresh="30" dynamic="off"}
+					<a href="/easter"><h2 style="color:#fff;text-transform:uppercase;">Easter Worship Services and Times</h2></a>
+				</div>
+					<img src="/_img/redletters/btm-spacer.png" style="max-height: 40px;">
+					{/exp:channel:entries}	
+					{exp:channel:entries channel="media" category="48" dynamic="off" limit="1"}	
+						<a href="/media/{url_title}"><img src="/_img/home_playbutton.png">	
+						<h2 style="color:#d03333;border-bottom:none;margin-top:10px;">
+							<a href="/media/{url_title}" style="color:#fff;font-size: 16px;text-transform:uppercase;">Watch Last Week's Message: {title}</a><br>
+						</h2>
+					{/exp:channel:entries}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container_12">
+	
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-worshiponline.png" />
+		<p>
+			<strong>Saturday</strong> at 5 and 7 p.m.<br>
+			<strong>Sunday</strong> at 8 and 10 a.m., Noon and 5 p.m.<br>
+			<strong>Monday</strong> at 7 p.m.<br>
+			<em>All times Eastern Standard Time (E.S.T)</em><br><br>
+			We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a>, <a href="http://www.northlandchurch.net/locations/category/mountdora/">Mount Dora</a>, and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.
+			{if service_live=="true"}
+				<script type="text/javascript">
+				function UpdateCount(updatetime) {
+					$.get('/scripts/totalgroupsize.txt', function(data) {
+						$('#current-viewers').html('<p>' + data + '</p>');
+					});
+
+					if (updatetime) {
+						setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+					}
+				}
+
+
+				$(document).ready(function() {
+					UpdateCount(5000);
+				});
+				</script>
+				We also get together for LIVE worship online - <a href="/worship">join with the <span id="current-viewers" style="float:left;padding:0;height:10px;margin:0"> </span>  &nbsp; around the world</a> worshiping with us right now!</p>
+			{if:else}
+				We also get together for <a href="http://www.northlandchurch.net/locations/category/online/">LIVE worship online.</a>
+			{/if}
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-readthebible.png" />
+		<p><strong>Preparing for Easter</strong> - {current_time format="%F %d"}<br>We're reading the Gospel of John together! Join us:</p>
+		<script type="text/javascript">
+		$(document).ready(function(){
+				var currtime = new Date();
+				var theHour = currtime.getHours();
+				if (theHour<11){
+					$(".rising").show();
+				}
+				if ((theHour>=11) && (theHour<17)){
+					$(".afternoon").show();
+
+				}
+				if (theHour>=17){
+					$(".night").show();
+				}
+
+				$(".liturgy-verse").hide();
+			});
+		</script>
+		{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" cache="yes" refresh="30"}
+			{if liturgy-sequence=="Morning"}
+				<p class="rising" style="display:none">
+					<strong>{title}</strong> - Rising (Morning)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+			{if liturgy-sequence=="Midday"}
+				<p class="afternoon" style="display:none">
+					<strong>{title}</strong> - Reconnecting (Midday)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+			{if liturgy-sequence=="Evening"}
+				<p class="night" style="display:none">
+					<strong>{title}</strong> - Resting (Evening)
+					<br>
+					{exp:trunchtml chars="300" inline="..." ending=" <a href='/respond/readthebible'>(continue reading)</a>"}
+						{liturgy-scripture}
+					{/exp:trunchtml}
+				</p>
+			{/if}
+		{/exp:channel:entries}
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-happeningnow.png" />
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="5" cache="yes" refresh="30"}
+		<p>
+			<a href="{happening-link}" title="{happening-description}"><strong>{title}</strong></a><br />
+			{happening-description}
+		</p>
+		{/exp:channel:entries}
+	</div>
+	
+</div>
+<div class="clear"></div>
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}

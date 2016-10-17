@@ -1,0 +1,36 @@
+{if group_id == "1" || group_id == "24"}
+<?php
+	
+	$sql="SELECT * FROM securitylog ORDER BY timestamp DESC LIMIT 150";
+	
+	if (isset($_GET['datestart'])) {
+		$sql = "SELECT * FROM securitylog WHERE timestamp > '" . $_GET['datestart'] . "' ORDER BY timestamp DESC";
+	}
+	
+	if (isset($_GET['datestart']) && isset($_GET['dateend'])) {
+		$sql = "SELECT * FROM securitylog WHERE timestamp > '" . $_GET['datestart'] . "' AND timestamp < '" . $_GET['dateend'] . "' ORDER BY timestamp DESC";
+	}
+	
+	require_once("scripts/includes/initialize.php");
+	
+	$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+	if (!$con) { die('Could not connect: ' . mysql_error()); }
+	
+	
+	
+	$this_tz_str = date_default_timezone_get('America/New_York');
+	$this_tz = new DateTimeZone($this_tz_str);
+	$now = new DateTime("now", $this_tz);
+	$offset = $this_tz->getOffset($now); // Offset = Offset in seconds / 3600 seconds per hour * 100 to account for time
+
+	mysql_select_db(EE_DB_NAME, $con);		
+	
+	$result = mysql_query($sql) or die();
+	$array = array();
+	while ($row = mysql_fetch_array($result)) {
+		$time = strtotime($row['timestamp']) + $offset;
+		array_push($array, array($row['author'], date('n/j/y', $time), date('g:i:s A', $time), $row['content'], $row['image']));
+	}
+	echo json_encode($array);
+?>
+{/if}

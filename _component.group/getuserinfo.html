@@ -1,0 +1,87 @@
+<?php
+/* Call by getuserinfo/?username=INSERT_USERID_HERE&return=RETURN_STYLE
+	RETURN_STYLE: 	all = JSON object with all categories
+					groupsize = String containing group size custom member field of user
+*/
+
+if (isset($_GET["username"])) {
+	$q=$_GET["username"];
+}
+else {
+	$q = '1';
+}
+
+if (isset($_GET["return"])) {
+	$return = $_GET["return"];
+}
+else {
+	$return = 'all';
+}
+
+
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+
+
+//$sql="SELECT * FROM exp_members m, exp_member_data md WHERE m.member_id = md.member_id and username = '".$q."'";
+$sql="SELECT m.member_id, m.username, m.screen_name, m.email, m.location, m.photo_filename, md.m_field_id_1, md.m_field_id_3, md.m_field_id_4, md.m_field_id_5 FROM exp_members m, exp_member_data md WHERE m.member_id = md.member_id and m.member_id = '".$q."'";
+
+$result = mysql_query($sql) or die(mysql_error());
+
+if ($return == 'fullname') {
+	while($row = mysql_fetch_array($result))
+	{
+		if ($row['screen_name']) {
+	    echo $row['screen_name']; 
+	  }
+	  else {	  
+	  } 
+	}
+	mysql_close();
+	die();
+}
+
+else {
+	$json = array();
+	
+	while($row = mysql_fetch_array($result))
+	{
+	  $json['memberid'] = $row['member_id'];
+	  $json['username'] = $row['username'];
+	  if (isset($row['m_field_id_1'])) {
+	  	if (strlen($row['m_field_id_1']) > 2) {	$json['fullname'] = $row['m_field_id_1']; }
+	  	else { $json['fullname'] = $row['screen_name'];}
+	  }
+	  else {
+	  	$json['fullname'] = $row['screen_name'];
+	  }
+	  $json['email'] = $row['email'];
+	  $json['location'] = $row['location'];
+	  $json['avatar'] = $row['photo_filename'];
+	  if ($row['m_field_id_3'] != '' && $row['m_field_id_4'] != '') {
+	 	$json['latitude'] = number_format($row['m_field_id_3'], 2, '.', '');
+	  	$json['longitude'] = number_format($row['m_field_id_4'], 2, '.', '');
+	  }
+	  else {  	
+	  	$json['latitude'] = "";
+	  	$json['longitude'] = "";
+	  }
+	    $json['role'] = $row['m_field_id_5'];
+	    
+	}
+	
+	// encode array $json to JSON string
+	$encoded = json_encode($json);
+	
+	mysql_close($con);
+	 
+	// send response back to index.html
+	// and end script execution
+	die($encoded);
+}
+
+?> 

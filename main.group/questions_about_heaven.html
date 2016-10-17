@@ -1,0 +1,40 @@
+{embed="_includes/html_open" htmltitle="Northland Media{if segment_2 != '' AND segment_2 != 'category'}: {exp:channel:entries channel="media" dynamic="on" orderby="date" sort="desc" category="not 58" limit="1"}{title}{/exp:channel:entries}{/if}{if segment_2 == 'category' AND segment_3 != ''} Category: {segment_3_category_name}{/if}"}
+{embed="_includes/header"}
+{embed="_includes/nav" active="media"}
+<?php
+
+
+
+
+
+
+
+//MEDIA HOMEPAGE
+
+
+
+
+
+
+?>
+{if segment_2 == ''}
+<div id="focused" class="blogs">
+	<div class="container_12">
+		<div class="grid_5">
+			<h1>Children's Questions About Heaven</h1>
+			<img src="{v2-image-asset-url}/main/divider.png" class="divider" />
+			<p>Many children have questions about heaven, why people they know go there, and how they feel.  This short video for children by Miss Eleanor from the Children's Ministry will help children understand the feelings they have when someone they know and love goes to heaven. </p>
+		</div>
+
+		<div id="focused-video" class="grid_7">
+			<div style="float: right; width: 520px">
+				<iframe src="http://player.vimeo.com/video/14699818?portrait=0" width="520" height="293" frameborder="0"></iframe>
+			</div>
+		</div>
+	</div>	
+</div>	
+
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

@@ -1,0 +1,197 @@
+{exp:channel:entries channel="staff" limit="1" dynamic="on"}
+{if entry_id == 148}
+	<?php 
+		header("location: http://www.northlandchurch.net/joelhunter"); 
+		exit;
+	?>
+{/if}
+{/exp:channel:entries}
+
+{embed="_assets/header" htmltitle="Northland Team{if segment_2 != ''}: {exp:channel:entries channel="staff" limit="1" dynamic="on"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/navbar" active="about"}
+
+<script>
+$(document).ready(function() {
+
+var oritop = -100;
+
+$(window).scroll(function() {
+    var elm = $("#team_menu");
+
+    var scrollt = window.scrollY;
+    if(oritop < 0) {
+        oritop= elm.offset().top;
+    }
+    if(scrollt >= oritop) {
+	if ($(window).width()>600){
+		elm.stop();
+        	elm.css({"position": "fixed", "borderBottom":"solid #888 2px","top": -20, "marginLeft": -480, "left": "50%","zIndex":100,"backgroundColor":"white"}).delay(100).animate({
+        	   top: 0,
+        	}, 500, function(){});
+	}else{
+		$("#team-collapser #open").show();
+		$("#team-collapser #closed").hide();
+		elm.css({"overflow": "hidden", "height":"24px"});
+
+		elm.stop();
+        	elm.css({"position": "fixed", "borderBottom":"solid #888 2px","top": 0, "marginLeft": 0, "left": "0","zIndex":100,"backgroundColor":"white"}).delay(100).animate({
+        	   top: 0,
+        	}, 500, function(){});
+	}
+    }
+    else {
+        elm.css({"position": "static", "marginLeft": "auto", "left": 0,"borderBottom":0,});
+    }
+});
+
+var elm = $("#team_menu");
+$("#open").click(function(){
+        elm.css({"overflow": "visible", "height":"inherit"});
+	$("#team-collapser #open").hide();
+	$("#team-collapser #closed").show();
+});
+$("#closed").click(function(){
+        elm.css({"overflow": "hidden", "height":"24px"});
+	$("#team-collapser #open").show();
+	$("#team-collapser #closed").hide();
+});
+});
+</script>
+
+
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+		{if segment_2 == '' || segment_2 == 'test'}
+			<!-- TEAM VIEW -->
+			<div class='g'>
+			  <div class='g-b g-b--m--1of2'>
+			    <ul class='breadcrumbs'>
+			      <li><a href="../">Home</a></li>
+			      <li><a href="../about/">About</a></li>
+			    </ul>
+			    <h1 class='heading heading--l'>Meet the Team</h1>
+			  </div>
+			</div>
+
+			<div class="pagination mbl">Filter by team:
+			<p class="grid_12 right" style="font-size: 16px;line-height:20px;color:black; font-style: normal; text-transform: uppercase">
+			<a href="#" style="color:black" onclick="$('.deck').show();">Show All</a> &bull;  
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Governing').show();">Governing Elders</a> &bull;  
+			<!--<a href="#" style="color:black" onclick="$('.deck').hide();$('.Elders').show();">Elders</a> &bull;  -->
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Pastors').show();">Pastors</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Worship').show();">Worship Team</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Youth').show();">student ministries</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Children').show();">children ministries</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Media').show();">technology &amp; design</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Congregational').show();">congregational services</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Pastoral').show();">pastoral care</a> &bull; 
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Center').show();">Care Center</a> &bull;
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Global').show();">Global Missions</a> &bull;
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Operations').show();">operations</a> &bull;
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Oviedo').show();">Oviedo</a> &bull;
+			<a href="#" style="color:black" onclick="$('.deck').hide();$('.Mount').show();">Mount Dora</a></p> 
+			</div>
+
+		    <div class='g g--dib'>
+		        {exp:channel:entries channel="staff" sort="asc" orderby="title" category="not 249|234|30|384" limit="200"}
+					<?php 
+						$name = "{title}"; 
+						$file = str_replace(' ', '_', $name);
+					  	$category = ""; 
+						$category = "{categories}{category_name} {/categories}";
+						$fullfile = "http://www.northlandchurch.net/_img/team/".$file.".jpg";
+					?>
+
+					<div class='deck g-b g-b g-b--s--1of2 g-b--m--1of3 g-b--l--1of4 <?php echo $category ?>'>
+
+					{!-- Special link for Pastor Joel's Page --}
+					{if entry_id == 148}
+					<a href="/joelhunter">
+
+					{!-- Link for Staff Person's Page --}
+					{if:else}
+					<a href="/team/{url_title}">
+					{/if}
+					    <div class='media media--medium mbf' style='background-image: url({image-asset-url}/team/<?php echo $file; ?>.jpg)'></div>
+					    <div class='card card--deck'>
+					      <h4 class='deck-title mbxs'>{if staff-honorific}{staff-honorific} {/if}<?php echo $name ?></h4>
+					      <p class='deck-description'>{staff-title}</p>
+					    </div>
+					</a>
+					</div>
+		        {/exp:channel:entries}
+		    </div>
+
+		{if:elseif segment_2 != ''}
+			<!-- INDIVIDUAL VIEW -->
+			{exp:channel:entries channel="staff" dynamic="on" limit="1"}
+				<?php 
+					$name = "{title}";
+					$name = str_replace(' ', '_', $name); //for picture url
+					$fullname = "{title}";
+					$fullname = explode(" ", $fullname);
+					$firstname = "";
+					for($i = 0; $i < count($fullname) - 1; $i++){
+						$firstname = $firstname . $fullname[$i] . " ";
+					}
+					$lastname = array_pop($fullname);
+				?>
+
+				<ul class='breadcrumbs'>
+					<li><a href="../../">Home</a></li>
+					<li><a href="../../about/">About</a></li>
+					<li><a href="../">Team</a></li>
+				</ul>
+				<div class='g mtl'>
+						<div class='g-b g-b--m--1of4'>
+							<div class='media media--medium' style='background-image: url({image-asset-url}/team/<?php echo $name; ?>.jpg)'></div>
+						</div>
+					<div class='g-b g-b--m--3of4 fr'>
+						<h1 class='heading heading--italic heading--l title'>{if staff-honorific}{staff-honorific} {/if}{title}</h1>
+						<h4 class='heading tcs tsxxs dib'>{staff-title}</h4>
+						<hr class='rule mbl mtf'>
+						{if staff-honorific}
+							<h2 class='heading--italic heading--m mbl'>
+								About {staff-honorific} <?php echo ($lastname);?>
+							</h2>
+						{if:else}
+							<h2 class='heading--italic heading--m mbl'>
+								About <?php echo ($firstname); ?>
+							</h2>
+						{/if}
+						<div class='bio'>{staff-bio}</div>
+					</div>
+					<div class='g-b g-b--m--1of4'>
+						<hr class='rule mbl'>
+						{if staff-email}
+						<h2 class='heading--italic heading--m mbs'>
+							Contact 
+							{if staff-honorific}
+								{staff-honorific} <?php echo ($lastname);?>
+							{if:else}
+								<?php echo ($firstname); ?>
+							{/if}
+						</h2>
+
+						<dl class='dictionary'>
+							{if staff-phone}
+						  		<dd class='dictionary-definition'>{staff-phone}</dd>
+						  	{/if}
+						  	{if staff-email}
+						  		<dd class='dictionary-definition dictionary-definition-email'><a href="mailto:{staff-email}">{staff-email}</a></dd>
+						  	{/if}
+						  	{if staff-twitter}<a href="{staff-twitter}"><i class="fa fa-twitter"></i></a>{/if}
+						  	{if staff-facebook}<a href="{staff-facebook}"><i class="fa fa-facebook"></i></a>{/if}
+						  	{if staff-blog}<a href="{staff-blog}"><i class="fa fa-rss"></i></a>{/if}
+							{if staff-flickr}<a href="{staff-flickr}"><i class="fa fa-flickr"></i></a>{/if}
+						</dl>
+						{/if}
+					</div>
+				</div>
+			{/exp:channel:entries}
+		{/if}
+	</div>
+</div>
+
+{embed="_assets/footer"}

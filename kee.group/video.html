@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Northland Church</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/_assets/css/css_prpl.css" type="text/css">
+	<!-- Added to Augment PRPL's base CSS -->
+	<link rel="stylesheet" href="/_assets/css/css_billy_added.css" type="text/css">
+</head>
+<body class="template-video">
+{embed="_includes/header"}
+<div class="main-wrapper">
+
+	{!-- MANY --}
+	{if segment_2==""}
+		<?php
+			require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+			$cache			= new KeePHPCache();
+			$exp_interval 	= 200;									// Expiration interval: minutes
+			$request_uri 	= '/_component/new_video_multiple';		// Template file that you want to cache
+
+			// Check if the cache file is expired
+			if (!$cache->isCacheExpired($request_uri, $exp_interval))
+			{
+				// Return cached contents by getting the location of cache file (/var/www/ee/new_page_caching/$request_uri/index.html)
+				include($cache->getRealCacheFilePath($request_uri)); 	
+				echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+			}
+			else
+			{
+				// Write content into a cache file and display it
+				echo $cache->writeCacheFile($request_uri);
+				echo "<!-- End of Live contents at " . $request_uri . "... -->";
+			}
+		?>			
+	{!-- ONE --}
+	{if:else}
+		<section id="prayer-section">	
+			<div class="section-tab color-green">
+				<a href="/video/" class="tab-title">Video</a>
+			</div>
+			<div class="container">
+			{exp:channel:entries channel="media" dynamic="on" limit="1" require_entry="yes"}
+				{if no_results}
+					{redirect="/video/"}
+				{/if}
+
+				{!--
+				TODO: add video player conditionals
+				--}
+				<?php
+					$filePath='a';
+					$showVimeo = false;
+					$showYoutube = false;
+					$series_title="";
+					$series_url_title="";
+				?>
+				{categories}
+					{!--
+						Media Categories
+						+-----+-----------------------------
+						|  ID | NAME
+						+-----+-----------------------------
+						| 527 | "Ask A Pastor"
+						+-----+-----------------------------
+						|  48 | "Recent Worship Services"
+						+-----+-----------------------------
+						|  44 | "Sermon Archive"
+						+-----+-----------------------------
+						| 356 | "Stories"
+						+-----+-----------------------------
+						| 281 | "Featured"
+						+-----+-----------------------------
+						|  58 | "Live Service"
+						+-----+-----------------------------
+						|  45 | "Highlights"
+						+-----+-----------------------------
+						|  47 | "Classes"
+						+-----+-----------------------------
+					--}
+					<?php
+						if ('{category_id}'=="48" OR '{category_id}'=="44"){
+							$filePath = 'recent';
+						}
+						if ('{category_id}'=="47"){
+							$filePath = "classes";
+						}
+						if ('{category_id}'=="44"){
+							$filePath = 'archive';
+						}
+						
+						/* Categories which are hosted on Youtube */
+						if('{category_id}'=='527'){
+							$showYoutube = true;
+						}
+						
+						$categoryid = '{category_id}';
+					?>
+				{/categories}
+				<?php 
+			//		$whichFileEncode = "";
+					if ($filePath=="recent"){
+			//			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-service/{segment_2}{/exp:url_encode}";
+						$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+						$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+					}
+					elseif ($filePath=="classes")
+					{
+						$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/class/{media-video}/playlist.m3u8";
+						$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/class/{media-video}";
+					}
+					elseif ($filePath=="archive")
+					{
+						$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+						if ({entry_date format='%Y'} == '2009')
+						{
+							$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4";
+			//				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+						}
+						else if ({entry_date format='%Y'} == '2008')
+							$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+						else {
+							$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+			//				$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-service/{segment_2}{/exp:url_encode}";
+							$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+							$rtmpURL = "rtmp://174.129.245.138:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4";
+						}
+					}
+					else
+					{
+			//			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-misc/{segment_2}{/exp:url_encode}";
+						$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/misc/{media-video}_med.mp4/playlist.m3u8";
+						$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/misc/{media-video}_high.mp4";
+					}
+					
+					if($showYoutube == false){
+						$showVimeo = true;
+					}
+				?>
+
+				<article class="card card-half">
+						<div class="featured-image" style="background-image: url('/_img/uploads/{media-primary}');">
+							<div class="details">
+								<div class="detail-left">
+								{media-unit}
+									<p class="card-title">{media-unit:title}</p>
+									<?php 
+									$series_title = "{media-unit:title}";
+									$series_url_title = "{media-unit:url_title}";
+									?>
+								{/media-unit}
+								</div>
+								<div class="detail-right">
+									<p class="date">{entry_date format="%F %j, %Y"}</p>
+								</div>
+							</div>
+
+							<img src="/_img/uploads/{media-primary}" class="visually-hidden">
+
+							<a href="#"></a>
+						</div>
+
+						<div class="copy-container">
+							<h2><a href="/video/{url_title}">{title}</a></h2>
+							<p class="author">by <strong>{media-speaker}</strong></p>
+							<p class="body-copy">{media-description}</p>
+						</div>
+				</article>
+
+			{/exp:channel:entries}
+			</div><!-- /.container -->
+		</section>
+	{/if}
+
+	{embed="_includes/footer"}
+</div><!-- /.main-wrapper -->
+</body>
+</html>

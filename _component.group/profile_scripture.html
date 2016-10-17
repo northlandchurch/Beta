@@ -1,0 +1,19 @@
+<div class="container_12">
+	<h1 style="color:black"><img src="http://northlandchurch.net/_img/icon_bible.png" height="40" width="40"> Verses I've Read</h1><br>
+		{exp:favorites:entries channel="liturgy" favorites_count="yes"}
+
+		{/exp:favorites:entries}
+
+		<ul>
+		{exp:favorites:entries channel="liturgy" weblog="liturgy" limit="6" paginate="bottom" paginate_base="profile/verses"}
+
+		<li><h2>{title}</h2>
+		<p>Read on {favorites_date format="%l, %F %j, %Y at %g:%i %a"} | <a href="/respond/readthebible/{entry_date format='%Y-%m-%d'}" target="blank">Read It Again</a></li>
+		{paginate}
+		<br>
+		<p>Page {current_page} of {total_pages} pages {pagination_links}</p>
+		{/paginate}
+
+		{/exp:favorites:entries}
+		</ul>
+</div>

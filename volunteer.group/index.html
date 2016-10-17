@@ -1,0 +1,160 @@
+{embed="_assets/header" htmltitle="Serve and Volunteer at Northland, A Church Distributed"}
+{embed="_assets/navbar" active=""}
+
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});
+	
+	// change is-checked class on filters
+	$('.filters-button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', '.filter-item', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+
+	// Filter functions
+	var filterFns = {
+		// show if location is Longwood
+		longwood: function() {
+			var name = $(this).find('.location').text();
+			return name.match( /Longwood/i );
+		},
+		// show if location is Oviedo
+		oviedo: function() {
+			var name = $(this).find('.location').text();
+			return name.match( /Oviedo/i );
+		},
+		// show if location is Lake County
+		lakecounty: function() {
+			var name = $(this).find('.location').text();
+			return name.match( /Lake/i );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', '.filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+	
+});
+</script>
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+	
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				<h1 class="heading heading--xl">Serve and Volunteer</h1>
+				<h2 class="respond-serve-sitename">{if segment_2 != "" && segment_2 != "community" && segment_2 != "disaster_response"}at {site}{/if}</h2>
+				<p class='tss'>
+					Every week hundreds of people volunteer to serve by meeting the practical needs of our community or congregation. Below are current needs for service, both in the community and at our locations.
+				</p>
+				<p class='tss'>Need help signing up or have questions? We'd love to help -  <a href="mailto:volunteer@northlandchurch.net">volunteer@northlandchurch.net</a>.</p>
+			</div>
+</div>
+			{embed="_assets/resource_nav"}
+
+			<div class="g-b g-b--m--1of1">
+				<div id="serve-today"></div>
+				<a href="#" onclick="$('.respond-serve-opp').show();$('.grid').isotope();">Showing all opportunities</a> [ <a href="#" onclick="$('.respond-serve-opp').hide();$('.serveopportunity').show();$('.grid').isotope();">Just show community opportunities</a> | <a href="#" onclick="$('.respond-serve-opp').hide();$('.volunteeropportunity').show();$('.grid').isotope();">Just show onsite opportunities</a> ]
+				<div class="respond-serve-sites grid" style="margin-top:20px" data-swiftype-name="body" data-swiftype-type="text">
+					<div class="grid-sizer"></div>
+
+					{exp:channel:entries channel="opportunities|serve_opportunities" orderby="date" sort="desc" limit="1000000" dynamic="off"}
+					{if channel=="Opportunities"}
+					<div class="grid-item serveopp">
+						<div class="respond-serve-opp {categories}cat{category_id} {/categories} volunteeropportunity serve" id="serve{entry_id}">
+							{!-- Which Location --}
+							<div class="respond-serve-marker heading--s">
+								{categories}
+									<span class="location">{if category_id == "455"}Longwood{/if}
+									{if category_id == "457"}Lake County{/if}
+									{if category_id == "456"}Oviedo{/if}</span>
+								{/categories}
+							</div>
+
+							<h2 class="heading heading--m isotitle">{title}</h2>
+
+							<div class="clear"></div>
+
+							<p class="tss">{desc}</p>
+							<p class="tss">{commitment}</p>
+
+							<div class="respond-serve-count">
+								{!-- Display amount of people needed --}
+								{if people}
+									<h3 class="heading heading--s">{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+								{/if}
+							</div>
+
+							<div class="respond-serve-fave">
+								<a class="btn" href="#" onclick="return openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">Serve &amp; Volunteer</div></a>
+							</div>
+						</div>
+					</div>
+					{/if}
+					{if channel=="Serve Opportunities"}
+					<div class="grid-item serveopp">
+						<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} serveopportunity serve" id="serve{entry_id}">
+							{!-- Which Location --}
+							<div class="respond-serve-marker heading--s location">
+								{categories}
+									<span class="location">{if category_id == "455"}Longwood{/if}
+									{if category_id == "457"}Lake County{/if}
+									{if category_id == "456"}Oviedo{/if}</span>
+								{/categories}
+							</div>
+							<h2 class="heading heading--m isotitle">{title}</h2>
+
+							<div class="clear"></div>
+
+							<div class="tss">{serve-desc}</div>
+							<div class="tss">{serve-commitment}</div>
+
+							<div class="respond-serve-count">
+								{!-- Display amount of people needed --}
+								{if serve-people}
+									<h3 class="heading heading--s">{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+								{/if}
+								<div class="respond-serve-fave">
+									<a class="btn" href="#" onclick="return openWufooFormVolunteer('{serve-ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">Serve</div></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{/if}
+					{/exp:channel:entries}
+
+				</div>
+			</div>
+
+		</div>
+			
+	</div>
+</div>
+	
+<div class="clear"></div>
+
+
+
+{embed="_assets/footer"}
+<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+
+
+
+

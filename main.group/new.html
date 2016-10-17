@@ -1,0 +1,159 @@
+{embed="_assets/header" htmltitle="New to Northland"}
+{embed="_assets/navbar" active="resources"}
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	LoadMap();
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+});
+</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script type="text/javascript">
+	var map;
+			
+	function LoadMap() {
+		var mapOptions;
+			mapOptions = {
+			zoom: 4,
+			scrollwheel: false,
+			center: new google.maps.LatLng(35.406961,-76.838379),			
+			mapTypeId: google.maps.MapTypeId.HYBRID,
+			streetViewControl: false,
+			panControl: false,
+			overviewMapControl: false,
+			mapTypeControl: false
+			};
+			
+		var iconF = '{v2-image-asset-url}/icons/map-local.png';
+		var iconH = '{v2-image-asset-url}/icons/map-house.png';
+		var iconJ = '{v2-image-asset-url}/icons/map-jail.png';
+		
+		map = new google.maps.Map(document.getElementById("map"), mapOptions);			
+
+		{exp:channel:entries channel="locations"  category="27"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconF});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:430px">{if entry_id != "21694"}<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='locations/category'}{/exp:low_replace}">{title}</a></h2>{if:else}<h2><a href="{exp:low_replace find='index.php/'}http://www.northlandchurch.net/locations/category/oviedo{/exp:low_replace}">{title}</a></h2>{/if}<div>{exp:low_replace find="\n" multiple="yes" regex="yes"}<p>{location-descrip}</p><p>{location-address}{/exp:low_replace}</p></div></div>' });
+			marker{entry_id}.setMap(map);					
+			google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );
+		{/exp:channel:entries}		
+		
+		{exp:channel:entries channel="locations"  category="318"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconH});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:430px"><h2>{title}</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}<b>Service Time(s): </b>{location-servicetimes}<br><b>Address: </b>{location-address}<br><b>Contact: </b>{location-contact}{/exp:low_replace}</div></div>' });
+			marker{entry_id}.setMap(map);		
+			google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );	
+		{/exp:channel:entries}
+		
+		{exp:channel:entries channel="locations"  category="317"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconJ});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:430px"><h2>{title}</h2><p>{exp:low_replace find="\n" multiple="yes" regex="yes"}{location-descrip}</p><p>{location-address}{/exp:low_replace}</p></div>' });
+			marker{entry_id}.setMap(map);		
+			google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );	
+		{/exp:channel:entries}
+		
+		}
+</script>
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--1of2">
+				<h1 class='heading heading--l'>Welcome!</h1>
+		        <p>
+		        	Thanks for visiting Northland - we're so glad you're here!
+		        	We'd love for you to join us either at one of our locations or online for a worship service to get to know you better.
+		        </p>
+				<p>
+					In the meantime, we have hundreds of archived worship services, stories about the great work God is doing through Northland
+					and ways for you to be the church everywhere, every day.
+				</p>
+				<p>
+					If you have any questions about Northland check our <a href="/faq/">FAQs</a> 
+					or <a href="https://northlandchurch.wufoo.com/forms/m7x1w3/">send us a note</a>.
+				</p>
+			</div>
+			<div class="g-b g-b--m--1of2">
+				<img src="{v2-image-asset-url}/new/worship-photo.jpg" class="default_visible">
+			</di>
+		</div>
+
+
+		<hr class="rule mbl">
+
+    	<div class='g'>
+    		<div class='g-b g-b--m--1of2'>
+    			<h4>What We Believe</h4>
+				<p>
+					The heart of Northland, A Church Distributed is to fulfill our mission that we may see God’s vision for us and for the world fully realized.
+					<a href="/articles/mvb/">Our statement of faith, our vision, our mission, and our core values</a> provide the map for our journey in Christ.
+				</p>
+				
+				<h4>Service Times</h4>
+				<p>
+					We worship in many locations around the world. All service times listed below are available LIVE online and at our Longwood location.
+					For service times at other locations, please <a href="/locations">Click Here</a>.
+				</p>
+				<p class="new-times marg-b-20">
+					Saturday - 5 p.m.<br />
+					Sunday - 9 a.m., 11 a.m., 5 p.m.<br />
+					Monday - 7 p.m.
+				</p>
+				
+				<h4>Get Connected</h4>
+				<p>
+					There are many ways to connect to other believers at Northland.
+					One of the easiest ways is to come to a service at any of our <a href="/locations/">locations</a>.
+					We also have a number of ongoing 
+					<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30424">Bible studies and classes</a>,
+					<a href="/main/ministries">ministries</a>,
+					<a href="/serve/">service projects</a>
+					or <a href="http://calendar.northlandchurch.net/">events</a> that you can check out.
+				</p>
+	
+
+    		</div>
+    		<div class='g-b g-b--m--1of2'>
+    			<h4>Find a Location Near You</h4>
+				<p>
+					While most Northlanders gather at our Central Florida sites in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>,
+					<a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a> and
+					<a href="http://www.northlandchurch.net/locations/category/mountdora/">Lake County</a>,
+					many also gather in <a href="/housechurch/">house churches</a>.{!-- and <a href="http://www.northlandchurch.net/locations/category/online/">online</a>. --}
+
+					Some even worship using their <a href="/worship/mobile/">Smartphones</a> or <a href="/roku">Roku boxes</a>!
+					That's because the church isn't a building ... it's people worshiping and serving together everywhere, everyday. We hope to see you soon.
+				</p>
+				<div id="map" style="width: 100%px; height: 350px"></div>
+				<div class="clear"></div>
+    		</div>
+    	</div>
+
+		<hr class="rule mbl">
+
+    	<div class='g'>
+    		<div class="g-b g-b--m--1of1">
+	    		<h4>Frequently Asked Questions</h4>
+				<p>
+					Have a question? Check this list to hopefully find an answer.
+					If your question is not answered via the list below please <a href="https://northlandchurch.wufoo.com/forms/m7x1w3/">send us a note</a> for further assistance.
+				</p>
+				{exp:channel:entries channel="faq" sort="asc" category="not 322"}
+					<div class="faq border-btm">
+						<h4 class="faq-activate">{title}</h4>
+						<div class="faq-collapse">
+							{faq-answer}
+						</div>	
+					</div>		
+				{/exp:channel:entries}
+    		</div>
+    	</div>
+	</div>
+</div>
+
+{embed="_assets/footer"}

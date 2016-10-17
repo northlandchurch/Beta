@@ -1,0 +1,25 @@
+<div class="vid_box">
+<script type='text/javascript' src='http://northlandchurch.net/fb/mediaplayer/swfobject.js'></script>
+ 
+<div id='mediaspace'>This text will be replaced</div>
+ 
+
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="48" sort="desc" limit="1"}
+
+<script type='text/javascript'>
+  var so = new SWFObject('http://northlandchurch.net/_flash/player.swf','mpl','490','280','9');
+  so.addParam('allowFullscreen','true');
+  so.addParam('allowscriptaccess','always');
+  so.addParam('wmode','opaque');
+  so.addVariable('captions','{media-speaker}');
+  so.addVariable('file',"http://hwcdn.net/r3c3x6t9/fms/service/{entry_date format='%y%m%d'}_service_stream.mp4");
+  so.addVariable('title','{title}');
+  so.addVariable('type','highwinds');
+  so.addVariable('autostart','false');
+  so.addVariable('stretching','width');
+  so.write('mediaspace');
+</script>							
+
+{/exp:channel:entries}
+
+</div>

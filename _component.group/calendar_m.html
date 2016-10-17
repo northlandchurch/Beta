@@ -1,0 +1,18 @@
+{exp:calendar:cal pad_short_weeks="n" 
+		calendar_name="{embed:the_id}"
+		date_range_start="today" 
+		date_range_end="+6 days"}
+	
+		<ul id="calendar-page">
+     	{display_each_day}
+     		<h3 class="marg-t-80">{day format="%F %j, %Y"}</h3>
+     	   	{events}
+     	   	<li>
+     			<div class="blog-thumb">
+     				<p><a href="#{entry_id}">{event_title}</a><span>{if event_start_date}{event_start_date format="%g:%i"} {if '{event_start_date format="%a"}' == "am"}a.m.{/if}{if '{event_start_date format="%a"}' == "pm"}p.m.{/if}{if event_end_date} - {event_end_date format="%g:%i"} {if '{event_end_date format="%a"}' == "am"}a.m.{/if}{if '{event_end_date format="%a"}' == "pm"}p.m.{/if}{/if}{/if}</span></p>
+     			</div>
+     		</li>	
+     		{/events}
+     	{/display_each_day}
+     </ul>	
+	{/exp:calendar:cal}

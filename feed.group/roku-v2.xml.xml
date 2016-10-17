@@ -1,0 +1,115 @@
+{if segment_3 == ''}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<categories>
+	{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	
+	<category title="LIVE Worship Service" description="Northland's LIVE worship service from Longwood, Florida" sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/live_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/live_hd.png">
+		<categoryLeaf title="{title}" description="" feed="http://www.northlandchurch.net/index.php/feed/roku-live.xml/{url_title}"/>
+	</category>
+		
+	{/exp:channel:entries}
+
+	<category title="Recent Worship Services" description="Music, message &amp; liturgy from recent worship services at Northland" sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/series_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/series_hd.png">
+		{exp:channel:entries channel="series" category="286&298"}
+		<categoryLeaf title="{exp:strip_html}{title}{/exp:strip_html}" description="description" feed="http://www.northlandchurch.net/index.php/feed/roku-v2.xml/{url_title}"/>
+		{/exp:channel:entries}
+	</category>
+	
+	<category 
+		title="Worship Highlights" description="Highlighted songs from recent worship services" sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/highlights_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/highlights_hd.png">		
+		<categoryLeaf title="Highlights" description="none" feed="http://www.northlandchurch.net/index.php/feed/roku-highlights.xml"/>
+	</category>
+    
+    <category 
+		title="Stories" description="Stories about what God is doing in the lives of Northlanders" sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/stories_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/stories_hd.png">		
+		<categoryLeaf title="Stories" description="none" feed="http://www.northlandchurch.net/index.php/feed/roku-stories-v2.xml"/>
+	</category>
+	
+	<category 
+		title="Group Resources" description="Tools to help facilitate Christ-centered conversation within your community." sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/group_resources_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/group_resources_hd.png">		
+		{exp:channel:entries channel="series" category="286&298" start_on="2012-01-15 20:00" show_future_entries="yes"}
+		<categoryLeaf title="{exp:strip_html}{title}{/exp:strip_html}" description="description" feed="http://www.northlandchurch.net/index.php/feed/roku-resources.xml/{url_title}"/>
+		{/exp:channel:entries}
+	</category>
+	
+	<category 
+		title="About Northland" description="Videos about Northland" sd_img="http://www.northlandchurch.net/_assets/img/v2/roku/about_sd.png" hd_img="http://www.northlandchurch.net/_assets/img/v2/roku/about_hd.png">		
+		<categoryLeaf title="About" description="none" feed="http://www.northlandchurch.net/index.php/feed/roku-about.xml"/>
+	</category>
+	
+
+</categories>
+{/if}
+
+{if segment_3 != ''}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed>
+	<resultLength>20</resultLength>
+	<endIndex>20</endIndex>
+
+	{exp:channel:entries channel="series" limit="1"}
+	<!--  {categories}{category_id} {/categories}  -->
+	
+	{categories}
+		<?php 
+		if ('{category_id}'=="286"){
+			$filePath = 'worship';
+		}elseif ('{category_id}'=="287"){
+			$filePath = 'class'; 
+		}	
+			?>
+	{/categories}
+	<?php $display = '{series-image}'; ?>
+	{parents channel="media" orderby="date" sort="asc"}
+	<item sdImg="http://www.northlandchurch.net/_assets/img/v2/series/<?php echo $display; ?>"
+		  hdImg="http://www.northlandchurch.net/_assets/img/v2/series/<?php echo $display; ?>">		
+	    <title>{parents:title} - {parents:entry_date format="%F %j, %Y"}</title>
+		<contentId>{parents:entry_id}</contentId>
+		<contentType>Talk</contentType>
+		<contentQuality>SD</contentQuality>
+			<media>
+				<streamFormat>mp4</streamFormat>
+				<streamQuality>SD</streamQuality>
+				<streamBitrate>1500</streamBitrate>
+				<?php 
+					if ($filePath=="worship"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/{parents:entry_date format='%Y'}/{parents:entry_date format='%y%m%d'}_service_high.mp4</streamUrl>";
+					}elseif ($filePath=="class"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/class/{parents:media-video}</streamUrl>";
+					}
+				?>
+			</media>
+			<media>
+				<streamFormat>mp4</streamFormat>
+				<streamQuality>SD</streamQuality>
+				<streamBitrate>800</streamBitrate>
+				<?php 
+					if ($filePath=="worship"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/{parents:entry_date format='%Y'}/{parents:entry_date format='%y%m%d'}_service_pc.mp4</streamUrl>";
+					}elseif ($filePath=="class"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/class/{parents:media-video}</streamUrl>";
+					}
+				?>
+			</media>
+			<media>
+				<streamFormat>mp4</streamFormat>
+				<streamQuality>SD</streamQuality>
+				<streamBitrate>400</streamBitrate>
+				<?php 
+					if ($filePath=="worship"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/{parents:entry_date format='%Y'}/{parents:entry_date format='%y%m%d'}_service_low.mp4</streamUrl>";
+					}elseif ($filePath=="class"){
+						echo "<streamUrl>http://nacdvideo.s3.amazonaws.com/class/{parents:media-video}</streamUrl>";
+					}
+				?>
+			</media>
+		
+		<synopsis>{exp:strip_html}{parents:media-description}{/exp:strip_html}</synopsis>
+		<genres></genres>
+		<!-- <runtime>0</runtime> -->
+	</item>	
+	{/parents}
+	{/exp:channel:entries}
+
+</feed>
+{/if}

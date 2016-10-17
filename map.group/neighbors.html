@@ -1,0 +1,348 @@
+{embed="responsive/html_open" htmltitle="Northland: Starting a House Church"}
+
+
+
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing" type="text/javascript"></script>
+<script type="text/javascript">
+// Globals
+var drawingManager;
+var map = null;
+var parties_markers = [];
+var connectors_markers = [];
+var firsts_markers = [];
+var party_lists = [];
+var iconIncluded = 'http://maps.google.com/mapfiles/dd-start.png';
+var iconExcluded = 'http://maps.google.com/mapfiles/dd-end.png';
+
+var all_overlays = [];		// holding all overlay information
+var openedInfoWindow = null;
+
+function showParties(){
+	for (var i=0; i<parties_markers.length; i++) {
+		parties_markers[i].setVisible(true);
+	}
+}
+function showFirsts(){
+	for (var i=0; i<firsts_markers.length; i++) {
+		firsts_markers[i].setVisible(true);
+	}
+}
+function showConnectors(){
+	for (var i=0; i<connectors_markers.length; i++) {
+		connectors_markers[i].setVisible(true);
+	}
+}
+function hideParties(){
+	for (var i=0; i<parties_markers.length; i++) {
+		parties_markers[i].setVisible(false);
+	}
+}
+function hideFirsts(){
+	for (var i=0; i<firsts_markers.length; i++) {
+		firsts_markers[i].setVisible(false);
+	}
+}
+function hideConnectors(){
+	for (var i=0; i<connectors_markers.length; i++) {
+		connectors_markers[i].setVisible(false);
+	}
+}
+var geocoder;
+var map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+function showForm() {
+	$("#wuform").show();
+}
+
+function hideForm() {
+	$("#wuform").hide();
+}
+
+
+// Initialization
+function initialize() {
+	geocoder = new google.maps.Geocoder();
+	
+	var myOptions = {
+		center: new google.maps.LatLng(28.68492,-81.33649),
+		zoom: 13,
+		// Add controls
+		mapTypeControl: true,
+		scaleControl: true
+	};
+	var iconH_image = '{v2-image-asset-url}/icons/map-house.png';
+	var iconH_image = 'http://google-maps-icons.googlecode.com/files/blueC.png';
+	var iconFirst_image = 'http://google-maps-icons.googlecode.com/files/red01.png';
+
+	var iconH_image = '{v2-image-asset-url}/icons/map-house.png';
+	var icon_connector = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-connector.png';
+	var icon_study = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-study.png';
+	var icon_party = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-party.png';
+
+
+	map = new google.maps.Map(document.getElementById('map'), myOptions);
+
+
+
+	// Connectors Host list
+	$.ajax({
+		type: "GET",
+		url: "/map/connectors/",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('person').each(function() {
+				var firstname = $(this).find('firstname').text();
+				var lastname = $(this).find('lastname').text() ;
+				var fullname = firstname + ' ' + lastname;
+				var latitude = $(this).find('latitude').text();
+				var longitude = $(this).find('longitude').text();
+				var image = $(this).find('image').text();
+				var contact = $(this).find('contact').text();
+
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_connector,
+					map: map
+				});
+				var infowindow = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:350px"><img src='+image+' style="max-height:240px;max-width:340px"><h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}Connect with '+firstname+':<br><a href="#" onclick="javascript:showForm()" style="color:black">Via online form</a>, '+contact+'{/exp:low_replace}</div></div>' });
+				google.maps.event.addListener(marker, 'click', function() { 
+					
+				
+					var r1gxecbb1wpmswo;(function(d, t) {
+					var s = d.createElement(t), options = {
+					'userName':'northlandchurch', 
+					'formHash':'r1gxecbb1wpmswo', 
+					'autoResize':true,
+					'height':'1011',
+					'async':true,
+					'host':'wufoo.com',
+					'header':'hide', 
+					// NOTE: This is the line we are adding to the default snippet.
+					'defaultValues':'Field125='+fullname,
+					'ssl':true};
+					s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+					s.onload = s.onreadystatechange = function() {
+					var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+					try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+					var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');
+				
+				
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+			      	google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+					});	
+				});	
+				// Store Host info into host array
+				connectors_markers.push(marker);
+				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+					
+			});
+			output += '<ul>';
+			$('#hosts').html(output);
+		}
+	});
+
+	// Connectors Host list
+	$.ajax({
+		type: "GET",
+		url: "/map/studies/",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('person').each(function() {
+				var firstname = $(this).find('firstname').text();
+				var lastname = $(this).find('lastname').text() ;
+				var fullname = firstname + ' ' + lastname;
+				var latitude = $(this).find('latitude').text();
+				var longitude = $(this).find('longitude').text();
+				var image = $(this).find('image').text();
+				var contact = $(this).find('contact').text();
+
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_study,
+					map: map
+				});
+				var infowindow = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:350px"><img src='+image+' style="max-height:240px;max-width:340px"><h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}Connect with '+firstname+':<br><a href="#" onclick="javascript:showForm()" style="color:black">Via online form</a>, '+contact+'{/exp:low_replace}</div></div>' });
+				google.maps.event.addListener(marker, 'click', function() { 
+					
+				
+					var r1gxecbb1wpmswo;(function(d, t) {
+					var s = d.createElement(t), options = {
+					'userName':'northlandchurch', 
+					'formHash':'r1gxecbb1wpmswo', 
+					'autoResize':true,
+					'height':'1011',
+					'async':true,
+					'host':'wufoo.com',
+					'header':'hide', 
+					// NOTE: This is the line we are adding to the default snippet.
+					'defaultValues':'Field125='+fullname,
+					'ssl':true};
+					s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+					s.onload = s.onreadystatechange = function() {
+					var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+					try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+					var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');
+				
+				
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+			      	google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+						
+					});	
+				});	
+				// Store Host info into host array
+				firsts_markers.push(marker);
+				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+					
+			});
+			output += '<ul>';
+			$('#hosts').html(output);
+		}
+	});
+
+	// Parties Host list
+	$.ajax({
+		type: "GET",
+		url: "/map/parties/",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('person').each(function() {
+				var firstname = $(this).find('firstname').text();
+				var lastname = $(this).find('lastname').text() ;
+				var fullname = firstname + ' ' + lastname;
+				var latitude = $(this).find('latitude').text();
+				var longitude = $(this).find('longitude').text();
+				var image = $(this).find('image').text();
+				var contact = $(this).find('contact').text();
+
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_party,
+					map: map
+				});
+				$("#field125").val(fullname);
+				var infowindow = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:350px"><img src='+image+' style="max-height:240px;max-width:340px"><h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}RSVP to '+firstname+':<br><a href="#" onclick="javascript:showForm()" style="color:black">Via online form</a>, '+contact+'{/exp:low_replace}</div></div>' });
+				google.maps.event.addListener(marker, 'click', function() { 
+					
+					
+						var r1gxecbb1wpmswo;(function(d, t) {
+						var s = d.createElement(t), options = {
+						'userName':'northlandchurch', 
+						'formHash':'r1gxecbb1wpmswo', 
+						'autoResize':true,
+						'height':'1011',
+						'async':true,
+						'host':'wufoo.com',
+						'header':'hide', 
+						// NOTE: This is the line we are adding to the default snippet.
+						'defaultValues':'Field125='+fullname,
+						'ssl':true};
+						s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+						s.onload = s.onreadystatechange = function() {
+						var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+						try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+						var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+						})(document, 'script');
+					
+					
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+			      	google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+					});	
+				});	
+				// Store Host info into host array
+				parties_markers.push(marker);
+				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+					
+			});
+			output += '<ul>';
+			$('#hosts').html(output);
+		}
+	});
+
+
+  	
+
+//	console.log(connectors_markers);
+
+
+	
+}
+
+function codeAddress() {
+	location_input = document.getElementById("location_input").value; 
+	if (location_input != "") { 
+		// Geocode new location 
+		geocoder.geocode( { 'address': location_input}, function(results, status) {
+			map.setCenter(results[0].geometry.location); 
+			map.setZoom(15);
+		})
+	}
+}
+
+</script>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+});
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+<div class="container_12" style="margin-top:60px;">
+		<div id="map" class="marg-b-20" style="width: 100%; height: 1000px; margin-top:-60px;"></div>
+		<div id="wuform" style="z-index: 0; position: absolute; bottom: 13px; left:0px;background:white;width:200px;max-height:600px;padding:15px;display:none;">
+			<div style="float:right;padding 10px;"><a href="#" onclick="javascript:hideForm();" style="color:black">[ x ]</a></div>
+			<div id="wufoo-r1gxecbb1wpmswo">
+			</div>
+			<script type="text/javascript"></script>
+		</div>
+		<div id="legend" style="z-index: 0; position: absolute; bottom: 13px; right: 0px;background:white;width:200px;padding:15px">
+			<input id="location_input" value="Zip code or address" onblur="javascript:codeAddress()" onclick="javascript:this.value=''" onfocus="javascript:this.value=''"><input type="button" value="Go" onclick="javascript:codeAddress()"><br>
+			<h3>Legend</h3>
+			<!--<div>
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-party.png" style="float:left;margin:5px 5px 29px"> <b>Quarterly Gatherings</b><br>
+				Come to a Northland Easter party and meet some neighbors!<br>
+				(<a href="#" onclick="javascript:showParties()" style="color:black">show</a> / <a href="#" onclick="javascript:hideParties()" style="color:black">hide</a>)
+			</div>-->
+			<div style="clear:both">
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-connector.png" style="float:left;margin:5px 5px 29px"> <b>Connectors</b><br>
+				Meet a leader who will help you find connections close to home. <br>
+				(<a href="#" onclick="javascript:showConnectors()" style="color:black">show</a> / <a href="#" onclick="javascript:hideConnectors()" style="color:black">hide</a>)
+			</div>
+			<div style="clear:both">
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-study.png" style="float:left;margin:5px 5px 29px"> <b>First Principle Groups</b><br>
+				Find out how to become a disciple of Jesus in this 6-week study. <br>
+				(<a href="#" onclick="javascript:showFirsts()" style="color:black">show</a> / <a href="#" onclick="javascript:hideFirsts()" style="color:black">hide</a>)
+			</div>
+
+		</div>
+	</div>
+<div class="clear"></div>
+
+{embed="_includes/html_close"}

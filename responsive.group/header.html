@@ -1,0 +1,621 @@
+</head>
+
+<body>
+<script type="text/javascript">
+// If user is using Internet Explorer, don't let console.log() break it
+if (typeof console == "undefined") {
+	console = { log : function(){} };
+}
+	
+/*var datalog = "";
+var consolelogtime;
+
+
+// Use this one for bug reporting
+console = { log: function(data) {
+		consolelogtime = new Date();
+		datalog = datalog + consolelogtime.getHours() + ":" + consolelogtime.getMinutes() + ":" + consolelogtime.getSeconds() + " - " + data + "\n";
+		
+	} 
+};*/
+	
+{if logged_in && (screen_name=="Anonymous Member")}
+	$(document).ready(function() {
+		// Clear out any with anonymous member cookies
+		console.log("Clear out any with anonymous member cookies");
+		$.ajax({
+			url: "/?ACT=10",
+			complete: function() { location.reload(); }
+		});
+	});
+{/if}
+
+$(document).ready(function() {
+	console.log("/_component/countdown");
+	$.ajax({
+		url: '/_component/countdown',
+		success: function(data) {
+			$("#countdown").replaceWith(data);
+			$("#countdown").fadeIn('slow');
+		}
+	});
+});
+	
+function ee_logout() {
+	$.cookies.del('ee_screenname');
+	$.ajax({
+		url: "/?ACT=10&csrf_token={csrf_token}",
+		complete: function() { location.reload(); }
+	});
+}
+
+// Update logged in header info from cookie
+{if logged_in}
+	$.cookies.set('ee_screenname', "{screen_name}");		
+{/if}
+
+$(document).ready(function() {
+	if ($.cookies.get('ee_screenname')) {
+		$("#logged_status").html('<p id="logged-in"><a href="/profile">' + $.cookies.get('ee_screenname') + '</a>  - <a onclick="javascript:ee_logout();" class="logout">Log Out</a></p>');
+	}
+	else {
+		$("#logged_status").html('<a class="user-login" href="#login-register-box">Login</a>');
+	}		
+});	
+	
+function ShowTextModal(input) {
+	//$.fancybox.close();
+	$("#text_modal").html(input);
+	$("#show_text_modal").trigger('click');
+}
+
+$(document).ready(function(){
+	$(".logout").click(function(){
+		$.ajax({
+			url: "/index.php?ACT=10",
+			complete: function(){
+				location.reload();
+			}
+		});
+		return false;
+	});
+
+	$(".login_form").submit(function() {
+		t_newemail = $("#feature-login #username").val();
+		t_newpassword = $('#feature-login #password').val();		
+
+		var values = $(this).serialize();
+		$.ajax({
+			url: '/index.php',
+			type: 'POST',
+			data: values,
+			success: function(data) {	
+				var pos = data.indexOf("<title>Error");
+				var titlePos = data.indexOf("<title>");
+				
+				if (pos==titlePos)
+				{
+					$("#login-forgot-pass").show();
+				}
+				else
+				{		
+					ShowTextModal("You are currently being logged in....");
+
+					{if screen_name=="Anonymous Member"}
+						UpdateStats(2, 0); // Updates and then reloads after
+					{if:else}
+						var form_loader = $('.login_form [name=RET]').val();
+						form_loader = form_loader.charAt(0);
+						if (form_loader=="!"){
+							window.location.href = location.href+$('.login_form [name=RET]').val();
+						}else{
+							location.reload();
+						}
+					{/if}
+				}
+			}
+		});
+			
+		return false;
+	});
+});
+
+$(function() {
+	$( ".accordion" ).accordion({
+		autoHeight: false,
+		navigation: false
+	});
+});
+</script>
+
+{!-- Search Engine Fix --}
+<div style="display:none;" data-swiftype-index='false'>
+	<strong>Service Times:</strong> Saturdays at 5 p.m., Sundays at 9, 11 a.m., 5 p.m. and	Mondays at 7 p.m. (EST).<br>
+	Just as God has uniquely created each individual, designing within each one the potential to contribute something precious to the lives of others, so too God has created diversity in His kingdom so that each congregation and Christian organization will make a unique contribution to the world.
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+UpdateVisibility();
+			});	
+			
+			$(window).resize(function() {
+				UpdateVisibility();
+			});
+			
+			function UpdateVisibility() {
+				// Defines mobile v full
+				if ($(window).width() <= 770) {
+					$('.default_visible').hide();
+					$('.default_hidden').hide();
+					$('.nav-placeholder').removeClass('nav-hover');
+					$('.shinethelight').show();
+				} else {
+					$('.default_visible').show();		
+					$('.nav-placeholder').addClass('nav-hover');
+					$('.shinethelight').hide();
+				}
+			}
+</script>
+<script type="text/javascript">
+
+function UpdateJWPlayer(id) {
+	console.log("updating size");
+	if (id == 'all') {
+		$(".media_home_player").each(function() { 
+			temp_val = $(this).attr('id').replace("video", "");
+			console.log("Fired! " + temp_val);
+			UpdateJWPlayer(temp_val); 
+		});
+		console.log("Received");
+	}
+	else {		
+		onwidth = $("#video" + id).width();
+		if ($(window).width() > $('.grid_8').width()) {
+			maxwidth = parseInt($('.grid_8').width()) - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right'));
+		}
+		else {
+			maxwidth = parseInt($(window).width()) - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right'));
+		}
+
+		// If window is greater than 720, don't allow to grow larger than desktop size (for use when adapt.js is loading the desktop css href, limits video for growing too big to properly fit when new css loads)
+		if (maxwidth > 720) {
+			maxwidth = 620 - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right')); // 620 is the width of grid_8 in the desktop css
+		}
+
+		console.log("grid 8 " + $('.grid_8').width() + "max width: " + maxwidth);
+
+		if (onwidth > maxwidth) { onwidth = maxwidth; }						
+		onheight = Math.round(onwidth*.5625);
+		console.log(onwidth + " and " + onheight);
+		jwplayer('vid' + id).resize(onwidth, onheight);
+	}
+}
+
+$(window).resize(function() { UpdateJWPlayer('all'); });	
+</script>
+
+<script type=text/javascript>
+// Called by Adapt.js
+/*function myCallback(i, width) {
+	
+}*/
+
+var ADAPT_CONFIG = {
+  dynamic: true,
+  path: '/_includes/adapt/',
+  //callback: myCallback,
+  range: [
+    '0px to 769px  = mobile.css',
+    '770px  	   = full.css'
+  ]
+};
+</script>
+<script src="/_includes/adapt/adapt.js"></script>
+
+<div id="header" class="container_12">
+	<a href="{site-url}"><div class="northland-logo"></div></a>
+	
+	<div id="header-content">
+		<div id="meta-links">
+			<script type="text/javascript">
+			
+			function UpdateFancyBoxBinds() {
+				$(".user-login, .login .signup-box").fancybox({
+					'hideOnContentClick': true,
+					'width': '100%',
+					'autoDimensions': true,
+					'padding': 5,
+					'scrolling': 'no',
+					'hideOnOverlayClick': true,
+					'hideOnContentClick': false,
+					'overlayOpacity': 0.9,
+					'overlayColor': '#10202b',
+					'transitionIn': 'fade',
+					'transitionOut': 'fade'
+				});
+			}	
+			
+			$(document).ready(function() { 
+				UpdateFancyBoxBinds();
+			 });
+					
+			</script>			
+									
+			<div id="tithesofferings">
+				<?php
+					include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+					$detect = new Mobile_Detect();
+					if ($detect->isMobile()) { echo "<a href='https://secure.northlandchurch.net/givingweb/mobilegiving.jsp'>Tithes &amp; Offerings</a>"; }
+					else { echo "<a href='http://secure.northlandchurch.net/insitegiving/giving.do'>Tithes &amp; Offerings</a>"; }
+				?>
+			</div>
+			<div id="logged_status" style="float:right">	
+			
+		</div>
+		
+		{!-- Old Login Box }		
+		<div style="display: none">
+			<div id="user-login-box">
+				<h1>Login Below</h1>
+				<div id="login-divider"></div>
+					
+				{exp:member:login_form form_class="login_form"}
+					<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+					<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+					<div class="clear"></div>
+					<input type="submit" id="login-submit" name="submit" value="Login" />
+					<div id="login-forgot">
+						<p><input type="checkbox" name="auto_login" id="auto_login" style="margin-bottom: 0px" checked/> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+						<p><a href="{path=prelaunchmain/forgot_password}/">Forgot Your Username or Password?</a></p>
+					</div>	
+				{/exp:member:login_form}
+					
+				<div class="clear"></div>
+					
+				<div id="login-register">
+					<div id="login-icon"></div>
+					<p>Don't have an Account? <a href="/register">Sign up here!</a> </p>
+				</div>
+			</div>
+		</div>
+		{--}
+		
+		{!-- Testee Box }	
+		<div style="display: none">
+			<div id="testee-box">
+				<h1>Login Below</h1>
+				<div id="login-divider"></div>
+				
+				{exp:member:login_form form_class="login_form" return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+					<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+					<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+					<div class="clear"></div>
+					<input type="submit" id="login-submit" name="submit" value="Login" />
+					<div id="login-forgot">
+						<p><input type="checkbox" name="auto_login" id="auto_login" style="margin-bottom: 0px" checked/> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+						<p><a href="{path=prelaunchmain/forgot_password}/">Forgot Your Username or Password?</a></p>
+					</div>	
+				{/exp:member:login_form}
+				
+				<div class="clear"></div>
+				
+				<div id="login-register">
+					<div id="login-icon"></div>
+					<p>Don't have an Account? <a href="/register">Sign up here!</a> </p>
+				</div>
+			</div>
+		</div>				
+		{--}
+		{!-- Login / Register Box --}
+		<div style="display: none"  data-swiftype-index='false'>
+				
+			<div id="login-register-box">
+				{exp:user:forgot_password}
+					<input type="hidden" name="email" id="email" />
+					<p><input type="submit" name="submit_button" value="Submit" style="display:none"/></p>
+				{/exp:user:forgot_password}
+				<div class="accordion">	
+					{!-- LOGIN MENU OPTION --}
+					<h1><a href="#section1" id="signin_link">Sign In</a> or <a href="#section2" onclick="javascript:$('#create_new').trigger('click');">Create a New Account</a></h1>
+					
+					{!-- LOGIN SECTION --}
+					<div id="feature-login">
+						<h1>Login</h1>
+						<p class="marg-b-20" style="color:#EEE; margin-bottom: 5px;">	
+							If you've ever registered at Northland before, you likely already have an account. Try logging in first to find out.<br><br>
+							<strong>Don't remember your password?</strong><br>
+							Enter your email below and click "login" to get an option to reset it.
+						</p>
+						
+						{!-- LOGIN CREDENTIALS --}		
+						{exp:member:login_form form_class="login_form" return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+							<label class="field" for="">Email:</label><input type="text" class="field" id="username" name="username" />
+							
+							{!-- EMAIL NOT REGISTERED --}
+							<div id="no-email" style="display:none;float:right;">
+								<div class="clear"></div>
+								<div class="login-errormsg">
+									<strong>Email Address Not Registered</strong>
+									<p><a href="#section2" onclick="javascript:$('#create_new').trigger('click');" id="new-email" style="color:white;">Your email address isn't in our system. Click here to create a new account.</a></p>
+								</div>
+							</div>
+                            
+							{!-- EMAIL IS WRONG --}
+							<div id="email_invalid" style="display:none;">	
+								<div class="clear"></div>	
+								<div class="login-errormsg">			
+									<strong>Invalid Email Address Entered</strong>
+									<p>We need a valid email to proceed.</p>
+								</div>
+							</div>
+							
+							{!-- PASSWORD --}		
+							<label class="field" for="">Password:</label><input type="password" class="field" name="password" id="password" />
+							
+							{!-- INCORRECT PASSWORD --}		
+							<div class="clear"></div>
+							<div id="login-forgot-pass" class="login-errormsg" style="display:none">
+								<strong>Incorrect Password Entered</strong><br>
+								<p><a href="#" id="reset_pw" style="color:white">Forgot your password? Click here to have your password emailed.</a></p>
+							</div>
+							
+							{!-- AUTO-LOGIN--}
+							<p style="float:right; width:100%; text-align:center; margin-top:10px;">
+								<input type="checkbox" name="auto_login" id="auto_login" style="margin-bottom: 0px" checked /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label>
+							</p>	
+							<div class="clear"></div>
+  
+							{!-- LOGIN BUTTON --}
+							<input type="submit" id="submit-login" name="submit" value="Login" />
+							<div class="clear"></div>
+						{/exp:member:login_form}
+								
+						<div class="clear marg-b-20" ></div>
+					</div>	
+						
+					{!-- REGISTER MENU OPTION --}		
+					<h1 class="pad-b-5" style="margin-bottom:0px; padding-bottom:0px; height: 0; background:none"><a href="#section2" id="create_new" style="display:none">Create a New Account</a></h1>
+					
+					<form method="post" autocomplete="off">	
+						{!-- REGISTER SECTION --}		
+						<div id="feature-register">
+							<h1 style="padding-bottom:10px;">Account Registration</h1>
+							{!-- OLD WELCOME MESSAGE}<p class="marg-b-20" style="color:#EEE">Thanks for creating an account and joining the Northland congregation!</p>{--}
+							{!--}	
+							{exp:user:forgot_password return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+    							<input type="hidden" name="email" id="email" /></p>
+								<input type="hidden" name="submitf" value="Submit" />	
+							{/exp:user:forgot_password}
+    								
+							{exp:member:login_form return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+    							<input type="hidden" name="email" id="email" /></p>
+								<input type="hidden" name="password" id="password" /></p>
+								<input type="hidden" name="password" value="Submit" />
+    						{/exp:member:login_form}	
+							{--}
+							<div class="label_padding">
+                    	
+							<!--
+										<p><label for="">Username:</label> <input class="field" type="text" name="usernamenew" id="usernamenew" style="width: 250px;" /></p>
+										<p><label for="screen_name">Screen Name:</label> <input class="field" type="text" name="screennamenew" id="screennamenew" style="width: 250px;" /></p>
+							-->
+							{!-- REGISTRATION CREDENTIALS --}
+							<div id="wrap_email">
+								<label class="field" for="email">Email Address:</label> 
+        						<input class="field" type="text" name="emailnew" id="emailnew" />
+								<p class="clear"></p>
+								
+								{!-- EMAIL IS WRONG --}
+								<div id="email_invalid1" class="login-errormsg" style="display:none">
+									<strong>Invalid Email Address Entered</strong><br>
+									<p>We need a valid email to proceed</p>
+								</div> 
+								
+								{!-- ACCOUNT ALREADY EXISTS--}
+								<div id="existing_account1" class="login-errormsg" style="display:none">
+									<strong><span id="your_email1"></span> is already registered.</strong><br>
+									<a href="#section1" onclick="javascript:$('#signin_link').trigger('click');">Click here to login.</a>
+								</div>
+								
+								{!-- MULTIPLE ACCOUNTS EXIST --}
+								<div id="existing_multiple_account1" style="display:none">
+									We already have multiple accounts registered for <span id="your_email2"></span>. Please contact an administrator to resolve.
+        						</div>
+							</div>
+							
+							{!-- FIRST NAME --}
+							<div id="wrap_firstname">
+								<label class="field" for="firstname">First Name:</label>
+        						<input class="field" type="text" name="firstnamenew" id="firstnamenew" />
+        						<div class="clear"></div>
+        						<div id="nonalphanumeric_firstname" class="login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+        						<div id="no_firstname" class="login-errormsg" style="display:none">Please enter your first name.</div>
+								<div id="multi_firstname" class="login-errormsg" style="display:none">Please enter only your first name.</div> 
+							</div>
+							
+							{!-- LAST NAME --}
+							<div id="wrap_lastname">
+								<label class="field" for="lastname">Last Name:</label>
+        						<input class="field" type="text" name="lastnamenew" id="lastnamenew" /></p>
+        						<div class="clear"></div>
+        						<div id="nonalphanumeric_lastname" class="login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+								<div id="no_lastname" class="login-errormsg" style="display:none">We need your last name, too. Don't worry, you'll be able to keep that hidden.</div> 
+								<div id="multi_lastname" class="login-errormsg" style="display:none">Please enter only one word for your last name.</div> 
+							</div>
+							
+							{!-- PASSWORD --}
+							<div id="wrap_password">
+								<label class="field" for="password">Password:</label>
+        						<input class="field" type="password" name="passwordnew" id="passwordnew" />
+							</div>
+							
+							{!-- PASSWORD CONFIRM --}
+							<div id="wrap_password_confirm">
+								<label class="field" for="password_confirm">Confirm Password:</label>
+        						<input class="field" type="password" name="password_confirmnew" id="password_confirmnew" /></p>
+        						<div class="clear"></div>
+								<div id="mismatched_passwords" class="login-errormsg" style="display:none">Your passwords don't match.</div> 
+								<div id="tooshort_password" class="login-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+							</div>
+						</div> 
+						
+						{!-- CAPTCHA SECURITY --}
+						{if captcha}
+        				    <p><label for="captcha">Please enter in the word you see below:</label> <input class="field" type="text" name="captcha" id="captcha" style="width: 150px;" /></p>
+        				    <p>{captcha}</p>
+        				{/if}
+        				
+        				<div class="clear"></div>
+						
+						{!-- ACCEPT TERMS --}
+						<p><input type="checkbox" name="accept_termsnew" id="accept_termsnew" value="y" checked /> <label for="accept_terms">Accept Terms?</label></p>
+						<div id="needtoaccepterms" class="login-errormsg" style="display:none">You need to accept the terms before registering.</div> 
+        				
+						<div class="clear"></div>
+						
+						<div id="fixerrors" class="login-errormsg" style="display:none">You must accept the terms and enter all required fields to register.</div>
+						<div id="submittingregistration" class="login-errormsg" style="display:none">We're setting up your account now.</div>
+						
+						<p><a href='#' id='registerClick'><input id="submit-register" type="submit" name="submit-register" value="Register" /></a></p>
+        				
+        				{if user_no_results}
+        				    <p>You're currently logged in, and must be logged out to register a new account.</p>
+        				{/if}
+        				<div class="clear pad-b-20"></div>
+					</form>	
+        
+					{!-- PRELAUNCH CODE }				
+						{exp:user:register return="prelaunchmain/register_success" error_page="prelaunchinc/error_template"}
+						
+							<div class="label_padding">
+								<label class="field" for="username">Username:</label> 
+								<input class="field" type="text" name="username" id="username" />
+								
+								<label class="field" for="screen_name">Screen Name:</label> 
+								<input class="field" type="text" name="screen_name" id="screen_name" />
+								
+								<label class="field" for="email">Email Address:</label> 
+								<input class="field" type="text" name="email" id="email" />
+								
+								<label class="field" for="password">Password:</label> 
+								<input class="field" type="password" name="password" id="password" />
+								
+								<label class="field" for="password_confirm">Confirm Password:</label> 
+								<input class="field" type="password" name="password_confirm" id="password_confirm" />
+							</div> 
+							
+							{if captcha}
+								<p><label for="captcha">Please enter in the word you see below:</label> <input class="field" type="text" name="captcha" id="captcha" style="width: 150px;" /></p>
+								<p>{captcha}</p>
+							{/if}
+							
+							<div class="clear"></div>
+							
+							<p><input type="checkbox" name="accept_terms" id="accept_terms" value="y" /> <label for="accept_terms">Accept Terms?</label></p>
+							
+							<p><input id="submit-register" type="submit" name="submit" value="Register" /></p>
+							
+							{if user_no_results}
+								<p>You're currently logged in, and must be logged out to register a new account.</p>
+							{/if}
+							<div class="clear pad-b-20"></div>
+						{/exp:user:register}
+					{--}					
+						
+					<div class="clear"></div>
+							
+				</div>	
+			</div>
+		</div>
+	</div>
+		
+</div>	
+	<div id="countdown" style="display:none"></div>	
+	
+</div>
+
+
+<!--
+<div style="display:none;">
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr valign="bottom" align="left">
+        <td bgcolor="black" cellpadding="1" nowrap>
+            <font size="1" color="white">
+                <b>&nbsp;Online Community Login</b>
+            </font>
+        </td>
+    </tr>
+    <tr valign="top" align="left">
+        <td>
+            <table width="150" cellpadding="1" cellspacing="0" bgcolor="black">
+                <tr>
+                    <td width="100%">
+                        <form id="ccbloginform" action="https://northland.ccbchurch.com/login.php" method="post" target="ccb">
+                            <table width="100%" cellpadding="4" cellspacing="0" border="0">
+                                <tr>
+                                    <td bgcolor="white" valign="top" align="left" width="100%">
+                                        <input type="hidden" name="ax" value="login">
+                                        <table cellpadding="1" cellspacing="1" border="0">
+                                            <tr>
+                                                <td valign="bottom" align="left">
+                                                    <font size="1" color="black">
+                                                        <b>Username</b>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <input type="text" id="ccblogin" name="form[login]" value="" size="15" maxlength="50">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="bottom" align="left">
+                                                    <font size="1" color="black">
+                                                        <b>Password</b>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <input type="password" id="ccbpassword" name="form[password]" value="" size="15" maxlength="20">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="left">
+                                                    <input type="submit" value="Login">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <font size="-2">
+                                                        <a href="https://northland.ccbchurch.com/w_password.php"><font color="black">Forgot Password?<br /></font></a>
+                                                        <a href="https://northland.ccbchurch.com/w_sign_up.php"><font color="black">Sign Up<br /></font></a>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</div>	
+
+<iframe name="ccb" width='1' height='1' frameborder='0'></iframe>
+-->
+</div>
+
+</div>
+
+	
+</div>
+
+<a class="user-login" id="show_text_modal" href="#text_modal" style="display:none"></a> 
+<div style="display:none"><div id="text_modal"></div></div>
+<div style="display:none"><div id="ccbform"></div></div>

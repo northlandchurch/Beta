@@ -1,0 +1,4809 @@
+/*
+
+Framework:		Main, Version 3
+website:		www.northlandchurch.net
+version:		1 November 2011
+
+Sections:		@Top Level HTML Elements -		*, html, body, p, p + p, a:link, a:visited, a:hover, a:active,
+												a img, hr, blockquote, code, strong, em
+				@Headings -						h1, h2, h3, h4, h5, h6
+				@Header - 						header styles
+				@Footer	-						footer styles
+				@Navigation -					
+				@Forms -						
+				@Content Area -					
+
+Color
+Definitions:	Text Grey:		#303030
+				Main Blue:		#347197
+				Main Orange:	#d54726
+				
+				
+Color
+Pallete:		Main Blue:			#347197
+				Cool Gray 11:		#717073
+				Cool Gray 6:		#babcbe
+				Other Blue:			#006892
+					
+
+*/
+
+/* ============================================================================== @Top Level HTML Elements */
+
+* { margin: 0; padding: 0; }
+
+body {
+	background: #fff url(http://www.northlandchurch.net/_assets/img/v2/main/bg-header4.png) repeat-x;
+	height: 100%;
+	width: 100%;
+	color: #555656;
+	margin: 0 auto;
+	}
+	
+a img, img { border: 0px; }
+
+a[href$='.pdf'] {
+	background: url({v2-image-asset-url}/icons/link_types.png) left 0px no-repeat;
+	padding-left: 20px;
+	}
+
+a[href$='.doc'] {
+	background: url({v2-image-asset-url}/icons/link_types.png) left -125px no-repeat;
+	padding-left: 20px;
+	}
+
+a[href^="http://www.vimeo"] {
+	background: url({v2-image-asset-url}/icons/link_types.png) left -25px no-repeat;
+	padding-left: 20px;
+	}
+
+a[href^="http://www.youtube"] {
+	background: url({v2-image-asset-url}/icons/link_types.png) left -50px no-repeat;
+	padding-left: 20px;
+	}
+
+a.noyoutube[href^="http://www.youtube"] {
+	background: none;
+	padding-left: 0;
+	}
+	
+.masters {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	margin-top: 5px;
+}
+
+.masters_holder {
+	margin-top: 5px;
+	background-image: url("/_img/adapt/border-right.png");
+	background-repeat: repeat-y;
+}
+
+
+/* ============================================================================== @Headings */
+
+#focused h2 a { color: #fff; text-decoration: none; }
+.connect-with
+{
+	float: left;
+	margin: 3px 15px 0 0 ;
+}
+
+/* `Basic HTML
+----------------------------------------------------------------------------------------------------*/
+
+body {
+  	font-family: Helvetica, Arial, Geneva, sans-serif;
+	font-size: 12px;
+	height: inherit;
+	line-height: 1.5em;
+}
+
+p { padding: 0 0 1em 0; font-size: 100% }
+
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {content: '';content: none;}
+:focus {outline: 0;}
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+table {border-collapse: collapse;border-spacing: 0;}
+
+a,
+a:link,
+a:visited,
+a:active {
+	color: #347197;
+	cursor: pointer;
+	text-decoration: underline;
+	-webkit-transition: #b13b1f .4s ease-out;
+	}
+
+a:hover { }
+
+a.plain {
+	font-weight: normal;
+	text-decoration: none;
+	}
+	
+blockquote {
+	border-left: 2px solid #e0cdc2;
+	font-family: Georgia, Baskerville, serif;
+	font-style: italic;
+	margin: 1em 0 1em 1em;
+	padding: 0 20px;
+	}
+
+
+
+pre,
+code {
+  font-family: 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+}
+
+div.hr {
+	border-bottom: 1px solid #d1d1d1;
+	clear: both;
+	height: 0px;
+	margin: 5px 0 15px;
+}
+
+/* `Headings
+----------------------------------------------------------------------------------------------------*/
+
+h1 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	color: #fff;
+	font-size: 42px;
+	line-height: 42px;
+	font-weight: 100;
+}
+
+h2 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-weight: 300;
+	border-bottom: 1px solid #3a3a3a;
+	color: #2e2e2e;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+	h2.calendar {
+		border-bottom: 0px;
+		color: #2e2e2e;
+		font-size: 24px;
+		font-weight: bold;
+		margin-bottom: -60px;
+		padding-bottom: 10px;
+		}
+	
+	.blog-post h2 {
+		border-bottom: 1px solid #e2e2e2;
+		}
+	
+	#focused h2 {
+		color: #fff;
+		margin: 10px 0;
+		}
+	
+	.staff-entry h2 {
+		border-bottom: none;
+		font-size: 14px;
+		margin-bottom:0px;
+		padding-bottom:0px;
+		}
+	
+h3 {
+	border-bottom: 1px solid #e6e6e6;
+	color: #2e2e2e;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+}
+	#respond-worship h3 {
+	  font-family: "museo-sans-1","museo-sans-2", Helvetica, Arial, Geneva, sans-serif;
+	  color: #fff;
+	  font-size: 16px;
+	  line-height: 16px;
+	  font-weight: 100;
+	text-transform: uppercase;
+	  border: none;
+	  margin-bottom: 10px;
+	}
+	#respond-worship h3 span {
+		font-size: 12px;
+		font-style: italic;
+	}
+	.hideme h3 {
+		border: none;
+		color: #2e2e2e;
+		font-size: 16px;
+		font-weight: bold;
+		margin-bottom: 0;
+		padding-bottom: 5px;
+	}
+	
+	.respond h3 {
+		border-bottom: 0px solid;
+		color: #fff;
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 5px;
+		padding-bottom: 0;
+	
+	}
+
+h4 {
+	color: #2e2e2e;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+	.faq h4 {
+		color: #347197;
+		cursor: pointer;
+		margin-top: 20px;
+		
+	}
+
+h5 {
+	border-bottom: 1px solid #dcdcdc;
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+}
+	#footer h5 {
+		border-bottom: 0px;
+		color: #000000;
+		font-weight: bold;
+		font-size: 14px;
+		margin-bottom: 10px;
+		padding-bottom: 0;
+		text-transform: none;
+		}
+
+h6 {
+	color: #303030;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+	h6 a {
+		color: #fff !important;
+		text-decoration: none !important;
+	}
+	
+/* ============================================================================== @Forms */
+
+label {
+	float: left;
+	padding: 1px 10px 0 0;
+	}
+
+#filter-bar label {
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+
+textarea {
+	border: 1px solid #e2e2e2;
+	color: #000000;
+	font-family: Helvetica, Arial, Geneva, sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	margin-bottom: 10px;
+	padding: 7px;
+	}
+
+textarea.servicenotes {
+	height: 250px;
+	width: 606px;
+	}
+
+input {
+	border: 1px solid #e2e2e2;
+	color: #000000;
+	font-family: Helvetica, Arial, Geneva, sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	margin-bottom: 10px;
+	padding: 7px;
+	}
+
+	input.button {
+		border: 0px solid #e2e2e2;
+		float: left;
+		font-size: 12px;
+		line-height: 18px;
+		margin: 5px 0 0 0;
+		padding: 0 0 0 0;
+		}
+
+	input[name='submit'], input[name='submit-register'], input[name='submit-register1']  {
+
+		background-color: transparent !important;
+		background-image: url({v2-image-asset-url}/buttons/submit.png);
+		border: 0px;
+		height: 24px;
+		line-height: 0px;
+		margin: 0px;
+		padding: 0px;
+		text-indent: -9999px;
+		width: 61px;
+		}
+
+	 input[name='upload_photo']  {
+	 	background-color: transparent !important;
+	 	background-image: url({v2-image-asset-url}/buttons/upload_photo.png);
+	 	border: 0px;
+	 	height: 21px;
+	 	line-height: 0px;
+	 	margin: 0px;
+	 	padding: 0px;
+	 	text-indent: -9999px;
+	 	width: 110px;
+	 	}
+
+	 input[name='remove_photo']  {
+	 	background-color: transparent !important;
+		background-image: url({v2-image-asset-url}/buttons/remove_photo.png);
+	 	border: 0px;
+	 	height: 21px;
+	 	line-height: 0px;
+	 	margin: 0px;
+	 	padding: 0px;
+	 	text-indent: -9999px;
+	 	width: 110px;
+	 	}
+
+
+	input.email {
+		float: left;
+		margin-right: 10px;
+		width: 300px;
+		}
+
+#calendarsearch input {
+	margin-top: 3px;
+	width: 235px;
+	}
+
+#mediasearch input {
+	float: right;
+	margin-top: 1px;
+	}
+
+#mediasearch input.button {
+	margin: 6px 0 0 10px;
+	}
+
+select#newspaper-week {
+	width: 260px;
+	}
+
+
+/* `Margins & Paddings
+----------------------------------------------------------------------------------------------------*/
+.marg-t-5 { margin-top: 5px; }
+.marg-t-10 { margin-top: 10px; }
+.marg-t-20 { margin-top: 20px; }
+.marg-t-40 { margin-top: 40px; }
+.marg-t-60 { margin-top: 60px; }
+.marg-t-80 { margin-top: 80px; }
+.marg-t-100 { margin-top: 100px; }
+
+.marg-b-5 { margin-bottom: 5px; }
+.marg-b-10 { margin-bottom: 10px; }
+.marg-b-20 { margin-bottom: 20px; }
+.marg-b-40 { margin-bottom: 40px; }
+.marg-b-60 { margin-bottom: 60px; }
+.marg-b-80 { margin-bottom: 80px; }
+.marg-b-100 { margin-bottom: 100px; }
+.marg-b-150 { margin-bottom: 150px; }
+
+.min-200 { min-height: 200px; }
+.min-400 { min-height: 400px; }
+.min-600 { min-height: 600px; }
+
+
+.divider { margin-top: 10px; }
+
+.pad-b-5 { padding-bottom: 5px; }
+.pad-b-10 { padding-bottom: 10px; }
+.pad-b-20 { padding-bottom: 20px; }
+.pad-b-40 { padding-bottom: 40px; }
+
+
+/* `Temporary "Missing Links Destination"
+----------------------------------------------------------------------------------------------------*/
+* a[href=''],
+* a[href='#'],
+#footer .grid_9 div ul li a[href='#'],
+#footer div.nav a[href='#'],
+#footer div.nav a.meta-link[href='#'],
+a[href=''],
+a[href='#'] {
+	color: #00ff00;
+	}
+
+a[href='#'] img {
+	border: 5px solid #00ff00;
+	padding: 4px;
+	}
+
+/* ============================================================================== @Header */
+
+#header {
+	height: 79px;
+	}
+	
+	.northland-logo {
+		background-image: url(http://northlandchurch.net/_assets/img/v2/main/logo.png);
+		height: 79px;
+		float: left;
+		width: 225px;
+		margin-top: -5px;
+		margin-left: -55px;
+	}
+
+	#header img.logo {
+		margin-left: -52px;
+		float: left;
+		}
+
+	#header #meta-links {
+		color: #777777;
+		float: right;
+		font-size: 11px;
+		margin-top: 5px;
+		text-align: right;
+		}
+
+		#header #meta-links div.choose-location {
+			float: left;
+			height: 14px;
+			margin-top: -5px;
+			overflow: hidden;
+			padding: 5px;
+			position: absolute;
+			text-align: right;
+			}
+
+			#header #meta-links div.choose-location:hover {
+				-moz-border-radius-bottomleft: 5px;
+				-moz-border-radius-bottomright: 5px;
+				-webkit-border-bottom-left-radius: 5px;
+				-webkit-border-bottom-right-radius: 5px;
+				background-color: #202020;
+				border-bottom: 1px solid #373737;
+				height: auto;
+				padding: 5px;
+				}
+
+		#header #meta-links a {
+			color: #efefef;
+			padding-left: 10px;
+			}
+
+		#header #meta-links a.site {
+			color: #347197;
+			padding-left: 0px;
+			}
+
+#header-content {
+	float: right;
+	width: 45%;
+	}
+
+
+#header-collapse
+{
+	margin-top: 0px;
+}
+
+#header-bg
+{
+	background: #ffffff url(http://www.northlandchurch.net/_assets/img/v2/main/bg-header4.png) repeat-x;
+	height: 100%;
+	width: 100%;
+}
+
+#header-bar-small
+{
+	background: #ffffff url(/_assets/img/v2/main/header-bar-small.png) repeat-x;
+	background-repeat: repeat-x;
+	height: 18px;
+	padding-top: 7px;
+}
+
+#header-bar-small a
+{
+	color: #fff;
+	text-decoration: none;
+	font-size: 11px;
+}
+
+#header-bar-small h1
+{
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 14px;
+	float: left;
+	margin-right: 10px;
+}
+
+#header-bar-small img
+{
+	float: left;
+}
+
+#header-bar-small p
+{
+	color: #fff;
+}
+
+
+#header-bar-small h1 span
+{
+	color: #183245;
+	font-weight: 300;
+	text-shadow: #5a83a5 0px 1px 0px;
+}
+
+#header-small-right
+{
+	float: right;
+	margin-top: -2px;
+}
+
+/* ---------- Temporary "Missing Link Destination" Styles */
+
+* a[href=''],
+* a[href='#'],
+#footer .grid_9 div ul li a[href='#'],
+#footer div.nav a[href='#'],
+#footer div.nav a.meta-link[href='#'],
+a[href=''],
+a[href='#'] {
+	color: #00ff00;
+	}
+
+a[href='#'] img {
+	border: 5px solid #00ff00;
+	padding: 4px;
+	}
+
+/* ============================================================================== @Content Area */
+
+a.tweet {
+	background: url({v2-image-asset-url}/buttons/twitter.png) no-repeat center center;
+	display: inline-block;
+	font-size: 1px;
+	height: 15px;
+	line-height: 15px;
+	margin: 0 0 -3px 5px;
+	padding: 0 0 0 0;
+	text-indent: -9999px;
+	width: 15px;
+	}
+
+a.podcast {
+	background: url({v2-image-asset-url}/buttons/rss.png) no-repeat left center;
+	display: inline-block;
+	margin: 0 0 -3px 0;
+	padding: 0 0 0 18px;
+	}
+
+
+  
+#aside a { font-weight: bold; }
+#aside p a { font-weight: normal; }
+
+ul#media-list li a {
+	color: #262626;
+	font-weight: bold;
+	text-decoration: none;
+	}
+
+ul#media-list li.more a {
+	color: #347197;
+	font-weight: normal;
+	text-decoration: underline;
+	}
+
+
+.blue {
+	color: #347197 !important;
+	}
+	
+.red {
+	color: #d13815;
+	}	
+	
+.large {
+	font-size: 20px;
+}
+	
+.uppercase {
+	text-transform: uppercase;
+	}
+
+.divider { 
+	margin-top: 10px;
+	}
+	
+.horizon-divider {
+	background-image: url(/_assets/img/v2/main/horizon-divider.png);
+	background-repeat: repeat-x;
+	height: 2px;	
+	}	
+
+#light-divider {
+	border-top: 1px solid #cfcfcf;
+	margin-top: 20px;
+	}
+	
+.light-divider {
+	border-top: 1px solid #cfcfcf;
+	margin-top: 15px;
+	}	
+
+.plain {
+	font-weight: normal;
+	}
+
+.small-10 {
+	font-size: 10px;
+	}
+
+object.left {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	}
+
+img.left {
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	}
+img.left2 {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	}
+
+	#nav img.left {
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		}
+
+img.right {
+	float: right;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	}
+
+div.meta {
+	background-color: #fffed6;
+	border: 1px solid #e6e6e6;
+	border-top: 1px solid #d9d8b6;
+	margin-bottom: 20px;
+	padding: 20px;
+	}
+	
+/*---- Countdown & Live Worship Button*/
+
+#countdown {
+	background-image: url(/_img/adapt/worshipcountdown.png);
+	width: 260px;
+	height: 34px;
+	float: right;
+	clear: right;
+	color: #fff;
+	margin-top: 10px;
+	font-size: 18px;
+	}
+	#cd-days, #cd-hours, #cd-minutes, #cd-seconds {padding-top: 3px; font-size: 14px}
+
+#btn-live-worship
+{
+	width: 262px;
+	height: 51px;
+	float: right;
+	clear: right;
+	margin-top: 4px;		
+}
+
+#cd-days
+{
+	width: 20px;
+	display: block;
+	text-align: center;
+	float: left;
+	margin-right: 22px;
+	padding-left: 100px;
+}
+
+#cd-hours
+{
+	width: 20px;
+	display: block;
+	text-align: center;
+	float: left;
+	margin-right: 24px;
+}
+
+#cd-minutes
+{
+	width: 20px;
+	display: block;
+	text-align: center;
+	float: left;
+	margin-right: 23px;
+}
+
+#cd-seconds
+{
+	width: 20px;
+	display: block;
+	float: left;
+	text-align: center;
+}
+
+/* ---------- Home Series & Live Worship Container*/
+
+
+
+#home-series-bg-long
+{
+	background-image: url(/_assets/img/v2/home/respond-live-bg.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+#home-respond-bg-long
+{
+	background-image: url(/_assets/img/v2/home/respond-live-bg.jpg);
+	background-repeat: repeat-x;
+	height: 370px;
+	margin-bottom: 20px;
+}
+
+#home-roomforredemption-bg-long
+{
+	background-image: url(/_img/series/roomforredemption.jpg);
+	background-repeat: repeat-x;
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+#home-godhappens-bg-long
+{
+	background-image: url(/_img/series/godhappens-big.jpg);
+	background-position:center;
+	background-repeat: repeat-x;
+	height: 400px;
+	margin-bottom: 20px;
+}
+
+
+#home-worship-bg-long
+{
+	background-image: url(/_assets/img/v2/home/worship-god/bg.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+#home-series-bg
+{
+	background-image: url(/_assets/img/v2/home/bg-series.png);
+	width: 940px;
+	height: 442px;
+	margin: 0 auto;
+}	
+
+
+#home-series-caption
+{
+	width: 270px;
+	height: 422px;
+	padding: 30px 15px 0 5px;
+	float: left;
+	margin-right: 20px;
+	z-index: 1;
+}
+
+	#home-series-caption p
+	{
+		color: #2c2c2b;
+		font-size: 12px;
+		border-bottom: none;
+		padding-bottom: 4px; 
+	}
+
+	#home-series-caption h3
+	{
+		color: #2c2c2b;
+		font-size: 19px;
+		border-bottom: none;
+		text-transform: uppercase;
+		border-bottom: 1px solid #a49e98;
+		margin-bottom: 20px;
+	}
+
+	#home-series-caption h4
+	{
+		color: #2c2c2b;
+		font-size: 14px;
+		border-bottom: none;
+		text-transform: uppercase;
+		margin: 0px;
+		padding: 0px;
+	}
+
+#home-worship-vid
+{
+	float: right;
+	width: 640px; 
+	height: 380px; 
+	margin-top: 32px
+}
+
+#home-live-vid
+{
+	float: right;
+	margin: 25px 0 0 339px;
+	position: absolute;
+	z-index: 99;
+}
+
+#home-title-space
+{
+	height: 400px;
+}
+
+#home-worship-title
+{
+	background-image: url(/_assets/img/v2/home/worship-god/title.png);
+	background-repeat: no-repeat;
+	width: 640px;
+	position: absolute;
+	z-index: 2;
+	margin-top: 75px;
+	padding: 200px 0 0 386px;
+}
+
+#home-dove
+{
+	background-image: url(/_assets/img/v2/home/worship-god/dove.png);
+	width: 254px;
+	height: 314px;
+	position: absolute;
+	z-index: 1;
+	margin: 30px 0 0 675px;
+}
+
+#bottom-bar
+{
+	background-image: url(/_assets/img/v2/home/worship-god/bottom-bar.png);
+	background-repeat: repeat-x;
+	height: 86px;
+	padding-top: 14px;
+}
+
+#new-bottom-bar
+{
+	background-image: url(/_assets/img/v2/home/worship-god/bottom-bar.png);
+	background-repeat: repeat-x;
+	height: 86px;
+	padding-top: 14px;
+	position: absolute;
+	width: 100%;
+	margin-top: -105px;
+}
+
+	#new-bottom-bar a
+	{
+		color: #ffa800;
+		font-size: 11px;
+		text-decoration: none;
+	}
+
+	#new-bottom-bar p
+	{
+		float: left;
+	}
+
+	#new-bottom-bar img
+	{
+		float: left;
+		margin-right: 10px;
+	}
+
+
+	#new-bottom-bar a.large
+	{
+		color: #ffa800;
+		font-size: 11px;
+		text-decoration: none;
+		font-size: 13px;
+		text-transform: uppercase;
+	}
+
+
+
+#home-past-content
+{
+	margin-top: 13px;
+	background-image: url(/_assets/img/v2/home/worship-god/home-.png);
+	height: 21px;
+}
+
+#home-current
+{
+	padding-top: 42px;
+	float: left;
+	background-image: url(/_assets/img/v2/home/worship-god/current-series.png);
+	height: 21px;
+	width: 251px;
+	margin-right: 15px;
+}
+
+	#bottom-bar a
+	{
+		color: #ffa800;
+		font-size: 11px;
+		text-decoration: none;
+	}
+
+	#bottom-bar img
+	{
+		float: left;
+		margin-right: 10px;
+	}
+
+
+	#bottom-bar a.large
+	{
+		color: #ffa800;
+		font-size: 11px;
+		text-decoration: none;
+		font-size: 13px;
+		text-transform: uppercase;
+	}
+
+.home-info
+	{
+		font-style: normal;
+		font-size: 10px;
+	}
+
+#home-last-week
+{
+	background-image: url(/_assets/img/v2/home/worship-god/last-week.png);
+	float: left;
+	height: 15px;
+	width: 259px;
+}	
+
+#live-stream
+{
+	cursor: pointer;
+}
+
+/* ---------- Be The Church Home Page slider */
+
+
+#bethechurch-slider {
+	height: 392px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	}
+
+	#bethechurch-slider ul {
+		height: 31px;
+		margin: 0 0 0 0;
+		}
+
+		#bethechurch-slider ul li a {
+			background: url({v2-image-asset-url}/bethechurch/sprite.png) no-repeat;
+			float: left;
+			height: 31px;
+			margin: 0 0 0 0;
+			text-indent: -9999px;
+			}
+
+			#bethechurch-slider ul li#btc-worshipgod a { background-position: -150px 0; width: 101px; }
+			#bethechurch-slider ul li#btc-beincommunity a { background-position: -150px -40px; width: 131px; }
+			#bethechurch-slider ul li#btc-serveothers a { background-position: -150px -80px; width: 101px; }
+			#bethechurch-slider ul li#btc-livegenerously a { background-position: -150px -120px; width: 121px; }
+			#bethechurch-slider ul li#btc-readthebible a { background-position: -150px -160px; width: 111px; }
+			#bethechurch-slider ul li#btc-shareyourstory a { background-position: -150px -200px; width: 124px; }
+			#bethechurch-slider ul li#btc-pray a { background-position: -150px -240px; width: 47px; }
+
+			#bethechurch-slider ul li#btc-worshipgod a:hover,
+			#bethechurch-slider ul li#btc-worshipgod.active a { background-position: 0 0; width: 101px; }
+			#bethechurch-slider ul li#btc-beincommunity a:hover,
+			#bethechurch-slider ul li#btc-beincommunity.active a { background-position: 0 -40px; width: 131px; }
+			#bethechurch-slider ul li#btc-serveothers a:hover,
+			#bethechurch-slider ul li#btc-serveothers.active a { background-position: 0 -80px; width: 101px; }
+			#bethechurch-slider ul li#btc-livegenerously a:hover,
+			#bethechurch-slider ul li#btc-livegenerously.active a { background-position: 0 -120px; width: 121px; }
+			#bethechurch-slider ul li#btc-readthebible a:hover,
+			#bethechurch-slider ul li#btc-readthebible.active a { background-position: 0 -160px; width: 111px; }
+			#bethechurch-slider ul li#btc-shareyourstory a:hover,
+			#bethechurch-slider ul li#btc-shareyourstory.active a { background-position: 0 -200px; width: 124px; }
+			#bethechurch-slider ul li#btc-pray a:hover,
+			#bethechurch-slider ul li#btc-pray.active a { background-position: 0 -240px; width: 47px; }
+
+	#bethechurch-slider #slider {
+			height: 361px;
+			overflow: hidden;
+			width: 940px;
+			}
+
+		#bethechurch-slider #slider .slide {
+			color: #ffffff;
+			height: 341px;
+			padding: 10px 0;
+			}
+
+		#bethechurch-slider #slider .worshipgod { background: url({v2-image-asset-url}/bethechurch/worshipgod/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .beincommunity { background: url({v2-image-asset-url}/bethechurch/beincommunity/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .serveothers { background: url({v2-image-asset-url}/bethechurch/serveothers/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .livegenerously { background: url({v2-image-asset-url}/bethechurch/livegenerously/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .readthebible { background: url({v2-image-asset-url}/bethechurch/readthebible/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .shareyourstory { background: url({v2-image-asset-url}/bethechurch/shareyourstory/bg.jpg) no-repeat; }
+		#bethechurch-slider #slider .pray { background: url({v2-image-asset-url}/bethechurch/pray/bg.jpg) no-repeat; }
+
+			#bethechurch-slider #slider .slide .grid_4 {
+				background-image: url({v2-image-asset-url}/bethechurch/bg-textbox.png);
+				float: right;
+				height: 341px;
+				}
+
+				#bethechurch-slider #slider .slide div.top {
+					height: 293px;
+					overflow: hidden;
+					}
+
+				#bethechurch-slider #slider .slide p {
+					padding-left: 20px;
+					padding-right: 20px;
+					}
+
+			#bethechurch-slider #slider .worshipgod a { color: #d94826; }
+			#bethechurch-slider #slider .beincommunity a { color: #8295a4; }
+			#bethechurch-slider #slider .serveothers a { color: #68ae77; }
+			#bethechurch-slider #slider .livegenerously a { color: #e5a700; }
+			#bethechurch-slider #slider .readthebible a { color: #c9a787; }
+			#bethechurch-slider #slider .shareyourstory a { color: #932300; }
+			#bethechurch-slider #slider .pray a { color: #a48755; }
+
+			#bethechurch-slider #slider * a:hover { color: #fff; }
+			#bethechurch-slider #slider * a { -webkit-transition: color .4s ease-out; }
+
+
+
+.info {
+	color: #999999;
+	font-size: 10px;
+	font-style: italic;
+	}
+
+	.infoContainer
+	{
+		width: 570px;
+	}
+
+	.blog-single .info {
+		border-bottom: 1px solid #d1d1d1;
+		color: #347197;
+		font-size: inherit;
+		font-style: normal;
+		margin-bottom: 20px;
+		}
+
+.grey {
+	color: #999999;
+	}
+
+.large {
+	font-size: 18px;
+	line-height: 24px;
+	}
+
+.grey-dark {
+	color: #404040;
+	}
+
+#thelatest .info {
+	font-style: normal;
+	}
+
+.question
+{
+	margin-bottom: 20px;
+}
+
+	.question img {
+		margin-bottom: 10px;
+		}
+
+img.divider {
+	height: 2px;
+	width: 100%;
+	}
+
+
+/* ---------- Happening Now area*/
+
+#adboxes {
+	margin-top: 20px;
+	padding-top: 15px;
+	width: 100%;
+	margin: 0 auto;
+	}
+
+	#adboxes #adboxes-controller {
+		display: none;
+		}
+
+	#adboxes .adboxes-arrow-left {
+		float: left;
+		padding-top: 0px;
+		text-align: left;
+		width: 30px;
+		margin-left: 15px;
+		border-right: 1px solid #cfcfcf;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		height: 15px;
+		}
+
+	#adboxes .adboxes-arrow-right {
+		float: left;
+		padding-top: 0px;
+		text-align: left;
+		width: 60px;
+		}
+
+	#adboxes .adboxes-arrow-left img,
+	#adboxes .adboxes-arrow-right img {
+		cursor: pointer;
+		}
+
+	#adboxes #adboxes-slider {
+		float: left;
+		height: 130px;
+		overflow: hidden;
+		width: 980px;
+		}
+
+		#adboxes #adboxes-slider .slide {
+			height: 130px;
+			overflow: hidden;
+			text-align: center;
+			width: 980px;
+			}
+
+			#adboxes #adboxes-slider .slide img {
+				margin: 0 10px 0 10px;
+				}
+
+#thelatest {
+	background: url({v2-image-asset-url}/thelatest/bg-thelatest.png) no-repeat center bottom;
+	font-size: 12px;
+	line-height: 14px;
+	margin-top: 0;
+	margin-bottom: 20px;
+	padding-top: 12px;
+	padding-bottom: 20px;
+	}
+
+ul#blog-list li,
+ul#calendar-list li {
+	border-bottom: 1px solid #e3e3e3;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	}
+
+ul#media-list li {
+	border-bottom: 1px solid #e3e3e3;
+	color: #000;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	}
+
+	ul#media-list li img {
+		float: left;
+		margin-right: 10px;
+		width: 68px;
+		}
+
+ul#blog-list li.more,
+ul#calendar-list li.more,
+ul#media-list li.more {
+	border-bottom: 0px solid;
+	}
+
+
+
+/* ---------- Focus & Title Bar */
+
+#focused {
+	background: url(/_img/adapt/bg-focused.png) repeat-x;
+	clear: both;
+	color: #fff;
+	margin: 0 0 20px 0;
+	padding: 20px 0;
+	width: 100%;
+	}
+
+#focused_respond {
+	background: url(/_assets/img/v2/home/respond-live-bg.jpg) repeat-x;
+	clear: both;
+	color: #fff;
+	height: 305px;
+	margin: 0 0 20px 0;
+	padding: 20px 0;
+	width: 100%;
+	}
+
+	#focused.blogs			{ background-color: #31353a; }
+	#focused.worshipgod		{ background-color: #d54726; }
+	#focused.beincommunity	{ background-color: #8396a5; }
+	#focused.serveothers	{ background-color: #50825a; }
+	#focused.livegenerously	{ background-color: #b38300; }
+	#focused.readthebible	{ background-color: #594736; }
+	#focused.shareyourstory	{ background-color: #9a230b; }
+	#focused.pray			{ background-color: #a58856; }
+
+		#focused.blogs img.divider,
+		#focused.worshipgod img.divider,
+		#focused.beincommunity img.divider,
+		#focused.serveothers img.divider,
+		#focused.livegenerously img.divider,
+		#focused.readthebible img.divider,
+		#focused.shareyourstory img.divider,
+		#focused.pray img.divider {
+			height: 2px;
+			margin-bottom: 20px;
+			width: 100%;
+			}
+
+	.blogs_main_column img
+	{
+		max-width: 600px;
+	}
+
+	#blog-post img
+	{
+		max-width: 600px;
+	}
+
+	#focused #arrows {
+		margin-top: 35px;
+		}
+
+	#focused #arrow-right {
+		float: right;
+		margin-bottom: 5px;
+		vertical-align: bottom;
+		}
+
+	#focused #featured-text {
+		height: 250px;
+		}
+
+	#focused #focused-video {
+		background: no-repeat -35px -51px;
+		height: 304px;
+		position: relative;
+		}
+
+	#focused-video object {
+		float: right;
+	}
+
+		#focused #focused-video img.play {
+			left: 203px;
+			position: absolute;
+			top: 103px;
+			}
+
+			#sub-box {
+				background: #23242a;
+				height: 100%;
+				margin-top: 10px;
+				width: 100%;
+				margin-bottom: 5px;
+				}
+				#sub-box p {
+					padding: 20px;
+				}
+
+	#focused p.verse {
+		font-size: 14px;
+		line-height: 20px;
+		}
+
+		#focused p.verse em {
+			filter:alpha(opacity=50);
+			font-family: Georgia, Baskerville, serif;
+			font-style: italic;
+			opacity: 0.5;
+			}	
+
+	#focused div.respond {
+		background: url({v2-image-asset-url}/main/bg-black-85.png) repeat;
+		margin: 170px 0 10px;
+		padding: 20px 10px;
+		width: 520px;
+		}
+
+		#focused div.respond img {
+			float: right;
+			margin: 13px 0 0 10px;
+			}
+
+.focus-photo {
+	float: left;
+	width: 45%;
+	}		
+
+#title-bar {
+	background: #2b2e33 url({v2-image-asset-url}/main/bg-noise.png) repeat !important;
+	margin: 0 0 20px 0;
+	padding: 0 0 0 0;
+	}
+
+	#title-bar div.top {
+		background: transparent url({v2-image-asset-url}/main/bg-title-bar-top.png) repeat-x top;
+		height: 22px;
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		}
+
+	#title-bar div.btm {
+		background: transparent url({v2-image-asset-url}/main/bg-title-bar-btm.png) repeat-x bottom;
+		height: 20px;
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		}
+
+/* ---------- Responsive Home Page*/
+#assemble {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 13px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+}
+
+#blog_home {
+	margin-top: 20px;
+	width: 100%;
+	float: left;
+}
+#blogs_home-top {
+	background-color: #d0d3d4;
+	width: 100%;
+	height: 6px;
+	margin-top: 20px;
+}
+#blogs_home-mid {
+	width: 100%-20px;
+	background-image: url("/_img/adapt/blogs_home_mid.png");
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+	.blogs_home_icon {
+		background-image: url("/_img/adapt/blogs_ico.png");
+		background-repeat: no-repeat;
+		height: 49px;
+		width: 49px;
+		float: right;
+	}
+	.blogs_home_title {
+		margin-top: 2px;
+		padding-bottom: 10px;
+	}
+	.blogs_home_title h2{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 36px;
+		font-weight: 300;
+		text-shadow: 1px -1px 0 #fff;
+		line-height: 38px;
+		border-bottom: none;
+	}
+		.blogs_home_title h2 a{
+			color: #000;
+			text-decoration: none;
+		}
+	.blogs_home_title h3{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 30px;
+		font-weight: 100;
+		text-shadow: 1px -1px 0 #fff;
+		line-height: 32px;
+		border-bottom: none;
+		margin-bottom: 0px;
+	}
+	.blogs_home-img {
+		width: 60%;
+		margin-left: 10px;
+		margin-bottom: 10px;
+	}   
+ 	.blogs_home_content p {
+		color: #000;
+	 }
+#blogs_home-bottom {
+	width: 100%-50px;
+	height: 50px;
+	padding-left: 50px;
+}
+	.blogs_home-corner {
+		background-image: url("/_img/adapt/blogs_home-corner.png");
+		height: 50px;
+		width: 50px;
+		float: left;
+		margin-left: -50px;
+	}
+	.blogs_home-finish {
+		background-image: url("/_img/adapt/blogs_home_mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 50px;
+		float: right;
+	}
+
+.blogs_mini {
+	width: 140px;
+	height: 78px;
+}
+.blog_mini {
+	background-image: url("/_img/adapt/blog_mini.png");
+	width: 140px;
+	height: 220px;
+}	
+	.blog_mini h4 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		color: #31343a;
+		text-shadow: 1px -1px 0 #fff;
+		margin-bottom: 0;
+		padding: 0 5px;
+	}
+	.blog_mini a {
+		text-decoration: none;
+		color: #31343a;
+		text-shadow: 1px -1px 0 #fff;
+	}
+	.blog_mini a:hover {
+		text-decoration: underline;
+		color: #31343a;
+		text-shadow: 1px -1px 0 #fff;
+	}
+	.blog_mini p {
+		font-size: 12px;
+		color: #31343a;
+		padding: 0 5px;
+	}
+	.blog_mini-img {
+		width: 130px;
+		height: 71px;
+		float: left;
+		margin-top: 5px;
+		margin-bottom: 6px;
+		margin-left: 5px;
+	}
+	.blog_mini-btm {
+		background-image: url("/_img/adapt/blog_mini-btm.png");
+		height: 31px;
+		width: 140px;
+		margin-bottom: 10px;
+	}
+
+.border-top {
+	background-image: url("/_img/adapt/border-top.png");
+	background-repeat: repeat-x;
+	height: 2px;
+	width: 100%;
+}
+
+.border-mini {
+	background-image: url("/_img/adapt/border-mini.png");
+	background-repeat: repeat-x;
+	height: 2px;
+	width: 140px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.border-right {
+	background-image: url("/_img/adapt/border-right.png");
+	background-repeat: repeat-x;
+	height: 15px;
+	width: 2px;
+}
+
+#events_home_top {
+	margin-top: 20px;
+	background-color: #365973;
+	height: 6px;
+	width: 100%;
+}
+#events_home_mid {
+	background-image: url("/_img/adapt/events_home_mid.png");
+	background-repeat: repeat;
+	width: 100%-20px;
+	padding-left: 20px;
+}
+	.events_home_icon {
+		background-image: url("/_img/adapt/events_ico.png");
+		height: 49px;
+		width: 49px;
+		float: right;
+		margin-top: 10px;
+		margin-right: 20px;
+	}
+	#events_home_mid h2 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 36px;
+		line-height: 38px;
+		font-weight: 300;
+		padding-top: 10px;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+		border-bottom: none;
+		padding-right: 20px;
+	}
+		#events_home_mid h2 a {
+			color: #fff;
+			text-decoration: none;
+		}
+	#events_home_mid h3 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 30px;
+		line-height: 32px;
+		font-weight: 100;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+		text-decoration: none;
+		border-bottom: none;
+		border-bottom: none;
+	}
+	.events_home-img {
+		width: 60%;
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+	.events_home_mid-shadow {
+		background-image: url("/_img/adapt/img-shadow.png");
+		height: 1%;
+		width: 49%;
+		margin-top: -4px;
+		margin-left: 20px;
+		float: left;
+	}
+	.events_home_info a{
+		color: #fff;
+	}
+	.events_home_info p{
+		color: #fff;
+		padding-right: 20px;
+	}
+#events_home_mid_specifics {
+	background-image: url("/_img/adapt/events_home_mid.png");
+	background-repeat: repeat;
+	width: 100%;
+	height: 100%;
+}
+.events_home_specifics {
+	background-image: url("/_img/adapt/events_home_mid.png");
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	text-shadow: -1px -1px 0 #000;
+	color: #fff;
+}
+	.events_specifics-divider {
+		width: 2px;
+		height: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		background-image: url("/_img/adapt/events_specific-divider.png");
+		background-repeat: repeat-y;
+		float: left;
+		display: inline;
+	}
+	.events_specifics_date {
+		text-align: center;
+		font-size: 18px;
+		line-height: 20px;
+		padding: 0 5px;
+		margin-top: 10px;
+	}
+	.events_specifics_time {
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+		padding: 0 5px;
+		margin-top: 10px;
+	}
+	.events_specifics_location {
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+		padding: 0 5px;
+		margin-top: 10px;
+	}
+		.events_specifics_location-sub {
+			font-size: 12px;
+			line-height: 20px;
+			text-align: center;
+			color: #162734;
+			text-shadow: -1px -1px 0 #fff;
+			padding: 0 5px;
+		}
+	.events_specifics_register {
+		font-size: 14px;
+		line-height: 20px;
+		text-align: center;
+		padding: 0 5px;
+		margin-top: 10px;
+	}
+#events_home-bottom {
+	width: 100%-50px;
+	height: 50px;
+	padding-left: 50px;
+}
+	.events_home-corner {
+		background-image: url("/_img/adapt/events_home-corner.png");
+		height: 50px;
+		width: 50px;
+		float: left;
+		margin-left: -50px;
+	}
+	.events_home-finish {
+		background-image: url("/_img/adapt/events_home_mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 50px;
+		float: right;
+	}
+		
+.event_mini {
+	background-image: url("/_img/adapt/events_mini.png");
+	width: 140px;
+	height: 220px;
+}	
+	.event_mini h4 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		padding: 2px 5px;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.event_mini p {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: 500;
+		color: #fff;
+	}
+	.event_mini a {
+		text-decoration: none;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+	}
+	.event_mini a:hover {
+		text-decoration: underline;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+	}
+	.event_mini ul {
+		list-style-type: none;
+		color: white;
+	}
+		.event_mini li {
+			list-style-type: circle;
+			list-style-position: inside;
+			margin-left: 5px;
+		}
+	.events_mini-img {
+		width: 130px;
+		height: 71px;
+		float: left;
+		margin-top: 5px;
+		margin-bottom: 6px;
+		margin-left: 5px;
+	}
+	.event_mini-btm {
+		background-image: url("/_img/adapt/events_mini-btm.png");
+		height: 31px;
+		width: 140px;
+		margin-bottom: 10px;
+	}
+	
+.joinus h4 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: 500;
+	margin-left: 20px;
+	text-shadow: 1px -1px 0 #fff;
+}
+
+.hidden {
+	height: 0px;
+	width: 0px;
+	overflow: hidden;
+}
+
+.homecal {
+	margin-left: 20px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: 700px;
+	list-style-type: none;
+}
+
+	.homecal li {
+		background-image: url("/_img/adapt/eventsli.png");
+		background-repeat: no-repeat;
+		background-position: 0px 5px;
+		padding-left: 20px;
+		margin-top: 14px;
+	}
+	
+.liveworship_home {
+	background-image: url("/_img/adapt/liveworship_home.png");
+	background-repeat: repeat;
+	width: 100%;
+	margin-top: 15px;
+	padding: 10px 0;
+}
+	.liveworship_home h1 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		text-shadow: -1px -1px 0 #000;
+		font-weight: 100;
+		padding-top: 10px;
+		padding-left: 20px;
+	}
+	.liveworship_home h1 span {
+		font-weight: 500;
+	}
+	.liveworship_home h2 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #fff;
+		font-size: 24px;
+		font-weight: 100;
+		line-height: 26px;
+		border-bottom: 0;
+		padding-top: 5px;
+		padding-left: 20px;
+	}
+	.liveworship_home p {
+		display: inline;
+	}
+	
+#media_home {
+	float: left;
+	margin-top: 20px;
+	width: 100% !important;
+}
+	#latestvid {
+		width: 100%;
+	}
+	.media_home_top {
+		background-color: #a73f12;
+		height: 6px;
+		width: 100%;
+	}
+	.media_home_mid {
+		background-image: url("/_img/adapt/media_mid_repeat.png");
+		background-repeat: repeat;
+		width: 100%-40px;
+		padding-top: 10px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+		.media_home_mid p {
+			font-size: 12px !important;
+		}
+		.media_home_icon {
+			background-image: url("/_img/adapt/media_ico.png");
+			height: 49px;
+			width: 49px;
+			float: right;
+		}
+		.media_home_mid-img {
+			width: 40%;
+			margin-top: 15px;
+			margin-bottom: 5px;
+			margin-right: 15px;
+		}
+		.media_home_player {
+			margin-top: 25px;
+		}
+		.media_home_mid h2{
+   			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+   			font-size: 36px;
+   			font-weight: 300;
+			line-height: 38px;
+   			color: #fff;
+   			text-shadow: -1px -1px 0 #000;
+			text-decoration: none;
+			border-bottom: none;
+   		}
+			.media_home_mid h2 a{
+	   			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	   			font-size: 36px;
+	   			font-weight: 300;
+				line-height: 38px;
+	   			color: #fff;
+	   			text-shadow: -1px -1px 0 #000;
+				text-decoration: none;
+				border-bottom: none;
+	   		}
+		.media_home_mid h3{
+   			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+   			font-size: 30px;
+   			font-weight: 100;
+			line-height: 32px;
+   			color: #fff;
+   			text-shadow: -1px -1px 0 #000;
+			text-decoration: none;
+			border-bottom: none;
+   		}
+		.media_home_mid h4{
+   			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+   			font-size: 16px;
+			line-height: 18px;
+   			font-weight: 300;
+   			color: #fff;
+			margin-top: 15px;
+			text-decoration: none;
+			border-bottom: none;
+			margin-bottom: 0;
+			padding-bottom: 5px;
+   		}
+		.media_home_mid p{
+   			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+   			font-size: 13px;
+   			font-weight: 300;
+   			color: #fff;
+			text-decoration: none;
+   		}
+#media_home-bottom {
+	width: 100%-50px;
+	height: 50px;
+	padding-left: 50px;
+}
+	.media_home-corner {
+		background-image: url("/_img/adapt/media_home-corner.png");
+		height: 50px;
+		width: 50px;
+		float: left;
+		margin-left: -50px;
+	}
+	.media_home-finish {
+		background-image: url("/_img/adapt/media_mid_repeat.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 50px;
+		float: right;
+	}
+
+.media_mini {
+	background-image: url("/_img/adapt/media_mini.png");
+	background-repeat: repeat;
+	height: 220px;
+	width: 140px;
+}
+	.media_mini-btm {
+		background-image: url("/_img/adapt/media_mini-btm.png");
+		width: 140px;
+		height: 29px;
+		margin-bottom: 10px;
+	}
+	.media_mini img {
+		width: 130px;
+		height: 71px;
+		margin-top: 5px;
+		margin-left: 5px;
+	}
+	.media_mini h4 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+		margin: 2px 5px;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.media_mini p {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 13px;
+		font-weight: 500;
+		color: #fff;
+		margin: 0px 5px;
+	}
+	.media_mini a {
+		text-decoration: none;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+	}
+	.media_mini a:hover {
+		text-decoration: underline;
+		color: #fff;
+		text-shadow: -1px -1px 0 #000;
+	}
+	
+.more_btn {
+	text-indent: -99999em;
+	margin-top: 5px;
+	background-image: url("/_img/adapt/more.png");
+	height: 24px;
+	width: 97px;
+}
+.more_btn-pray {
+	text-indent: -99999em;
+	margin-top: 5px;
+	background-image: url("/_img/adapt/readmore_pray.png");
+	height: 24px;
+	width: 97px;
+}
+
+#prayer_home {
+	
+}
+
+	.prayer_top {
+		background-color: #82789a;
+		height: 6px;
+		width: 100%;
+	}
+	.prayer_mid {
+		background-image: url("/_img/adapt/pray-mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		padding-top: 10px;
+		
+	}
+		.prayer_icon {
+			background-image: url("/_img/adapt/pray_ico.png");
+			height: 49px;
+			width: 49px;
+			float: right;
+			margin-right: 10px;
+		}
+		.prayer_requests {
+			padding-top: 18px;
+			margin-left: 20px;
+			margin-bottom: 20px;
+			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+			font-size: 18px;
+			font-weight: 700;
+		    color: #fff;
+			float: left;
+			text-shadow: 1px 1px 2px #000;
+		}
+		.prayer_count {
+			background-image: url("/_img/adapt/pray_count.png");
+			height: 23px;
+			width: 34px;
+			float: right;
+			margin-right: 10px;
+		}
+		.prayer_number {
+			font-size: 12px !important;
+			color: #ffffff !important;
+			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+			font-weight: 700;
+			text-align: center;
+			padding-top: 2px;
+		}
+		.prayer_name {
+			width: 70%-30px;
+			margin-left: 20px;
+			padding-top: 6px;
+			font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+			font-size: 14px;
+			font-weight: 700;
+		    color: #3d3949;
+			font-style: italic;
+			float: left;
+		}
+			.prayer_name a {
+				color: #3d3949;
+				text-decoration: none;
+			}
+		.prayer_prayer {
+			margin-left: 20px;
+			margin-right: 10px;
+			font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+			font-size: 14px;
+			font-style: normal;
+		    color: #f7faf2;
+			width: 100%-50px;
+			float: left;
+		}
+		.prayer_prayed {
+			float: right;
+			margin-top: 5px;
+			width: 30%;
+		}
+		#prayer_for {
+		width: 23px;
+		height: 17px;
+		margin-top: 2px;
+		margin-right: 10px;
+		position: relative;
+		float: right;
+		}
+			#prayer_for li {
+			float: right;
+			}
+
+			#prayer_for li a {
+			position: absolute;
+			top: 0;
+			margin: 0;
+			padding: 0;
+			display: block;
+			height: 17px;
+			background: url(/_img/adapt/prayer_sprite.png) no-repeat;
+			text-indent: -9999px;
+			overflow: hidden;
+			}
+
+			/*up state*/
+			li#prayer_for-li a {
+			left: 0;
+			width: 23px;
+			background-position: 0 0;
+			}
+
+			/*hover state*/
+			li#prayer_for-li a:hover {
+			background-position: 0 -34px;
+			}
+	.prayer-divider {
+		background-image: url("/_img/adapt/prayer-divider.png");
+		background-repeat: repeat-x;
+		height: 2px;
+		width: 100%;
+		margin-top: 10px;
+	}
+	.prayer_post {
+		background-image: url("/_img/adapt/pray_post.png");
+		height: 24px;
+		width: 118px;
+		margin-left: 20px;
+		float: left;
+	}
+	.prayer_readmore {
+		background-image: url("/_img/adapt/pray_readmore.png");
+		height: 24px;
+		width: 101px;
+		margin-left: 10px;
+		float: left;
+	}
+#prayer-bottom {
+	width: 100%-50px;
+	height: 50px;
+	padding-right: 50px;
+	margin-bottom: 20px;
+}
+	#prayer-bottom h2 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	text-shadow: 1px -1px 0 #fff;
+	border-bottom: none;
+	text-decoration: none;
+	padding-left: 30px;
+	padding-right: 20px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	}
+	.prayer-corner {
+		background-image: url("/_img/adapt/pray-corner.png");
+		height: 50px;
+		width: 50px;
+		float: right;
+		margin-right: -50px;
+	}
+	.prayer-finish {
+		background-image: url("/_img/adapt/pray-mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 50px;
+		float: left;
+	}
+	.prayer-finish-submit {
+		padding-top: 8px;
+	}
+	
+#previous {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	/* width: 960px; */
+}
+.previous_holder {
+	margin-top: 15px;
+	width: 100%;
+}
+	#previous h3 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 32px;
+		font-weight: 700;
+		text-shadow: 1px 0 0 #fff;
+		margin-left: 20px;
+		border-bottom: none;
+		display: inline;
+	}
+#readbible-top {	
+	background-color: #729e38;
+	width: 100%;
+	height: 6px;
+}
+#readbible-mid {
+	width: 100%-20px;
+	background-image: url("/_img/adapt/readbible-mid.png");
+	background-repeat: repeat;
+	padding-top: 10px;
+	padding-left: 20px;
+	}
+	.readbible_time {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+	    color: #fff;
+		float: left;
+		text-shadow: 1px 1px 2px #020;
+		margin-top: 12px;
+	}
+	.readbible_icon {
+		background-image: url("/_img/adapt/readbible-ico.png");
+		height: 49px;
+		width: 49px;
+		float: right;
+		margin-right: 10px;
+	}
+
+	.readbible_verse {
+		font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		font-style: italic;
+	    color: #40591f;
+	}
+
+	.readbible_verse-txt {
+		font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		font-style: italic;
+	    color: #40591f;
+		display: inline;
+	}
+
+	.readbible_liturgy {
+		padding-top: 12px;
+		padding-right: 15px;
+		font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: normal;
+		font-style: italic;
+	    color: #f7faf2;
+	}
+
+	.readbible_liturgy-txt {
+		font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: normal;
+		font-style: normal;
+	    color: #F7FAF2;
+		display: inline;
+	}
+
+	.readbible_more {
+		text-indent: -99999em;
+		margin-left: 20px;
+		margin-top: 10px;
+		background-image: url("/_img/adapt/more.png");
+		height: 24px;
+		width: 97px;
+	}
+
+	#readbible_txt {
+		padding: 0;
+		font-weight: 300;
+		display: inline;
+	}
+#readbible-bottom {
+	width: 100%-50px;
+	height: 50px;
+	padding-right: 50px;
+	margin-bottom: 20px;
+}
+	#readbible-bottom h2 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	text-shadow: 1px -1px 0 #fff;
+	border-bottom: none;
+	text-decoration: none;
+	padding-left: 30px;
+	padding-right: 20px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	}
+	.readbible-corner {
+		background-image: url("/_img/adapt/readbible-corner.png");
+		height: 50px;
+		width: 50px;
+		float: right;
+		margin-right: -50px;
+	}
+	.readbible-finish {
+		background-image: url("/_img/adapt/readbible-mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 50px;
+		float: left;
+	}
+
+.spacer-right {
+	width: 2px;
+	height: 100%;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 6px;
+	background-image: url("/_img/adapt/border-right.png");
+	background-repeat: repeat-y;
+	float: left;
+	display: inline;
+}
+
+#timetable {
+	margin-top: 18px;
+	margin-left: 20px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	background-image: url("/_img/adapt/timetable.png");
+	width: 289px;
+	height: 135px;
+}
+
+	.timetableday {
+		float: left;
+		width: 95px;
+		height: 30px;
+		padding: 14px 0 0 0;
+		font-weight: 700;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.timetabletime {
+		float: left;
+		width: 192px;
+		height: 30px;
+		padding: 14px 0 0 0;
+		font-weight: 300;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.timezone {
+		margin-left: 20px;
+		margin-top: 5px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 11px;
+		color: #979c9e;
+	}
+
+.undershadow {
+	background-image: url("/_img/adapt/divider.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 8px;
+	margin: 30px 0;
+}
+#dividermain {
+	width: 100%;
+	background-image: url("/_img/adapt/dividermain.jpg");
+	height: 6px;
+	margin: 20px 0 20px 0;
+}
+.dividermain-left {
+	background-image: url("/_img/adapt/dividermain-left.jpg");
+	width: 95px;
+	height: 6px;
+	float: left;
+}
+.dividermain-right {
+	background-image: url("/_img/adapt/dividermain-right.jpg");
+	width: 95px;
+	height:6px;
+	float: right;
+}
+
+#whatscurrent_holder {
+	margin-bottom: 20px;
+	width: 100%;
+	height: 100%;
+}
+#whatscurrent-top {	
+	background-color: #d0d3d4;
+	width: 100%;
+	height: 6px;
+}
+#whatscurrent-mid {
+	width: 100%-20px;
+	background-image: url("/_img/adapt/blogs_home_mid.png");
+	background-repeat: repeat;
+	padding-top: 10px;
+	}
+#whatscurrent-bottom {
+	width: 100%-27px;
+	height: 27px;
+	padding-right: 27px;
+}
+	#whatscurrent-bottom h2 {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	text-shadow: 1px -1px 0 #fff;
+	border-bottom: none;
+	text-decoration: none;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	}
+	.whatscurrent-corner {
+		background-image: url("/_img/adapt/whatscurrent-corner.png");
+		height: 27px;
+		width: 27px;
+		float: right;
+		margin-right: -27px;
+	}
+	.whatscurrent-finish {
+		background-image: url("/_img/adapt/blogs_home_mid.png");
+		background-repeat: repeat;
+		width: 100%;
+		height: 27px;
+		float: left;
+	}
+
+/* ---------- Home Page Container*/
+
+#home-bg-long
+{
+	background-image: url(/_assets/img/v2/home/freedom/bg.jpg);
+	background-repeat: repeat-x;
+	height: 500px;
+	margin-bottom: 20px;
+}
+
+#home-bg-long-test
+{
+	background-image: url(/_assets/img/v2/home/money/bg.jpg);
+	background-repeat: repeat-x;
+	height: 500px;
+	margin-bottom: 20px;
+}
+
+
+#freedom-title
+{
+	background-image: url(/_assets/img/v2/home/freedom/title.png);
+	background-repeat: no-repeat;
+	width: 960px;
+	height: 299px;
+	margin-top: 50px;
+	float: left;
+}
+
+#freedom-title-small
+{
+	background-image: url(/_assets/img/v2/home/freedom/title-small.png);
+	background-repeat: no-repeat;
+	width: 500px;
+	height: 156px;
+	float: right;
+	margin-top: 100px;
+}
+
+
+#home-bottom
+{
+	width: 1000px;
+	position: absolute;
+	float: left;
+	margin-top: -130px;
+}
+	#home-bottom p
+	{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-weight: 100;
+		color: #fff;
+		margin-bottom: 0px;
+		padding-bottom: 0px;
+	}
+
+	#home-bottom p span
+	{
+		font-weight: 500;
+		color: #165396;
+		font-size: 13px;
+	}
+
+	#home-bottom p span.home-info
+	{
+		color: #fff;
+		font-size: 11px;
+	}
+
+	#home-bottom a
+	{
+		color: #29dcf5;
+		text-decoration: none;
+	}
+
+.last-week-box
+{
+	background-image: url(/_assets/img/v2/home/freedom/home-box.png);
+	padding: 10px;
+}
+
+	.last-week-box img
+	{
+		float: left;
+		width: 73px;
+		margin-right: 10px;
+	}
+
+
+#home-live-vid
+{
+	margin: 25px 0 0 0px;
+	position: absolute;
+	float: left;
+	z-index: 99;
+	width: 620px;
+}
+
+#home-live-options {
+	float: left;
+	width: 400px;
+	margin-top: 15px;
+}
+
+	#home-live-options h1
+	{
+		font-size: 20px;
+		text-transform: uppercase;
+		margin: 10px 0;
+		color: #58722c;
+	}
+
+		#home-live-options h1 span
+		{
+			font-weight: 700;
+			color: #1d5da9;
+		}
+
+
+
+#home-live-options img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	}
+
+#home-live-options p {
+	float: left;
+	margin-top: 6px;
+	font-size: 12px;
+	color: #406058;
+	}
+
+	#home-live-options p span {
+		font-size: 10px;
+		}	
+
+#home-live-right
+{
+	background-image: url(/_assets/img/v2/home/money/money-small.jpg);
+	width: 500px;
+	height: 307px;
+	margin-top: 90px;
+	float: right;
+}
+
+
+/*** Bible HomePage ***/
+
+#home-bible-title
+{
+	background-image: url(/_assets/img/v2/respond/bible/title.png);
+	background-repeat: no-repeat;
+	width: 683px;
+	height: 161px;
+	position: absolute;
+	margin-top: 96px;
+	padding: 150px 0 0 402px;
+
+
+}
+
+#home-worship-bg
+{
+	background-image: url(/_assets/img/v2/home/respond/worship-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-bible-bg
+{
+	background-image: url(/_assets/img/v2/home/respond/bible-bg.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+
+/*** pray HomePage ***/
+
+#home-pray-title
+{
+	background-image: url(/_assets/img/v2/respond/pray/title.png);
+	background-repeat: no-repeat;
+	width: 560px;
+	height: 145px;
+	position: absolute;
+	margin-top: 96px;
+	padding: 0px 0 0 0px;
+	margin-left: 134px;
+	padding: 165px 0 0 230px;
+
+
+}
+
+/*** Serve HomePage ***/
+
+#home-serve-title
+{
+	background-image: url(/_assets/img/v2/respond/serve/title.png);
+	background-repeat: no-repeat;
+	width: 671px;
+	height: 161px;
+	position: absolute;
+	margin-top: 100px;
+	margin-left: 50px;
+	padding: 175px 0 0 332px;
+
+
+}
+
+/*** Generous HomePage ***/
+
+#home-generous-title
+{
+	background-image: url(/_assets/img/v2/respond/generous/title.png);
+	background-repeat: no-repeat;
+	width: 770px;
+	height: 161px;
+	position: absolute;
+	margin-top: 100px;
+	margin-left: 50px;
+	padding: 175px 0 0 533px;
+
+
+}
+
+/*** Community HomePage ***/
+
+#home-community-title
+{
+	background-image: url(/_assets/img/v2/respond/community/title.png);
+	background-repeat: no-repeat;
+	width: 739px;
+	height: 192px;
+	position: absolute;
+	margin-top: 63px;
+	margin-left: 50px;
+	padding: 210px 0 0 513px;
+
+
+}
+
+/*** Story HomePage ***/
+
+#home-story-title
+{
+	background-image: url(/_assets/img/v2/respond/story/title.png);
+	background-repeat: no-repeat;
+	width: 739px;
+	height: 192px;
+	position: absolute;
+	margin-top: 63px;
+	margin-left: 50px;
+	padding: 230px 0 0 344px;
+
+
+}
+
+
+/*** Slider ***/
+
+#home-worship-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/worship-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-bible-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/bible-bg-test.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-pray-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/pray-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-serve-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/serve-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-generous-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/generous-bg-test.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+#home-generous-bg
+{
+	background-image: url(/_assets/img/v2/home/respond/generous-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+
+
+#home-community-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/community-bg-test.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+#home-community-bg
+{
+	background-image: url(/_assets/img/v2/home/respond/community-bg.jpg);
+	background-repeat: repeat-x;
+	height: 900px;
+	margin-bottom: 20px;
+}
+
+#home-story-bg-test
+{
+	background-image: url(/_assets/img/v2/home/respond/story-bg.jpg);
+	background-repeat: repeat-x;
+	height: 486px;
+	margin-bottom: 20px;
+}
+
+
+/*** Live Service ***/
+
+
+#home-live-service-bg {
+	width: 940px;
+	height: 400px;
+	margin: 0 auto;
+	}
+
+#home-live-caption {
+	background-image: url(/_assets/img/v2/home/live-bg.png);
+	padding: 20px;
+	width: 260px;
+	float: left;
+	margin-top: 39px;
+	}
+
+#home-details-caption {
+	background-image: url(/_assets/img/v2/home/live-bg.png);
+	padding: 20px;
+	width: 675px;
+	float: left;
+	margin-top: 15px;
+	}
+
+	#home-roomforredemption-caption {
+		background-image: url(/_assets/img/v2/home/live-bg.png);
+		padding: 20px;
+		width: 480px;
+		float: left;
+		margin-top: 12px;
+		margin-left: 25px;
+		}
+
+	#home-roomforredemption-caption-last {
+		background-image: url(/_assets/img/v2/home/live-bg.png);
+		padding: 20px;
+		width: 320px;
+		float: left;
+		margin-top: 15px;
+		margin-left: 25px;
+		color: #fff;
+		}
+
+#home-roomforredemption-caption-last a{
+	color: #fff;
+	font-style: underline;
+	}
+
+#home-godhappens-caption {
+	width: 480px;
+	height: 345px;
+	background-image: url(/_img/series/godhappens-caption-bg.png);
+	float: right;
+	margin-top: 31px;
+	margin-left: 25px;
+	text-shadow: 1px 1px 0 #000;
+	}
+
+	#home-godhappens-caption_live {
+		width: 325px;
+		height: 230px;
+		background-image: url(/_img/series/godhappens-caption-bg_live.png);
+		float: right;
+		margin-left: 25px;
+		text-shadow: 1px 1px 0 #000;
+		}
+
+#home-godhappens-caption-last {
+	color: #ffd;
+	text-shadow: 1px 1px 0 #000;
+	padding-left: 20px;
+	}
+
+	#home-godhappens-caption-last a{
+		color: #ffd;
+		font-style: underline;
+		text-shadow: 1px 1px 0 #000;
+		}
+
+#home-live-caption h3 {
+	margin-top: 30px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	color: #881a25;
+	font-weight: normal;
+	font-size: 15px;
+	margin-bottom: 15px;
+	}
+
+#home-live-caption h3 span {
+	color: #31343a;
+	font-weight: bold;
+	}
+
+
+#home-live-service-bg .info {
+	color: #31343a;
+	}
+	
+	
+/*** End Live Service ***/
+
+
+
+
+
+/* ---------- Ministries Listing */
+
+#ministry-posts {
+	width: 600px;
+	margin-left: 40px;
+	float: left;
+	}
+
+.ministries-post {
+	clear: both;
+	margin-bottom: 20px;
+	}
+
+	.ministries-post h2{
+		border-bottom: 1px solid #E6E6E6;		
+		}
+
+	.ministries-post span {
+		font-size:10px;
+		text-transform:uppercase;
+		font-weight:normal;
+		color:#999
+		}	
+
+#ministry-btns {
+	width: 300px;
+	float: left;
+	padding:0;
+	margin:0;
+	}
+
+	#ministry-btns img {
+		margin: 0 10px 13px 0;
+		float: left;
+		}
+
+#ministry-calendar li {
+	margin-bottom: 10px;
+	}	
+
+
+/* ---------- Blog Post Listing */
+
+.blog-post {
+	clear: both;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	}
+
+	.blog-post img.preview {
+		border: 1px solid #efefef;
+		float: left;
+		margin-right: 10px;
+		max-height: 144px;
+		max-width: 214px;
+		padding: 3px;
+		}
+
+
+
+	.blog-single img {
+		border: 1px solid #c1c1c1;
+		float: left;
+		margin: 0 20px 20px 0;
+		max-width: 65%;
+		padding: 4px;
+		}
+
+	.blog-single .blog-comments {
+		border-top: 1px solid #d1d1d1;
+		margin-top: 40px;
+		padding-top: 40px;
+		}
+
+		.blog-single .blog-comments .comment {
+			border-top: 1px solid #d1d1d1;
+			margin: 10px 0;
+			padding: 30px 0 10px;
+			}
+
+
+/* ---------- Right Column grey area */
+
+#aside {
+     float: right;
+     }
+
+	#aside .top {
+		background-image: url({v2-image-asset-url}/main/aside/top.png);
+		height: 14px;
+		width: 300px;
+		}
+
+	#aside .mid {
+		background-image: url({v2-image-asset-url}/main/aside/mid.png);
+		background-repeat: repeat-y;
+		padding: 5px 20px 0 20px;
+		width: 260px;
+		}
+
+		#aside2 img {
+			padding: 0 5px;
+		}
+
+		#aside .mid ul {
+			padding-bottom: 25px;
+			}
+
+		#aside .mid ul li {
+			margin-top: 10px;
+			}
+
+		#aside .mid ul li em {
+			color: #838383;
+			font-style: normal;
+			font-size: 11px;
+			font-weight: normal;
+			padding-bottom: 0px;
+			}
+
+		#classes-aside img {
+			max-width: 260px;
+			}	
+
+		#aside .btm {
+			background-image: url({v2-image-asset-url}/main/aside/btm.png);
+			height: 14px;
+			width: 300px;
+			}
+
+	#aside2 {
+	     float: left;
+	     }
+
+		#aside2 .top {
+			background-image: url({site_url}/_img/aside2/top2.png);
+			height: 10px;
+			width: 220px;
+			}
+
+		#aside2 .mid {
+			background-image: url({site_url}/_img/aside2/mid2.png);
+			background-repeat: repeat-y;
+			padding: 5px 10px 0 10px;
+			width: 200px;
+			}
+
+			#aside2 .mid ul {
+				padding-bottom: 25px;
+				}
+
+			#aside2 .mid ul li {
+				margin-top: 10px;
+				}
+
+			#aside2 .mid ul li em {
+				color: #838383;
+				font-style: normal;
+				font-size: 11px;
+				font-weight: normal;
+				padding-bottom: 0px;
+				}
+
+			#classes-aside2 img {
+				max-width: 180px;
+				}	
+
+		#aside2 .btm {
+			background-image: url({site_url}/_img/aside2/btm2.png);
+			height: 10px;
+			width: 220px;
+			}
+
+
+#filter-bar {
+	height: 51px;
+	margin-bottom: 20px;
+	padding: 0 0 0 0;
+	}
+
+	#filter-bar .left {
+		background: url({v2-image-asset-url}/media/filter-bar.png) left top;
+		float: left;
+		height: 46px;
+		padding: 5px 0 0 10px;
+		}
+
+	#filter-bar .right {
+		background: url({v2-image-asset-url}/media/filter-bar.png) right top;
+		float: left;
+		height: 51px;
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		width: 20px;
+		}
+
+	.grid_8 #filter-bar .left { width: 590px; }
+	.grid_12 #filter-bar .left { width: 910px; }
+
+
+#pagination {
+	border-top: 2px solid #e4e4e4;
+	font-weight: bold;
+	padding-top: 20px;
+	text-align: right;
+	}
+
+.video-thumb,
+.video-series-thumb {
+	margin-bottom: 10px;
+	position: relative;
+    height: 160px;
+    padding: 0 10px;
+	}
+
+#media-list .video-thumb,
+#media-list .video-series-thumb {
+	float: left;
+	line-height: 1.25em;
+	margin-right: 20px;
+	width: 140px;
+	}
+
+#media-list .fourth {
+	margin-right: 0px;
+	}
+
+	.video-thumb img.preview,
+	.video-series-thumb img.preview {
+		height: 68px;
+		width: 120px;
+		}
+
+	.preview
+	{
+		width: 100px;
+	}	
+
+	.video-thumb img.play,
+	.video-series-thumb img.play {
+		left: 36px;
+		position: absolute;
+		top: 17px;
+		}
+
+	ul.medialist-small li,
+	ul#sup-media li {
+		clear: both;
+		margin-bottom: 10px;
+		}
+
+		ul.medialist-small li img.preview {
+			border: 1px solid #dfdfdf;
+			float: left;
+			margin: 0 10px 20px 0;
+			width: 107px;
+			}
+
+		ul#sup-media li img.preview {
+			border: 1px solid #dfdfdf;
+			float: left;
+			margin: 0 10px 20px 0;
+			width: 107px;
+			}
+
+.medialist-all {
+	margin-bottom: 20px;
+	height: 165px;
+	}
+
+	.medialist-all img {
+		width: 140px;
+		}
+
+
+#servicevid {
+	margin-top: 40px;
+	}
+
+#mediasearch {
+	float: right;
+	margin-top: 3px;
+	}
+
+#media-columns h3 {
+	margin: 10px;
+	}
+
+a.media-link
+{
+	color: #2E2E2E;
+	text-decoration: none;
+}
+
+
+/* ---------- Calendar Styles */
+
+#focused ul#calendar_feature { }
+
+	#focused ul#calendar_feature li {
+		border-bottom: 1px solid #393939;
+		font-size: 14px;
+		height: 47px;
+		margin-bottom: 8px;
+		padding-top: 4px;
+		}
+
+	#focused ul#calendar_feature li.active,
+	#focused ul#calendar_feature li:hover {
+		background: transparent url({v2-image-asset-url}/icons/arrow-right.png) no-repeat 13px right;
+		}
+
+		#focused ul#calendar_feature li.active:hover {
+			background: transparent url({v2-image-asset-url}/icons/arrow-right-white.png) no-repeat 13px right;
+			}
+
+#calendar-slider {
+	height: 304px;
+	overflow: hidden;
+	width: 540px;
+	}
+
+	#calendar-slider img {
+		float: left;
+		height: 304px;
+		width: 540px;
+		}
+
+div.day-block {
+	border-bottom: 1px solid #e6e6e6;
+	margin-bottom: 40px;
+	padding-bottom: 0px;
+	}
+
+.calendar-img {
+	max-width: 620px;
+	}
+
+#calendar-icon {
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 40px;
+	}
+
+.calendar-entries {
+	border-right: 1px solid #e7e7e7;
+	padding-right: 50px;
+}
+
+
+
+/* ---------- FAQ Styles */
+
+.faq-collapse {
+	color: #7c7c7c;
+	margin-bottom: 40px;
+	position: relative;
+	}
+
+
+/* ---------- Staff Styles */
+
+.staff-entry {
+	margin-bottom: 20px;
+	}
+
+#staff-links a
+{
+	text-decoration: none;
+	font-size: 14px; 
+	line-height: 22px	
+}	
+
+
+
+
+
+#focused ul#serve { }
+
+	#focused ul#serve li {
+		border-bottom: 1px solid #393939;
+		font-size: 20px;
+		height: 39px;
+		margin-bottom: 8px;
+		padding-top: 12px;
+		}
+
+		#focused ul#serve li a {
+			text-decoration: none;
+			}
+
+	#focused ul#serve li.active,
+	#focused ul#serve li:hover {
+		background: transparent url({v2-image-asset-url}/icons/arrow-right.png) no-repeat 13px right;
+		}
+
+		#focused ul#serve li.active:hover {
+			background: transparent url({v2-image-asset-url}/icons/arrow-right-white.png) no-repeat 13px right;
+			}
+
+.new-times {
+	color: #6b6a69;
+	font-size: 16px;
+	line-height: 24px;
+	}
+
+.gray-divider {
+	border-bottom: 3px solid #d1d1d1;
+	}	
+
+
+ul#files,
+ul#sup-media { }
+
+	ul#files li,
+	ul#sup-media li {
+		line-height: 15px;
+		}
+
+
+/* ---------- Finance Table Styles */
+
+table#finances {
+	margin: 0 0 10px 0;
+	text-align: left;
+	vertical-align: middle;
+	width: 620px;
+	}
+
+	table#finances thead td {
+		background-color: #326c90;
+		color: #fff;
+		font-weight: bold;
+		padding: 5px;
+		}
+
+	table#finances tr.one {
+		background-color: #c1d3dd;
+		border-bottom: 1px solid #a8c0cf;
+		}
+
+	table#finances tr.two {
+		background-color: #eaf0f4;
+		}
+
+		table#finances tr td {
+			font-family: Georgia, Baskerville;
+			font-size: 1.15em;
+			padding: 10px 5px;
+			}
+
+	table#finances thead td.row,
+	table#finances tr td.row {
+		border-right: 1px solid #a8c0cf;
+		font-family: Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		padding-right: 15px;
+		text-align: right;
+		width: 200px;
+		}
+
+div.location {
+	margin-bottom: 50px;
+	padding-bottom: 10px;
+	}
+
+	div.location img {
+		border: 1px solid #d1d1d1;
+		padding: 3px;
+		}
+
+	div.location div.right {
+		float: right;
+		width: 325px;
+		}
+
+/* ---------- My Profile Styles */
+
+/* Profile Tabs */
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+	border-bottom: 1px solid #3a3a3a;
+	border-left: 1px solid #3a3a3a;
+	width: 100%;
+}
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px;
+	line-height: 31px;
+	border: 1px solid #3a3a3a;
+	border-left: none;
+	margin-bottom: -1px; 
+	overflow: hidden;
+	position: relative;
+	background: #e0e0e0;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 20px;
+	border: 1px solid #fff; 
+	outline: none;
+}
+ul.tabs li a:hover {
+	background: #ccc;
+}
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+.tab_container {
+	border: 0px solid #3a3a3a;
+	border-top: none;
+	overflow: hidden;
+	clear: both;
+	float: left; width: 100%;
+	background: #fff;
+}
+.tab_content {
+	padding: 20px;
+	font-size: 1.2em;
+}
+li.profile-events span{
+	color: #005172;
+	font-weight: bold;
+}
+li.profile-media span{
+	color: #a83923;
+	font-weight: bold;
+}
+li.profile-notes span{
+	color: #717073;
+	font-weight: bold;
+}
+li.profile-prayers span{
+	color: #796691;
+	font-weight: bold;
+}
+li.profile-readbible span{
+	color: #69913d;
+	font-weight: bold;
+}
+
+/*NU Profile Styles*/
+.nomarg {
+	margin: 0 !important;
+}
+.nomarg p {
+	padding-bottom: 0;
+}
+
+
+/* ---------- Employment Styles */
+
+.job {
+	border-bottom: 1px solid #e6e6e6;
+	margin-bottom: 60px;
+	padding-bottom: 20px;
+	}
+
+
+/* ---------- Series Styles */
+
+#series-thumb-container {
+	width: 640px;
+	}
+
+.video-series-thumb {
+	height: 160px;
+	}
+
+	#series-filter-bar {
+		background: url(http://www.northlandchurch.net/_assets/img/v2/series/series-filter-bar.jpg) no-repeat center top;
+		height: 51px;
+		margin-top: 20px;
+		width: 960px;
+		margin-bottom: 20px;
+		}
+
+		.series-bar-left {
+			float: left;
+			margin: 15px 0 0 18px;
+			}
+
+			.series-bar-left li {
+				float: left;
+				margin-right: 15px;
+				}
+
+			.series-banner
+			{
+				max-width: 260px;
+			}
+
+		#series-filter-bar ul {
+			float: left;
+			}
+
+		#series-filter-bar #aform {
+			float: left;
+			}
+
+		#series-filter-bar #mediasearch input {
+			margin-top: 8px;
+			}
+
+		#series-filter-bar #mediasearch input.button {
+			margin-top: 10px;
+			margin-right: 20px;
+			}
+
+		#keywords {
+			height: 12px;
+			}
+
+		#series-category {
+			margin-top: 16px;
+			float: left;
+			margin-right: 4px;
+			}
+
+		#series-filter-bar #aform {
+			float: left;
+			margin: 0 10px 0 10px;
+			}
+
+		.filter-bar-right {
+			float: right;
+			width: 540px;
+			}
+
+			.filter-bar-right p {
+				float: left;
+				font-weight: bold;
+				text-transform: uppercase;
+				font-size: 10px;
+				}
+
+			.filter-bar-right form {
+				float: right;
+				margin: 10px 15px 0 0 ;
+				}
+
+			.filter-bar-right input {
+				float: right;
+				margin-left: 10px;
+				}
+
+			.filter-bar-right input.button {
+				float: right;
+				margin-top: 2px;
+				}			
+
+
+		.rmedia_player {
+			width: 100%;
+			float: left;
+		}
+	
+.series-block {
+	width: 940px;
+	margin-bottom: 20px;
+	padding: 10px 10px 30px 10px;
+	border-bottom: 1px solid #ecebeb;
+	}
+
+	.series-block img {
+		width: 350px;
+		}
+
+	.gray	{
+		background-color: #f4f4f4;
+		}
+
+	.series-art {
+		width: 350px;
+		border-right: 1px solid #E6E6E6;
+		padding-right: 30px;
+		float: left;
+		margin-right: 30px;
+		}
+
+	.series-art h3 {
+		font-size: 13px;
+		}		
+
+	.series-data {
+		font-size: 11px;
+		}
+
+		.gray-row {
+			background-color: #f5f5f5;
+			}
+
+		.series-data tr:hover {
+			background-color: #dde7ec;
+			}
+
+		.series-episode {
+			border-right: 1px solid #E6E6E6;
+			width: 450px;
+			}
+
+		.series-date {
+			border-right: 1px solid #E6E6E6;
+			width: 130px;
+			padding-left: 20px;
+			}
+
+		.series-speaker {
+			width: 170px;
+			padding-left: 20px;
+			}
+
+.blog-post h5 a {
+	text-decoration: none;
+	}
+
+
+/* ---------- Article Styles */
+
+#article-main
+{
+	float: left;
+}
+
+#article-list
+{
+	float: right;
+	width: 270px;
+}
+
+	#article-list li
+	{
+		margin-bottom: 18px;
+	}
+
+.article-top
+{
+	background: #eff2f4;
+	height: 90px;
+}
+	.article-top h1{
+		text-align: center;
+		padding-top: 25px;
+		color: #282c31;
+		font-size: 30px;
+		font-weight: 100;
+		line-height: 32px;
+	}
+
+.article-mid
+{
+	background: #eff2f4;
+}
+.article-mid p {
+	padding: 12px 10px;
+}
+
+/* ---------- Locations Styles */
+
+#site-contact p {
+	float: left;
+	margin-right: 10px;
+	}
+
+.site-staff {
+	margin-bottom: 20px;
+	}
+
+.site-staff img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 80px;
+	}
+
+#locations-map
+{
+	height: 600px; width: 960px;
+}
+
+.legend {
+	float: left;
+	margin-right: 10px;
+	}
+
+.house-church {
+	margin-bottom: 20px;
+	}	
+
+	.house-church h3 {
+		font-size: 13px;
+		border-bottom: none;
+		margin-bottom: 0px;
+		}
+
+	.house-church p {
+		padding-bottom: 0px;
+		}
+
+
+#home_vid_wrapper object
+{
+	float: right;
+}
+
+
+.class-post {
+	clear: both;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #cfcfcf;
+	padding-bottom: 10px;
+	}
+
+.class-header {
+	font-size: 18px;
+	border-bottom: none;
+	}
+
+.vid_box object {
+	float: right;
+	}
+
+
+/******** Christmas Eve  ***********/
+
+#christmaseve-bg
+{
+	background-color: #000;
+}
+
+#starandmanger {
+	background-image: url({v2-image-asset-url}/christmas/starandmanger.png);
+	width: 140px;
+	height: 385px;
+	float: left;
+}
+#christmaseve
+{
+	background-image: url({v2-image-asset-url}/christmas/newbg.jpg);
+	height: 640px;
+	margin: 0 auto;
+	padding: 50px 0 160px 110px;
+}
+
+#christmaseve-text
+{
+	width: 985px;
+}
+
+	#christmaseve-text_main h1 {
+		bottom-margin: 20px;
+		margin-left: 50px;
+	}
+	#christmaseve-text_main p {
+		margin-left: 50px;
+	}
+
+#christmaseve p
+{
+	color: #fff;
+	line-height: 18px;
+}
+
+#christmaseve p span
+{
+	color: #9bd9ff;
+	font-weight: bold;
+}
+
+#christmaseve-times
+{
+	float: left;
+	width: 360px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+	#christmaseve-times h2
+	{
+		font-size: 22px;
+		line-height: 18px;
+		font-weight: 300;
+		margin-bottom: 20px;
+		text-decoration: none;
+		color: #fff;
+		border-bottom: none;
+	}
+
+	#christmaseve-times h3
+	{
+		font-size: 18px;
+		line-height: 18px;
+		font-weight: 100;
+		margin-bottom: 8px;
+		text-decoration: none;
+		color: #fff;
+		border-bottom: none;
+	}
+#christmaseve-times2
+{
+	float: left;
+	width: 360px;
+}
+
+	#christmaseve-times2 h2
+	{
+		font-size: 22px;
+		line-height: 18px;
+		font-weight: 300;
+		margin-bottom: 20px;
+		text-decoration: none;
+		color: #fff;
+		border-bottom: none;
+	}
+
+	#christmaseve-times2 h3
+	{
+		font-size: 18px;
+		line-height: 18px;
+		font-weight: 100;
+		margin-bottom: 8px;
+		text-decoration: none;
+		color: #fff;
+		border-bottom: none;
+	}
+
+#christmaseve-resume
+{
+	background-image: url({v2-image-asset-url}/christmas/resume-bg.png);
+	float: right;
+	width: 210px;
+	padding: 10px;
+}
+
+#christmaseve-resume h1
+{
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 100;
+	margin-bottom: 5px;
+}
+
+#christmaseve-resume p
+{
+	font-size: 11px;
+
+}
+
+.with-scrollbar
+{
+	min-height: 300px;
+}
+
+
+/*** Group Page ***/
+#group_list li {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.assoc_groups h2 {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	display: inline;
+	clear: none;
+}
+.assoc_groups p {
+	font-size: 12px;
+}
+
+/*** Registration Page ***/
+
+.sprite-register, .sprite-registered, .sprite-oneclick {
+  position: absolute;
+  background-image: url(/_img/btn_sprite_registration.png);
+  background-repeat: no-repeat;
+  text-indent: -1000em;
+  width: 241px;
+  height: 41px;
+}
+.sprite-register { background-position: 0 0; }
+.sprite-oneclick { background-position: 0 -40px; }
+.sprite-registered{ background-position: 0 -80px; }
+
+#login-register-box, #register-box, #confirmation, #full-group, .modaling
+{
+	background: #357299;
+	width: 432px;
+	padding: 25px 30px 0 25px;
+}
+
+
+#user-login-box	
+{
+	background-image: url(/_assets/img/v2/login/bg.png);
+	width: 432px;
+	height: 294px;
+	padding: 30px 30px 0 30px;
+}
+
+#signup-box	
+{
+	width: 725px;
+	height: 400px;
+	padding: 0 5px;
+	overflow-x: hidden; 
+	overflow-y: hidden;
+}
+
+#login-register-box a, #user-login-box a, #signup-box a, .modaling a
+{
+	color: #183243;
+	text-decoration: none;
+}
+
+#login-register-box p, #user-login-box p, #register-box p, #signup-box p, #confirmation p, .modaling a, #modal-box p
+{
+	padding: 0px;
+	color: #61a3c9;
+}
+
+
+#login-register-box h1, #user-login-box h1,	#register-box h1, #signup-box h1, #confirmation h1, .modaling a, #modal-box h1
+{
+	font-size: 20px;
+	line-height: 20px;
+	padding-bottom: 10px;	
+}
+
+#login-register-box h1 span, #user-login-box h1 span, #signup-box h1 span, #register-box h1 span, #confirmation h1 span, #modal-box h1 span
+{
+	font-size: 12px;
+	line-height: 16px;
+	color: #91CAF0;	
+}
+
+#login-register-box label, #user-login-box label, #login-register-box p, #signup-box label, #register-box label, #register-box p, #confirmation label, .modaling a, #modal-box label
+
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	color: #91caf0;
+	font-weight: 300;
+}
+	
+	#login-register-box label.field, #user-login-box label.field, #signup-box label.field, #register-box label.field, #confirmation label.field, .modaling a, #modal-box label.field
+	
+	{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #91caf0;
+		font-size: 14px;
+		line-height: 14px;
+		font-weight: 300;
+		clear: both;
+		text-align: right;
+		margin-top: 14px;
+		float: left;
+	}
+	
+	label.auto-login
+	{
+		float: none;
+	}
+	
+	#login-register-box input.field, #user-login-box input.field,  #signup-box input.field, #register-box input.field, .modaling input.field, #modal-box input.field
+	
+	{
+		background: none;
+		background-image: url(/_assets/img/v2/login/field.png);
+		background-repeat: no-repeat;
+		width: 281px;
+		height: 28px;
+		border: none;
+		float: right;
+		margin: 0px;
+		padding: 0px;
+		margin-bottom: 14px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #fff;
+		padding: 10px;
+		font-size: 16px;
+	}
+
+
+.modaling input#prayer-submit{
+	background-image: url(/_assets/img/v2/respond/pray/btn-prayer-request.png);
+	width: 118px;
+	height: 59px;
+	float: right;
+	cursor: pointer;
+
+}	
+
+	#login-register-box input#login-submit, #user-login-box input#login-submit
+	{
+
+	}
+
+	#login-forgot, #login-forgot-pass
+	{
+		width: 300px;
+		float: right;
+		margin-top: 10px;
+	}
+
+	#login-forgot p
+	{
+		font-size: 11px;
+	}
+
+
+	#login-register
+	{
+		margin-top: 26px;
+		margin-left: -10px;
+	}
+
+	#login-register p
+	{
+		font-size: 14px;
+	}
+
+	#login-register a
+	{
+		color: #fff;
+	}
+
+#login-divider
+{
+	background-image: url(/_assets/img/v2/login/divider.png);
+	height: 2px;
+	margin-bottom: 20px;
+}
+
+#login-icon
+{
+	background-image: url(/_assets/img/v2/login/icon.png);
+	width: 31px;
+	height: 20px;
+	float: left;
+	margin-right: 15px;
+}
+
+#logged-in
+{
+	float: left;
+	padding: 0px;
+	color: #83868b;
+}
+
+#tithesofferings
+{
+	margin-right: 7px;
+	float: right;
+}
+
+#meta-links #logged-in a
+{
+	font-size: 10px;
+	padding-left: 0px;
+}
+
+/*** Registration Page ***/
+
+#register-left
+{
+	width: 450px;
+	float: left;
+}
+
+	#register-left li
+	{
+		 font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		 font-size: 14px;
+		 font-weight: 500;
+		 margin-bottom: 5px;
+		 list-style-type: square;
+		 padding-left: 5px;
+		 margin-left: 15px;
+	}
+
+	#register-icon
+	{
+		background-image: url(/_assets/img/v2/register/icon-people.png);
+		width: 98px;
+		height: 66px;
+		float: left;
+		margin: 0 25px 22px 0px;
+	}
+
+	#register-left h1
+	{
+		color: #30343a;
+		font-size: 26px;
+		line-height: 34px;
+		float: left;
+		width: 320px;
+	}
+
+	#register-left p
+	{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	}
+
+#register-right
+{
+	width: 450px;
+	float: right;
+}
+
+#register-right form
+{
+	background: #f7f6f6;
+	padding: 20px;
+}
+
+#register-right p
+{
+	padding: 0px;
+}
+
+#register-right label
+{
+	float: none;
+}
+
+
+.label_padding label
+{
+	width: 130px;
+	display: inline-block;
+}
+
+#submit-register, #submit-register1
+
+{
+	background-image: url(/_assets/img/v2/register/btn-register.png);
+	width: 111px;
+	height: 45px;
+	cursor: pointer;
+	margin-top: -10px;
+	padding-bottom: 10px;
+	float: right;
+}
+
+/* ----- palm sunday ----- 
+
+#palmsunday-home-bg {
+	background: url('http://uploads.viervrienden.nl/northland/bg-palms-large.png') center repeat-x;
+	height: 500px;
+	margin-bottom: 20px;
+}
+
+.palm-title {
+	background: url('http://www.northlandchurch.net/_img/series/palm-sunday/palm-sunday-main.png') no-repeat center;
+	float: right;
+	height: 500px;
+	width: 825px;
+}
+
+.palm-title-small {
+	background: url('http://www.northlandchurch.net/_img/series/palm-sunday/palm-sunday-main-live.png') no-repeat center;
+	float: right;
+	height: 500px;
+	width: 691px;
+}
+
+#palm-text {
+	font-family: helvetica, sans-serif;
+	text-shadow: 1px 1px 0x #000000;
+	color: #ffffff;
+	margin-top: 150px;
+}
+*/
+
+/* Live code area */
+
+#live-title-absolute {
+	position: absolute;
+	z-index: 8;
+}
+
+#live-palm-bg {
+	background: url('http://www.northlandchurch.net/_img/series/bg_palms.png') repeat-x center;
+	height: 500px;
+	margin: 0px 0px 20px 0px;
+}
+
+/*#live-cravings-bg:hover {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-bg-whole-low.jpg') center;
+	width: 100%;
+	height: 500px;
+	margin: 0px 0px 20px 0px;
+} */
+
+#live-worship-text {
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+#live-left {
+	float: left;
+	/*margin-top: 90px;*/
+ width: 414px;
+ height: 307px;
+ padding: 10px 0 0 30px;
+}
+
+#live-right {
+
+	float: right;
+}
+
+.live-nav-text {
+color:black;
+}
+.live-nav-text-godhappens {
+color:white;
+}
+
+a#login {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/login.png');
+	background-repeat: no-repeat;
+}
+
+a#video-only {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/video-only.png');
+	background-repeat: no-repeat;
+}
+
+a#facebook {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/facebook.png');
+	background-repeat: no-repeat;
+}
+
+a#mobile {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/mobile.png');
+	background-repeat: no-repeat;
+}
+
+a#spanish {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/spanish.png');
+	background-repeat: no-repeat;
+}
+
+a#survey {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/live-buttons/survey.png');
+	background-repeat: no-repeat;
+}
+
+
+#live-nav {
+	float: left;
+}
+
+.live-nav-links {
+	float: left;
+}
+
+.live-nav-links:link {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+
+.live-nav-links:visited {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+
+.live-nav-links:hover  {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+
+.live-nav-links:active {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+
+#live-left a {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	}
+
+#live-left p {
+	float: left;
+	margin-top: 6px;
+	font-size: 12px;
+	color: black;
+	}
+
+#money-last-week {
+	font-family: helvetica, sans-serif;
+	color: #ffffff;
+	margin-top: 20px;
+	/*background: rgba(0,0,0,0.5);
+	padding: 20px 0px 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0px 0px 5px #000000; */
+}
+
+	#roomforredemption-last-week {
+		font-family: helvetica, sans-serif;
+		color: #ffffff;
+		margin-top: 20px;
+		width: 450px;
+		float: left;
+		margin-top: 15px;
+	}
+
+	#roomforredemption-last-week a{
+		font-family: helvetica, sans-serif;
+		color: #ffffff;
+		font-style: underline;
+		margin-top: 20px;
+		/*background: rgba(0,0,0,0.5);
+		padding: 20px 0px 0px 30px;
+		border-radius: 5px;
+		-webkit-box-shadow: inset 0px 0px 5px #000000; */
+	}
+
+a#last-week-link:link {
+	color: #000000;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+a#last-week-link:visited {
+	color: #000000;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+a#last-week-link:hover {
+	//-webkit-animation: link-animate 3s infinite;
+	color: #5a9616;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+/* ----- palm sunday ----- */
+
+#palmsunday-home-bg {
+	background: url('http://www.northlandchurch.net/_img/series/bg-palms-large.png') center repeat-x;
+	width: 100%;
+	margin-bottom: 20px;
+	height: 500px;
+}
+.palmsunday-title {
+	background: url('http://www.northlandchurch.net/_img/series/logo-palms.png') no-repeat left;
+	float: right;
+	height: 500px;
+	width: 645px;
+	margin-left: -20px;
+}
+.palmsunday-title-small {
+	background: url('http://www.northlandchurch.net/_img/series/logo-palms-small.png') no-repeat center;
+	float: right;
+	height: 500px;
+	width: 500px;
+}
+
+#palmsunday-text {
+	font-family: helvetica, sans-serif;
+	text-shadow: 1px 1px 0x #FFF;
+	color: #FFF;
+	margin-top: 130px;
+}
+
+	#palmsunday-text p {
+
+		color: #FFF;
+}
+
+	#palmsunday-text .title {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #FFF;
+		font-size: 20px;
+		font-weight: 100;	
+	}
+
+
+/* ----- cravings ----- */
+/* ----- cravings ----- */
+
+
+#cravings-home-bg {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-bg-wide-1.jpg') center no-repeat;
+	height: 500px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.cravings-title {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-title.png') no-repeat center;
+	float: right;
+	height: 500px;
+	width: 604px;
+}
+.cravings-title-small {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-title-small.png') no-repeat center;
+	float: right;
+	height: 500px;
+	width: 500px;
+}
+
+#cravings-text {
+	font-family: helvetica, sans-serif;
+	text-shadow: 1px 1px 0x #000000;
+	color: #ffffff;
+	margin-top: 150px;
+}
+
+#money-last-week {
+	font-family: helvetica, sans-serif;
+	color: #ffffff;
+	margin-top: 20px;
+	/*background: rgba(0,0,0,0.5);
+	padding: 20px 0px 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0px 0px 5px #000000; */
+
+}
+
+#palmsunday-last-week {
+	font-family: helvetica, sans-serif;
+	color: #FFF;
+	margin-top: 20px;
+	/*background: rgba(0,0,0,0.5);
+	padding: 20px 0px 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0px 0px 5px #000000; */
+
+}
+
+a#last-week-link:link {
+	color: #c3b51d;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+a#last-week-link-palm:link {
+	color: #FFF;
+	text-decoration: none;
+}
+
+a#last-week-link-palm:visited {
+	color: #FFF;
+	text-decoration: none;
+}
+
+a#last-week-link-palm:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+
+
+a#last-week-link:visited {
+	color: #c3b51d;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+a#last-week-link:hover {
+	//-webkit-animation: link-animate 3s infinite;
+	color: #ffffff;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #000000;
+}
+
+/* Live code area */
+#live-title-absolute {
+	position: absolute;
+	z-index: 8;
+}
+#live-cravings-bg {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-bg-whole-low.jpg') center;
+	width: 100%;
+	height: 500px;
+	margin: 0px 0px 20px 0px;
+}
+/*#live-cravings-bg:hover {
+	background: url('http://www.northlandchurch.net/_img/series/cravings/cravings-bg-whole-low.jpg') center;
+	width: 100%;
+	height: 500px;
+	margin: 0px 0px 20px 0px;
+} */
+#live-worship-text {
+
+}
+#live-left {
+	float: left;
+}
+#live-right {
+
+	float: right;
+}
+.live-nav-text {
+
+}/*
+a#login {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/login.png');
+}
+a#video-only {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/video-only.png');
+}
+a#facebook {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/facebook.png');
+}
+a#mobile {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/mobile.png');
+}
+a#spanish {
+	background-image: url('http://www.northlandchurch.net/_img/series/cravings/no-sprite/spanish.png');
+}
+*/
+#live-nav {
+	float: left;
+}
+.live-nav-links {
+	float: left;
+}
+.live-nav-links:link {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+.live-nav-links:visited {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+.live-nav-links:hover  {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+.live-nav-links:active {
+	display: block;
+	width: 113px;
+	height: 34px;
+	background-position: center;
+}
+#live-left a {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	}
+#live-left {
+	margin-top: 106px;
+
+	}
+#live-left p {
+	float: left;
+	margin-top: 6px;
+	font-size: 12px;
+	color: #ffffff;
+	}
+
+/***LIVE GENEROUSLY (Finance Page)***/
+#livegenerously {
+	width: 300px;
+}
+	#lg_top {
+		background-image: url("/_img/lg/top.png");
+	        background-repeat:no-repeat;
+		height: 63px;
+	}
+	.lg_body {
+		background-image: url("/_img/lg/bg.jpg");
+		background-repeat: repeat-x;
+		background-color: #fcefca;
+	}
+	#lg_header {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 18px;
+		font-weight: 500;
+		color: #2e2e2e;
+		padding: 3px 5px 8px 10px;
+		background-color: #f8c727;
+	}
+	#lg_p {
+		padding: 2px 5px 0px 10px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 100;
+	}
+		#lg_p ul li {
+			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+			font-size: 14px;
+			font-weight: 500;
+		}
+	#lg_fin {
+		background-color: #191919;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-weight: 100;
+		color: #FFF;
+		padding: 6px;
+	}
+
+/* ============================================================================== @Footer */
+
+#footer {
+	background: #bfbfbf url({v2-image-asset-url}/footer/bg-shadow.png) repeat-x 0 top;
+	padding: 20px 0 40px;
+	width: 100%;
+	}
+
+	#footer div.nav {
+		border-bottom: 1px solid #939393;
+		margin: 0 10px 20px;
+		padding-bottom: 20px;
+		}
+
+/*
+	#footer div.shade { filter: alpha(opacity=60); opacity: 0.6; }
+	#footer div.shade:hover { filter: alpha(opacity=100); opacity: 1; }
+*/
+
+	#footer .grid_9 div {
+		float: left;
+		font-size: 9px;
+		padding-right: 10px;
+		width: 105px;
+		}
+
+	#footer .grid_9 div.last { float: right ;}
+
+
+		#footer .grid_9 div ul {
+			margin-bottom: 10px;
+			}
+
+			#footer .grid_9 div ul li  { line-height: 14px; }
+			#footer .grid_9 div ul li strong { font-size: 12px; }
+			
+			#footer div.nav a {
+				color: #303030;
+				float: left;
+				margin-right: 20px;
+				text-shadow: #c8c8c8 0 1px 0;
+				}
+
+			#footer div.nav a.meta-link {
+				float: right;
+				margin-left: 20px;
+				margin-right: 0;
+				}
+
+			#footer .grid_9 div ul li a { color: #000000; }
+			
+			
+html {
+	width: 100%;
+}
+
+/***LIVE GENEROUSLY (Finance Page)***/
+#livegenerously {
+	width: 300px;
+}
+	#lg_top {
+		background-image: url("/_img/lg/top.png");
+	        background-repeat:no-repeat;
+		height: 63px;
+	}
+	.lg_body {
+		background-image: url("/_img/lg/bg.jpg");
+		background-repeat: repeat-x;
+		background-color: #fcefca;
+	}
+	#lg_header {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 18px;
+		font-weight: 500;
+		color: #2e2e2e;
+		padding: 3px 5px 8px 10px;
+		background-color: #f8c727;
+	}
+	#lg_p {
+		padding: 2px 5px 0px 10px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 14px;
+		font-weight: 100;
+	}
+		#lg_p ul li {
+			font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+			font-size: 14px;
+			font-weight: 500;
+		}
+	#lg_fin {
+		background-color: #191919;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-weight: 100;
+		color: #FFF;
+		padding: 6px;
+	}
+
+#lessismore_ad {
+	background-image: url("/_img/boxes/lessismore.jpg");
+	background-repeat: none;
+	width: 220px;
+	height: 120px;
+	cursor: pointer;
+	margin-right: 16px;
+	float: right;
+}
+	#lessismore_ad h1 {
+		color: #593C0E;
+		line-height: 20px;
+		font-size: 22px;
+		margin-bottom: 5px;
+		text-align: center;
+		padding-top: 68px;
+	}
+		#lessismore_ad {
+			text-decoration: none;
+		}
+	#lessismore_ad h2 {
+		font-weight: 300;
+		font-size: 24px;
+		border-bottom: none;
+		color: #fff;
+		text-align: center;
+	}
+	
+#chat-box-list h1 div{
+	float:left;
+	margin-right: 5px;
+}
+
+#chat-box-list p{
+	color: #555;
+}
+#chat-box-list span{
+	color: #999;
+}
+
+.profile_note{
+	margin-left: 20px;
+	margin-top: 5px;
+	width: 80%;
+	padding: 10px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #555656;
+}
+
+.prayer-paginate  {
+	color: #fff !important;
+}
+.prayer-paginate strong {
+	color: #CAAAE1 !important;
+	text-decoration: underline;
+}
+
+#fancybox-outer {
+	background-color: #357299;
+}
+#fancybox-wrap {
+	position: absolute !important;
+	z-index: 999999 !important;
+}
+
+#text_modal {
+	width: 400px;
+	color: #FFF;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	padding: 70px 20px;
+	text-align: center;
+}
+
+.profile_subheader {
+	margin: 0;
+	border: none;
+	display: inline;
+	color: #2e2e2e;
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+
+.join_groups {
+	background-image: url(/_img/join_groups.png);
+	width: 41px;
+	height: 4px;
+	padding-top: 3px;
+	display: inline;
+	float: left;
+}
+
+#profile-live_view, #profile-edit_view {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+}
+
+#profile-edit_view input {
+	margin: 5px 0 0 5px;
+	width: 175px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+}
+
+#profile-edit_view textarea {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+}
+
+.editprofile_subtitle {
+	font-size: 13px;
+	font-weight: bold;
+	float: left;
+	width: 150px;
+	margin: 10px 5px 0 0;
+	text-align: right;
+}
+
+#edit-profile-button {
+	font-size: 16px;
+	color: white;
+	padding: 8px;
+	text-decoration: none;
+	background-color: #369;
+	margin: 0 0 0 100px;
+	border-radius: 6px;
+}
+
+#edit-profile-button:hover {
+	background-color: #59C;
+}
+
+.nav-hover {
+	display: none;
+}
+
+
+
+/* EASTER 2012 CONDITIONALS */
+.easter2012_wrap {
+	background-image: url("/_img/easter_2012.jpg");
+	height: 580px;
+}
+.easter2012_logo {
+	background-image: url("/_img/easter2012_logo.png");
+	width: 450px;
+	height: 200px;
+}

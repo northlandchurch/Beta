@@ -1,0 +1,57 @@
+{exp:calendar:calendars calendar_id="{embed:relatedgroups}" sort="asc" orderby="title" enable="categories" category="402|405" dynamic="off"}		
+		<script type="text/javascript">AddMarker("{entry_id}", "{exp:strip_html}{group_latitude}{/exp:strip_html}", "{exp:strip_html}{group_longitude}{/exp:strip_html}", "{categories}{if category_id == "405"}<a href='/ministry/{url_title}'>{title}</a>{if:elseif category_id == "402"}<a href='/group/{url_title}'>{title}</a>{/if}{/categories}");</script>
+		
+		<div id="rules"></div>
+		<div id="group_{entry_id}" class="assoc_groups group_entry {exp:strip_html}{calendar_meeting_day}{/exp:strip_html} {exp:tag:tags entry_id="{entry_id}"}{tag} {/exp:tag:tags}">
+		<li style="list-style:none" class="group">
+			<h2 style="float:left">
+			<?php 
+				$category_id_arr = array(); 
+				{categories}	
+					array_push($category_id_arr, {category_id});
+				{/categories}
+				if (in_array("405", $category_id_arr)) {
+					echo '<a href="/ministry/{url_title}">{title}</a>';
+				}
+				else {
+					echo '<a href="/group/{url_title}">{title}</a>';
+				}
+			?>
+			</h2>
+			<?php if (in_array("405", $category_id_arr)) { ?>
+			<?php }else{ ?>
+    	    	<!--{if logged_in}
+		    		<a class="favorite" href="#" onclick="registerUserToGroup({entry_id})"><img src="/_img/join_groups.png" style="padding: 3px 0 0 8px;border:none"></a></span>
+	    		{if:else}
+	    			<a class="user-login" href="#login-register-box"><img src="/_img/join_groups.png" style="padding: 3px 0 0 8px;border:none"></a>
+    	    	{/if}-->
+			<?php } ?>
+			<br>
+			{categories}
+				{if category_id == "405"}
+					<p>{exp:trunchtml words="10" inline="..."}{body}{/exp:trunchtml}</p>
+				{/if}
+			{/categories}
+			
+			{exp:strip_html}
+				{if calendar_meeting_day}
+					{if calendar_meeting_day!="Varies"}{calendar_meeting_day}s{/if}
+				{/if}
+				{if calendar_meeting_time == "Morning" OR calendar_meeting_time == "Afternoon" OR calendar_meeting_time == "Evening"}
+					{if calendar_meeting_day}in the{if:else}In the{/if}
+				{if:elseif calendar_meeting_time}
+					{if calendar_meeting_time != "Varies"}
+						{if calendar_meeting_day == "Varies"}Meets{/if} at 
+					{/if}
+				{/if}
+				{if calendar_meeting_time != "Varies"}
+					{calendar_meeting_time}
+				{/if}
+			{/exp:strip_html}
+			<p>
+				{exp:trunchtml chars="500" inline="..."}{exp:strip_html}{calendar_summary}{/exp:strip_html}{/exp:trunchtml}
+			</p>
+			<br>
+		</li>
+	</div>
+{/exp:calendar:calendars}

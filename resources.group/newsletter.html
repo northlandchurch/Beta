@@ -1,0 +1,57 @@
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Email Signup!</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_12">
+		{exp:channel:entries dynamic="off" channel="otherresources" url_title="email" track_views="one"}
+		<p>Sign up for our weekly newsletter to see "What's Current" at Northland Church!</p>
+			<div>
+				
+				<form action="http://northlandchurch.list-manage.com/subscribe/post" method="post">
+					
+					<input type="hidden" name="u" value="fba085cc591fec0d71d835182">
+					<input type="hidden" name="id" value="f08b426c96">
+					Email:
+					<br />
+					<input size="17" name="MERGE0" id="MERGE0" />
+					<br />First Name:
+					<br />
+					<input size="17" name="MERGE1" id="MERGE1" />
+					<br />Last Name:
+					<br />
+					<input size="17" name="MERGE2" id="MERGE2" />
+					<br />Main Worship Site:
+					<br />
+					<select style="WIDTH: 110px" id="MERGE3" name="MERGE3">
+					<option value="Longwood" selected="selected">Longwood</option>
+					<option value="Mount Dora">Mount Dora</option>
+					<option value="Oviedo">Oviedo</option>
+					<option value="Online Worship">Online Worship</option>
+					<option value="Other">Other</option>
+					</select>
+					<br />
+					<br />
+					<input style="MARGIN-TOP: 5px" type="submit" value="Sign Up" />
+				</form>
+			</div>
+		{/exp:channel:entries}
+	</div>
+
+	<div class="clear"></div>
+
+</div>
+<div class="marg-b-60"></div>
+<div class="clear"></div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

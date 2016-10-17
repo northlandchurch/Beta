@@ -1,0 +1,97 @@
+{!-- LIVE!!!!}
+	***
+		THIS IS LIVE AT NORTHLANDCHURCH.NET/MAIN/ABOUT
+		
+		
+		MEANING: THIS IS NOW AN OUTDATED VERSION!! DON'T USE ME!!
+	***
+{--}
+
+
+{embed="responsive/html_open" htmltitle="About Northland, A Church Distributed"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="about"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">About Northland, A Church Distributed</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div>
+		<div class="grid_4 alpha">
+			<h3>What We Believe</h3>
+			<p class="marg-b-40">Just as God has uniquely created each individual, designing within each one the potential to contribute something precious to the lives of others, so too God has created diversity in His kingdom so that each congregation and Christian organization will make a unique contribution to the world.<br />
+			<a href="http://www.northlandchurch.net/articles/mvb/" title="What We Believe">Read More</a></p>
+
+			<h3>When We Gather for Worship</h3>
+			<p>
+				Saturdays at 5 p.m. EST.<br />
+				Sundays at 9, 11 a.m., 5 p.m. EST.<br />
+				Mondays at 7 p.m. EST.
+			</p>
+			<p class="marg-b-40">Current time at Northland: {current_time format="%l, %h:%i%a"} EST.</p>
+
+			<h3>Northland Newspaper</h3>
+			<p class="marg-b-40">
+			{exp:channel:entries channel="newspaper" dynamic="off" orderby="date" sort="desc" limit="3"}
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='newspaper'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+			{/exp:channel:entries}
+			</p>
+		</div>	
+		
+		<div class="grid_4">
+			<h3>Becoming A Member</h3>
+			{exp:channel:entries dynamic="off" channel="whatwebelieve" orderby="date" sort="desc" limit="1" cache="yes" refresh="60"}
+			<p class="marg-b-40">{exp:trunchtml words="30" inline="..."}{exp:strip_html}{body}{/exp:strip_html}{/exp:trunchtml}<br />
+			<a href="http://www.northlandchurch.net/membership" title="{title}">Read More</a></p>
+			{/exp:channel:entries}
+
+			<h3>Stewardship Reports</h3>
+			<p class="marg-b-40">
+			<!--{exp:channel:entries channel="tithesandofferings" dynamic="off" category="not 31" orderby="date" sort="desc" limit="3"}
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='main/finances'}{/exp:low_replace}"><strong>Week of {title}</strong></a><br />
+			{/exp:channel:entries}
+			-->
+			<a href="http://insite.northlandchurch.net/insitegiving/giving.do"><strong>Last week</strong></a><br />
+			
+			</p>
+			
+			<h3>Northland History</h3>
+			<p>
+				In the early 1960's a non-traditional church was flourishing in Chicago, Illinois. 
+				The congregation met in a rented warehouse and experienced vibrant, contemporary worship. 
+				It was called Circle Church and its pastor was David Mains. Throughout the nation, other congregations 
+				patterned after Circle Church began to spring up; one was Clearwater Community Church in Florida. 
+				When Lyle and Marge Nelson, members of Clearwater Community Church, were transferred to Orlando in 
+				the late 1960s, they searched in vain to find a church similar to the one they had just left. <br />
+				<a href="http://www.northlandchurch.net/articles/history" title="{title}">Read More</a>
+			</p>
+		</div>
+
+		<div class="grid_4 omega">
+			{exp:channel:entries dynamic="off" channel="staff" url_title="dr._joel_c._hunter" orderby="date" sort="desc" limit="1"}
+			<h3>{title}</h3>
+			<p class="marg-b-40"><img src="/_img/uploads/{staff-image}" class="right" />{exp:trunchtml words="35" inline="..."}{exp:strip_html}{staff-bio}{/exp:strip_html}{/exp:trunchtml}<br />
+			<a href="{exp:low_replace find='index.php/'}{title_permalink='staff'}{/exp:low_replace}" title="{title}">Read More</a></p>
+			{/exp:channel:entries}
+		
+			<h3>Pastors, Elders and Staff</h3>
+			{exp:channel:entries dynamic="off" channel="staff" category="30" orderby="date" sort="asc" limit="1"}
+			<p class="marg-b-40">{exp:trunchtml words="40" inline="..."}{exp:strip_html}{staff-bio}{/exp:strip_html}{/exp:trunchtml}<br />
+			<a href="http://www.northlandchurch.net/staff/" title="Pastors and Elders">Read More</a></p>
+			{/exp:channel:entries}
+
+		</div>
+	</div>
+
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

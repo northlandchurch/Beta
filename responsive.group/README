@@ -1,0 +1,22 @@
+//FILES
+adapt.js - holds adapt framework
+beacon.css - conditional for background color on home page only
+footer.html - footer content beginning with 6 featured content blocks
+full.css - css file for anything over 720px wide
+header.html - javascript and login/register boxes (UPDATED - Dec 12 to new login setup)
+html_close.html - last two lines of code to close the page
+html_open.html - stylesheets & GA code plus an Event Listener for device scaling
+index.html - home page code
+main.css - site wide css
+mobile.css - css file for anything under 720px wide
+nav.html - code for main site nav
+respond-css.css - holds all styles for all the Respond pages
+respond-header.html - is used as an embed file on respond pages. This imports the respond-css.css file (but is there in case there is other scripts to add for JUST Respond pages)
+text.css - contains generic css for text and links site wide (imported into the main.css file)
+
+//CACHE
+30 Minute Intervals (through EE):
+	main.css
+	
+//CHANGES
+Added </head><body> tags to header instead of html_open

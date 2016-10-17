@@ -1,0 +1,165 @@
+{embed="_includes/html_open" htmltitle="Be in Community at Northland, A Church Distributed"}
+{embed="_includes/header"}
+{embed="_includes/nav" active=""}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});	
+	
+	var amount = <?php echo file_get_contents('http://insite.northlandchurch.net/givingweb/donationsum.jsp'); ?>;
+	var perc = parseInt(amount)/8500;
+	var targetHeight = 514-514*perc;
+	var targetHeight = parseInt(targetHeight);
+	$("#bar-fill").animate({
+		marginTop: targetHeight
+		}, 5000);
+		
+});
+</script>
+
+
+<script>
+// execute your scripts when DOM is ready. this is a good habit
+$(function() {
+	$('#datepicker').datepicker({
+		showOn: "both",
+		dateFormat: "yy/mm/dd",
+		onSelect: function (dateText, inst) {
+			document.location.href = "http://www.northlandchurch.net/calendar/" + dateText;
+		}
+	});
+});
+
+$(document).ready(function() {
+	$("ul#calendar li:first-child").addClass('active');
+	$("ul#calendar li").hover(function(){
+		var imgTitle = $(this).find('a').attr("href");
+		var imgLink = $(this).find('a').attr("id");
+
+		if ($(this).is(".active")) {
+			return false;
+		} else {
+			$("#calendar-slider a").attr({ href: imgTitle});
+			$("#calendar-slider img").attr({ src: imgLink});
+		}
+
+		$("ul#calendar li").removeClass('active');
+		$(this).addClass('active');
+		return false; 
+	});
+});
+
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery(".day-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".community-day").click(function() {
+		jQuery(this).next(".day-collapse").slideToggle(500);
+	});
+});
+</script>
+
+<div id="respond-community">
+	<div class="container_12">
+		<div class="grid_12 marg-b-100">
+			<div id="community-title"></div>
+			<a class="modal" href="#latest-worship"><div id="community-play"></div></a>
+			<div style="display:none">
+				<div id="latest-worship">
+					<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+					<script src="http://www.google-analytics.com/ga.js"></script>
+					<iframe src="http://player.vimeo.com/video/12696339?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+				</div>
+			</div>	
+			<div class="clear"></div>
+		</div>	
+		
+		
+		<div id="respond-community-left">
+			{exp:channel:entries channel="beincommunity" limit="1"}
+				{if beincommunity_top}
+					<h1 style="line-height:26px;text-transform:none;font-size:24px">{beincommunity_top}</h1>
+					<br><br>
+				{/if}
+				<h1><span>What is</span> Community?</h1>
+				
+				{beincommunity_whatis}				
+				{beincommunity_body}
+				
+				
+			{/exp:channel:entries}
+			
+		</div>
+		
+		
+		<div id="respond-pray-right">
+			
+			<div class="community-side-top"></div>
+			<div class="community-side-mid">
+				<h1 id="sub" style="margin:0;">Group Resources</h1>
+				<br>
+				{exp:channel:entries channel="beincommunity" limi="1"}
+					{beincommunity_group-resources}
+				{/exp:channel:entries}
+			</div>
+			<div class="community-side-btm"></div>
+			
+				
+			<div class="community-side-top"></div>
+			<div class="community-side-mid">
+				<div id="community-connect"></div>
+				
+				<p>There are many opportunities to connect with others through Northland every day. We gather to <br /><a href="/respond/worshipgod">worship God</a>, we gather to <a href="/respond/serveothers">serve others</a> and we gather to <a href="/respond/readthebible">be equipped</a> to respond to God. Below are some places you can go to connect and build community.</p>
+				
+				
+				<h1 id="sub">Happening Soon</h1>
+				
+				{embed="_component/events_footer" the_id="{exp:channel:entries channel='calendar_calendars' category='383'}{url_title}|{/exp:channel:entries}"}
+				<br>
+
+								
+				<a href="/calendar"><img src="{v2-image-asset-url}/respond/community/btn-calendar.png" /></a>
+			</div>
+			<div class="community-side-btm"></div>
+			
+		
+			
+			
+			
+		</div>	
+		
+		
+
+
+<!-- ....AND HERE!-->
+		
+		
+		
+		
+		<div class="clear"></div>
+			
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+
+{embed="_includes/html_close"}

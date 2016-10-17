@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<channel>
+	<lastBuildDate>{exp:channel:entries channel="media" category="44" orderby="date" sort="desc" limit="1"}{entry_date format="%r"}{/exp:channel:entries}</lastBuildDate>
+	<title>Northland, A Church Distributed&apos;s Weekly Sermon Audio</title>
+	<itunes:author>Northland, A Church Distributed</itunes:author>
+	<link>http://www.northlandchurch.net</link>
+	<description>We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe.</description>
+	<itunes:subtitle />
+	<itunes:summary>We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe.</itunes:summary>
+	<language>en</language>
+	<copyright />
+		<image>
+			<url>http://www.northlandchurch.net/_img/northland.jpg</url>
+			<title>Northland, A Church Distributed&apos;s Weekly Sermon Audio</title>
+			<link>http://northlandchurch.net</link>
+			<width>200</width>
+			<height>200</height>
+		</image>
+	<itunes:image href="http://www.northlandchurch.net/_img/northland.jpg" />
+	<category>Christianity</category>
+	<itunes:category text="Religion &amp; Spirituality">
+	<itunes:category text="Christianity" />
+	</itunes:category>
+	<itunes:keywords>Joel Hunter, Hunter, distributed, Northland, church, Christian, Christianity, evangelical</itunes:keywords>
+	<itunes:explicit>no</itunes:explicit>
+	{exp:channel:entries channel="media" category="44" orderby="date" sort="desc"}{if media-week != ''}{if media-podcast != 'No'}<item>
+		<title>{title}</title>
+		<itunes:author>Northland, A Church Distributed</itunes:author>
+		<description>{exp:xml_encode}{media-speaker} {!--{media-reference}, --}(Week {media-week}, {entry_date format="%Y"}){/exp:xml_encode}</description>
+		<itunes:subtitle>{exp:xml_encode}{media-speaker} {!--{media-reference}, --}(Week {media-week}, {entry_date format="%Y"}){/exp:xml_encode}</itunes:subtitle>
+		<itunes:summary>{media-unit}{media-unit:series-description}{/media-unit} Scriptures Referenced: {exp:xml_encode}{media-reference}{/exp:xml_encode}</itunes:summary>
+		<enclosure url='http://nacdvideo.s3.amazonaws.com/{entry_date format="%Y"}/{entry_date format="%Y"}Week{media-week}.mp3' type='audio/mp3' />
+		<guid>http://nacdvideo.s3.amazonaws.com/{entry_date format="%Y"}/{entry_date format="%Y"}Week{media-week}.mp3</guid>
+		<pubDate>{entry_date format="%r"}</pubDate>
+		<category>Christianity</category>
+		<itunes:explicit>no</itunes:explicit>
+		<itunes:duration>{if media-length == ''}00:45:00{/if}{if media-length != ''}{media-length}{/if}</itunes:duration>
+		<itunes:keywords />
+	</item>
+{/if}{/if}
+{/exp:channel:entries}
+</channel>
+</rss>

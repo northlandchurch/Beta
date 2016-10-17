@@ -1,0 +1,32 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:jwplayer="http://developer.longtailvideo.com/">
+   {exp:channel:entries channel="media" url_title="{segment_3}" limit="1" dynamic="off"}
+  
+  <channel>
+    <title>Media</title>
+
+    <item>
+      <title>{title}</title>
+      <description>{media-description}</description>
+     
+         
+     <media:group>
+
+        {if media-hd}
+        <media:content bitrate="2500" url="mp4:amazons3/nacdvideo/misc/{media-video}_hd.mp4"  width="1280" />
+        {/if}	
+        <media:content bitrate="1500" url="mp4:amazons3/nacdvideo/misc/{media-video}_high.mp4" width="640"/>
+        <media:content bitrate="800" url="mp4:amazons3/nacdvideo/misc/{media-video}_med.mp4" width="640" />
+        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/misc/{media-video}_low.mp4" width="640" />
+
+        
+
+		<media:thumbnail url="{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}" />
+      </media:group>
+      {/exp:channel:entries}
+      <jwplayer:type>rtmp</jwplayer:type> 
+      <jwplayer:streamer>rtmp://174.129.245.138:1935/vods3/_definst_/</jwplayer:streamer>
+    </item>
+
+  </channel>
+</rss>

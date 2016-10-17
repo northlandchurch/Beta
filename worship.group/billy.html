@@ -1,0 +1,277 @@
+<?php
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+	if ($detect->isMobile() && !$detect->isTablet()) {
+		header('Location: http://northlandchurch.net/worship/mobile'); exit();	
+	}
+
+	$logged_in = 1;
+	$anon_number = mt_rand() + 10000000; // Adding 10,000,000 makes sure no numbers duplicate with actual user accounts
+	$member_id_reference = $this->EE->session->userdata('member_id');	
+	if ($member_id_reference == 0) {
+		$member_id_reference = 1;
+		$logged_in = 0;	
+				
+		$sql="UPDATE usercounter SET counter = counter + 1";	
+		mysql_query($sql) or die();
+		$sql = "SELECT counter FROM usercounter";
+		$result = mysql_query($sql) or die();
+		
+		while ($row = mysql_fetch_array($result)) {
+			$member_id_reference = $row['counter'];
+		}
+	}	
+?>
+{!-- Show if user is logged in --}
+
+{embed="_includes/html_open_worship" htmltitle="Northland Online Worship"}
+<div style="display:none">Worship online with Northland, A Church Distributed.</div>
+<meta property="og:title" content="Northland Online Worship" />
+<meta property="og:description" content="Live worship Saturday at 5pm, Sunday at 9am, 11am, 5pm, and Monday at 7pm." />
+{exp:channel:entries channel="series" limit="1" cache="yes" refresh="120"}
+<meta property="og:image" content="http://www.northlandchurch.net/_assets/img/v2/series/{series-image}" />
+{/exp:channel:entries}
+
+<div id="header-bg" style="display:none">
+	{embed="_includes/header-beta"}	
+</div>
+<meta name="viewport" content="width=970, user-scalable=no"/>
+
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/css-onlineworship.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/adapt/full.css" />
+<div id="friends_hide"><style></style></div>
+
+<script type="text/javascript">
+	var d = new Date();
+	var rand_number = d.getTime();
+	
+	$(document).ready(function() {
+		FlashDetect();
+		StartServiceLiveCheck();
+		InitializeEventHandlers();
+		initiate_geolocation();
+		InitializeSlimScroll();
+		InitializeJWChatHandlers();
+	});	
+	
+	$(window).load(function() {
+		GetFriendships();
+		setTimeout("StartHeartbeat()", 10000);
+		StartMapUpdateCycle();
+		StartChatUsersUpdateCycle();
+		UpdateCount(20000);
+		{if service_live=="true"}LoadEnglish();{/if}
+	});
+</script>
+
+<script type="text/javascript">
+// Efficient indexOf handler if browser doesn't support natively
+if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(elt /*, from*/)
+  {
+    var len = this.length;
+
+    var from = 0;
+
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}
+</script>
+
+{!-- Flash Detection Code --}
+<script type="text/javascript" src="/_assets/js/flash_detect_min.js"></script>
+<script type="text/javascript"> 
+	function FlashDetect() {
+		if (FlashDetect.installed) { console.log("Flash installed. Version info: " + FlashDetect.raw); }
+		else { 
+			console.log("Flash not installed.");
+			<?php
+				if (!$detect->isiPad()) {
+					echo "$('#onlineworshipvid').html(\"<a href='http://get.adobe.com/flashplayer/' target='_blank'>Please install Adobe Flash to watch</a><br><br>\")";
+				}
+			?>
+		}		
+	}
+</script>
+
+{!-- Adaptive textarea code --}
+<script type="text/javascript" src="/_assets/js/jquery.autosize-min.js"></script>
+
+<script type="text/javascript">
+var anon_number = "<?php echo $anon_number; ?>";
+</script>
+
+{!-- Issuu Code --}
+<script type="text/javascript">
+var issuu_loaded = 0;
+function LoadIssuu() {
+	if (issuu_loaded == 0) {
+		var html_content = '{exp:channel:entries channel="newspaper" dynamic="off" orderby="date" cache="yes" refresh="120" sort="desc" limit="1"}<iframe id="issuuiframe" src="{newspaper-embed}" width="618" height="348" frameborder=0></iframe><p style="margin:0 20px">Download a searchable PDF to read later: <a href="http://www.nacdweb.org/files/pressroom/{newspaper-pdf}" title="{title}" target="_blank">Download {title}&rsquo;s PDF.</a></p>{/exp:channel:entries}';
+		
+		$('#worship-tab').html(html_content);
+		
+		issuu_loaded = 1;
+	}
+}
+</script>
+
+<div id="header-minimized">
+	<div id="header-bar-small">
+		<div class="container_12">
+			<div id="header-small-left">
+				<a href="http://www.northlandchurch.net" style="text-decoration: none" target="_blank"><h1>Northland <span>A Church Distributed</span></h1></a>
+			</div>
+			
+			<div id="header-small-right">
+				{!-- user-login-box --}
+				{if logged_in}
+					<span>Logged in as <a href="/profile" target="_blank">{screen_name}</a> - <a onclick="logoutandreload()" >Log Out</a></span>
+				{if:else}
+					<span><a class="user-login" href="#login-register-box">Login</a></span>
+				{/if}	
+				<span> </span><span><a href="<?php if ($detect->isTablet()) { echo 'https://insite.northlandchurch.net/givingweb/mobilegiving.jsp'; } else { echo 'http://insite.northlandchurch.net/insitegiving/giving.do'; } ?>" target="_blank">Tithes &amp; Offerings</a></span>
+				<span><a class="user-login" href="#bug_report_form">Submit Bug Report</a></span>
+				{if group_id == "1" || group_id == "22" || group_id == "13"}
+					<span>
+					
+						<script type="text/javascript">
+				
+						function StartServiceLiveCheck() {
+							UpdateServiceLiveCheck();
+							setTimeout("StartServiceLiveCheck()", 20000);
+						}
+						
+						function UpdateServiceLiveCheck() {
+							$.ajax({
+								url: "/_component/isservicelive",
+								success: function(data) {
+									if (data.indexOf("true") != -1) {
+										$("#service_live").replaceWith("<a id='service_live' onclick='confirm_turn_service_off()'>Service is currently LIVE</a>");
+									}
+									else {
+										$("#service_live").replaceWith("<a id='service_live' onclick='confirm_turn_service_on()'>Service is currently OFF</a>");
+									}
+								}
+							});
+						}
+						
+						function confirm_turn_service_on() {
+							var r=confirm("Are you sure you want to turn service ON");
+							if (r==true) { 
+								$.ajax({ 
+									url: "/_component/change_servicelive/on/"
+								}).done(function() { UpdateServiceLiveCheck(); });
+							}
+						}
+						
+						function confirm_turn_service_off() {
+							var r=confirm("Are you sure you want to turn service OFF");
+							if (r==true) { 
+								$.ajax({ 
+									url: "/_component/change_servicelive/off/"
+								}).done(function() { UpdateServiceLiveCheck(); });
+							}
+						}
+
+						</script>
+						<b><a style="cursor:pointer" href="/admin" target="_blank">Admin Console</a> | <a id="service_live"></a></i></b>
+					</span>
+				{/if}
+			</div>
+		</div>
+	</div>
+	<div class="nav-shadow"></div>
+</div>
+
+<div style="display:none">
+<form id="bug_report_form">
+        <h2>Bug Report</h2>
+                <label id="bug_report_text"><b>Error Description</b><br>
+                <?php if ($logged_in): ?>
+                	Thank you, {screen_name}, for letting us know about the issue you found. Please enter a description here of what happened and what you were doing leading up to that to help us improve this new environment.
+                <?php else: ?>
+                	Thank you for letting us know about the issue you found. Since you aren't currently logged in, please let us know your email or a way of contacting you so that we can follow up with you. Enter a description here of what happened and what you were doing leading up to that to help us improve this new environment.
+                <?php endif; ?>               
+                </label><br />    
+                <div class="clear"></div>            
+                <textarea style="width: 400px; height: 150px; resize:none" id="bug_description"></textarea>
+                <div class='clear'></div>
+                <input style="cursor:pointer" name="submit" type='submit' value='Submit Form' />
+</form>
+</div>
+
+{!-- Group Size Popup Modal --}
+<div style="display:none">
+<a class="groupsize_modal" href="#modal_container" style="display:none"></a>
+	<div id="modal_container">
+			<div id="modal-box">
+			{if logged_in}
+				<h1>Welcome back {screen_name}!</h1>
+			{if:else}
+				<h1>Welcome to Northland's Online Worship!</h1>
+				<h1 style="font-size: 14px; text-align:center"><a class='user-login' href='#login-register-box'>Sign-in or Register</a> in under 30 seconds.</h1>
+			{/if}
+				<div class="modal-contents">
+					<p>How many people are worshiping with you today?</p> 
+					<input type="textbox" id="num_worshipers" class="modal-field" maxlength="3" value="1">
+					<div class="clear"></div>
+					<div id="modal_invalidnumber" style="display:none">Please enter a valid number of worshipers to proceed.</div>
+				</div>
+				<div class="modal-submit" id="update_number_worshipers">Submit</div>
+			</div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+var logged_in_groupsize = 0; // Groupsize for current user, if hasn't clicked modal yet is stored as 0
+var num_worshipers_submitted = 0; // Flag for whether number of worshipers has been submitted
+
+function AutoSubmitNumberWorshipers() {
+	if (num_worshipers_submitted == 0) {
+		$('#update_number_worshipers').click();
+		num_worshipers_submitted = 1;
+	}
+}
+
+
+
+function InitializeEventHandlers() {
+	setTimeout("AutoSubmitNumberWorshipers()", 90000);
+
+	$('#update_number_worshipers').click(function(e) {
+		num_worshipers_submitted = 1;
+		var temp_groupsize = $('#num_worshipers').val();
+		$.fancybox.close();
+
+		if ($.isNumeric(temp_groupsize) && temp_groupsize > 0 && temp_groupsize < 100) {
+			logged_in_groupsize = temp_groupsize;
+			UpdateGroupSize(logged_in_groupsize);
+			setTimeout("UpdateStats(1, logged_in_groupsize)", 120000); // Add to stats after 120 seconds
+		}
+		else {
+			setTimeout("UpdateStats(1, 1)", 120000); // Add to stats after 120 seconds
+		}
+	});
+	
+	$(".user-login").click(function() { num_worshipers_submitted = 1; });
+
+	$(".groupsize_modal").fancybox({ 'modal': true,	'scrolling': 'no', 'width': 435, 'padding': 0, 'scrolling': 'no', 'overlayOpacity': 0.9, 'overlayColor': '#10202b' }).trigger('click');
+	 
+	$('#num_worshipers').keydown(function(event) {
+		if (event.keyCode == '13') { $('#update_number_worshipers').trigger('click'); }
+	}).focus();
+	
+	$(".login_form").submit(function() { });	
+	
+	$("#bug_report_form").submit(function() { 
+		var bugdescription = $('#bug_description').val();
+		if (!bugdescription) { bugdescription = "No Feedback Sent"; }
+		
+		$("#text_modal").html("Message sending

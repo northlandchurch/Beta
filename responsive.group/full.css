@@ -1,0 +1,716 @@
+/*
+  960 Grid System ~ Core CSS.
+  Learn more ~ http://960.gs/
+
+  Licensed under GPL and MIT.
+*/
+
+/*
+  Forces backgrounds to span full width,
+  even if there is horizontal scrolling.
+  Increase this if your layout is wider.
+
+  Note: IE6 works fine without this fix.
+*/
+
+body {
+	min-width: 960px;
+}
+
+.previous_holder {
+	width: 960px;
+}
+.previous_thumbs {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.beacon {
+	width: 330px !important;
+}
+
+/* `Container
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+
+/* `Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12,
+.grid_13,
+.grid_14,
+.grid_15,
+.grid_16 {
+  	display: inline;
+	float: left;
+	position: relative;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.push_1, .pull_1,
+.push_2, .pull_2,
+.push_3, .pull_3,
+.push_4, .pull_4,
+.push_5, .pull_5,
+.push_6, .pull_6,
+.push_7, .pull_7,
+.push_8, .pull_8,
+.push_9, .pull_9,
+.push_10, .pull_10,
+.push_11, .pull_11,
+.push_12, .pull_12,
+.push_13, .pull_13,
+.push_14, .pull_14,
+.push_15, .pull_15 {
+  position: relative;
+}
+
+.container_12 .grid_3,
+.container_16 .grid_4 {
+  width: 220px;
+}
+
+.container_12 .grid_6,
+.container_16 .grid_8 {
+  width: 460px;
+}
+
+.container_12 .grid_9,
+.container_16 .grid_12 {
+  width: 700px;
+}
+
+.container_12 .grid_12,
+.container_16 .grid_16 {
+  width: 940px;
+}
+
+/* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {
+  margin-left: 0;
+}
+
+.omega {
+  margin-right: 0;
+}
+
+/* `Grid >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_1 {
+  width: 60px;
+}
+
+.container_12 .grid_2 {
+  width: 140px;
+}
+
+.container_12 .grid_4 {
+  width: 300px;
+}
+
+.container_12 .grid_5 {
+  width: 380px;
+}
+
+.container_12 .grid_7 {
+  width: 540px;
+}
+
+.container_12 .grid_8 {
+  width: 620px;
+}
+
+.container_12 .grid_10 {
+  width: 780px;
+}
+
+.container_12 .grid_11 {
+  width: 860px;
+}
+
+/* `Prefix Extra Space >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_3,
+.container_16 .prefix_4 {
+  padding-left: 240px;
+}
+
+.container_12 .prefix_6,
+.container_16 .prefix_8 {
+  padding-left: 480px;
+}
+
+.container_12 .prefix_9,
+.container_16 .prefix_12 {
+  padding-left: 720px;
+}
+
+/* `Prefix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_1 {
+  padding-left: 80px;
+}
+
+.container_12 .prefix_2 {
+  padding-left: 160px;
+}
+
+.container_12 .prefix_4 {
+  padding-left: 320px;
+}
+
+.container_12 .prefix_5 {
+  padding-left: 400px;
+}
+
+.container_12 .prefix_7 {
+  padding-left: 560px;
+}
+
+.container_12 .prefix_8 {
+  padding-left: 640px;
+}
+
+.container_12 .prefix_10 {
+  padding-left: 800px;
+}
+
+.container_12 .prefix_11 {
+  padding-left: 880px;
+}
+
+/* `Suffix Extra Space >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_3,
+.container_16 .suffix_4 {
+  padding-right: 240px;
+}
+
+.container_12 .suffix_6,
+.container_16 .suffix_8 {
+  padding-right: 480px;
+}
+
+.container_12 .suffix_9,
+.container_16 .suffix_12 {
+  padding-right: 720px;
+}
+
+/* `Suffix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_1 {
+  padding-right: 80px;
+}
+
+.container_12 .suffix_2 {
+  padding-right: 160px;
+}
+
+.container_12 .suffix_4 {
+  padding-right: 320px;
+}
+
+.container_12 .suffix_5 {
+  padding-right: 400px;
+}
+
+.container_12 .suffix_7 {
+  padding-right: 560px;
+}
+
+.container_12 .suffix_8 {
+  padding-right: 640px;
+}
+
+.container_12 .suffix_10 {
+  padding-right: 800px;
+}
+
+.container_12 .suffix_11 {
+  padding-right: 880px;
+}
+
+/* `Push Space >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_3,
+.container_16 .push_4 {
+  left: 240px;
+}
+
+.container_12 .push_6,
+.container_16 .push_8 {
+  left: 480px;
+}
+
+.container_12 .push_9,
+.container_16 .push_12 {
+  left: 720px;
+}
+
+/* `Push Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_1 {
+  left: 80px;
+}
+
+.container_12 .push_2 {
+  left: 160px;
+}
+
+.container_12 .push_4 {
+  left: 320px;
+}
+
+.container_12 .push_5 {
+  left: 400px;
+}
+
+.container_12 .push_7 {
+  left: 560px;
+}
+
+.container_12 .push_8 {
+  left: 640px;
+}
+
+.container_12 .push_10 {
+  left: 800px;
+}
+
+.container_12 .push_11 {
+  left: 880px;
+}
+
+/* `Pull Space >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .pull_3,
+.container_16 .pull_4 {
+  left: -240px;
+}
+
+.container_12 .pull_6,
+.container_16 .pull_8 {
+  left: -480px;
+}
+
+.container_12 .pull_9,
+.container_16 .pull_12 {
+  left: -720px;
+}
+
+/* `Pull Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .pull_1 {
+  left: -80px;
+}
+
+.container_12 .pull_2 {
+  left: -160px;
+}
+
+.container_12 .pull_4 {
+  left: -320px;
+}
+
+.container_12 .pull_5 {
+  left: -400px;
+}
+
+.container_12 .pull_7 {
+  left: -560px;
+}
+
+.container_12 .pull_8 {
+  left: -640px;
+}
+
+.container_12 .pull_10 {
+  left: -800px;
+}
+
+.container_12 .pull_11 {
+  left: -880px;
+}
+
+/* ============================================================================== @Home Calendar */
+
+.home-cal-date {
+	width: 110px !important;
+}
+.home-cal-time {
+	width: 135px !important;
+}
+.home-cal-location {
+	width: 150px !important;
+}
+.home-cal-signup {
+	width: 135px !important;
+}
+
+/* ============================================================================== @Navigation */
+
+/*.default_hidden {
+	display: none !important;
+	visibility: hidden !important;
+}*/
+
+#nav {
+	z-index: 60;
+}
+
+	#nav p {
+		padding: 0 0 0 0;
+		}
+	
+	#nav li#calendar p { padding: 0 0 1em 0; }
+
+	#nav ul {
+		height: 39px;
+		}
+		
+		#nav ul li {
+			float: left;		
+			}
+		
+		#nav ul li a {
+			color: #fff;
+			display: block;
+			float: left;
+			height: 39px;
+			line-height: 39px;
+			text-decoration: none;
+			margin: 0 9px;
+			padding: 0 0 0 0;
+			}
+			.nav-main {
+				font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+				font-size: 15px;
+				font-weight: 300;
+			}
+			#nav #newtonorthland a, #nav #newtogod a {
+				font-size: 12px !important;
+				margin: 0 6px;
+			}
+			#bethechurch:hover, #getinvolved:hover,	#resources:hover, #calendar:hover, #about:hover, #newtonorthland:hover, #newtogod:hover { 
+				background-image: url(/_img/adapt/navactive.png);
+			}
+			
+			#nav ul li#bethechurch.active, #nav ul li#getinvolved.active, #nav ul li#resources.active, #nav ul li#calendar.active, #nav ul li#about.active, #nav ul li#newtonorthland.active {
+				background-image: url(/_img/adapt/navactive.png);
+				border-left: 1px solid #163345;
+				border-right: 1px solid #163345;
+			}
+
+h2.nav-details {
+	color: #fff;
+	font-weight: 100;
+	font-size: 18px;
+	margin-bottom: 10px;
+	border-bottom: none;
+}
+h2.nav-details span {
+	font-weight: 700;
+	border-bottom: none;
+}
+
+ul#nav-main {
+	position: relative;
+	width: 725px;
+	z-index: 999;
+	}
+
+div.nav-hover {
+	background-image: url(/_img/adapt/navactive.png);
+	border: 10px solid #;
+	color: #fff;
+	left: -40px;
+	position: absolute;
+	top: 39px;
+	width: 450px;
+	z-index: 9999;
+	}
+	
+		.nav-hover a {
+			text-decoration: underline;
+		}
+		
+		#nav-divider {
+			background-image: url({v2-image-asset-url}/nav/nav-divider.png);
+			width: 2px;
+			height: 18px;
+			float: left;
+			margin: 10px 5px 0 5px;
+			}
+
+	li#bethechurch div.nav-hover { left: -30px; }
+	li#getinvolved div.nav-hover { left: 90px; }
+	li#resources div.nav-hover { left: 198px; }
+	li#media div.nav-hover { left: 289px; }
+	li#calendar div.nav-hover { left: 352px; }
+	li#about div.nav-hover { left: 435px; }
+	li#newtonorthland div.nav-hover { left: 498px; }
+	
+	/*** Temporary Nav Hovers START **/
+	
+	li#getinvolved div.nav-hover { left: -30px; }
+	li#resources div.nav-hover { left: 0px; }
+	li#media div.nav-hover { left: 90px; }
+	li#calendar div.nav-hover { left: 198px; }
+	li#about div.nav-hover { left: 289px; }
+	li#newtonorthland div.nav-hover { left: 352px; }
+	
+	/*** Temporary Nav Hovers END **/
+	
+	div.nav-hover img.glow {
+		float: left;
+		position: relative;
+		top: -32px;
+		}
+
+	li#bethechurch div.nav-hover img.glow { left: 52px; }
+	li#getinvolved div.nav-hover img.glow { left: 45px; }
+	li#resources div.nav-hover img.glow { left: 36px; }
+	li#media div.nav-hover img.glow { left: 22px; }
+	li#calendar div.nav-hover img.glow { left: 31px; }
+	li#about div.nav-hover img.glow { left: 21px; }
+	li#newtonorthland div.nav-hover img.glow { left: 52px; }
+
+	div.nav-hover div.inner {
+		border-top: 1px solid #163345;
+		border-bottom: 1px solid #294d63;
+		color: #babcbe;
+		font-size: 12px;
+		padding: 20px;
+		width: 410px;
+		}
+
+	div.nav-hover div.vert-line {
+		background: url({v2-image-asset-url}/nav/vert-line.png) repeat-y;
+		}
+
+		#nav ul li div.inner a,
+		#nav ul li div.inner a:hover {
+			background-image: none;
+			color: #fff;
+			cursor: pointer;
+			display: inline;
+			float: none;
+			height: auto;
+			line-height: 1.5em;
+			margin: 0 0 0 0;
+			padding: 0 0 0 0;
+			text-decoration: underline;
+			text-indent: 0px;
+			}
+
+	#nav #social {
+		float: right;
+		margin: 8px 0 0 0;
+		}
+
+		#nav #social img { margin-left: 4px; }
+
+	#nav #search {
+		background: url({v2-image-asset-url}/nav/bg-search.png) no-repeat center center;
+		float: right;
+		height: 39px;
+		width: 180px;
+		}
+		
+	#nav #search input {
+		background: transparent;
+		border: 0px solid;
+		color: #ffffff;
+		margin-top: 8px;
+		padding: 5px 5px 5px 7px;
+		width: 125px;
+		}
+
+	#nav div.left-box {
+		float: left;
+		margin-right: 20px;
+		padding-right: 20px;
+		width: 195px;
+		}
+
+	#nav div.right-box {
+		float: left;
+		width: 174px;
+		}
+
+table#calendar-nav {
+	background-color: #fff;
+	border: 5px solid #fff;
+	color: #424242;
+	font-size: 10px;
+	text-align: center;
+	width: 195px;
+	}
+
+	table#calendar-nav td {
+		padding: 0px;
+		}
+
+	table#calendar-nav * a,
+	table#calendar-nav tr.week td a {
+		border-left: 0px !important;
+		border-right: 0px !important;
+		color: #4d7b97 !important;
+		text-decoration: none !important;
+		}
+
+	table#calendar-nav tr.month {
+		background-color: #dddddd;
+		font-size: 12px;
+		font-weight: bold;
+		height: 30px;
+		padding: 5px;
+		}
+
+		table#calendar-nav tr.month td {
+			vertical-align: middle !important;
+			}
+
+	table#calendar-nav tr.days {
+		font-size: 11px;
+		font-weight: bold;
+		padding: 5px;
+		}
+
+		table#calendar-nav tr.days td {
+			padding: 2px 0;
+			}
+
+	#nav li#calendar p.meta {
+		font-size: 10px;
+		font-style: italic;
+		line-height: 12px;
+		padding: 5px 0;
+		}
+		
+	.calendar-page {
+		margin-left: 30px;
+	}	
+
+	#nav li#getinvolved div.nav-hover div.inner div.right-box div,
+	#nav li#resources div.nav-hover div.inner div.right-box div,
+	#nav li#bethechurch div.nav-hover div.inner div.right-box div,
+	#nav li#about div.nav-hover div.inner div {
+		background-image: url(http://www.northlandchurch.net/_assets/img/v2/icons/arrow-li.png) !important;
+		background-position: 1px left !important;
+		background-repeat: no-repeat !important;
+		margin: 9px 0;
+		padding-left: 22px;
+		}
+
+		#nav li#bethechurch div.nav-hover div.inner div.right-box div a,
+		#nav li#about div.nav-hover div.inner div a {
+			}
+
+			#nav li#bethechurch div.nav-hover div.inner div.right-box div a:hover,
+			#nav li#about div.nav-hover div.inner div a:hover {
+				text-decoration: underline;
+				}
+
+#nav img.preview {
+	border: 1px solid #112836;
+	width: 193px;
+	}
+
+.nav-shadow
+{
+	background-image: url({v2-image-asset-url}/nav/nav-shadow.png);
+	background-repeat: repeat-x;
+	height: 6px;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+}
+
+/* ============================================================================== @Respond Pages */
+
+
+/* Pray
+----------------------------------------------------------------------------------------------------*/
+.pray-title-right {
+	width: 360px !important;
+}
+p#request-instructions.grid_4 {
+	margin-left: 0 !important;
+}
+
+/* `Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after,
+.container_12:before,
+.container_12:after,
+.container_16:before,
+.container_16:after {
+  content: '.';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+}
+
+.clearfix:after,
+.container_12:after,
+.container_16:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix,
+.container_12,
+.container_16 {
+  zoom: 1;
+}

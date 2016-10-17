@@ -1,0 +1,55 @@
+<div class="card-row js-slick-tablet-max flex-desktop-min">
+	{exp:channel:entries 
+		channel="opportunities" 
+		orderby="date" 
+		sort="desc"
+		limit="2"
+		disable="categories|member_data|pagination"
+		dynamic="no"
+	}
+	<article class="card card-fourth">
+		<div class="copy-container">
+			<p class="date">December 31, 2015</p>
+			<p class="date">{entry_date format="%F %j %Y"}</p>
+			<h3>{title}</h3>
+			<p class="body-copy">{exp:strip_html}{desc}{/exp:strip_html}</p>
+		</div>
+
+		<div class="details">
+			<div class="detail-left">
+				<span class="icon-plus"></span>
+			</div>
+			<div class="detail-right">
+				<a href="{ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+			</div>
+		</div>
+	</article>
+	{/exp:channel:entries}
+	
+	{exp:channel:entries 
+		channel="serve_opportunities" 
+		orderby="date" 
+		sort="desc"
+		limit="2"
+		disable="categories|member_data|pagination"
+		dynamic="no"
+	}
+	<article class="card card-fourth">
+		<div class="copy-container">
+			<p class="date">December 31, 2015</p>
+			<p class="date">{entry_date format="%F %j %Y"}</p>
+			<h3>{title}</h3>
+			<p class="body-copy">{exp:strip_html}{serve-desc}{/exp:strip_html}</p>
+		</div>
+
+		<div class="details">
+			<div class="detail-left">
+				<span class="icon-plus"></span>
+			</div>
+			<div class="detail-right">
+				<a href="{serve-ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+			</div>
+		</div>
+	</article>
+	{/exp:channel:entries}
+</div>

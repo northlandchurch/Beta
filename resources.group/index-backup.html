@@ -1,0 +1,559 @@
+{embed="_assets/header" htmltitle="Resources for Your Life"}
+{embed="_assets/navbar" active=""}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js"></script>
+<script src="https://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js"></script>
+
+<style type="text/css">
+/* ---- grid ---- */
+
+.resources .meta-excerpt{
+	line-height:1rem;
+	padding:0 60px;
+	color:black;
+}
+.resources .meta-date{
+	color:black;
+}
+.resources .editorial--spotlight img{
+	padding:20px;
+}
+.grid-item .has-editorials{
+	display: block;
+	display: block;
+	display: block;
+	-webkit-flex-flow: inherit;
+	-ms-flex-flow: inherit;
+	flex-flow: inherit;
+	margin: inherit;
+	height:auto;
+}
+.grid-item .editorial{
+	height: 330px;
+	margin: 0 20px 20px 0;
+}
+.grid-item .editorial.editorial--spotlight{
+	height:auto;
+}
+.grid-item .prayer{
+	background:rgba(106,93,139,1);
+}
+.grid-item .serve{
+	background:rgba(50,81,113,1);
+}
+
+.grid-item .prayer,
+.grid-item .serve,
+.grid-item .video,
+.grid-item .blog
+{
+	border:solid 2px rgba(0,0,0,.2);
+	border-top:6px solid rgba(0,0,0,.2);
+	padding:20px;
+	min-width:inherit;
+	width:auto;
+	margin: 0 20px 20px 0;
+}
+.grid {
+	background: hsla(45, 100%, 40%, 0.2);
+	background: none;
+	max-width: 100%;
+	/*padding:10px;*/
+}
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+
+/*old grid item*/
+.grid-item{
+	min-width:auto;
+	width:100%;
+}
+/* ---- .grid-item ---- */
+.grid-item{
+	position: relative;
+	float: left;
+	width: 20%;
+	background: none;
+	border:none;
+	padding:0;
+	margin-bottom: 0; /*overriding a extracss property */
+}
+.resources .grid-item .heading{
+	font-size:1rem;
+}
+.resources .grid-item .tss{
+	font-size:0.575rem;
+	font-weight: 700;
+	line-height: .92rem
+}
+.resources div.respond-serve-marker.heading--s{
+	font-size: 0.68rem;
+}
+.grid-item.blog{
+	width: 40%
+}
+.grid-item.video{
+	width: 60%
+}
+.grid-item--width2 { width: 200px; }
+.grid-item--height2 { height: 200px; }
+
+.grid-item.prayer{
+	background:rgba(106,93,139,1);
+}
+
+.grid-item.serve{
+	background:rgba(50,81,113,1);
+}
+
+/* ---- button ---- */
+.button {
+	display: inline-block;
+	padding: 10px 18px;
+	margin-bottom: 10px;
+	background: #EEE;
+	border: none;
+	border-radius: 7px;
+	background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
+	color: #222;
+	font-family: sans-serif;
+	font-size: 16px;
+	text-shadow: 0 1px white;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #8CF;
+	text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
+	color: #222;
+}
+
+.button:active,
+.button.is-checked {
+	background-color: #28F;
+}
+
+.button.is-checked {
+	color: white;
+	text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
+}
+
+.button:active {
+	box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+/* ---- button-group ---- */
+.button-group:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.button-group .button {
+	float: left;
+	border-radius: 0;
+	margin-left: 0;
+	margin-right: 1px;
+}
+
+.button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
+.button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
+
+
+</style>
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});
+
+	// Random order	
+	$container.isotope({ sortBy : 'random' });
+
+/*  
+	// Retrieve 10 Prayer cards
+	$.get("/_component/resources-prayer", function(data) {		
+		var $elems = $(data);
+		// add and lay out newly appended elements
+		$container.append($elems).isotope('appended', $elems);
+	});
+
+	// Retrieve 10 Volunteer and Serve card
+	$.get("/_component/resources-volunteer", function(data) {		
+		var $elems = $(data);
+		$container.append($elems).isotope('appended', $elems);
+	});
+*/
+	// Action when 'Pray Now' button clicked
+	$('.pray-card-options').live("click", function() {
+		var whichID = $(this).attr('id');
+		var targetURL = $("#"+whichID+" .favorite").attr('href');
+		var count = $("#"+whichID+" .count").html();
+
+		$.ajax({
+			success: function(data){
+				var madeFave = $("#"+whichID+" .favorite").html();
+				if (madeFave!="You Prayed"){
+					$("#"+whichID+" .count").html(parseInt(count)+1);
+				}
+				$("#"+whichID+" .favorite").html("You Prayed");
+			},
+			url: targetURL
+		});		
+
+		return false;
+	});	
+
+	// change is-checked class on buttons
+	$('.button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', 'button', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+
+	// Filter functions
+	var filterFns = {
+		// show if number is greater than 50
+		numberGreaterThan50: function() {
+			var number = $(this).find('.number').text();
+			return parseInt( number, 10 ) > 50;
+		},
+		// show if name ends with -ium
+		ium: function() {
+			var name = $(this).find('.name').text();
+			return name.match( /ium$/ );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', 'button', function() {
+		var filterValue = $( this ).attr('data-filter');
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+	$('.filters-button-group').on( 'click', 'filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+
+	// Bind Sort button click
+	$('.sort-by-button-group').on( 'click', 'button', function() {
+		var sortValue = $(this).attr('data-sort-value');
+		$container.isotope({ sortBy: sortValue });
+	});
+	$('.sort-by-button-group').on( 'click', 'filter-item', function() {
+		var sortValue = $(this).attr('data-sort-value');
+		$container.isotope({ sortBy: sortValue });
+});
+});
+
+
+</script>
+
+<div class='hero hero--resource'>
+   {exp:channel:entries channel="controller" url_title="resources_controller"}
+		{exp:playa:children limit="1"}
+			{if channel=="Blogs"}
+				<div class='hero-media' style="background-image:url(<?php
+				ob_start();
+				?>{blog-post}<?php
+				$obcontents = ob_get_contents();
+				ob_end_clean();
+				
+				$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+				if(preg_match($pattern,	$obcontents, $match)){
+					echo $match[1];
+				}
+				?>)"></div>
+				<a class="hero-content" href="../blogs/{url_title}">
+					<div class='cell'>
+						<h1 class='heading heading--italic heading--l'>{title}</h1>
+						<div class='meta'>
+							<h4 class='meta-author'><span>{if blog-author}{blog-author}{if:else}{author}{/if}</span> <span>{entry_date format="%F %j, %Y"}</span> </h4>
+						</div>
+						<p class='mbl tci'>{blog-excerpt}</p>
+						<div class='btn btn--transparent'>Read the article</div>
+						<hr class='rule rule--resources'>
+						{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+						
+					</div>
+				</a>
+			{/if}
+			{if channel=="Media"}
+			
+				<div class='hero-media' style="background-image:url(/_img/uploads/{media-primary})"></div>
+				<a class="hero-content" href="/video/{url_title}">
+					<div class='cell'>
+						<div class='editoral-video'>
+							<i class='material-icons'>play_arrow</i>
+						</div>
+						<h1 class='heading heading--italic heading--l'>{title}</h1>
+						<h4 class='meta-author'><span>{media-speaker}</span> <span>{entry_date format="%F %j, %Y"}</span> </h4>
+						<hr class='rule rule--resources'>
+						
+						{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+					</div>
+				</a>
+
+			{/if}
+		{/exp:playa:children}
+	{/exp:channel:entries}
+</div>
+<div class='g g--flush callouts'>
+	<div class='filter'>
+		<div class="tag">Truth</div>
+		<div class="tag">Wisdom</div>
+		<div class="tag">Relationships</div>
+		<div class="tag">Mission</div>
+		<div class="tag">Culture</div><br>
+		<a class="filter-item" href="/resources/blogs">Blogs</a>
+		<a class="filter-item" href="/resources/videos">Sermons</a>
+		<a class="filter-item" href="/resources/videos" data-filter=".video">Videos</a>
+		<!-- <a class="filter-item" href="#">Ask A Pastor</a> -->
+		<a class="filter-item" href="/resources/prayers" data-filter=".pray">Pray</a>
+		<a class="filter-item" href="/resources/liturgy">Liturgy</a>
+	</div>
+	<div class="button-group filters-button-group">
+		<button class="button is-checked" data-filter="*">Show all</button>
+		<button class="button" data-filter=".blog">Blog</button>
+		<button class="button" data-filter=".video">Video</button>
+		<button class="button" data-filter=".pray">Prayer</button>
+		<button class="button" data-filter=".serveopp">Volunteer</button>
+	</div>
+	<div class="button-group sort-by-button-group">
+		<button class="button" data-sort-value="original-order">Original order</button>
+		<button class="button" data-sort-value="title">Title</button>
+		<button class="button is-checked" data-sort-value="random">Random</button>
+	</div>
+	
+</div>
+
+<div class='row row--inverted'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--1of1 grid resources" style="padding-left:0;padding-right:0">
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			<!-- /////					Contents from Controller 							// -->
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			{exp:channel:entries channel="controller" url_title="resources_controller"}
+			{exp:playa:children offset="1" disable="member_data|pagination"}
+				{if channel=="Blogs"}
+				<div class="grid-item blog">
+					<div class='has-editorials'>
+						<?php
+						ob_start();
+						?>{blog-post}<?php
+						$obcontents = ob_get_contents();
+						ob_end_clean();
+
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$obcontents, $match)){
+							$img = $match[1];
+						}
+						?>
+						{!--<a class="editorial{if count==2} editorial-large{/if}{if count==5} editorial-large{/if}" style="background-image:url(<?php
+												ob_start();
+												?>{blog-post}<?php
+												$obcontents = ob_get_contents();
+												ob_end_clean();
+                	
+												$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+												if(preg_match($pattern,	$obcontents, $match)){
+													echo $match[1];
+												}
+												?>)" href="/blogs/{url_title}">
+							<div class='editorial-text'>
+								<h2 class='editorial-title'>{title}</h2>
+								{if blog-excerpt}<p>{blog-excerpt}</p>{/if}
+								{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}
+							</div>
+							<div class='meta meta-bottom'>
+								<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+								<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+							</div>
+						</a>--}
+						
+						<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url(<?php echo $img ?>);" href="/blogs/{url_title}">
+							<div class='editorial-text'>
+								{categories}
+									{if category_name=='Spotlight'}
+										<img src="<?php echo $img ?>">
+									{/if}
+								{/categories}
+								<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+								<p class='meta-excerpt'>
+									{blog-excerpt}
+								</p>
+								<div class='meta'>
+									<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+									<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+								</div>
+								{!-- {exp:tag:tags
+								    entry_id="{entry_id}"
+								    orderby="tag_name"
+								    sort="desc"
+								    limit="2"
+								}
+									<div class='tag'>{tag}</div>
+								{/exp:tag:tags} --}
+							</div>
+						</a>
+						
+					</div>
+				</div>
+				{/if}
+				{if channel=="Media"}
+				<div class="grid-item video">
+					<div class='has-editorials'>
+						<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+							<div class='editorial-text'>
+								<h2 class='editorial-title'>{title}</h2>
+								<div class='editoral-video'>
+									<i class='material-icons'>play_arrow</i>
+								</div>
+								<div class='meta'>
+									<h4 class='meta-author'>{media-speaker}</h4>
+									<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+								</div>
+								{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+							</div>
+						</a>
+					</div>
+				</div>
+				{/if}
+			{/exp:playa:children}
+			{/exp:channel:entries}
+			
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			<!-- /////				Contents from Volunteer and Serve						// -->
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			{exp:channel:entries channel="opportunities|serve_opportunities" orderby="date" sort="desc" limit="5" dynamic="off"}
+				{if channel=="Opportunities"}
+				<div class="grid-item serveopp">
+					<div class="respond-serve-opp {categories}cat{category_id} {/categories} volunteeropportunity serve" id="serve{entry_id}">
+						{!-- Which Location --}
+						<div class="respond-serve-marker heading--s">
+							{categories}
+								<span>{if category_id == "455"}Longwood{/if}
+								{if category_id == "457"}Mount Dora{/if}
+								{if category_id == "456"}Oviedo{/if}</span>
+							{/categories}
+						</div>
+						
+						<h2 class="heading heading--m isotitle">{title}</h2>
+						
+						<div class="clear"></div>
+						
+						<p class="tss">{desc}</p>
+						<p class="tss">{commitment}</p>
+						
+						<div class="respond-serve-count">
+							{!-- Display amount of people needed --}
+							{if people}
+								<h3 class="heading heading--s">{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+							{/if}
+						</div>
+						
+						<div class="respond-serve-fave">
+							<a class="btn" href="#" onclick="return openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">Serve</div></a>
+						</div>
+					</div>
+				</div>
+				{/if}
+				{if channel=="Serve Opportunities"}
+				<div class="grid-item serveopp">
+					<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} serveopportunity serve" id="serve{entry_id}">
+						<h2 class="heading heading--m isotitle">{title}</h2>
+						
+						<div class="clear"></div>
+						
+						<div class="tss">{serve-desc}</div>
+						<div class="tss">{serve-commitment}</div>
+                	
+						<div class="respond-serve-count">
+							{!-- Display amount of people needed --}
+							{if serve-people}
+								<h3 class="heading heading--s">{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+							{/if}
+							<div class="respond-serve-fave">
+								<a class="btn" href="#" onclick="return openCCBFormServe('{serve-ccbForm}','{title}','{entry_id}');"><div class="respond-serve-button">Serve</div></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/if}
+			{/exp:channel:entries}
+
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			<!-- /////						Contents from Prayer							// -->
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" dynamic="off" limit="5"}
+			<div class="grid-item pray">
+				<div class="prayer">
+					<div class="respond-serve-marker heading--s">
+							<span>{entry_date format="%F %j"}</span>
+					</div>
+					<div>
+						<h2 class="heading heading-m isotitle"><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+						<p class="tss">{exp:trunchtml chars="265"}{prayer-need}{/exp:trunchtml}</p>
+					</div>
+
+					<div class='pray-card-options' id="pray{entry_id}" >
+						{exp:favorites:entry_count entry_id="{entry_id}"}
+							{if favorites_count_public}
+								<div class="prayer-number tss" style="color:white">
+									<span class="count">{favorites_count_public}</span> <span class="people-prayed">{if favorites_count_public>1}People have{if:else}Person has{/if} prayed</span>
+								</div>
+							{/if}
+						{/exp:favorites:entry_count}
+						{if logged_in && (screen_name!="Anonymous Member")}
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="favorite faved btn" href="/_component/favorite-add/{entry_id}/">You Prayed</a>
+								{if:else}
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now</a>					
+								{/if}
+							{/exp:favorites:saved}
+						{if:else}
+							<li id="pray-for-li"><a class="favorite btn" href="/_component/favorite-add/{entry_id}/">Pray Now</a></li>
+						{/if}
+
+
+					</div>
+				</div>					
+			</div>
+			{/exp:channel:entries}
+
+			
+			</div>
+		</div>
+	</div>
+</div>
+	
+<div class="clear"></div>
+
+
+
+{embed="_assets/footer"}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+
+

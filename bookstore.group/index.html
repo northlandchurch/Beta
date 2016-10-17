@@ -1,0 +1,123 @@
+{embed="responsive/html_open"}
+<script>
+	 $(function() {
+	$(".bookstore-slide").click(function() {
+	var image = $(this).attr("rel");
+	$('#bookstore-slide').hide();
+	$('#bookstore-slide').fadeIn('slow');
+	$('#bookstore-slide').html('<img src="' + image + '"/>');
+	return false;
+		});
+	});
+</script>
+
+{embed="responsive/header"}
+{embed="responsive/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Bookstore</h1>
+		</div>
+		<div class="clear"></div>
+	</div> 
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_4">
+		{!-- Bookstore Image Rotator Here --}
+		<div class="clear"></div>
+		<div id="bookstore-slide"><img src="/_img/bookstore/1.jpg" border="0"/></div>
+		<a href="#" rel="/_img/bookstore/1.jpg" class="bookstore-slide"><img src="/_img/bookstore/1.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/2.jpg" class="bookstore-slide"><img src="/_img/bookstore/2.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/3.jpg" class="bookstore-slide"><img src="/_img/bookstore/3.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/4.jpg" class="bookstore-slide"><img src="/_img/bookstore/4.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/5.jpg" class="bookstore-slide"><img src="/_img/bookstore/5.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/6.jpg" class="bookstore-slide"><img src="/_img/bookstore/6.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/7.jpg" class="bookstore-slide"><img src="/_img/bookstore/7.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/8.jpg" class="bookstore-slide"><img src="/_img/bookstore/8.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/9.jpg" class="bookstore-slide"><img src="/_img/bookstore/9.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/10.jpg" class="bookstore-slide"><img src="/_img/bookstore/10.jpg" class="bookstore-thumb" border="0"/></a>
+		<a href="#" rel="/_img/bookstore/11.jpg" class="bookstore-slide"><img src="/_img/bookstore/11.jpg" class="bookstore-thumb" border="0"/></a>
+		<div class="clear"></div>
+		<br>
+		{exp:channel:entries channel="bookstore-info" limit="1" entry_id="21653"}
+			{bookstore-info}
+		{/exp:channel:entries}
+	</div>
+	<div class="grid_5">
+		<h3>Recent Blog Entries</h3>
+		{exp:channel:entries channel="blogs" category="349" limit="6" offset="0"}
+		<div class="blog-post">
+			<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">{title}</a></h2>
+			<p class="info">
+				Posted {entry_date format="%F %j, %Y"} &nbsp;|&nbsp;
+				Written by: {if blog-author}{blog-author}{if:else}{author}{/if} 
+				<?php $show_tweet=1; ?>{categories}<?php if ("{category_id}"==70){ $show_tweet=0; } ?>{/categories}
+				<?php if ($show_tweet==1){ ?>
+					{exp:shortntweet title='{title}' url='{title_permalink=blogs}'}{/exp:shortntweet}
+				<?php } ?>
+			</p>
+			<?php
+			ob_start();
+			?>{blog-post}<?php
+			$test = ob_get_contents();
+			ob_end_clean();
+			
+			$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+			if(preg_match($pattern,	$test, $match)){
+				echo '<img class="preview" src='.$match[1].'>';
+			}
+			?>
+			<p>{exp:strip_html keep='a'}{exp:trunchtml chars="300" inline="..."}{blog-post}{/exp:trunchtml}{/exp:strip_html}  <a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>(read more)</strong></a></p>
+			<div class="clear"></div>
+		</div>
+
+
+		{paginate}
+		{if "{total_pages}" != 1}
+		<p id="pagination">Page {current_page} of {total_pages} pages {exp:low_replace find='index.php/'}{pagination_links}{/exp:low_replace}</p>
+		{/if}
+		{/paginate}
+
+		{/exp:channel:entries}
+	</div>
+	<div id="aside" class="grid_3">
+		<div style="padding:10px">
+			<h5>CLICK TO ORDER NOW</h5>
+			
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;padding-bottom:15px;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/becoming-a-disciple-first-principles-of-the-faith-series-1-book-1?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="265"></iframe> 
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/why-her?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="205"></iframe>
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/being-good-to-your-husband-on-purpose-by-becky-hunter?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="275"></iframe>
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/i-dont-do-crazy-anymore?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="275"></iframe>
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">			
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/church-distributed-by-dr-joel-c-hunter?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="275"></iframe>
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+<iframe class="shopify-widget" style="display:block;margin: 0 auto;" frameborder="0" scrolling="no" src="//widgets.shopifyapps.com/embed/products/a-new-kind-of-conservative-by-dr-joel-c-hunter?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197" width="160" height="275"></iframe>
+<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+
+
+			<p class="border-btm marg-b-0">
+				<a href="http://www.northlandchurch.net/peoplewhosingjesus/"><img src="/_img/peoplewhosingjesus.jpg" class="left2"></a>
+				<em>People Who Sing Jesus</em> begins with a mysterious, cosmic, biblical principle: The date on your birth certificate is only partially correct.
+				Your arrival on this planet may have taken place at a precise day and time, but the formation of your life occurred long ago in a pre-Genesis moment.
+			</p>
+			<div class="clear"></div>
+			
+			
+			
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

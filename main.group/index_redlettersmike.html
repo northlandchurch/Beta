@@ -1,0 +1,176 @@
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+	if ($detect->isIphone()) {
+		header('Location: http://northlandchurch.net/iphone'); exit();	
+	}
+?>
+
+{embed="_includes/html_open"}
+
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if media-live=="Yes"}
+{/exp:channel:entries}
+		<div id="home-redletters-bg" <?php if ($detect->isIpad()) { ?> style='';<?php } ?>>
+		<div class="container_12">
+			<div class="grid_12">
+				<div class="clear"></div>
+				<div class="home-redletters-placeholder">
+					<div class="home-redletters-logo"></div>
+					<div class="home-redletters-info-top" style="margin-top: 50px;"></div>
+					<div class="home-redletters-info">
+						<div id="live-worship-text" style="color:black;margin-top:-10px;margin-bottom:10px;"><h1 style="color:black;font-size:36px;">Worship is LIVE</h1></div>
+						<a class="live-nav-links" id="login" href="http://insite.northlandchurch.net/insiteworship/worship.do" style="margin-right:5px;"></a><p class="live-nav-text" style="color:black;">Login to worship with the Northland community</p>
+						<div class="clear"></div>
+						<a class="live-nav-links" id="video-only" href="/worshipbeta" style="margin-right:5px;"></a><p class="live-nav-text" style="color:black;">View the video-only stream</p>
+						<div class="clear"></div>
+						<a class="live-nav-links" id="mobile" href="/iphone" style="margin-right:5px;"></a><p class="live-nav-text" style="color:black;">Connect from your mobile device</p>
+						<div class="clear"></div>
+						<?php if (({current_time format="%G%i"} > 800) && ({current_time format="%G%i"} < 1400)) : ?>
+							<a class="live-nav-links" id="spanish" href="/espanol" style="margin-right:5px;"></a><p class="live-nav-text" style="color:black;">En español</p><br>
+						<?php endif; ?>
+						<div class="clear"></div>
+						<?php if (({current_time format="%G%i"} > 830) && ({current_time format="%G%i"} < 1030)) : ?>
+							<a class="live-nav-links" id="video-only" href="/class/genesis" style="margin-right:5px;"></a><p class="live-nav-text" style="color:black;">Genesis Study with Dan Lacich</p>
+							<div class="clear"></div>
+						<?php endif; ?>
+						
+						<?php if (!$detect->isIpad()) { ?>
+                          	
+						<?php }else{ ?>
+							<div style="float:right;padding-top:90px">
+								<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
+				   				<video src="http://174.129.245.138:1935/live/iphonemed/playlist.m3u8" width="620" height="352" controls preload></video>
+							</div>
+							<div style="clear:both"></div>
+                          	
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+			<div class="clear"></div>	
+
+		</div>
+		</div>
+	
+ {if:else} 
+<div id="home-redletters-bg">
+<div class="container_12">
+	<div class="grid_12">
+		<div class="clear"></div>
+		<div class="home-redletters-placeholder">
+			<div class="home-redletters-logo"></div>
+			<div class="home-redletters-info-top"></div>
+			<div class="home-redletters-info">
+				<h2>Who is Jesus?</h2>
+				<p>This Lenten season, we are going to focus on the words Jesus spoke as he made his way to the cross. Reflecting on the claims of Christ, we will no doubt find compelling reason and opportunity to respond, daily, to the Resurrection.</p>
+				<div class="home-redletters-lastweek">
+					{exp:channel:entries channel="media" category="48" dynamic="off" limit="1"}
+						<img style="width: 70px; float: left; margin-right: 10px; margin-bottom: 40px" src="/_img/uploads/{media-image}">
+						<strong>Watch Last Week's Service:</strong>
+						<br>
+						<a href="/media/{url_title}">{title}</a><br>
+						<span>{media-speaker}</span>
+					{/exp:channel:entries}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="clear"></div>	
+
+</div>
+		
+
+{/if}
+</div>
+
+<div class="container_12">
+	
+	<div class="grid_4">
+		{embed="_component/side-wegather"}
+		{!-- {embed="_component/side-whatscurrent2"} --}
+	</div>
+	
+	<div class="grid_8">
+		<script type="text/javascript">
+			$(document).ready(function(){
+					var currtime = new Date();
+					var theHour = currtime.getHours();
+					if (theHour<11){
+						$(".rising").show();
+					}
+					if ((theHour>=11) && (theHour<17)){
+						$(".afternoon").show();
+			
+					}
+					if (theHour>=17){
+						$(".night").show();
+					}
+			
+					$(".liturgy-verse").hide();
+				});
+			</script>
+			<div id="readbible-top"></div>
+			<div id="readbible-mid">
+				<div class="readbible_time">
+				{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00" limit="1"}
+				Read the Bible - 
+					<p class="rising" id="readbible_txt" style="display:none">Rising</p>
+					<p class="afternoon" id="readbible_txt" style="display:none">Midday</p>
+					<p class="night" id="readbible_txt" style="display:none">Evening</p>
+				{/exp:channel:entries}
+				</div>
+				<div class="readbible_icon"></div>
+				<div class="clear"></div>
+				<div class="readbible_verse">
+				{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00" limit="3"}
+					<p class="rising readbible_verse-txt" style="display:none">
+						{if liturgy-sequence=="Morning"}{title}{/if}
+					</p>
+					<p class="afternoon readbible_verse-txt" style="display:none">
+						{if liturgy-sequence=="Midday"}{title}{/if}
+					</p>
+					<p class="night readbible_verse-txt" style="display:none">
+						{if liturgy-sequence=="Evening"}{title}{/if}
+					</p>
+				{/exp:channel:entries}
+				</div>
+				<div class="readbible_liturgy">
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" dynamic="off" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00"}
+						<p class="rising readbible_liturgy-txt" style="display:none">
+							{if liturgy-sequence=="Morning"}{exp:word_limit total="120"}{liturgy-scripture}{/exp:word_limit}...{/if}
+						</p>
+						<p class="afternoon readbible_liturgy-txt" style="display:none">
+							{if liturgy-sequence=="Midday"}{exp:word_limit total="120"}{liturgy-scripture}{/exp:word_limit}...{/if}
+						</p>
+						<p class="night readbible_liturgy-txt" style="display:none">
+							{if liturgy-sequence=="Evening"}{exp:word_limit total="120"}{liturgy-scripture}{/exp:word_limit}...{/if}
+						</p>
+					{/exp:channel:entries}
+				</div>
+			</div>
+			<div id="readbible-bottom">
+				<div class="readbible-finish"><a href="/respond/readthebible" target="_blank">
+					<div class="readbible_more">Read More</div></a>
+				</div>
+				<div class="readbible-corner"></div>
+			</div>
+	</div>
+
+	
+</div>
+<div class="clear"></div>
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}

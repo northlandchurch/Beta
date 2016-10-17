@@ -1,0 +1,38 @@
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" category="{if segment_3 == "jail"}420{/if}" offset="{segment_4}" limit="9" paginate="both" dynamic="off"}
+
+<div class="grid-item pray">
+	<div class="prayer">
+		<div class="respond-serve-marker heading--s">
+			<span>{entry_date format="%F %j"}</span>
+		</div>
+		<div>
+			<h2 class="heading heading-m isotitle"><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+			<p class="tss">{prayer-need}</p>
+		</div>
+		
+		<div class='pray-card-options' id="pray{entry_id}">
+			{exp:favorites:entry_count entry_id="{entry_id}"}
+				{if favorites_count_public}
+					<div class="prayer-number tss" style="color:white">
+						<span class="count">{favorites_count_public}</span> <span class="people-prayed">{if favorites_count_public>1}People have{if:else}Person has{/if} prayed</span>
+					</div>
+				{/if}
+			{/exp:favorites:entry_count}
+			{if logged_in && (screen_name!="Anonymous Member")}
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<a class="favorite faved btn" href="/_component/favorite-add/{entry_id}/"><i class="material-icons" style="vertical-align:middle;">favorite</i> You Prayed</a>
+					{if:else}
+						<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/"><i class="material-icons"  style="vertical-align:middle;">favorite_border</i> Pray Now</a>				
+					{/if}
+				{/exp:favorites:saved}
+			{if:else}
+				<li id="pray-for-li"><a class="favorite btn" href="/_component/favorite-add/{entry_id}/">Pray Now</a></li>
+			{/if}
+		</div>
+	</div>
+</div>					
+
+{/exp:channel:entries}
+
+

@@ -1,0 +1,48 @@
+{embed="responsive/html_open" htmltitle="Northland&rsquo;s Frequently Asked Questions"}
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+});
+</script>
+
+{embed="responsive/header"}
+{embed="responsive/nav" active="about"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Frequently Asked Questions</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_7 calendar-entries">
+		{exp:channel:entries channel="faq" category="not 322" sort="asc"}
+			<div class="faq border-btm">
+				<h4 class="faq-activate">{title}</h4>
+				<div class="faq-collapse">
+					{faq-answer}
+				</div>	
+			</div>		
+		{/exp:channel:entries}
+	</div>
+
+	<div id="aside" class="grid_4 ">
+		<div class="rnd">
+			<a href=" " onclick="window.open('https://northlandchurch.wufoo.com/forms/m7x1w3/',  null, 'height=514, width=680, toolbar=0, location=0, status=1, scrollbars=1,resizable=1'); return false"><img src="/_img/adapt/icons/info.png" style="float:left; margin-right: 5px"><span style="font-size:18px;">Got Questions?</span><br> About God, Northland or anything else?</a>		
+			<div class="clear"></div>
+		</div>
+	</div>
+	
+
+</div>
+<div class="clear marg-b-60">&nbsp;</div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

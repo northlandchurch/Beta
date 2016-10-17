@@ -1,0 +1,273 @@
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+	if ($detect->isIphone()) {
+		//header('Location: http://northlandchurch.net/iphone'); exit();	
+	}
+?>
+
+{embed="_includes/html_open-beta"}
+
+<style>
+	body {
+		background: url(http://www.northlandchurch.net/_assets/img/v2/main/bg-header4.png) repeat-x, url(http://www.northlandchurch.net/_img/redeemedlife-bg.jpg) ;
+	}
+</style>
+<!--[if IE]>
+	<style>
+	#home-redeemedlife {
+		background: url(http://www.northlandchurch.net/_img/redeemedlife-bg.jpg);
+	}
+	</style>
+<![endif]-->
+
+{embed="_includes/header-beta"}
+
+{embed="_includes/nav"}
+
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+
+<div id="home-redeemedlife">
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="redeemedlife-logo2"></div>
+			<div class="redeemedlife-info">
+				<span>"But we all, with unveiled face, beholding as in a mirror the glory of the Lord, are being transformed into the same image from glory to glory, just as from the Lord, the Spirit." <em style="font-size: 14px">-2 Corinthians 3:18</em></span><br><br>
+				Redeemed and gifted with a new life, we are growing — grace by grace — into the image of Christ. Our transformation is meant to impact earth with the renewing power and purposes of Heaven. <p class="redeemedlife-joinus">Join us as we embrace The Redeemed Life!</p>
+				{if service_live=="true"}
+					<script type="text/javascript">
+					function UpdateCount() {
+						$.get('/scripts/totalgroupsize.txt', function(data) {
+							$('#current-viewers').html(data);
+						});
+					}
+
+
+					$(document).ready(function() {
+						UpdateCount();
+					});
+					</script>
+					<a href="/worship" style="text-decoration: none;">
+						<div class="redeemedlife-live">
+							<h2>Online Worship</h2>
+							<h3 id="current-viewers"></h3>
+						</div>
+					</a>
+					{if '{current_time format="%H%i"}' >"0830" AND '{current_time format="%H%i"}' < "1020"}
+						<a href="/class/genesis" style="text-decoration: none;">
+							<div class="redeemedlife-live-r">
+								<h2>Genesis Study</h2>
+								<h3><em>taught by</em> <span>Dr Dan Lacich</span></h3>
+							</div>
+						</a>
+					{if:else}
+						
+					{/if}
+				{if:else}
+					<div class="redeemedlife-lastweek">
+						{exp:channel:entries weblog="media" category="48" dynamic="off" limit="1"}		
+							<p class="redeemedlife-joinus">Revisit last week's service: <a href="/media/{url_title}">{title}</a></p>
+						{/exp:channel:entries}
+					</div>
+				{/if}
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>	
+</div>
+	
+<div class="container_12 redeemedlife-boxes">
+	
+	<div class="grid_4 question">
+		<h2>Join Us for Worship</h2>
+		<p>{service_times_multiline}
+			<br><br>
+			We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a>, <a href="http://www.northlandchurch.net/locations/category/mountdora/">Mount Dora</a>, and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.
+			{if service_live=="true"}
+				<script type="text/javascript">
+				function UpdateCount(updatetime) {
+					$.get('/scripts/totalgroupsize.txt', function(data) {
+						$('#current-viewers').html('<p>' + data + '</p>');
+					});
+
+					if (updatetime) {
+						setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+					}
+				}
+
+
+				$(document).ready(function() {
+					UpdateCount(5000);
+				});
+				</script>
+				We also get together for LIVE worship online - <a href="/worship">join with the many worshipers around the world</a> worshiping with us right now!</p>
+			{if:else}
+				We also get together for <a href="/locations/category/online/">LIVE worship online.</a>
+			{/if}
+	</div>
+
+	<div class="grid_4 question">
+		<h2>Get Connected</h2>
+		<p>There are countless ways to connect with others at Northland. Here are some great places to start:</p>
+		<p>
+			<a href="/groups/">Join a Group</a>.<br />
+			<a href="/classes/">Take a Class</a>.<br>
+			<a href="/serve/northland/">Serve at Northland</a>.<br>
+			<a href="/serve/local">Serve in the community</a>.
+		</p>
+	</div>
+
+	<div class="grid_4 question">
+		<h2>What's Current</h2>
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="5" cache="yes" refresh="30"}
+		<p>
+			<a href="{happening-link}" title="{happening-description}"><strong>{title}</strong></a><br />
+			{happening-description}
+		</p>
+		{/exp:channel:entries}
+	</div>
+	
+<div class="clear"></div>
+
+<div class="container_12"></div>
+	<script>
+	  $(document).ready(function() {
+	   $('#lessismore_ad').click(function () {
+	   	window.location = "http://northlandchurch.net/respond/livegenerously"
+	   });
+	  });	
+	</script>
+	<div class="container_12">
+	<div id="adboxes">
+		<ul id="adboxes-controller" style="display: none;">
+			{exp:channel:entries channel="boxes" orderby="date|boxes-position" show_expired="no" limit="4" sort="asc|desc" dynamic="off"}
+				{switch='<li class="adboxes-control">item</li>||'}
+			{/exp:channel:entries}
+		</ul>
+		
+		<!--<div class="adboxes-arrow-left"><img src="{v2-image-asset-url}/buttons/arrow-blue-left.png" class="adboxes-prev" /></div>
+		<div class="adboxes-arrow-right"><img src="{v2-image-asset-url}/buttons/arrow-blue-right.png" class="adboxes-next" /></div>-->
+		
+		<div class="clear"></div>
+		
+		
+			{exp:channel:entries channel="boxes" category="300" orderby="date" show_expired="no" limit="4" sort="desc" dynamic="off"}
+			{switch='<div class="slide">|||'}
+				<div class="grid_3">
+				<a href="{boxes-link}" title="{boxes-alt}"><img src="{image-asset-url}/{boxes-image}" height="120px" width="220px" alt="{boxes-alt}" /></a>
+				</div>
+			{switch='|||</div>'}
+			{/exp:channel:entries}
+			{!--{embed="/_component/lessismore"}--}
+			<div class="clear"></div>
+	</div>
+	</div>
+</div>
+<br>
+
+<div class="container_12">
+	<div class="grid_4">
+		<h2>Blogs</h2>
+		<ul id="blog-list">
+		{exp:channel:entries channel="blogs" limit="4" dynamic="on"}
+			<li>
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+				<span>{entry_date format="%F %d, %Y"}</span>
+			</li>
+		{/exp:channel:entries}
+			<li class="more"><a href="/blogs/">View more Blogs</a></li>
+	</div>
+
+	<div class="grid_4">
+		<h2>Media</h2>
+		<ul id="media-list">
+		{exp:channel:entries channel="media" category="not 58" limit="4" dynamic="on"}
+			<li>
+				{if media-image}<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-image}" /></a>{/if}
+				<div class="media-main-page">
+					<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+					<span>{entry_date format="%F %d, %Y"}</span>
+				</div>
+				<div class="clear"></div>
+			</li>
+		{/exp:channel:entries}
+			<li class="more"><a href="/media/">View more Media</a></li>
+		</ul>
+	</div>
+
+	<div class="grid_4">
+		<h2>Events</h2>
+		<ul id="calendar-list">
+			
+			{exp:calendar:events date_range_start="today" date_range_end="+8 months" category="414" event_limit="4"}
+
+
+				<li>
+					<a href="/calendar/details/{url_title}" title="{title}"><strong>{title}</strong></a><br>
+					<span>
+
+				{rules}
+					{if event_has_rules}
+						{if event_never_ends}
+							{event_first_date format="%l"}s			
+						{if:else}
+							{event_first_date format="%l"}, {event_first_date format="%F %j"}-{event_last_date format="%l"}, {event_last_date format="%F %j"}
+						{/if} 
+					{if:else}
+						{event_first_date format="%l"}, {event_first_date format="%F %j"}
+					{/if}
+					 from {if {event_start_date format="%i"}=="00"}{event_start_date format="%g%a"}{if:else}{event_start_date format="%g:%i%a"}{/if} to {if {event_end_date format="%i"}=="00"}{event_end_date format="%g%a"}{if:else}{event_end_date format="%g:%i%a"}{/if}
+
+				{/rules}
+
+			</span>
+			</li>
+
+			{/exp:calendar:events}
+
+		<li class="more"><a href="/calendar">View more Calendar Events</a></li>
+	</div>
+
+	<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}	

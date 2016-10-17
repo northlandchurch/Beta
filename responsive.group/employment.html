@@ -1,0 +1,46 @@
+{embed="responsive/html_open" htmltitle="Employment at Northland"}
+{embed="responsive/header"}
+{embed="responsive/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			{if segment_2==""}<h1>Employment Opportunities at Northland</h1>{if:else}<h1>Employment Opportunity: {exp:channel:entries channel="employment" orderby="title" sort="asc"}{title}{/exp:channel:entries}</h1>{/if}
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_8 min-400">
+		{if segment_2==""}<div class="border-btm marg-b-40">
+			<p>Our vision is to see people coming to Christ and growing in Him as we link local and global communities for ministry and worship everywhere, every day.</p>
+			<p>Our mission is to call people to know and follow Christ and reconnect the church by building relationships, serving and worshiping together.</p>
+		</div>{/if}
+		{exp:channel:entries channel="employment" orderby="title" sort="asc" track_views="one"}
+		{if no_results}<p>There are no job openings at this time at Northland Church. <a href="http://www.northlandchurch.net/index.php/blogs/jobs">Click to view other ministry-related openings.</a></p>{/if}
+		{if segment_2==""}<h4><a href="{exp:low_replace find='index.php/'}{title_permalink='employment'}{/exp:low_replace}">{title}</a></h4>{/if}
+		<div class="job">
+			{jobs-descrip}
+			<!--<p>{jobs-contact}</p>-->
+		</div>
+		{/exp:channel:entries}
+	</div>
+		
+{if segment_2==""}	<div id="aside" class="grid_4">
+		<div class="top"></div>
+		<div class="mid">
+			<h5>Resumes and Applications</h5>
+			<!--<p>Please submit all resumes and applications to <a href="mailto:hr@northlandchurch.net">Human Resources</a> for consideration. --><a href=http://www.northlandchurch.net/blogs/jobs/>Click here</a> to see additional ministry-related job openings in the Orlando area. <!--Download an employment application <a href="http://www.northlandchurch.net/export/system/modules/net.nacdweb.main2/resources/Gallery/siteDownloads/EmploymentApplication.pdf">here.</a>--></p>
+		</div>
+		<div class="btm"></div>
+	</div>{/if}
+</div>
+
+<div class="clear"></div>
+
+
+{embed="responsive/footer"}
+{embed="responsive/html_close"}

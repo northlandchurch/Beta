@@ -1,0 +1,18 @@
+{exp:calendar:cal date_range_start="today" date_range_end="+60 days" dynamic="off" category="not 401" event_limit="30" calendar_id="{embed:relatedgroups}"}
+	{display_each_day}
+		
+		{if day_event_total>0}<h3>{day format="%F %j, %Y"}</h3>{/if}
+	
+		{events}
+			<div class="day-block">
+				<h4><a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{event_title}</strong></a></h4>
+				<p>{if event_start_date}<strong>Time:</strong> {event_start_date format="%g:%i"} {if '{event_start_date format="%a"}' == "am"}a.m.{/if}{if '{event_start_date format="%a"}' == "pm"}p.m.{/if}{if event_end_date} - {event_end_date format="%g:%i"} {if '{event_end_date format="%a"}' == "am"}a.m.{/if}{if '{event_end_date format="%a"}' == "pm"}p.m.{/if}{/if}{/if}
+				{if event_summary}<br />
+				<strong>Details:</strong> {event_summary}
+				{/if}</p>
+			</div>
+		{/events}
+   {/display_each_day}
+{/exp:calendar:cal}
+
+<div class="clear"></div>

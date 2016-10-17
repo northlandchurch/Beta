@@ -1,0 +1,77 @@
+{if service_live=="true"}
+<div class="clear"></div>
+	<a href="/worship" class="liveworship-goto">
+		<div id="liveworship-btn">
+			JOIN <span>LIVE</span> WORSHIP
+		</div>
+	</a>
+{if:else}
+	<script type="text/javascript">
+		<?php
+			$now = new DateTime();
+			$future_date = new DateTime('2014-12-24 19:00:00');
+			
+			$interval = $future_date->diff($now);
+			
+			$daysLeft = $interval->format("%d");
+			$hoursLeft = $interval->format("%h");	
+			$minutesLeft = $interval->format("%i");	
+			$secondsLeft = $interval->format("%s");	
+			
+			echo "var days = ". $daysLeft . ";\n";
+			echo "var hours = " . $hoursLeft . ";\n";
+			echo "var minutes = " . $minutesLeft . ";\n";
+			echo "var seconds = " . $secondsLeft. ";\n";
+		?>
+		
+		$(document).ready(function(){
+			//every second the function tick() will decrement the time by 1 second
+			setInterval ( "tick()", 1000 );
+		});	
+		
+		function tick(){
+			seconds = seconds - 1;
+			minutes = minutes * 1;
+			hours = hours * 1;
+			days = days * 1;
+	
+			if (seconds<0){
+				seconds = 59;
+				minutes = minutes - 1;
+			}		
+			if (minutes<0){
+				minutes = 59;
+				hours = hours - 1;
+			}
+			if (hours<0){
+				hours = 23;
+				days = days;// - 1;
+			}
+			if (seconds==0){
+				$("#cd-seconds").html("0");
+			}else{
+				$("#cd-seconds").html(seconds);
+			}
+			if (minutes==0){
+				$("#cd-minutes").html("0");
+			}else{
+				$("#cd-minutes").html(minutes);
+			}
+			if (hours==0){
+				$("#cd-hours").html("0");
+			}else{			
+				$("#cd-hours").html(hours);
+			}
+			if (days==0){
+				$("#cd-days").html("0");
+			}else{
+				$("#cd-days").html(days);
+			}
+		}
+	</script>
+	<div id="countdown" style="display:none">		
+	<?php
+		echo "<span id='cd-days'>" . $daysLeft ."</span><span id='cd-hours'>" . $hoursLeft ."</span><span id='cd-minutes'>" . $minutesLeft . "</span><span id='cd-seconds'>" . $secondsLeft . "</span> ";
+	?>
+	</div>
+{/if}

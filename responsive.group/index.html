@@ -1,0 +1,94 @@
+{embed="responsive/html_open"}
+
+{embed="responsive/header"}
+{embed="responsive/nav"}
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+<script type="text/javascript">
+var liveService = "FALSE";
+
+$(document).ready(function(){
+	$("#home-worship-vid, #live-stream").click(function(){
+		swfobject.embedSWF(player, "home-vid", "620","367", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+	});
+	
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});	
+	$(".user-login, .login").fancybox({
+		'hideOnContentClick': true,
+		'width': 492,
+		'autoDimensions': true,
+		'padding': 0,
+		'scrolling': 'no',
+		'hideOnOverlayClick': true,
+		'hideOnContentClick': false,
+		'overlayOpacity': 0.9,
+		'overlayColor': '#10202b',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+	});
+});
+
+function ShowLongPrayer(id) {
+	$('#prayer_short_' + id).removeClass('prayer_prayer');
+	$('#prayer_short_' + id).addClass('hidden');
+	$('#prayer_long_' + id).addClass('prayer_prayer');
+	$('#prayer_long_' + id).removeClass('hidden');
+}
+
+</script>
+<link rel="stylesheet" type="text/css" media="all" href="/responsive/beacon/" />
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if media-live=="No"}
+		<script type="text/javascript">
+		function UpdateCount(updatetime) {
+			$.get('/scripts/totalgroupsize.txt', function(data) {
+				$('#current-viewers').html('<p>' + data + '</p>');
+			});
+
+			if (updatetime) {
+				setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+			}
+		}
+
+
+		$(document).ready(function() {
+			UpdateCount(5000);
+		});
+		</script>
+		<div class="container_12">
+			<div class="liveworship_home masters" onclick="location.href='/worship';" style="cursor:pointer;">
+				<h1>LIVE <span>WORSHIP ONLINE</span> NOW</h1>
+				<h2>Join with the <p id="current-viewers"></p> around the world worshiping with us right now!</h2>
+			</div>
+		</div>
+	{/if}
+{/exp:channel:entries}
+<div class="container_12 masters_holder">
+	<div class="grid_8 masters">
+	{exp:channel:entries channel="sequence" url_title="content_sequencer"}
+		{exp:playa:children site="default_site|planning" field="sequencer" limit="3"}
+			{embed="/_component/main_entries" sequenced="{entry_id}"}
+			{embed="/_component/main_calendar" sequenced="{url_title}"}
+		{/exp:playa:children}
+	{/exp:channel:entries}
+	</div>
+	<div class="spacer-right default_visible"></div>
+	<div class="grid_4 beacon masters" style="margin-top:25px">
+		{embed="_component/side-current"}
+		{embed="_component/side-wegather"}
+		{embed="_component/side-whatscurrent"}
+		{embed="_component/side-liturgy"}
+		{embed="_component/side-prayer"}
+	</div>
+</div>
+<div class="clear"></div>
+{embed="responsive/footer"}
+<div class="clear"></div>
+{embed="responsive/html_close"}

@@ -1,0 +1,73 @@
+<div class="vid_box">
+		<script type="text/javascript">	
+		var flashvars_home = <?php echo '{'; ?>swfLocation:"{flash-asset-url}/",
+				page:location.href,
+				file:"backup",
+				type:"rtmp",
+streamer:"rtmp://174.129.245.138:1935/live/",
+				titleLabel:"{media-series}",
+				title:"{title}",
+				autostart:"true",
+				subtitle:"{media-speaker}"<?php echo '}'; ?>;
+		var params_home = <?php echo '{'; ?>allowscriptaccess:"always",allowfullscreen:"true"<?php echo '}'; ?>;
+		var attributes_home = <?php echo '{'; ?>id:'flashObject_home', name:'flashObject',bgcolor:'0x000000'<?php echo '}'; ?>;
+		var player="{flash-asset-url}/player.swf";
+		var whichImg="worship-online.jpg";
+		var whichMap="#online";
+		$("#home_vid_watcher").bind("click", function(){
+			if (home_html_holder==""){
+				home_html_holder = $("#home_vid_wrapper").html();
+			}
+			//alert(home_html_holder);
+
+			swfobject.embedSWF(player, "home_vid", "620","352", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+		})
+		</script>
+
+			<div id="home_vid_wrapper">
+				<div id="home_vid" class="sliderVideo">
+						<a href="http://insite.northlandchurch.net/insiteworship/worship.do" onClick="return loadWorship(this, 'worship', 'Worship')"><img src="/_img/worship-online-new.jpg" border='0'></a>
+				</div>
+			</div>
+			<a href="#" id="home_vid_watcher" style="margin-left: 20px;"><img src="/_img/watch_anony_btn.jpg" style="border:0px;"/></a><a href="/services/" style="margin-left: 10px;"><img src="/_img/view_archive_btn.jpg" style="border:0px;"/></a>
+			</div>
+
+
+
+
+
+
+<!--<div class="vid_box">
+	{exp:channel:entries dynamic="off" channel="media" show_future_entries="yes" orderby="date" category="58" sort="desc" limit="1"}
+		<script type="text/javascript">	
+		var flashvars_home = <?php echo '{'; ?>swfLocation:"{flash-asset-url}/",
+				page:location.href,
+				file:"fli/100495-nacd_high",
+				streamer:"rtmp://fli001.ph1.hwcdn.net/r3c3x6t9/_definst_",
+				titleLabel:"Bear Grylls LIVE!",
+				title:"",
+				autoplay:"true",
+				subtitle:""<?php echo '}'; ?>;
+		var params_home = <?php echo '{'; ?>allowscriptaccess:"always",allowfullscreen:"true"<?php echo '}'; ?>;
+		var attributes_home = <?php echo '{'; ?>id:'flashObject_home', name:'flashObject',bgcolor:'0x000000'<?php echo '}'; ?>;
+		var player="{flash-asset-url}/vid_player.swf";
+		var whichImg="worship-online.jpg";
+		var whichMap="#online";
+		$("#home_vid_watcher").bind("click", function(){
+			if (home_html_holder==""){
+				home_html_holder = $("#home_vid_wrapper").html();
+			}
+			//alert(home_html_holder);
+
+			swfobject.embedSWF(player, "home_vid", "646","363", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+		})
+		</script>
+		{/exp:channel:entries}
+
+			<div id="home_vid_wrapper">
+				<div id="home_vid" class="sliderVideo">
+						<a href="#" id="home_vid_watcher"><img src="/_img/bear.jpg" border='0'></a>
+				</div>
+			</div>			      
+		</div>
+-->

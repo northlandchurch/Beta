@@ -1,0 +1,124 @@
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Online Giving and Finances</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_8">
+		<h4>Tithes and Offerings</h4>
+		<p>What is a tithe and how is it different from an offering? The word "tithe" literally means tenth or 10 percent. A tithe is the first 10 percent of your income. An offering is anything you give above and beyond the 10 percent.</p>
+		<p>Why do we tithe? The Bible says the purpose of tithing is to teach us always to put God first in our lives (Deuteronomy 14:23, TLB). Tithing is a reminder that God is the supplier of everything we have. It is also God's personal invitation to an outpouring of His blessing in our lives—even though as Christians, we do not give in order to get blessings, but to be a blessing.</p>
+		<p>In Malachi 3:10, God says this: "Bring the whole tithe into the storehouse, that there may be food in my house. Test me in this ... and see if I will not throw open the floodgates of heaven and pour out so much blessing that there will not be room enough to store it." This is the only place in Scripture where God tells us to put Him to the test. In other words, He's saying, "Go ahead. See if you can out-give Me!"</p>
+		<p>Is God wise? Do you trust Him? These are two fundamental questions behind the act of giving. If God is wise, then we should listen to what He says about financial stewardship. If we trust Him, then we should trust Him with all aspects of our lives, including our finances. We can accept God's invitation to put Him to the test. Start tithing faithfully, and watch what He does in and through your life.</p>
+		<p>If the thought of tithing seems overwhelming, start by adding one percent to your current giving and then move toward the tithe. See the ADD ONE chart for help.</p>				
+		
+		<img src="{v2-image-asset-url}/main/divider.png" class="divider marg-b-40" />
+
+		
+		<h4 id="report">Tithes and Offerings Report</h4>
+		<p class="marg-b-20">Whether you give at church or online, ultimately, this is an act of worship. “But just as you excel in everything — in faith, in speech, in knowledge, in complete earnestness and in your love for us — see that you also excel in this grace of giving” (2 Corinthians 8:7, NIV). When we willingly set aside the first part of our income for the local church, our hearts will be turned toward Him (Matthew 6:21). </p>
+		
+		<div id="column-selector" class="marg-b-20">
+			<p><strong>Weekly Financial Numbers:</strong></p>
+			<p>
+				<form id="aform" action="./" method="GET">
+				<select id="mymenu" onchange="window.open(this.options[this.selectedIndex].value,'_top')" >
+					<option selected="selected">Select Week</option>
+					{exp:channel:entries channel="tithesandofferings" dynamic="off" category="not 31" orderby="date" sort="desc" track_views="one"}
+						<option value="{exp:low_replace find='index.php/'}{title_permalink='finances/'}{/exp:low_replace}#report">{title}</option>
+					{/exp:channel:entries}
+				</select>
+				</form>
+			</p>
+		</div>
+		
+		{exp:channel:entries channel="tithesandofferings" category="not 31" orderby="date" sort="desc" limit="1" track_views="one"}
+		<table id="finances">
+			<tr>
+				<thead>
+				<td class="row">Week <span class="italic">of</span> {title}</td>
+				<td>This Week</td>
+				<td>This Year</td>
+				</thead>
+			</tr>
+			<tr class="one">
+				<td class="row">Need:</td>
+				<td>{thisweek-need}</td>
+				<td>{thisyear-need}</td>
+			</tr>
+			<tr class="two">
+				<td class="row">Received:</td>
+				<td>{thisweek-received}</td>
+				<td>{thisyear-received}</td>
+			</tr>
+			<tr class="one">
+				<td class="row">Surplus/(Deficit):</td>
+				<td>{thisweek-difference}</td>
+				<td>{thisyear-difference}</td>
+			</tr>
+		</table>
+		<p class="marg-b-20">&lowast; Deficit is currently being covered by reserve fund.</p>
+		{/exp:channel:entries}
+		
+		
+		<img src="{v2-image-asset-url}/main/divider.png" class="divider marg-b-40" />
+		
+	</div>
+	
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Give Now</h5>
+			<p style="text-align:center">
+				NOTE: Logging in is now done by email address instead of username.<br>
+				(<a href="/blogs/changing_to_email_based_logins">Find out why here</a>.)<br>
+				Don't worry, your email address<br>	will remain private.</p>
+			<fieldset id="giving" style="border:none" class="marg-b-40">
+				<label for="username">Username</label>
+				<input class="text" type="text" name="username" value="" />
+				<label for="password">Password</label>
+				<input class="text" type="password" name="password" value="" onclick="saveid(this.form)"/>
+				<div class="clear"></div>
+
+				<label for="rememberme">Remember Me</label>
+				<input id="check" type="checkbox" name="rememberme" value="Remember Me" />
+				<div class="clear"></div>
+
+				<input id="submit" type="submit" name="submit" value="Submit" />
+			</fieldset>
+			<p class="marg-b-20">
+				<a href="https://insite.northlandchurch.net/givingweb/giving.jsp">Give Without an Account</a><br />
+				<a href="http://insite.northlandchurch.net/newTest/Registration/LaunchForgotPassword.html?service=https%3A%2F%2Finsite.northlandchurch.net%2Finsitegiving%2Fj_acegi_security_check.do%3Bjsessionid%3D137893C3D4A8FB1F561C80DE880DAE40">Forgot USER ID or Password?</a><br />
+				<a href="http://insite.northlandchurch.net/newTest/Registration/LaunchRegister.html?service=https%3A%2F%2Finsite.northlandchurch.net%2Finsitegiving%2Fj_acegi_security_check.do%3Bjsessionid%3D137893C3D4A8FB1F561C80DE880DAE40">Create an Account</a>
+			</p>
+
+			<h5>Giving Resources</h5>
+			<ul>
+				<li><a href="/ministries/finance">Personal Finance Classes</a></li>
+				<li><a href="/ministries/budget_coaching">Budget coaching & Financial advising</a></li>
+				<li><a href="/ministries/planned_giving/">Planned Giving</a></li>
+				<li><a href="http://www.northlandchurch.net/_pdf/250BibleVersesAboutMoney.pdf">Bible Verses About Money</a></li>
+			</ul>
+			
+			<p>For all questions please contact Marc McMurrin<br /><a href="mailto:marc.mcmurrin@northlandchurch.net">marc.mcmurrin@northlandchurch.net</a> <br />(407) 937 - 1772</p>
+			
+			
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="marg-b-60"></div>
+<div class="clear"></div>
+
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

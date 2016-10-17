@@ -1,0 +1,288 @@
+{embed="profile/index"}
+
+{!--}
+
+WANT TO UPDATE THIS??
+
+USE THE PROFILE/INDEX INSTEAD
+
+
+
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav"}
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".hideme").hide();
+	//toggle the componenet with class msg_body
+	$(".showme").click(function() {
+		$(this).next(".hideme").slideToggle(500);
+	});
+	$("#bio_count").text(160-$("#bio").val().length);
+	$("#bio").keydown(function(){
+		var text_length = $("#bio").val().length;
+		$("#bio_count").text(160-text_length);
+	})
+	$("#edit-profile-button").click(function(){
+		$("#profile-live_view").hide();
+		$("#profile-edit_view").show();
+	})
+	$("#birthday input").live("focus", function(){
+		$(this).datepicker({
+			showOn: 'both',
+			changeMonth: true,
+			yearRange: "-100:+0",
+			changeYear: true,
+			onClose: function(dateText) { 
+				$("#birthday").html("<h2>"+dateText+"</h2>")
+			}
+    	});
+	});
+})
+</script>
+
+<div id="title-bar">
+		<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}" />
+		<input type="hidden" id="current_email" name="current_email" value="{email}" />
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>{if logged_in}My Profile{if:else}Login to Edit Your Profile{/if}</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+<div class="container_12">
+		{if logged_out}
+			{exp:member:login_form redirect="profile"}
+			<div class="grid_4">
+				<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+				<div class="clear"></div>
+				<br>
+				<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+				
+				<input type="submit" id="login-submit" name="submit" value="Login" />
+				<div id="login-forgot">
+					<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px" /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+					<p><a href="{path=prelaunchmain/forgot_password}/">Forgot Your Username or Password?</a></p>
+				</div>	
+			</div>
+			{/exp:member:login_form}
+		{/if}
+		{if logged_in}
+		
+			<div class="container_12">
+				<div class="grid_8">
+
+					<div id="profile-live_view">
+						<div class="grid_3 nomarg">	
+							{exp:user:edit}		
+							<img src="{photo_url}{photo_filename}" style="width:200px"/></p>						
+							{/exp:user:edit}
+						</div>
+						<div class="grid_5 nomarg">
+							{exp:member:custom_profile_data}
+								<h2 style="border-bottom:none;margin-bottom:0;">{screen_name}</h2>
+								<p class="marg-b-10">(You show up online as "{name}")</p>
+								<p><b>E-mail Address: </b>{email}</p>
+								<p><b>Phone Number: </b>{if phone}{phone}{if:else}N/A{/if}</p>
+								<p><b>Location: </b>{if location}{location}{if:else}N/A{/if}</p>
+								<p><b>Birthday: </b>{bday_m}/{bday_d}/{bday_y}</p>
+								<p class="marg-t-10"><b>Biography:</b><br><em>{if bio}{bio}{if:else}N/A{/if}</em></p>
+							{/exp:member:custom_profile_data}
+							<br>
+							<div style="width:100%"><a id="edit-profile-button">Update Your Profile</a></div>
+						</div>
+					</div>
+					<div id="profile-edit_view" style="display:none">
+						{exp:user:edit}	
+							<div class="grid_3 nomarg">		
+								<img src="{photo_url}{photo_filename}" style="width:200px"/></p>
+								<div class="clear"></div>
+							</div>
+							<div class="grid_5 nomarg">
+								
+								<script type="text/javascript">
+									$(document).ready(function() {	
+										//Parses name into first and last name. Finds last space to keep double names in the first name field together.
+										//Unhyphenated double last names effectively disallowed
+										
+										var wName = "{screen_name}";
+										var spacePos = wName.lastIndexOf(" ");	
+										var fName = wName.substring(0,spacePos);	
+										var lName = wName.substring(spacePos+1,wName.length);		
+										$("#editfirstnamenew").val(fName);
+										$("#editlastnamenew").val(lName);
+										
+									});
+								</script>
+									<h2>Update Your Profile - {email}</h2>
+									<i>Note: We are still completing the profile page. Next week you will be able to update your phone number, location, and birthday.</i>
+									<div class="clear"></div>
+									<div class="editprofile_subtitle">First Name:</div><input id="editfirstnamenew" name="editfirstnamenew" />
+									<div class="clear"></div>
+									<div class="editprofile_subtitle">Last Name:</div><input id="editlastnamenew" name="editlastnamenew"/>
+									<div class="clear"></div>
+							
+									<div class="clear"></div>									
+									<div class="editprofile_subtitle">Phone Number:</div><p><input disabled id="phone" name="phone" value="{phone}"></p>
+									<div class="editprofile_subtitle">Location (City):</div><p><input id="locationcity" name="locationcity" value="{city}"></p>
+									<div class="editprofile_subtitle">Location (State):</div><p><input id="locationstate" name="locationstate" value="{state}"></p>
+									<div class="clear"></div>
+									<div class="editprofile_subtitle">Birthday:</div><p><input disabled id="bday_m" name="bday_m" value="{bday_m}" style="width:30px; text-align:center;"> /<input disabled id="bday_d" name="bday_d" value="{bday_d}" style="width:30px; text-align:center;"> /<input disabled id="bday_y" name="bday_y" value="{bday_y}" style="width:30px; text-align:center;"></p>
+									<div class="clear"></div>
+									<div class="editprofile_subtitle" style="text-align:left">Biography:</div><p class="marg-t-10"><textarea id="bio" name="bio" maxlength="160" style="width: 360px;height: 60px; margin-bottom:0; resize: none"/>{bio}</textarea></p>
+									<div class="clear"></div>
+									<p style="float:right"><strong><span id="bio_count" style="padding-left:7px;"></span></strong> characters remaining.</p>
+									<div class="clear"></div>
+									<a href='#' id='editNameClick'><input style="width:61px; float:right; cursor: pointer" type="submit" name="submit" value="Submit"></a>
+									
+				<br><br>
+				
+				<h2>Update Your Photo</h2>
+								<input type="file" name="photo_filename" style="width:350px;" class="user_photo">
+								<br>
+								<input style="width:61px; float:right; cursor: pointer" type="submit" name="submit" value="Submit">
+				{/exp:user:edit}
+				
+				<br><br>	
+					
+				<h2>Change Your Password</h2>
+					{exp:user:edit}
+						<div class="editprofile_subtitle">Current Password:</div><input type="password" name="editcurpassword" 	id="editcurpassword" />
+						<div class='clear'></div>
+						<div class="editprofile_subtitle">New Password:</div><input type="password" name="editnewpassword"	id="editnewpassword" />
+						<div class='clear'></div>
+						<div class="editprofile_subtitle">Confirm New Password:</div><input type="password" name="editconfirmpassword"	id="editconfirmpassword" />
+						<div class='clear'></div>
+						<a href='#' id='editPasswordClick'><input type="submit" name="submit" value="Submit" style="float:right; width: 61px; cursor: pointer" /></a>
+					{/exp:user:edit}
+
+						<div class="clear"></div>
+					</div>
+					</div>
+					
+					<div class="clear"></div>
+					{embed="_component/divider"}
+					Your latest
+						<script type="text/javascript">
+						$(document).ready(function(){
+							$("#prayers-filter").change(function(){
+								//$(".class").hide();
+								$(".prayersfiltered").toggle();		
+							});
+							$("#scriptures-filter").change(function(){
+								//$(".class").hide();
+								$(".scripturesfiltered").toggle();		
+							});
+							$("#events-filter").change(function(){
+								//$(".class").hide();
+								$(".eventsfiltered").toggle();		
+							});
+							$("#notes-filter").change(function(){
+								//$(".class").hide();
+								$(".notesfiltered").toggle();		
+							});
+							$("#favorites-filter").change(function(){
+								//$(".class").hide();
+								$(".favoritesfiltered").toggle();		
+							});
+							$("#offsite-filter").change(function(){
+								//$(".class").hide();
+								$(".class").toggle();	
+								$(".Longwood").toggle();		
+								$(".Oviedo").toggle();		
+								$(".Dora").toggle();			
+							});
+
+							$('.event-register').click (function() {
+								var whichID = $(this).attr('id');
+								var targetID = "#"+whichID+" .favorite";
+								var targetURL = $(targetID).attr('href');
+								whichID = whichID.substring(5);
+								registerUserToClass(whichID);
+								$.ajax({
+									success: function(data){
+										$(targetID).text("You're registered");
+									},
+									url: targetURL
+								});		
+								return false;
+							});
+
+						});
+
+						function ToggleNote(id) {
+							$("#" + id).toggle();
+						}
+
+					</script>
+					<input type="checkbox" checked id="prayers-filter"> Prayers &nbsp;&nbsp;<input checked type="checkbox" id="notes-filter"> Notes &nbsp;&nbsp;<input checked type="checkbox" id="comments-filter"> Comments &nbsp;&nbsp; <input checked type="checkbox" id="events-filter"> Events &nbsp;&nbsp;<input checked type="checkbox" id="favorites-filter"> Favorites &nbsp;&nbsp;<input checked type="checkbox" id="scriptures-filter"> Scriptures
+					<ul>
+						{exp:favorites:entries weblog="default_site" orderby="favorites_date" sort="desc" limit="25"}
+							<div class="prayersfiltered">
+								{if channel=="Prayers"}
+								<li class="profile-prayers"><span>Prayed</span> for <a href="/respond/pray/{entry_id}">{if prayer-name}{prayer-name}{if:else}{author}{/if}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+								{/if}
+							</div>
+							<div class="scripturesfiltered">
+								{if channel=="Liturgy"}
+									<li class="profile-readbible"><span>Read</span> <a href="/respond/readthebible/{entry_date format='%Y-%m-%j'}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+								{/if}
+							</div>
+							<div class="eventsfiltered">
+								{if channel=="Calendar: Events"}
+									<li class="profile-events"><span>Signed up</span> for <a href="/calendar/details/{url_title}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+								{/if}
+							</div>
+							<div class="favoritesfiltered">
+								{if channel=="Media"}
+									<li class="profile-media"><span>Favorited</span> <a href="/media/{url_title}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+								{/if}
+							</div>
+						{/exp:favorites:entries}
+						<div class="notesfiltered">
+						<?php
+							$member_id_reference = $this->EE->session->userdata('member_id');
+						?>
+							{exp:channel:entries channel="notes" author_id="<?php echo $member_id_reference; ?>" limit="25"}
+								<li class="profile-notes"><span>Posted <a href="javascript:ToggleNote('note_{entry_id}')">a note</span></a> for "{notes-series}" on {entry_date format="%l, %F %j, %Y"}.</li>
+								<div id="note_{entry_id}" class="profile_note" style="display:none">{notes-note}</div>
+							{/exp:channel:entries}	
+						</div>
+					</ul>
+				</div>
+				<div class="grid_4">
+					<style>
+						#readbible-mid {
+							padding-left: 10px;
+						}
+						.readbible_more {
+							margin-left: 10px;
+						}
+						.prayer_requests {
+							margin-left: 10px;
+						}
+						.prayer_name {
+							margin-left: 10px;
+						}
+						.prayer_prayer {
+							margin-left: 10px;
+						}
+						.prayer_post {
+							margin-left: 10px;
+						}
+					</style>
+					{embed="/_component/side-liturgy"}
+					{embed="/_component/side-prayer"}
+				</div>
+			</div>
+		{/if}
+
+</div>
+<div class="clear"></div>
+ 
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}{--}

@@ -1,0 +1,548 @@
+{embed="responsive/html_open" htmltitle="Northland Security Panel"}
+<div id="header-bg" style="display:none">
+{embed="responsive/respond-header"}
+	{embed="responsive/header"}	
+</div>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/css-onlineworship.css" />
+
+
+<script src="/jquery-ui-1.8.21.custom.min.js">
+<script type="text/javascript" src="/_assets/js/jquery.maskedinput-1.3.min.js"></script>
+
+<script type="text/javascript">
+function validateFileExtension(fld) {
+	if(!/(\.bmp|\.gif|\.jpg|\.jpeg)$/i.test(fld.value)) {
+	    alert("Invalid image file type.");      
+	    fld.form.reset();
+	    fld.focus();        
+	    return false;   
+	}   
+	return true; 
+}
+
+function ShowAddImage() {
+	$("#add_image_button").hide();	
+	$("#add_image").show();
+}
+
+function HideAddImage() {
+	$("#add_image_button").show();	
+	$("#add_image").hide();
+}
+
+this.imagePreview = function(){	
+	/* CONFIG */
+		
+		xOffset = 20;
+		yOffset = 30;
+		
+		// these 2 variable determine popup's distance from the cursor
+		// you might want to adjust to get the right result
+		
+	/* END CONFIG */
+	$("a.preview").hover(function(e){
+		this.t = this.title;
+		this.title = "";	
+		var c = (this.t != "") ? "<br/>" + this.t : "";
+		$("body").append("<p id='preview'><img style='max-width: 650px' src='"+ this.href +"' alt='Image preview' />"+ c +"</p>");								 
+		$("#preview")
+			.css("top",(e.pageY - yOffset) + "px")
+			.css("left",(e.pageX + xOffset) + "px").fadeIn('fast');						
+    },
+	function(){
+		this.title = this.t;	
+		$("#preview").remove();
+    });	
+	$("a.preview").mousemove(function(e){
+		$("#preview")
+			.css("top",(e.pageY - yOffset) + "px")
+			.css("left",(e.pageX + xOffset) + "px");
+	});			
+};
+</script>
+
+<script type=text/javascript>
+// Called by Adapt.js
+/*function myCallback(i, width) {
+	
+}*/
+
+var ADAPT_CONFIG = {
+  // false = Only run once, when page first loads.
+  // true = Change on window resize and page tilt.
+  dynamic: true,
+
+  // First range entry is the minimum.
+  // Last range entry is the maximum.
+  // Separate ranges by "to" keyword.
+  path: '/_includes/adapt/',
+  //callback: myCallback,
+  range: [
+    '0px to 720px  = mobile.css',
+    '720px  	   = full.css'
+  ]	
+};
+</script>
+<script src="/_includes/adapt/adapt.js"></script>
+
+<div id="header-minimized">
+	<div id="header-bar-small">
+		<div class="container_12">
+			<div id="header-small-left">
+				<a href="http://www.northlandchurch.net" style="text-decoration: none" target="_blank"><h1>Northland <span>A Church Distributed</span></h1></a>
+			</div>
+			
+			<div id="header-small-right" class="default_visible">
+				{!-- user-login-box --}
+				{if logged_in}
+					<span>Logged in as <a href="/profile" target="_blank">{screen_name}</a> - <a onclick="ee_logout()" >Log Out</a></span>
+				{if:else}
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#login_link").click();
+						});
+					</script>
+					<span><a class="user-login" id="login_link" href="#login-register-box">Login</a></span>
+				{/if}					
+			</div>			
+		</div>
+	</div>
+	<div class="nav-shadow"></div>
+</div>
+
+{if group_id == "1" || group_id == "24"}
+<script type="text/javascript">
+var html_string;
+var d;
+
+$(document).ready(function() {
+	UpdateDate();
+	
+	$("#newentry").submit(function() {
+		if (!$("#logtextarea").val().length) {
+			return false;
+		}
+	
+		if (!$("#add_image_input").val().length) {
+			$.ajax({
+				url: "/scripts/newsecurityentry.php?author={screen_name}&content=" + encodeURIComponent($("#logtextarea").val().replace(/(\r\n|\n|\r)/gm,"<br>").replace(/'/g, '"')),
+				success: function() {
+					GetSecurityJSON();
+					$("#logtextarea").val("");
+				}
+			});
+			
+			$("#add_image_input").val("");
+			HideAddImage();
+			
+			return false;
+		}
+	});
+	
+	$('#logtextarea').keyup(function() {
+        if (this.value.match(/[^a-zA-Z0-9,".?!;$()=\r\n -%@]/g)) {
+            this.value = this.value.replace(/[^a-zA-Z0-9,".?!;$()=\r\n -]%@/g, '');
+        }
+    });
+
+	$('#datepicker').datepicker({
+		onSelect: function(dateText, inst) { GetSecurityJSON(dateText, dateText + " 23:59:59"); },
+	   	dateFormat: "yy-mm-dd"
+	});	
+	
+	$('#search_txt').keyup(function() {
+        if (this.value.match(/[^a-zA-Z0-9,".?!;$()=\r\n -%@]/g)) {
+            this.value = this.value.replace(/[^a-zA-Z0-9,".?!;$()=\r\n -]%@/g, '');
+        }
+//		console.log (this.value);
+		GetSecurityBySearchJSON(this.value);
+    });
+
+	GetSecurityJSON();	
+});
+
+function GetSecurityJSON(datestart, dateend) {
+	var url = "/security/getsecurityjson/";
+	if (datestart) { url += "?datestart=" + datestart; }
+	if (dateend) { url += "&dateend=" + dateend; }
+
+	$.getJSON(url, function(data) {
+		var previous_date = ""; // Date of last entry printed out to determine if this is a new day or not
+		html_string = "";
+		if (data.length) {
+			$.each(data, function(i, item) {
+				if (item[1] != previous_date) {
+					html_string += "<div class='grid_12 date_header'>" + item[1] + "</div><div class='clear'></div>";
+					previous_date = item[1];
+				}
+						
+				if (item[4]) {
+					html_string += "<div class='logentry'><div class='grid_3 logentrytitle'><div><strong>" + item[2] + "</strong></div>" + item[0] + "</div><a class='preview' href='/images/security/" + item[4] + "'><img class='grid_2' src='/images/security/" + item[4] + "'></a><div class='grid_7 logentrycontent'>" + item[3] + "</div><div class='clear'></div></div>";
+				}				
+				else {
+					html_string += "<div class='logentry'><div class='grid_3 logentrytitle'><div><strong>" + item[2] + "</strong></div>" + item[0] + "</div><div class='grid_9 logentrycontent'>" + item[3] + "</div><div class='clear'></div></div>";
+				}
+			});
+			
+			$("#mainpane").html(html_string);
+		}
+		else {
+			$("#mainpane").html("No Security Log Entries Found For This Date");		
+		}		
+		
+		imagePreview();
+	});	
+}
+
+function GetSecurityBySearchJSON(search_txt) {
+	var url = "/security/getsecuritybysearchjson";
+	if (search_txt) { url += "?search_txt=" + search_txt; }
+//	console.log ("Search: " + url);
+	
+	$.getJSON(url, function(data) {
+		var previous_date = ""; // Date of last entry printed out to determine if this is a new day or not
+		html_string = "";
+		if (data.length) {
+			$.each(data, function(i, item) {
+				if (item[1] != previous_date) {
+					html_string += "<div class='grid_12 date_header'>" + item[1] + "</div><div class='clear'></div>";
+					previous_date = item[1];
+				}
+						
+				if (item[4]) {
+					html_string += "<div class='logentry'><div class='grid_3 logentrytitle'><div><strong>" + item[2] + "</strong></div>" + item[0] + "</div><a class='preview' href='/images/security/" + item[4] + "'><img class='grid_2' src='/images/security/" + item[4] + "'></a><div class='grid_7 logentrycontent'>" + item[3] + "</div><div class='clear'></div></div>";
+				}				
+				else {
+					html_string += "<div class='logentry'><div class='grid_3 logentrytitle'><div><strong>" + item[2] + "</strong></div>" + item[0] + "</div><div class='grid_9 logentrycontent'>" + item[3] + "</div><div class='clear'></div></div>";
+				}
+			});
+			
+			$("#mainpane").html(html_string);
+		}
+		else {
+			$("#mainpane").html("No Security Log Entries Found For This Search");		
+		}		
+		
+		imagePreview();
+	});	
+}
+
+function UpdateDate() {
+	d = new Date();
+	var hours = d.getHours();
+	var minutes;
+	var month;
+	var day;
+	var ampm = "AM";
+	
+	if (hours > 11) {
+		ampm = "PM";
+		if (hours > 12) { hours = hours - 12; }
+	}
+	
+	if (d.getMinutes() < 10) { minutes = "0" + d.getMinutes(); }
+	else { minutes = d.getMinutes(); }
+	
+	switch(d.getMonth()) {
+		case 0:
+			month = "January";
+			break;
+		case 1:
+			month = "February";
+			break;
+		case 2:
+			month = "March";
+			break;
+		case 3:
+			month = "April";
+			break;
+		case 4:
+			month = "May";
+			break;
+		case 5:
+			month = "June";
+			break;
+		case 6:
+			month = "July";
+			break;
+		case 7:
+			month = "August";
+			break;
+		case 8:
+			month = "September";
+			break;
+		case 9:
+			month = "October";
+			break;
+		case 10:
+			month = "November";
+			break;
+		case 11:
+			month = "December";
+			break;
+	}
+	
+	switch (d.getDay()) {
+		case 0:
+			day = "Sunday";
+			break;
+		case 1:
+			day = "Monday";
+			break;
+		case 2:
+			day = "Tuesday";
+			break;
+		case 3:
+			day = "Wednesday";
+			break;
+		case 4:
+			day = "Thursday";
+			break;
+		case 5:
+			day = "Friday";
+			break;
+		case 6:
+			day = "Saturday";
+			break;
+	}
+	
+	$("#current_time").html(hours + ":" + minutes + " " + ampm);
+	$("#current_date").html(day + ", " + month + " " + d.getDate());
+	setTimeout(UpdateDate,5000)
+}
+
+</script>
+<style type='text/css'>
+a, a:link, a:visited, a:active {
+	color: #FFF;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #347197;
+}
+
+body {
+	color: #FFF;
+}
+
+.sidebar_div, .subheader {
+	color: #FFF;
+	background-color: rgba(0, 0, 0, 0.35);
+	border: 1px #000 solid;
+	border-radius: 4px;
+	padding: 10px;
+	box-shadow: 0 0 8px #222;
+	margin-top: 10px;
+}
+.sidebar_div h1, .subheader h1 {
+	font-size: 16px;
+	line-height: 24px;
+}
+
+textarea {
+	padding: 5px;
+	background-color: #CCC;
+	height: 50px;
+	border: 2px solid #cccccc;
+	font-family: Tahoma, sans-serif;
+	resize: none;
+}
+
+.logentry {
+	padding: 3px;
+}
+
+.logentry:nth-child(odd) {
+	background-color: rgba(30, 30, 30, 0);
+}
+
+.logentry:nth-child(even) {
+	background-color: rgba(30, 30, 30, 0.3);
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-style: solid;
+	border-color: #000;
+}
+
+.logentry img {
+	padding: 8px 0;
+	max-width: 100%;
+	margin: 0;
+}
+
+.logentrytitle {
+	margin: 0 0 0 3px;
+	font-size: 14px;
+}
+
+.logentrytitle div {
+	width: 100px;
+	display: inline-block;
+}
+
+.logentrycontent {
+	margin: 0;
+}
+
+.date_header {
+	font-size: 30px;
+	font-weight: 100;
+	margin: 25px 0 10px 0;
+	text-align: center;
+	text-shadow: black 2px 2px 3px;
+}
+
+#ui-datepicker-div { display: none; }
+
+#datepicker {
+	margin: 0 auto;
+	width: 230px;
+}
+
+#preview {
+	position:absolute;
+	border:1px solid #ccc;
+	background:#333;
+	padding:5px;
+	display:none;
+	color:#fff;
+}
+
+.security_submit {
+	cursor: pointer;
+	margin: 0 0 10px 0;
+}
+
+input {
+	background-color: silver;
+}
+
+input:hover {
+	background-color: #FFF;
+	color: #000;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+</style>
+
+
+<div class="container_12" style="margin-top:15px;">
+		<div class="shinethelight">
+			{if logged_in}
+				<h1 style="font-size: 22px; text-align:center; line-height: 1.5em; margin-bottom: 10px">Security Log<br>{screen_name} - <a onclick="ee_logout()" style="font-size:22px; font-weight: 100">Log Out</a>
+			{/if}		
+		</div>		
+			
+		<div style="height: 65px">
+			<div class="grid_4 default_visible" style="text-align:center; font-size: 36px; text-shadow: black 2px 2px 3px; height: 65px; padding-top: 10px">
+				<h1>Security Log</h1>
+				<h1 id="current_time" style="text-shadow: black 2px 2px 3px; margin-top:20px">0</h1>
+				<div class="clear"></div>
+				<div id="current_date" style="font-size: 25px; font-weight: 100; color: #FFF; margin-top: 8px; text-shadow: black 2px 2px 3px;"></div>
+			
+			</div>	
+						
+			<div class="grid_4" style="margin: 0">		
+				<div id="datepicker" class="default_visible"></div>			
+			</div>			
+			
+			<div class="grid_4" style="font-size: 14px; text-shadow: black 2px 2px 3px">
+				<ul style="height: 180px; overflow: scroll; overflow-x: hidden">
+					<li><b><u>522 Building</u></b></li>
+					<li>Main Building (522)</li>
+					<li>Backstage 1 (ground floor offices)</li>
+					<li>Backstage 2 (2nd floors)</li>
+					<li>Admin</li>
+					<li>Welcome Desk</li>
+					<li>MB Entrance (Main Building)</li>
+					<li>Sanctuary</li>
+					<li>Sliders</li>
+					<li>Video Suites</li>
+					<li>Main Sound Booth</li>
+					<li>5100 Sound Booth</li>
+					<li>CW1</li>
+					<li>CW2</li>
+					<li>CW3</li>
+					<li>Main Entrance</li>
+					<li>&nbsp;</li>
+					<li><b><u>The Rink</u></b></li>
+					<li>The Rink</li>
+					<li>Rink Auditorium</li>
+					<li>Backstage Rink</li>
+					<li>Rink green room</li>
+					<li>PC bathrooms</li>
+					<li>Rink bathrooms</li>
+					<li>Cafe</li>
+					<li>Front Desk</li>
+					<li>Fellowship Hall</li>
+					<li>Pastoral Care</li>
+					<li>&nbsp;</li>
+					<li><b><u>Exterior</u></b></li>
+					<li>Traffic Circle</li>
+					<li>The Triangle</li>
+					<li>DT Main Entrance</li>
+					<li>2/3 Entrance/Exit</li>
+					<li>Molly Loop Exit</li>
+					<li>Cart Corral</li>
+					<li>The Shed</li>
+					<li>Lots 1-9B</li>
+					<li>Main Drive</li>
+					<li>3 Exit</li>
+				</ul>
+			</div>	
+		</div>
+
+	<div class="grid_12">
+		<div class="clear"></div>			
+			<div class="subheader">
+				<div  style="color: #FFF; display:block;">								
+				<h1 style="float:left; margin-top: 1px; margin-right: 10px">Add New Log Entry:</h1>
+				<div class="clear" style="margin-bottom: 5px"></div>
+				
+					<form id="newentry" action="/scripts/newsecurityentry.php" method="post" enctype="multipart/form-data">
+						<div class="grid_9">
+							<input type="hidden" name="author" value="{screen_name}">
+							<textarea class="grid_9 security_textbox" id="logtextarea" name="content"></textarea>	
+							<div id="add_image" style="display:none">
+								<h1 style="float:left; margin-top: 1px; margin-right: 10px">Add Image:</h1>							
+								<input class="grid_9" type="file" id="add_image_input" name="fileField" onchange="return validateFileExtension(this)">
+							</div>
+						</div>
+						<div class="grid_2" style="text-align:center; float: right">
+							<input type="submit" class="grid_2 security_submit" value="Submit" />
+							<a style="cursor: pointer; font-size: 15px" id="add_image_button" onclick="ShowAddImage()">Add Image</a>
+						</div>
+					</form>
+				</div>
+				<div class="clear"></div>
+
+				<div  style="color: #FFF; display:block;">								
+					<h1 style="float:left; margin-top: 1px; margin-right: 10px">Search:</h1>
+					<input id="search_txt">
+				</div>
+				<div class="clear"></div>					
+
+			</div>
+			<div class="clear"></div>					
+		
+			<div id="mainpane"></div>			
+	</div>			
+
+{if:else}
+{group_id}
+<div style="text-align:center; color: #FFF; font-size: 15px">You must be an admin or security staff to access this page.</div>
+{/if}		
+</div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

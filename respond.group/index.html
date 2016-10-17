@@ -1,0 +1,209 @@
+{embed="responsive/html_open"}
+
+<?php 
+	$isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+	$isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+	$fromMobile = (bool) strpos($_SERVER['HTTP_REFERER'],'iphone');
+
+	if ($isiPhone==TRUE && $fromMobile==FALSE){
+		header('Location: http://northlandchurch.net/iphone'); exit();	
+	}
+?>
+
+{embed="responsive/respond-header"}
+{embed="responsive/header"}
+{embed="responsive/nav"}
+
+<script type="text/javascript">
+var liveService = "FALSE";
+
+$(document).ready(function(){
+	$("#home-worship-vid, #live-stream").click(function(){
+		swfobject.embedSWF(player, "home-vid", "620","367", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+	});
+	
+});
+</script>
+
+
+<script type="text/javascript">
+		$(document).ready(function(){
+			$('ul#respond-slider').bxSlider({
+				mode: 'vertical',
+				infiniteLoop: false,
+				hideControlOnEnd: true,
+				controls: false,
+				speed: 2000, 
+				auto: true,
+				autoDirection: 'next',
+				autoHover: true,   
+				pager:true,
+				pagerSelector: '#my-pager2',
+				startingSlide: 0
+			});
+		});
+	</script>
+
+
+
+<div id="home-series-bg-long" class="default_visible">
+		
+	<ul id="respond-slider">
+		
+		<li>
+			<div id="home-worship-bg-test">
+				<div class="container_12" id="home-title-space">
+					<div id="home-dove"></div>
+					<div id="home-worship-title">
+						<a href="/respond/worshipgod"><img src="/_assets/img/v2/home/worship-god/button.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+		
+		<li>
+			<div id="home-bible-bg-test">
+				<div class="container_12" id="home-title-space">
+					<div id="home-bible-title">
+						<a href="/respond/readthebible"><img src="/_assets/img/v2/home/respond/btn-bible.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+		
+		<li>
+			<div id="home-pray-bg-test">
+				<div class="container_12" id="home-title-space">
+					<div id="home-pray-title">
+						<a href="/respond/pray"><img src="/_assets/img/v2/home/respond/btn-pray.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+
+		<li>
+			<div id="home-serve-bg-test">
+				<div class="container_12" id="home-title-space">
+					<div id="home-serve-title">
+						<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30432"><img src="/_assets/img/v2/home/respond/btn-serve.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+
+		<li>
+			<div id="home-generous-bg">
+				<div class="container_12" id="home-title-space">
+					<div id="home-generous-title">
+						<a href="/respond/livegenerously"><img src="/_assets/img/v2/home/respond/btn-generous.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+
+		<li>
+			<div id="home-community-bg">
+				<div class="container_12" id="home-title-space">
+					<div id="home-community-title">
+						<a href="/neighbors"><img src="/_assets/img/v2/home/respond/btn-community.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+		
+		<li>
+			<div id="home-story-bg-test">
+				<div class="container_12" id="home-title-space">
+					<div id="home-story-title">
+						<a href="/media/category/stories"><img src="/_assets/img/v2/home/respond/btn-story.png" /></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>	
+		</li>
+	
+	</ul>
+
+</div>
+
+
+<div id="bottom-bar-wrap" class="default_visible">
+	<div id="new-bottom-bar">	
+		<div class="container_12">
+			<div class="grid_12">
+				<div id="my-pager2"></div>
+			</div>
+		</div>
+	</div>
+</div>	
+
+<div class="container_12">
+
+	<div class="shinethelight">
+		<br><br>
+	</div>
+	
+	<div class="grid_4 respond-block" id="respond-block-worship">
+		<h1>Worship God</h1>
+		<h2>Glorify God for who He is and what He has done </h2>
+		<p>The time is coming and has now come when true worshipers will worship the Father in spirit and truth.<br /><em>- Jesus Christ (John 4:23, NIV)</em></p>
+		<a href="/respond/worshipgod"><div id="respond-btn"></div></a>
+	</div>
+	
+	<div class="grid_4 respond-block" id="respond-block-bible">
+		<h1>Read the Bible</h1>
+		<h2>Study God's message to you often</h2>
+		<p class="marg-b-20">I am watching over My word to perform it. <br /><em>-God (Jeremiah 1:12, NASB)</em></p>
+		<a href="/respond/readthebible"><div id="respond-btn"></div></a>
+	</div>
+	
+	<div class="grid_4 respond-block" id="respond-block-pray">
+		<h1>Pray</h1>
+		<h2>Engage in conversation with God</h2>
+		<p>The eyes of the Lord are on the righteous and his ears are attentive to their prayer.  - Peter, an 
+		eyewitness <br /><em>- I Peter 3:12, NIV</em></p>
+		<a href="/respond/pray"><div id="respond-btn"></div></a>
+	</div>
+
+	<div class="grid_4 respond-block" id="respond-block-serve">
+		<h1>Serve Others</h1>
+		<h2>Meet the needs of the people around you</h2>
+		<p>Just as the Son of Man did not come to be served, but to serve, and to give his life as a ransom for many.<br /><em>- (Matthew 20:28, NIV)</em> </p>
+		<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30432"><div id="respond-btn"></div></a>
+	</div>
+
+	<div class="grid_4 respond-block" id="respond-block-generous">
+		<h1>Live Generously</h1>
+		<h2>Give what God’s given you </h2>
+		<p class="marg-b-20">For where your treasure is, there your heart will be also. <br /><em>- Jesus Christ (Matthew 6:21, NASB)</em></p>
+		<a href="/respond/livegenerously"><div id="respond-btn"></div></a>
+	</div>
+
+	<div class="grid_4 respond-block" id="respond-block-community">
+		<h1>Be in Community</h1>
+		<h2>Foster environments for relationship</h2>
+		<p>“All men will know that you are Mydisciples, if you have love for one another.” <br /><em>- Jesus Christ (John 13:35, NASB)</em></p>
+		<a href="/neighbors"><div id="respond-btn"></div></a>
+	</div>
+	
+	<div class="grid_4 respond-block" id="respond-block-story">
+		<h1>Share Your Story</h1>
+		<h2>Tell others what God is doing in your life</h2>
+		<p>Always be ready to give an answer to anyone who asks you about the hope you have.<br />- Peter, an eye-witness (1 Peter 3:15, NIV)</p>
+		<a href="/media/category/stories"><div id="respond-btn"></div></a>
+	</div>
+
+</div>
+<div class="clear"></div>
+</div>
+</div>
+
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}

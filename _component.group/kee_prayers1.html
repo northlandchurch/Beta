@@ -1,0 +1,69 @@
+<?php
+require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+$cache			= new KeePHPCache();
+$exp_interval 	= 100; 									// Expiration interval: minutes
+$request_uri 	= '{embed:file_name}';					// Retrieve a file name as a parameter e.g) /_component/kee_prayers1
+// when this page is accessed directly e.g) http://www.northlandchurch.net/_component/kee_prayers1
+if ($request_uri == '')
+{
+	$request_uri = $_SERVER['REQUEST_URI'];				// e.g) /_component/kee_prayers1
+}
+$file = $cache->getRealCacheFilePath($request_uri); 	// Location of cache file
+
+if (!$cache->isCacheExpired($request_uri, $exp_interval))
+{
+	include($file); 		// include cache file
+	echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+}
+else
+{
+	ob_start(); 			// start output buffering
+?>
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="24" dynamic="off" disable="categories|member_data|pagination"}
+<article class="card card-fourth">
+	<div class="copy-container">
+		<p class="date">{entry_date format="%F %j"}</p>
+		<h3><?php echo ucwords(strtolower("{prayer-name}"));?></h3>
+		<p class="body-copy">
+			{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{prayer-need}{/exp:strip_html}{/exp:trunchtml}
+			<a class="main-link" href="/respond/pray/{entry_id}/">Read More <span class="icon-arrow-filled"></span></a>
+		</p>
+	</div>
+
+	<div class="details prayer-details-favorite" id="pray{entry_id}">
+		<div class="detail-left">
+			{exp:favorites:entry_count entry_id="{entry_id}"}
+			{if favorites_count_public}
+			<p><span class="icon-heart active"></span><span class="pray-count">{favorites_count_public}</span> <span class="extra-content">Prayed</span></p>
+			{/if}
+			{/exp:favorites:entry_count}
+		</div>
+		<div class="detail-right">
+			{if logged_in && (screen_name!="Anonymous Member")}
+				<!-- logged in -->
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<!-- saved -->
+						<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">You Prayed <span class="icon-arrow-filled"></span></a>
+					{if:else}
+						<!-- not saved -->
+						<a class="main-link favorite-pray" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>				
+					{/if}
+				{/exp:favorites:saved}
+			{if:else}
+				<!-- not logged in -->
+				<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>
+			{/if}
+		</div>
+	</div>
+</article>
+{/exp:channel:entries}
+<?php
+	$fp = fopen($file, 'w'); 			// open cache file
+	fwrite($fp, ob_get_contents()); 	// create new cache file
+	fclose($fp); 						// close cache file
+	ob_end_flush(); 					// flush output buffered
+	echo "<!-- End of Live contents at " . $request_uri . "... -->";
+}
+?>

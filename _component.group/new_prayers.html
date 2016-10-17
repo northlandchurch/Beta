@@ -1,0 +1,41 @@
+<div>
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="4" dynamic="off"}
+<article class="card card-fourth" id="pray_article_{count}">
+	<div class="copy-container">
+		<p class="date">{entry_date format="%F %j"}</p>
+		<h3><?php echo ucwords(strtolower("{prayer-name}"));?></h3>
+		<p class="body-copy">
+			{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{prayer-need}{/exp:strip_html}{/exp:trunchtml}
+			<a class="main-link" href="/respond/pray/{entry_id}/">Read More <span class="icon-arrow-filled"></span></a>
+		</p>
+	</div>
+
+	<div class="details prayer-details-favorite" id="pray{entry_id}">
+		<div class="detail-left">
+			{exp:favorites:entry_count entry_id="{entry_id}"}
+			{if favorites_count_public}
+			<p><span class="icon-heart active"></span><span class="pray-count">{favorites_count_public}</span> <span class="extra-content">Prayed</span></p>
+			{/if}
+			{/exp:favorites:entry_count}
+		</div>
+		<div class="detail-right">
+			{if logged_in && (screen_name!="Anonymous Member")}
+				<!-- logged in -->
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<!-- saved -->
+						<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">You Prayed <span class="icon-arrow-filled"></span></a>
+					{if:else}
+						<!-- not saved -->
+						<a class="main-link favorite-pray" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>				
+					{/if}
+				{/exp:favorites:saved}
+			{if:else}
+				<!-- not logged in -->
+				<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>
+			{/if}
+		</div>
+	</div>
+</article>
+{/exp:channel:entries}
+</div>

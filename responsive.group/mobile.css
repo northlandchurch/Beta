@@ -1,0 +1,219 @@
+body {
+	-webkit-text-size-adjust: none;
+}
+
+#tithesofferings,
+#logged_status,
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.alpha,
+.omega {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* CUSTOM PAGE CONDITIONALS ----------------------------------------------------------------------------------------------------*/
+
+/* HOME PAGE CONDITIONALS */
+
+.previous_thumbs {
+	float: left;
+	height: 260px;
+	display: block;
+	margin-left: 0 !important;
+	margin-right: 10px !important;
+}
+
+.last {
+	float: none !important;
+}
+
+#assemble {margin-left: 20px !important}
+#timetable {margin-left: 20px !important}
+.timezone {margin-left: 20px !important}
+.prayer_requests {margin-left: 20px !important}
+.prayer_name {margin-left: 20px !important}
+.prayer_prayer {margin-left: 20px !important}
+.prayer_post {margin-left: 20px !important}
+#readbible-mid {padding-left: 20px !important}
+.readbible_more {margin-left: 20px !important}
+.joinus h4 {margin-left: 20px !important}
+.homecal {margin-left: 25px !important}
+.whatscurrent-finish h2 {padding-left: 20px !important; margin-left: 0 !important}
+
+
+/* BLOG PAGE CONDITIONALS */
+#aside {
+	float: none !important;
+}
+.blog-comments {
+	width: 100% !important;
+}
+	.blog-comments textarea {
+		width: 100% !important;
+		padding: 0 !important;
+	}
+
+/* CALENDAR CONDITIONALS */
+.calendar-entries {
+	padding-right: 0 !important;
+}
+
+
+/* FOOTER CONDITIONALS */
+.footer_links {
+	float: left;
+}
+
+
+/* MASTER CONDITIONALS */
+.align_center,
+.align_right {
+  text-align: left;
+}
+
+.range_0 {
+	display: hidden;
+	visibility: hidden;
+}
+
+.masters_holder {
+	margin-top: 5px;
+	background-image: none !important;
+}
+
+
+/* `Nav Styles ----------------------------------------------------------------------------------------------------*/
+#countdown {
+	display: none !important;
+	visibility: hidden !important;
+}
+#nav-main {
+	padding-top: 2px;
+	margin-bottom: 10px;
+	font-size: 12px !important;
+}
+	#bethechurch, #getinvolved, #resources, #media, #calendar, #about {font-size: 12px !important;}
+	#nav-main p {
+		margin: 0 10px;
+	}
+	#nav-main ul:first-child {
+		font-size: 12px !important;
+		display: inline !important;
+	}
+	#nav-main ul:last-child {
+		font-size: 12px !important;
+		display: inline !important;
+	}
+	#nav-main a{
+		color: white;
+		text-decoration: none;
+		margin: 0 10px;
+	}
+	#nav-main a:hover {
+		color: white;
+		text-decoration: underline;
+		margin: 0 10px;
+	}
+	#nav-main li {
+		display: inline !important;
+		float: left !important;
+	}
+#nav-hover {
+	display: none !important;
+	visibility: hidden !important;
+}
+#inner {
+	display: none;
+}
+#social {
+	float: right;
+}
+#search {
+	float: right;
+	height: 40px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+
+#login-register-box, #register-box, #confirmation, #full-group, .modaling
+{
+	width: 81% !important;
+}
+
+#login-register-box input.field, #user-login-box input.field,  #signup-box input.field, #register-box input.field, .modaling input.field
+
+{
+	width: 60% !important;
+}
+
+#text_modal {
+	width: 100%;
+	color: #FFF;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	padding: 10px;
+	text-align: center;
+}
+
+/* `Clear Floated Elements ----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after,
+.container_12:before,
+.container_12:after,
+.container_16:before,
+.container_16:after {
+  content: '.';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+}
+
+.clearfix:after,
+.container_12:after,
+.container_16:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix,
+.container_12,
+.container_16 {
+  zoom: 1;
+}

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang='en'xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+	<meta content="user-scalable=no">
+	
+	{if segment_1=="video"}
+		{exp:channel:entries channel="media" limit="1" dynamic="on"}
+	 		<meta property="og:url" content ="http://www.northlandchurch.net/video/{url_title}/" />
+	  		<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/video/{url_title}/" />
+
+		  	<meta property="og:title" content="Video: {title}" />
+			<meta class="swiftype" name="title" data-type="string" content="Video: {title}" />
+
+			<meta property="og:type" content="video" />
+			<meta class="swiftype" name="type" data-type="enum" content="video" />
+			
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+		  
+			{if media-primary}
+				<meta property="og:image" content="https://www.northlandchurch.net/_img/uploads/{media-primary}"/>
+			  	<meta class='swiftype' name='image' data-type='enum' content='https://www.northlandchurch.net/_img/uploads/{media-primary}'/>
+			{if:else}
+				{media-unit}
+				{if media-unit:series-image}
+				<meta property="og:image" content="https://www.northlandchurch.net/_assets/img/v2/series/{media-unit:series-image}"/>
+				<meta class='swiftype' name='image' data-type='enum' content='https://www.northlandchurch.net/_assets/img/v2/series/{media-unit:series-image}'/>
+				{/if}
+				{/media-unit}
+			{/if}
+			
+			<?php
+				$isService = false;
+				$isHighlight = false;
+			?>
+			{categories}
+				{if category_id == 48}
+				<?php $isService = true ?>
+				<meta property="video:tag" content="{category_name}" />
+				<meta class="swiftype" name="tags" data-type="string" content="{category_name}" />
+				{if:elseif category_id == 45}
+				<?php $isHighlight = true ?>
+				<meta property="video:tag" content="Worship Highlight" />
+				<meta class="swiftype" name="tags" data-type="string" content="Worship Highlight" />
+				{if:elseif category_id == 527}
+				<meta property="video:tag" content="Ask A Pastor" />
+				<meta class="swiftype" name="tags" data-type="string" content="Ask A Pastor" />
+				{/if}
+			{/categories}
+		  
+			{exp:tag:tags
+			  entry_id="{entry_id}"
+			  orderby="tag_name"
+			  sort="desc"
+			}
+				<meta property="video:tag" content="{exp:strip_html}{tag}{/exp:strip_html}" />
+				<meta class="swiftype" name="tags" data-type="string" content="{tag}" />
+			{/exp:tag:tags}
+			
+			{if media-description}
+			<meta property="og:description" content="{exp:strip_html}{media-description}{/exp:strip_html}"/>
+			<meta class="swiftype" name="body" data-type="text" content="{exp:strip_html}{media-description}{/exp:strip_html}" />
+			{if:else}
+			<?php
+			if($isService) {
+			?>
+			<meta property="og:description" content="A worship service archive from Northland, A Church Distributed."/>
+			<meta class="swiftype" name="body" data-type="text" content="A worship service archive from Northland, A Church Distributed." />
+			<?php
+			} elseif($isHighlight) {
+			?>
+			<meta property="og:description" content="A worship highlight from Northland, A Church Distributed, &quot;{title}&quot;"/>
+			<meta class="swiftype" name="body" data-type="text" content="A worship highlight from Northland, A Church Distributed, &quot;{title}&quot;" />
+			<?php
+			} else {
+			?>
+			<meta property="og:description" content="A video from Northland, A Church Distributed."/>
+			<meta class="swiftype" name="body" data-type="text" content="A video from Northland, A Church Distributed." />
+			<?php
+			}
+			?>
+			{/if}
+			
+	  {/exp:channel:entries}
+	  
+	{if:elseif segment_1=="blogs"}
+		{exp:channel:entries channel="blogs" limit="1" dynamic="on"}
+			<meta property="og:title" content="{title}" />
+			<meta property="og:url" content ="http://www.northlandchurch.net/blogs/{url_title}/" />
+			<meta property="og:description" content="{exp:low_replace find="QUOTE" replace="&quot;" regex="yes"}{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{blog-post}{/exp:strip_html}{/exp:trunchtml}{/exp:low_replace}" />
+			<meta property="og:updated_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta property="og:type" content="article" />
+			
+			{if blog-author}<meta name="author" content="{blog-author}">{/if}
+			<meta property="article:publisher" content="https://www.facebook.com/northlandchurch" />
+			<meta property="article:published_time" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="article:modified_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			
+			<meta class="swiftype" name="title" data-type="string" content="Northland Blogs: {title}" />
+			<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/blogs/{url_title}/" />
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta class="swiftype" name="updated_at" data-type="date" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+			<meta class="swiftype" name="type" data-type="enum" content="article" />
+			<?php
+				ob_start();?>{blog-post}<?php
+				$obcontents = ob_get_contents();
+				ob_end_clean();			
+				$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+				preg_match($pattern, $obcontents, $match);
+				if (isset($match[1])){ 
+			?>		<meta property="og:image" content="<?php echo $match[1]; ?>" />
+					<meta class='swiftype' name='image' data-type='enum' content='<?php echo $match[1]; ?>' />
+			<?php 
+				} 
+				else {
+			?>
+					<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+					<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/northland.jpg' />
+			<?php
+				}
+			?>
+			
+			{exp:tag:tags
+				entry_id="{entry_id}"
+				orderby="tag_name"
+				sort="desc"
+			}
+				<meta property="article:tag" content="{exp:strip_html}{tag}{/exp:strip_html}" />
+				<meta class="swiftype" name="tags" data-type="string" content="{tag}" />
+			{/exp:tag:tags}
+			
+		{/exp:channel:entries}
+		
+	{if:elseif segment_1=="articles"}
+		{exp:channel:entries channel="article" dynamic="on" limit="1"}
+			<meta property="og:title" content="{title}" />
+			<meta property="og:type" content="article" />
+			<meta property="og:description" content="{exp:low_replace find="QUOTE" replace="&quot;" regex="yes"}{exp:trunchtml chars="200" inline="..."}{exp:strip_html}{article-body}{/exp:strip_html}{/exp:trunchtml}{/exp:low_replace}" />
+			<meta property="st:published_at" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+
+			<?php
+				ob_start();?>{article-body}<?php
+				$obcontents = ob_get_contents();
+				ob_end_clean();			
+				$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+				preg_match($pattern, $obcontents, $match);
+				if (isset($match[1])){ 
+			?>		<meta property="og:image" content="<?php echo $match[1]; ?>" />
+					<!--<meta property='st:image' content='<?php echo $match[1]; ?>' />-->
+					<meta class='swiftype' name='image' data-type='enum' content='<?php echo $match[1]; ?>' />
+			<?php } ?>
+		{/exp:channel:entries}
+	
+	{if:elseif segment_1=="podcast"}
+		{exp:channel:entries channel="podcasts" limit="1" dynamic="on"}
+			<meta property="og:url" content ="http://www.northlandchurch.net/podcast/{url_title}/" />
+			<meta property="og:type" content="website" />
+			<meta property="og:title" content="{title}" />
+			<meta
+				property="og:description" 
+				content="{if podcast-episode-subtitle}{exp:strip_html}{podcast-episode-subtitle}{/exp:strip_html}{if:else}{exp:strip_html}{podcast-series}{podcast-series:series-description}{/podcast-series}{/exp:strip_html}{/if} {if podcast-episode-guest-bio}{podcast-episode-guest-bio}{/if}"
+			/>
+			<meta property="og:image" content="{if podcast-episode-photo}{podcast-episode-photo}{if:else}https://www.northlandchurch.net/_assets/img/v2/series/{podcast-series}{podcast-series:series-image}{/podcast-series}{/if}" />
+			
+			<meta class="swiftype" name="title" data-type="string" content="Northland Podcasts: {title}" />
+			<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/blogs/{url_title}/" />
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta class="swiftype" name="updated_at" data-type="date" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+			<meta class='swiftype' name='image' data-type='enum' content='{if podcast-episode-photo}{podcast-episode-photo}{if:else}https://www.northlandchurch.net/_assets/img/v2/series/{podcast-series}{podcast-series:series-image}{/podcast-series}{/if}'/>
+			<meta class="swiftype" name="body" data-type="text" 
+				content="{if podcast-episode-subtitle}{exp:strip_html}{podcast-episode-subtitle}{/exp:strip_html}{if:else}{exp:strip_html}{podcast-series}{podcast-series:series-description}{/podcast-series}{/exp:strip_html}{/if} {if podcast-episode-guest-bio}{podcast-episode-guest-bio}{/if}">
+		{/exp:channel:entries}
+		
+	{if:elseif segment_1=="series"}
+		{exp:channel:entries channel="series" limit="1" dynamic="on"}
+			<meta property="og:type" content="website" />
+			<meta property="og:title" content="{title}" />
+			<meta
+				property="og:description" 
+				content="{if series-metaproperty-description}{exp:strip_html}{series-metaproperty-description}{/exp:strip_html}{if:else}A Series from Northland, A Church Distributed{/if}"
+			/>
+			<meta property="og:image" content="{if series-image}https://www.northlandchurch.net/_assets/img/v2/series/{series-image}{if:else}http://www.northlandchurch.net/_img/northland.jpg{/if}" />
+			<meta property='st:image' content='{if series-image}https://www.northlandchurch.net/_assets/img/v2/series/{series-image}{if:else}http://www.northlandchurch.net/_img/northland.jpg{/if}' />
+		{/exp:channel:entries}
+	
+	{if:elseif segment_1=="team" && segment_2 != ''}
+		{exp:channel:entries channel="staff" dynamic="on" limit="1" require_entry="yes"}
+			<?php
+				$teamname = "{title}";
+				$teamfile = str_replace(' ', '_', $teamname); //for picture url
+				$teamfullfile = "http://www.northlandchurch.net/_img/team/".$teamfile.".jpg";
+			?>
+			<meta property="og:url" content="http://www.northlandchurch.net/team/{url_title}/" />
+			<meta property="og:title" content="Northland Team: {if staff-honorific}{staff-honorific} {/if}{title}" />
+			<meta property="og:image" content="<?php echo $teamfullfile; ?>" />
+			<meta property="og:type" content="article" />
+			<meta property="article:published_time" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="article:modified_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="og:updated_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta property="og:description" content="{exp:low_replace find="QUOTE" replace="&quot;" regex="yes"}{exp:strip_html}{staff-bio}{/exp:strip_html}{/exp:low_replace}" />
+			
+			<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/team/{url_title}/" />
+			<meta class="swiftype" name="title" data-type="string" content="Northland Team: {if staff-honorific}{staff-honorific} {/if}{title}" />
+			<meta class='swiftype' name='image' data-type='enum' content='<?php echo $teamfullfile; ?>' />
+			<meta class="swiftype" name="type" data-type="enum" content="article" />
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta class="swiftype" name="updated_at" data-type="date" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+			<meta class="swiftype" name="body" data-type="text" content="{exp:strip_html}{staff-bio}{/exp:strip_html}">
+		{/exp:channel:entries}
+	
+	{if:elseif segment_1=="joelhunter" }
+		{exp:channel:entries channel="staff" entry_id="148"}
+			<meta property="og:url" content="http://www.northlandchurch.net/joelhunter/" />
+			<meta property="og:title" content="Dr. Joel C. Hunter" />
+			<meta property="og:image" content="http://northlandchurch.net/_img/uploads/Joel_in_office.jpg" />
+			<meta property="og:description" content="{exp:strip_html}{staff-bio}{/exp:strip_html}" />
+			<meta property="og:updated_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta property="og:type" content="article" />
+			<meta property="article:published_time" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="article:modified_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+
+			<meta class="swiftype" name="body" data-type="text" content="{exp:strip_html}{staff-bio}{/exp:strip_html}">
+			<meta class="swiftype" name="title" data-type="string" content="Dr. Joel C. Hunter" />
+			<meta class='swiftype' name='image' data-type='enum' content='http://northlandchurch.net/_img/uploads/Joel_in_office.jpg' />
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}" />			
+			<meta class="swiftype" name="updated_at" data-type="date" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}">		
+		{/exp:channel:entries}
+
+	{if:elseif segment_1=="team" && segment_2 == ''}
+		<meta property="og:url" content="http://www.northlandchurch.net/team/" />
+		<meta property="og:title" content="Northland Team" />
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/website_assets/team_400x400.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/website_assets/team_400x400.jpg' />
+		<meta property="og:description" content="As Northland sees its members as ministers, it is the job of the staff (as well as the executive team, pastors, and elders) to provide education and training as well as support environments for ministry service." />
+
+	{if:elseif segment_1=="partners" && segment_2 == "missionaries" && segment_3 != ''}
+		{exp:channel:entries channel="staff" category="249" dynamic="on" limit="1" require_entry="yes"}
+			<?php
+				$teamname = "{title}";
+				$teamfile = str_replace(' ', '_', $teamname); //for picture url
+				$teamfullfile = "http://www.northlandchurch.net/_img/team/".$teamfile.".jpg";
+			?>
+			<meta property="og:url" content ="http://www.northlandchurch.net/partners/missionaries/{url_title}/" />
+			<meta property="og:title" content="Northland Partners: {if staff-honorific}{staff-honorific} {/if}{title}" />
+			<meta property="og:image" content="<?php echo $teamfullfile; ?>" />
+			<meta property="og:description" content="{exp:low_replace find="QUOTE" replace="&quot;" regex="yes"}{exp:strip_html}{staff-bio}{/exp:strip_html}{/exp:low_replace}" />
+			<meta property="og:type" content="article" />
+			<meta property="article:published_time" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="article:modified_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}"/>
+			<meta property="og:updated_time" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			
+			<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/partners/missionaries/{url_title}/" />
+			<meta class="swiftype" name="title" data-type="string" content="Northland Partners: {if staff-honorific}{staff-honorific} {/if}{title}" />
+			<meta class='swiftype' name='image' data-type='enum' content='<?php echo $teamfullfile; ?>' />
+			<meta class="swiftype" name="body" data-type="text" content="{exp:strip_html}{staff-bio}{/exp:strip_html}">
+			<meta class="swiftype" name="type" data-type="enum" content="article" />
+			<meta class="swiftype" name="published_at" data-type="date" content="{entry_date format="%Y-%m-%dT%H:%i:%s%Q"}" />
+			<meta class="swiftype" name="updated_at" data-type="date" content="{edit_date format="%Y-%m-%dT%H:%i:%s%Q"}">
+		{/exp:channel:entries}
+	
+	{if:elseif segment_1=="partners" && segment_2 == "missionaries" && segment_3 == ''}
+		<meta property="og:title" content="Northland Partners: Missionaries" />
+		<meta property="og:url" content="http://www.northlandchurch.net/partners/missionaries/" />
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/website_assets/partners_400x400.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/website_assets/partners_400x400.jpg' />
+		<meta property="og:description" content="Northland is involved with distributing ministry to people outside of our own local, cultural and linguistic sphere of ministry,
+		in accordance with the promise God gave to Abraham (Genesis 12:3) and the command and expectation of Jesus for the church to make disciples and be His witnesses ... in all the world (Acts 1:8).
+		The missionaries listed here provide opportunities for Northland to connect with other organizations for the development of new partnerships,
+		and also provide direct ministry opportunities for Northlanders through short-term missions trips and distributed journeys." />
+	
+	{if:elseif segment_1=="volunteer" }
+		<meta property="og:url" content="http://www.northlandchurch.net/volunteer/" />
+		<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/volunteer/" />
+		<meta property="og:title" content="Serve and Volunteer at Northland, A Church Distributed" />
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/website_assets/volunteer_400x400.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/website_assets/volunteer_400x400.jpg' />
+		<meta property="og:description" content="Every week hundreds of people volunteer to serve by meeting the practical needs of our community or congregation.
+		Below are current needs for service, both in the community and at our locations. Need help signing up or have questions? We'd love to help - volunteer@northlandchurch.net." />
+	
+	{if:elseif segment_1=="ministries" }
+		<meta property="og:url" content="http://www.northlandchurch.net/ministries/" />
+		<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/ministries/" />
+		<meta property="og:title" content="Ministries at Northland, A Church Distributed" />
+		<meta property="og:image" content="http://northlandchurch.net/_img/website_assets/ministries_400x400.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://northlandchurch.net/_img/website_assets/ministries_400x400.jpg' />
+		<meta property="og:description" content="We are a congregation of 20,000 focused on building an international community of worshipers. 
+		Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. 
+		Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe." />
+	
+	{if:elseif segment_2=="liturgy"}
+		<meta property="og:title" content="Daily Liturgy" />
+		<meta property="og:image" content="//www.northlandchurch.net/_img/northland.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='//www.northlandchurch.net/_img/northland.jpg' />
+		<meta property="og:description" content="A daily liturgy in three parts: Rising (morning), Reconnecting (midday), and Resting (evening)." />
+		<link href="//www.northlandchurch.net/_assets/datepicker/" rel="stylesheet" type="text/css" />
+	
+	{if:elseif segment_2=="prayers"}
+		<meta property="og:title" content="{if embed:htmltitle != ''}{embed:htmltitle}{if:else}Prayer Wall{/if}" />
+		<meta property="og:url" content="http://www.northlandchurch.net/resources/prayers/" />
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+		<meta property="og:description" content="Prayer isn't just about asking God for help. Prayer also offers a unique opportunity to invite others to ask God for help on our behalf. 
+		Lift some of these requests up to God during your prayer time today." />
+
+		<meta class="swiftype" name="url" data-type="enum" content="http://www.northlandchurch.net/resources/prayers/" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/northland.jpg' />
+		<meta class="swiftype" name="body" data-type="text" content="Lift some of these requests up to God during your prayer time today.
+		If you have a prayer request to share, click the button to the right so that others may pray for you." />
+	
+	{if:elseif segment_2=="tag"}
+		<meta property="og:title" content="Resources about {segment_3}" /> 
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/northland.jpg' />
+		<meta property="og:description" content="Resources that have been assigned the tag, {segment_3}." />
+		<meta class="swiftype" name="published_at" data-type="date" content="2010-01-01T10:35:00-00:00" />
+
+	{if:else}
+		<meta property="og:title" content="Northland, A Church Distributed" /> 
+		<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+		<meta class='swiftype' name='image' data-type='enum' content='http://www.northlandchurch.net/_img/northland.jpg' />
+		<meta property="og:description" content="We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe." />
+	{/if}
+
+	{!-- The {htmltitle} is a variable that can be passed into the header for titling the page --}
+	<title>{if embed:htmltitle != ''}{embed:htmltitle}{/if}{if embed:htmltitle == ''}Northland, A Church Distributed{/if}</title>
+    <link href="//cloud.typography.com/6046374/767068/css/fonts.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
+    <link href="https://draft13.github.io/Website-Styles/assets/stylesheets/application.css" rel="stylesheet" type="text/css" />
+    <link href="/_assets/extracss/" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/fancybox.css" />
+	<link rel="stylesheet" href="/_assets/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css">
+
+	<link rel="shorcut icon" href="/_img/favicon.png" />
+	{if embed:videometa !=''}{embed:videometa}{/if}
+
+	<script type="text/javascript" src="https://use.typekit.com/omz5rgd.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>	
+	<script type="text/javascript" src="/_assets/js/swfobject.js"></script>
+	<script type="text/javascript" src="/_assets/js/lazyload.js"></script>
+	<script type="text/javascript" src="/_assets/js/fancybox.js"></script>
+	<script type="text/javascript" src="/_assets/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/_assets/js/jquery.cookies.2.2.0.min.js"></script>
+
+	<script type="text/javascript" src="/_assets/js/bx-slider.js"></script>
+
+	<script type="text/javascript" src="/_assets/js/ui.js"></script>
+
+	<script type="text/javascript" src="/_assets/js/nacd-global.js"></script>
+	<script type="text/javascript" src="/_assets/js/nacd-registration.js"></script>
+	<script type="text/javascript" src="/_assets/js/nacd-class-registration.js"></script>
+	
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>		-->
+    <script src="https://northlandchurch.github.io/Website-Styles/assets/javascripts/vendor.js" type="text/javascript"></script>	
+    <script src="https://draft13.github.io/Website-Styles/assets/javascripts/application.js" type="text/javascript"></script>
+
+	<script src="/_assets/js/gatag.js" type="text/javascript"></script>
+	<script type="text/javascript">
+$(document).ready(function() {
+
+	$('#minlink').click(function() {
+		window.location = "/main/ministries";
+	  }
+	);
+
+
+	$('#minlink').mouseenter(function() {
+		$( '.navigation-ministries' ).fadeIn(200);
+		$( 'ul#navigation-ministries-list' ).fadeIn(200);
+		$( 'li.minli' ).fadeIn(200);
+		$( '#minlink' ).css({'background-color':'white', 'color':'black'});
+	  }
+	);
+
+	$('.navigation-ministries').mouseleave(function() {
+		$( '.navigation-ministries' ).fadeOut(200);
+		$( 'ul#navigation-ministries-list' ).fadeOut(200);
+		$( 'li.minli' ).fadeOut(200);
+		$( '#minlink' ).css({'background-color':'transparent', 'color':'white'});
+	  }
+	);
+	
+	$(".navigation-search").click(function() {
+	console.log(".search clicked");
+		setTimeout(function() { $('input[name="search"]').focus(); }, 1000);
+		return false;
+	});
+		
+});
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-966214-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = 'https://ssl.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	  $(window).scroll(function() {
+  		if ($(document).scrollTop() > 300) {
+	  		$('nav').addClass('short');
+  		} else {
+    		$('nav').removeClass('short');
+  		}
+	});
+
+	</script>
+
+	<script type="text/javascript" src="/_assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+	
+	<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+	
+</head>
+<body>
+
+

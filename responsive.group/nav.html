@@ -1,0 +1,244 @@
+<script type="text/javascript">
+$(function() {
+       var zIndexNumber = 1000;
+       // Put your target element(s) in the selector below!
+       $(".nav-hover").each(function() {
+               $(this).css('zIndex', zIndexNumber);
+               zIndexNumber -= 10;
+       });
+});
+</script>
+
+<script type="text/javascript" language="Javascript">
+$(document).ready(function() {	
+	var $menu = $('div.nav-hover');
+	var $open = $('#nav-main li');
+	//create an emtpy object to keep track of the timeouts
+	var menuTimeouts = {};
+	//hide all of the menus
+	$menu.hide();
+	$('.nav-hover').hide();
+	//hide all of the menus
+	$open.each(function() {
+		$(this).mouseenter(function() {
+			$menu.hide();
+			$('#' + this.id + ' .nav-hover').fadeIn('fast');
+			$('#' + this.id + ' .nav-hover').css('zIndex', '99999');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '-135px');
+		});
+		$(this).mouseleave(function() {
+			$('#' + this.id + ' .nav-hover').fadeOut('fast');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '0px');
+		});
+	});
+
+	$.ajax({
+		url: "/scripts/Localist/get_featured_events.php",
+	})
+	.done(function(data) {
+//		console.log("Done");
+//		console.log(data);
+		$("#featured_events").prepend(data);
+	})
+	.fail(function() {
+//		console.log("Fail");
+	})
+	.always(function() {
+//		console.log("Always");
+	});
+
+});
+
+</script>
+<div id="nav" class="container_12 default_visible" style="display:none" data-swiftype-index='false'>
+	<div>
+		<div id="social" class="default_visible">
+			<a href="http://www.facebook.com/northlandchurch"><img src="{v2-image-asset-url}/nav/facebook.png" /></a>
+			<a href="http://twitter.com/northlandchurch"><img src="{v2-image-asset-url}/nav/twitter.png" /></a>
+		</div>
+		<div id="search" class="default_visible">
+			<form id="sitesearch" method="get" action="/search/results/">
+
+				<input 	onfocus="if (this.value === 'Search...') {this.value =''}" 
+						onblur="if (this.value === '') {this.value ='Search...'}"
+						type="text" name="q" id="keywords" class="st-default-search-input" value="Search..." style="width: inherit;">
+
+			</form>
+		</div>
+		<ul id="nav-main" class="default_visible">
+			<li id="bethechurch"{if embed:active == 'bethechurch'} class="active"{/if}>
+				<a href="/respond" class="nav-main">Respond to God</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Be the Church. <span>Everywhere, Every day.</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+							<p>When we come to God, it is because we are responding to His voice. It is God who initiates; God who calls; God who saves. When we truly see Him for Who He is, we are compelled to worship HIm, to respond to HIs nature. When we respond, others are blessed. When we are the church, we respond to God for the benefit of others.</p> 
+							</div>
+							<div class="right-box">
+								<div><a href="/respond/worshipgod/">Worship God</a></div>
+								<div><a href="/respond/readthebible/">Read the Bible</a></div>
+								<div><a href="/media/category/stories/">Share Your Story</a></div>
+								<div><a href="/neighbors">Be in Community</a></div>
+								<div><a href="/respond/pray/">Pray</a></div>
+								<div><a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30432">Serve Others</a></div>
+								<div><a href="https://www.northlandchurch.net/respond/livegenerously/">Live Generously</a></div>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="getinvolved"{if embed:active == 'getinvolved'} class="active"{/if}>
+				<a href="/get_involved/" class="nav-main">Get Involved</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Get connected and <span>Involved</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+								<p>The last thing Jesus did on Earth was entrust the church into the hands of regular people. Keep the tradition alive, get involved and be the church.</p>
+								<br />
+								<div id="mylocation" class="choose-location">
+									{embed="_includes/location"}
+								</div>
+							</div>
+							<div class="right-box">
+								<div><a href="http://calendar.northlandchurch.net/search/events?search=Classes">Classes and Studies</a></div>
+<!--								<div><a href="/ministries/">Groups and Ministries</a></div>	-->
+								<div><a href="http://calendar.northlandchurch.net/search/groups">Groups and Ministries</a></div>	
+								<div><a href="/locations/">Locations</a></div>
+								<div><a href="/housechurch/">House Churches</a></div>
+								<div><a href="/serve/">Serving Opportunities</a></div>
+								<div><a href="/volunteer/">Volunteer at Northland</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="resources"{if embed:active == 'media' OR embed:active == 'resources'} class="active"{/if}>
+				<a href="/resources/" class="nav-main">Media &amp Blogs</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Media &amp Blogs</h2>
+						<div class="vert-line">
+							<div class="left-box">
+								{exp:channel:entries channel="media" dynamic="off" category="not 217|58|226" sort="desc" limit="2" cache="yes" refresh="120"}
+								<p {switch='class="marg-b-20"|'}>
+									{if media-image}<a href="{exp:low_replace find='index.php/'}{url_title_path='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-primary}" class="preview left" /></a>{/if}
+									<a href="{exp:low_replace find='index.php/'}{url_title_path='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+									<em>{entry_date format="%F %j, %Y"}</em>
+								</p>
+								{/exp:channel:entries}
+								<br>
+								<div><a href="/media">View all media</a></div>
+							</div>
+							<div class="right-box">
+								<div><a href="/askapastor/">Ask a Pastor</a></div>
+								<div><a href="/blogs/">Blogs</a></div>
+								<div><a href ="/articles/">Articles</a></div>
+								<div>
+									{exp:channel:entries channel="newspaper" orderby="date" sort="desc" dynamic="off" limit="1" cache="yes" refresh="120"}
+									<a href="/newspaper/">Latest Newspaper</a><br />
+									<em>{title}</em>
+									{/exp:channel:entries}
+								</div>
+								<div><a href="/media">Media</a></div>
+								<div><a href="/press">Press</a></div>
+								<div><a href="/series/">Studies &amp; Series</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="calendar"{if embed:active == 'calendar'} class="active"{/if}>
+				<a href="http://calendar.northlandchurch.net/" class="nav-main">Calendar</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Up and coming <span>Events</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+								{embed="_component/calendar-nav"}
+							</div>
+							<div id="featured_events" class="right-box">
+								<a href="http://calendar.northlandchurch.net"><img src="{v2-image-asset-url}/buttons/more-events.png" /></a>
+							</div>
+<!--
+							<div class="right-box">
+								{embed="_component/events_nav"}
+							
+							<a href="http://calendar.northlandchurch.net"><img src="{v2-image-asset-url}/buttons/more-events.png" /></a>
+							</div>
+-->							
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="about"{if embed:active == 'about'} class="active"{/if}>
+				<a href="/about/" class="nav-main">About</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Find out more <span>about Northland</span></h2>
+						<div><a href="/about/">General Info</a></div>
+						<div><a href="/team/dr_joel_c_hunter/">Senior Pastor Joel Hunter</a></div>
+						<div><a href="/team/">Meet the Team</a></div>
+						<div><a href="/partners">Partners</a></div>
+						<div><a href="/faq/">FAQs</a></div>
+						<div><a href="/articles/mvb/">Mission / Vision / Belief</a></div>
+						<div><a href="/employment/">Employment</a></div>
+					</div>
+				</div>
+			</li>
+			<div id="nav-divider" class="default_visible"></div>
+			<li id="newtonorthland"{if embed:active == 'newtonorthland'} class="active"{/if}>
+				<a href="/new/" class="nav-main">New to Northland?</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">New to Northland? <span>Start here</span></h2>
+						<p>
+							<img src="{v2-image-asset-url}/nav/new-1.png" class="left" />
+							<a href="/new/">Click here</a> to access important content for those who are new to Northland.
+						</p>
+						<img src="{v2-image-asset-url}/main/divider.png" class="divider" />
+						<p>
+							<img src="{v2-image-asset-url}/nav/new-2.png" class="left" />
+							<a href="/about/">Click here</a> to read more about Northland, A Church Distributed and learn about what we believe.
+						</p>
+						<img src="{v2-image-asset-url}/main/divider.png" class="divider" />
+						<p>
+							<img src="{v2-image-asset-url}/nav/new-3.png" class="left" />
+							<a href="/locations/">Find a location</a> near you and get connected! We have many sites including <a href="/locations/category/online/">worship available live online!</a>
+						</p>
+					</div>
+				</div>
+			</li>
+			<li id="newtogod" {if embed:active == 'newtogod'} class="active"{/if}>
+				<a href="http://newtogod.com" class="nav-main" target="_blank">New to God?</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="container_12 shinethelight" style="display:none;" data-swiftype-index='false'>
+
+	<select id="nav-mobile" class="shinethelight" onchange="javascript:handleSelect(this)">
+		<option selected="selected" disabled="disabled">&nbsp;Click to Navigate</option>
+	    <option value="/">Home</option> 
+	    <option value="/respond">Respond to God</option> 
+	    <option value="/get_involved">Get Involved</option> 
+	    <option value="/resources">Media & Blogs</option> 
+	    <option value="http://calendar.northlandchurch.net">Calendar</option> 
+		<option value="/about">About</option> 
+		<option value="/new">New to Northland?</option>
+		<option value="http://newtogod.com">New to God?</option>
+	</select>
+	<script type="text/javascript">
+		//Link to the appropriate option value
+		function handleSelect(elm)
+		{window.location = elm.value;}
+	</script>
+</div>
+
+<div class="nav-shadow"></div>

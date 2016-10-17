@@ -1,0 +1,35 @@
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" dynamic="off" limit="10"}
+<div class="isotope-grid-item prayer">
+	<div>
+		<h2 class="heading heading-m isotitle"><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+		<p class="tss">{exp:trunchtml chars="265"}{prayer-need}{/exp:trunchtml}</p>
+	</div>
+	<div>
+		<p class="tss">{entry_date format="%F %j, %Y"}</p>
+	</div>
+
+	<div class='pray-card-options' id="pray{entry_id}" >
+		{if logged_in && (screen_name!="Anonymous Member")}
+			{exp:favorites:saved entry_id="{entry_id}"}
+				{if saved}
+					<a class="favorite faved btn" href="/_component/favorite-add/{entry_id}/">You Prayed</a>
+				{if:else}
+					<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now</a>					
+				{/if}
+			{/exp:favorites:saved}
+		{if:else}
+			<li id="pray-for-li"><a class="favorite btn" href="/_component/favorite-add/{entry_id}/">Pray Now</a></li>
+		{/if}
+
+		{exp:favorites:entry_count entry_id="{entry_id}"}
+			{if favorites_count_public}
+				<div class="prayer-number tss">
+					<span class="count">{favorites_count_public}</span> <span class="people-prayed">{if favorites_count_public>1}People have{if:else}Person has{/if} prayed</span>
+				</div>
+			{/if}
+		{/exp:favorites:entry_count}
+	</div>
+</div>					
+
+{/exp:channel:entries}
+

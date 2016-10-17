@@ -1,0 +1,161 @@
+{!-- Morning Liturgy Reading --}
+<div class="copy-container" id="morning-liturgy" style="display:none">
+{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+			  start_on="2014-{current_time format='%m-%d'} 00:00" 
+			  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+			  search:liturgy-sequence="=Morning"}	
+	<div class="details">
+		<div class="detail-left">
+			<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+		</div>
+		<div class="detail-right">
+			<p class="date">{entry_date format="%F %j"}</p>
+		</div>
+	</div>
+
+	<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+	<p class="body-copy">
+	{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{liturgy-scripture}{/exp:strip_html}{/exp:trunchtml}
+	</p>
+
+	<!--	Link to morning liturgy at Liturgy page if it's long -->
+	<a href="/resources/liturgy/#morning" class="button button-secondary">Read Now</a>	
+
+	<!--	Implementation for Favorite function for reading -->
+	{exp:favorites:saved entry_id="{entry_id}"}
+		{if saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+		{/if}
+
+		{if not_saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+		{/if}
+	{/exp:favorites:saved}
+
+	<p class="body-copy" style="display:none">
+	{exp:favorites:entry_count entry_id="{entry_id}"}						
+		{if favorites_count_public == 0}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+		{if:else}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			{if favorites_count_public>1} people have
+			{if:else} person has
+			{/if}
+			<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+		{/if}	  
+	{/exp:favorites:entry_count}
+	</p>
+
+{/exp:channel:entries}
+</div>
+
+
+{!-- Midday Liturgy Reading --}
+<div class="copy-container" id="midday-liturgy" style="display:none">
+{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+			  start_on="2014-{current_time format='%m-%d'} 00:00" 
+			  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+			  search:liturgy-sequence="=Midday"}	
+	<div class="details">
+		<div class="detail-left">
+			<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+		</div>
+		<div class="detail-right">
+			<p class="date">{entry_date format="%F %j"}</p>
+		</div>
+	</div>
+
+	<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+	<p class="body-copy">
+	{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{liturgy-scripture}{/exp:strip_html}{/exp:trunchtml}
+	</p>
+
+	<!--	Link to midday liturgy at Liturgy page if it's long -->
+	<a href="/resources/liturgy/#midday" class="button button-secondary">Read Now</a>	
+
+	<!--	Implementation for Favorite function for reading -->
+	{exp:favorites:saved entry_id="{entry_id}"}
+		{if saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+		{/if}
+
+		{if not_saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+		{/if}
+	{/exp:favorites:saved}
+
+	<p class="body-copy" style="display:none">
+	{exp:favorites:entry_count entry_id="{entry_id}"}						
+		{if favorites_count_public == 0}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+		{if:else}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			{if favorites_count_public>1} people have
+			{if:else} person has
+			{/if}
+			<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+		{/if}	  
+	{/exp:favorites:entry_count}
+	</p>
+
+{/exp:channel:entries}
+</div>
+
+
+{!-- Evening Liturgy Reading --}
+<div class="copy-container" id="evening-liturgy" style="display:none">
+{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+			  start_on="2014-{current_time format='%m-%d'} 00:00" 
+			  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+			  search:liturgy-sequence="=Evening"}	
+	<div class="details">
+		<div class="detail-left">
+			<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+		</div>
+		<div class="detail-right">
+			<p class="date">{entry_date format="%F %j"}</p>
+		</div>
+	</div>
+
+
+	<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+	<p class="body-copy">
+	{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{liturgy-scripture}{/exp:strip_html}{/exp:trunchtml}
+	</p>
+
+	<!--	Link to evening liturgy at Liturgy page if it's long -->
+	<a href="/resources/liturgy/#evening" class="button button-secondary">Read Now</a>	
+
+	<!--	Implementation for Favorite function for reading -->
+	{exp:favorites:saved entry_id="{entry_id}"}
+		{if saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+		{/if}
+
+		{if not_saved}
+			<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+		{/if}
+	{/exp:favorites:saved}
+
+	<p class="body-copy" style="display:none">
+	{exp:favorites:entry_count entry_id="{entry_id}"}						
+		{if favorites_count_public == 0}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+		{if:else}
+			<span class="count entry{entry_id}">{favorites_count_public}</span>
+			{if favorites_count_public>1} people have
+			{if:else} person has
+			{/if}
+			<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+		{/if}	  
+	{/exp:favorites:entry_count}
+	</p>
+
+{/exp:channel:entries}
+</div>

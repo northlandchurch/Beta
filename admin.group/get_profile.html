@@ -1,0 +1,151 @@
+<?php
+	$userid = $this->EE->uri->segment(3);
+	
+	if (!$userid) {
+		echo "<div style='text-align:center; color: #FFF'><strong>Must enter a valid search value</strong></div>";
+		die();
+	}
+	
+	if (is_numeric($userid)) {
+		$sql = "SELECT * FROM exp_members WHERE member_id=" . $userid;
+		$result = mysql_query($sql) or die(mysql_error());
+		
+		if (mysql_num_rows($result) == 0) {
+			echo "<div style='text-align:center; color: #FFF'><strong>User not found</strong></div>";
+			die();			
+		}
+		
+		while ($row = mysql_fetch_array($result)) {
+			$fullname = $row['screen_name'];
+			$email = $row['email'];
+			$location = $row['location'];	
+			if ($row['bday_m'] || $row['bday_d'] || $row['bday_y'])	{
+				$birthday = $row['bday_m'] . "/" . $row['bday_d'] . "/" . $row['bday_y'];
+			}
+			else { $birthday = null; }
+			$bio = $row['bio'];
+			$avatar = $row['photo_filename'];
+			$joindate = date($row['join_date']);
+			$lastvisit =  date($row['last_visit']);
+			$notepad = $row['notepad'];
+		}
+		
+		$sql = "SELECT * FROM exp_member_data WHERE member_id=" . $userid;
+		$result = mysql_query($sql) or die(mysql_error());
+		
+		while ($row = mysql_fetch_array($result)) {
+			$displayname = $row['m_field_id_1'];
+			$phone = $row['m_field_id_9'];
+			$address = $row['m_field_id_14'];
+			$city = $row['m_field_id_12'];
+			$state = $row['m_field_id_13'];
+			$zipcode = $row['m_field_id_15'];
+			$country = $row['m_field_id_19'];
+			$spouse = $row['m_field_id_17'];
+			$anniversary = $row['m_field_id_16'];
+		}
+	}
+	else {
+		
+		$sql = "SELECT * FROM exp_members WHERE screen_name like '%" . $userid. "%' ORDER BY last_activity DESC LIMIT 20";
+		$result = mysql_query($sql) or die(mysql_error());
+		
+		if (mysql_num_rows($result) == 0) {
+			echo "<div style='text-align:center; color: #FFF'><strong>User not found</strong></div>";
+			die();			
+		}
+		else if (mysql_num_rows($result) >= 20) {
+			echo "<div style='text-align:center; color: #FFF'><strong>More than 20 results found. Displaying users with most recent activity.</strong></div>";
+		}
+		
+		
+		while ($row = mysql_fetch_array($result)) {
+			echo "<div class='multiple_names'><div><strong><a onclick='LoadUserProfile(" . $row['member_id'] . ")'>" . $row['screen_name'] . " - Member ID: " . $row['member_id'] . "</a></strong></div><div style='margin-left: 15px'>" . $row['email'] . "</div>";
+			if ($row['last_activity']) {				
+				echo "<div style='margin-left: 15px'>Last Visit: " . date("M j, o", $row['last_activity']) ."</div>";
+			}
+			if ($row['join_date']) {				
+				echo "<div style='margin-left: 15px'>Joined: " . date("M j, o", $row['join_date']) ."</div>";
+			}			
+		}
+		die();
+	}
+?>
+
+<h1 style="margin-bottom: 10px; color: #FFF"><?php echo $fullname; ?></h1>
+
+<div class="grid_3 nomarg">
+	<img src="/images/member_photos/<?php echo $avatar; ?>" style="width:200px; border: 1px solid black;
+box-shadow: 0px 0px 10px #000"/ onerror="this.src='/images/avatar.png'"></p>
+	<div class="reset_password" style="text-align: center; width: 200px">
+		<strong><a onclick="ConfirmPasswordReset('<?php echo $email; ?>')">Password Reset (Sends user e-mail)</a></strong><br>
+		<?php if ($this->EE->session->userdata('group_id') == 1) { echo "<strong><a onclick=\"ShowPasswordManualSet('" . $email . "')\">Manually Update Password</a></strong>"; } ?>
+	</div>
+</div>
+
+<div class="grid_5 nomarg">
+		
+		<p class="marg-b-10">(They show up online to others as "<?php if ($displayname) { echo $displayname; } else { echo $fullname; } ?>")</p>
+		<p><b>E-mail Address: </b><a href='mailto:<?php echo $email; ?>'><?php echo $email; ?></a></p>
+		<?php if ($phone) { echo "<p><b>Phone Number: </b>" . $phone . "</p>"; } ?>
+		<p><b>Location: </b>
+		<?php
+			if ($address) {
+				echo $address . ", ";
+			}
+			
+			if ($city) {
+				if ($country) {
+					if ($country == "United States") {
+						echo $city . ", " . $state;
+					}
+					else {
+						echo $city . ", " . $country;
+					}
+				}
+				else {
+					if ($state) {
+						echo $city . ", " . $state;
+					}
+					else {
+						echo $city;
+					}
+				}
+			}
+			else {
+				if ($location) {
+					echo $location;
+				}
+				else {
+					echo "N/A";
+				}
+			}
+		?>
+		</p>
+		<?php if ($birthday) { echo "<p><b>Birthday: </b> " . $birthday . "</p>"; } ?>
+		<?php if ($spouse) { echo "<p class='marg-t-10'><b>Spouse:</b> " . $spouse . "</p>"; } ?>	
+		<?php if ($anniversary) { echo "<p><b>Anniversary:</b> " . $anniversary . "</p>"; } ?>
+		<?php if ($bio) { echo "<p class='marg-t-10'><b>Biography:</b><br><em>" . $bio . "</em></p>"; } ?>	
+		<?php if ($notepad && $notepad != "from sync server") { echo "<p class='marg-t-10'><b>Notes:</b><br><em>" . $notepad . "</em></p>"; } ?>		
+			
+</div>
+
+<div class="clear"></div>
+
+<div class="grid_8" style="margin-top:10px">		
+	<div class="pray-card-top">
+		<div class="name-date" style="width:100%"><h1><?php echo $fullname; ?>'s Recent Prayers</h1></div>      	
+	</div>
+	<div class="pray-card-mid" >
+		<div class="card-bg">
+	{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="10" dynamic="no" author_id="{segment_3}" category="not 412"}
+		<strong>{entry_date format="%M %j, %Y"} - </strong>{prayer-need}<br><br>
+		
+		{if no_results}<div style="text-align:center">No Prayers Posted</div>{/if}
+	{/exp:channel:entries}
+		</div>
+	</div>
+	<div class="clear"></div>					
+	<div class="pray-card-btm"></div>
+	<div class="clear"></div>
+</div>

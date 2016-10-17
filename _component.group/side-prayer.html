@@ -1,0 +1,134 @@
+<script type="text/javascript">
+$(document).ready(function(){
+		$('.prayer_prayed').click (function() {
+			var loggedStatus = $("#logged_status").text();
+		//	console.log(loggedStatus);
+			//if (loggedStatus.indexOf("logged in")!=-1){
+				var whichID = $(this).attr('id');
+				var targetURL = $("#"+whichID+" .favorite").attr('href');
+				var count = $("#"+whichID+" .prayer_number").html();
+				$.ajax({
+					success: function(data){
+						var madeFave = $("#"+whichID+" .favorite").css("backgroundPosition");
+
+						if (madeFave!="0px -17px"){
+							$("#"+whichID+" .prayer_number").html(parseInt(count)+1);
+						}
+						$("#"+whichID+" .favorite").css("background-position","0 -17px");
+						if (parseInt(count)==1){
+							$("#"+whichID+" .prayer_count");
+						}
+					},
+					url: targetURL
+				});		
+				return false;
+			//}else{
+		//		$(".user-login").click();
+		//		return false;
+		//	}
+		});
+
+		$(".permalink").click(function(e){
+			e.stopPropagation();
+			document.location.href=$(this).attr('href');
+		});
+
+		$(".liturgy-verse").hide();
+		//toggle the componenet with class msg_body
+		$(".btn-readnow").click(function() {
+			$(this).next(".liturgy-verse").slideToggle(500);
+		});
+	});
+
+	function ShowLongPrayer(id) {
+		$('#prayer_short_' + id).removeClass('prayer_prayer');
+		$('#prayer_short_' + id).addClass('hidden');
+		$('#prayer_long_' + id).addClass('prayer_prayer');
+		$('#prayer_long_' + id).removeClass('hidden');
+	}
+</script>
+<div class="prayer_top" id="prayer{entry_id}"></div>
+<div class="prayer_mid">
+	<div class="prayer_requests">Recent Prayer Requests</div>
+	<div class="clear"></div>
+	{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="2"}
+		<div class="prayer_name">
+			<strong>
+				{if member_id==logged_in_member_id AND category == "not 412" AND member_group != "1"}
+					<h4>Your prayer</h4>
+				{if:else}
+					{if member_group == "1"}
+						<a class="user-login" href="#moreinfopray{entry_id}">
+							<h4><?php echo ucwords(strtolower("{prayer-name}"));?></h4>
+						</a>
+						
+						<div style="display:none">
+							<div id="moreinfopray{entry_id}" class="modaling" style="color:#fff; width: 250px; padding: 30px">
+								<p>
+									<strong>ADMIN INFO:<br> A little about {screen_name}</strong><br>
+									{if email}Email: {email}<br>{/if}
+									{if phone}Phone Number: {phone}<br>{/if}
+									{if location}Location: {location}<br>{/if}
+									{if bday_m}Birthday: {bday_m}/{bday_d}/{bday_y}<br>{/if}
+									{if bio}Bio: {bio}{/if}
+
+								</p>
+							</div>
+						</div>
+					{if:else}
+						<h4><?php echo ucwords(strtolower("{prayer-name}"));?></h4>
+					{/if}
+				{/if}
+			</strong>
+			
+		</div>
+		<div class="prayer_prayed" id="prayer{entry_id}">
+			{exp:favorites:entry_count entry_id="{entry_id}"}
+					<div class="prayer_count">
+						<p class="prayer_number">{favorites_count_public}</p>	
+					</div>
+			{/exp:favorites:entry_count}
+			<ul id="prayer_for">
+				{exp:favorites:saved entry_id="{entry_id}"}
+				{if saved}
+					<li id="prayer_for-li"><a class="favorite faved" style="background-position: 0 -17px;" href="/_component/favorite-add/{entry_id}/">Pray for This Person</a></li>
+				{/if}
+				{if not_saved}
+					<li id="prayer_for-li"><a class="favorite" href="/_component/favorite-add/{entry_id}/">Pray for This Person</a></li>						
+				{/if}{/exp:favorites:saved} 
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="prayer_prayer" id="prayer_short_{entry_id}">
+			{exp:trunchtml exact="no" chars="180" ending="… <a onclick='javascript:ShowLongPrayer({entry_id})' target='_blank' /><div class='more_btn'>Read More</div></a>"}{prayer-need}{/exp:trunchtml}
+		</div>	
+		<div class="hidden" id="prayer_long_{entry_id}">
+			{prayer-need}
+		</div>
+		{if absolute_count == total_results}
+			<div class="clear"></div>
+			<br>
+		{if:else}
+			<div class="clear"></div>
+			<div class="prayer-divider"></div>
+		{/if}
+	{/exp:channel:entries}
+</div>
+<div id="prayer-bottom">
+	<div class="prayer-finish">
+		<div class="prayer-finish-submit">
+			{if logged_in && (screen_name!="Anonymous Member")}
+				<a class="user-login" href="#submit-prayer-request"><div class="prayer_post"></div></a>
+			{if:else}
+				<a class="user-login" href="#login-register-box"><div class="prayer_post"></div></a>
+			{/if}
+		</div>
+		<a href="/respond/pray" target="_blank"><div class="prayer_readmore"></div></a>
+		<div style="display:none">
+			<div id="submit-prayer-request" class="modaling">
+				{embed="_component/prayer-post"}
+			</div>
+		</div>
+	</div>
+	<div class="prayer-corner"></div>
+</div>

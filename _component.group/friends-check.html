@@ -1,0 +1,9 @@
+<?php
+	$friends = array();
+	
+{exp:friends:mine}
+	array_push($friends, "{friends_member_id}");
+{/exp:friends:mine}
+
+	echo json_encode($friends);
+?>

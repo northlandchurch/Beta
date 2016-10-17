@@ -1,0 +1,28 @@
+{exp:channel:entries channel="keywords" dynamic="off" search:keyword-keyword="={last_segment}"}
+	{if count == 1}<h4 style="font-size:20px;">FEATURED:</h4>{/if}
+
+	{keyword-content}	
+		{if channel_name == "calendar_calendars"}			
+			<a href="/ministry/{url_title}" style="color:#00F">{title}</a> - Northland Ministry<br>
+			<div style="padding: 5px 10px 0 10px; font-size: 14px">
+				<p>{exp:strip_html}{exp:word_limit total="35"}{calendar_summary}{/exp:word_limit}{/exp:strip_html}</p>
+			</div>
+		{if:elseif channel_name == "calendar_events"}	
+	  		<a href="/calendar/details/{url_title}" style="color: #00F">{title}</a> - Upcoming Event on {exp:calendar:events event_id="{entry_id}"}{if '{event_start_date format="%Y"}' != '{current_time format="%Y"}'}{event_start_date format='%l, %F %j, %Y'}{if:else}{event_start_date format='%l, %F %j'}{/if}
+	  		<br>		
+	  		<div style="padding: 5px 10px 0 10px; font-size: 14px">
+	  			<p>{exp:strip_html}{exp:word_limit total="35"}{event_summary}{/exp:word_limit}{/exp:strip_html}</p>
+	  		</div>
+	  		{/exp:calendar:events}
+		{/if}
+	{/keyword-content}
+{/exp:channel:entries}
+
+{exp:channel:entries channel="keyword_links" dynamic="off" search:keywords-keyword="={last_segment}"}
+	{if count == 1}<h4 style="font-size:20px;">FEATURED LINKS:</h4>{/if}
+
+		<a href="{exp:strip_html}{keyword_url}{/exp:strip_html}" style="color:#00F">{title}</a><br>
+		<div style="padding: 5px 10px 0 10px; font-size: 14px">
+			<p>{exp:strip_html}{keyword_description}{/exp:strip_html}</p>
+		</div>
+{/exp:channel:entries}

@@ -1,0 +1,67 @@
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav"}
+
+	<!-- BEGIN CONTAINER -->
+	<div id="container">
+		<!-- BEGIN CONTAINER INNER -->
+		<div id="container_inner">
+
+			<div id="page_secondary_equipping" class="secondary">
+			<!-- BEGIN PAGE DIV -->
+				
+				
+				<div class="">
+					<div class="" style="text-align:center;padding-top:20px;">
+						<div class="vid_box">
+
+						{exp:channel:entries dynamic="off" channel="media" show_future_entries="yes" orderby="date" category="58" sort="desc" limit="1"}
+
+						<script type='text/javascript' src='http://northlandchurch.net/fb/mediaplayer/swfobject.js'></script>
+
+						<div id='mediaspace'>.</div>
+
+						<script type='text/javascript'>
+						  var so = new SWFObject('http://northlandchurch.net/_flash/player.swf','mpl','640','360','9');
+						var counter = 0
+						so.addParam('allowFullscreen','true');
+						so.addParam('allowscriptaccess','always');
+						so.addParam('wmode','opaque');
+						so.addVariable('captions','{media-speaker}');
+						so.addVariable('streamer','rtmp://184.73.206.117:1935/live');
+						so.addVariable('file','highwindsfail');
+						so.addVariable('type','rtmp');
+						so.addVariable('image','{media-primary}');
+						so.addVariable('autostart','true');
+						so.addVariable('stretching','exactfit');
+						so.addVariable("plugins",'gapro-1');
+						so.addVariable("gapro.accountid","UA-966214-1");
+						so.addVariable("gapro.trackstarts","true"); 
+						so.addVariable("gapro.trackpercentage","true"); 
+						so.addVariable("gapro.tracktime","true");
+						window.onload=function(){
+							if (counter==0){
+								so.write('mediaspace');
+								counter = counter + 1;
+							}
+						}
+						</script>
+
+						{/exp:channel:entries}
+						</div>
+					</div>
+				</div>	
+				
+				
+
+
+				</div> <!-- END PAGE DIV -->
+
+			</div>
+
+	</div> <!-- END CONTAINER INNER -->
+	<div class="container_btm"></div>
+<!-- END CONTAINER -->
+
+{embed="responsive/footer"}
+{embed="responsive/html_close"}

@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">What's Current</h3>
+
+  </div>
+  <div class="panel-body">
+
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="7"}
+		<p><a href="{happening-link}" title="{happening-description}">{title}</a>
+			{happening-description}
+		</p>
+		{/exp:channel:entries}
+  </div>
+</div>

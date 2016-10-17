@@ -1,0 +1,27 @@
+<?php
+	$total_groupsize = 0;
+	$total_sites = 0;
+	$arr = array();	
+
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		mysql_select_db(EE_DB_NAME, $con);
+
+//	$sql="SELECT screen_name, member_id FROM exp_members s where member_id=" . $q;
+	$sql="SELECT * FROM exp_sessions s";
+
+	$result = mysql_query($sql) or die(mysql_error());
+	
+	while($row = mysql_fetch_array($result))
+	{
+		echo $row['session_id'] . '<br />';
+	}
+	
+	echo $total_groupsize . " visitors at " . $total_sites . " sites";
+
+//	mysql_close($con1);
+
+?>

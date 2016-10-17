@@ -1,0 +1,881 @@
+{embed="_assets/header" htmltitle="Profile at Northland, A Church Distributed"}
+{embed="_assets/login"}
+{embed="_assets/navbar" active=""}
+
+{if logged_in}
+<script type="text/javascript" src="/_assets/js/jquery.maskedinput-1.3.min.js"></script>
+<script type="text/javascript">
+$.mask.definitions['A'] = "[A-Za-z ]";
+
+$(document).ready(function() {
+	// In the beginning, God created the heavens and the earth.
+	$(".hideme").hide();
+	//toggle the componenet with class msg_body
+	$(".showme").click(function() {
+		$(this).next(".hideme").slideToggle(500);
+	});
+	$("#bio_count").text(160-$("#bio").val().length);
+	$("#bio").keydown(function(){
+		var text_length = $("#bio").val().length;
+		$("#bio_count").text(160-text_length);
+	})
+	$("#edit-profile-button").click(function(){
+		$("#profile-live_view").hide();
+		$("#profile-edit_view").show();
+	})
+	$("#birthday input").live("focus", function(){
+		$(this).datepicker({
+			showOn: 'both',
+			changeMonth: true,
+			yearRange: "-100:+0",
+			changeYear: true,
+			onClose: function(dateText) { 
+				$("#birthday").html("<h2>"+dateText+"</h2>")
+			}
+    	});
+	});
+	$("#phone").mask("(999) 999-9999");
+	$("#bday_m").mask("9?9");
+	$("#bday_d").mask("99");
+	$("#bday_y").mask("9999");
+	$("#locationcity").mask("A?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	$("#locationzip").mask("?99999");	
+	$("#locationstate").keyup(function() {
+		if ($(this).val().length == "2") {
+			$(this).css("text-transform", "uppercase");
+		}
+		else {
+			$(this).css("text-transform", "capitalize");
+		}
+	});	
+	/*$("#l").change(function() {
+		$("#locationstate").val($("#mailing_state_suggestion").val());	
+		//$("#mailing_state_suggestion").prop('selectedIndex', 0);
+	});*/
+	{exp:member:custom_profile_data}
+	$("#locationstate option[value='{if state != ""}{state}{/if}']").prop('selected', 'selected');
+	$("#mailing_country_suggestion option[value='{if countrycode != ""}{countrycode}{/if}']").prop('selected', 'selected');
+	{/exp:member:custom_profile_data}
+})
+// The earth was without form and void, and darkness was over the face of the deep.
+// And the Spirit of God was hovering over the face of the waters.
+</script>
+{/if}
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+
+<div id="title-bar">
+		<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}" />
+		<input type="hidden" id="current_email" name="current_email" value="{email}" />
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>{if logged_in}My Profile{if:else}Login to Edit Your Profile{/if}</h1>
+		</div>
+		<div id="logged_status">	
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+<div class="container_12">
+	{if logged_in}
+	{if:else}
+	{exp:member:login_form redirect="profile"}
+<!--
+	<script type="text/javascript">
+		$(window).ready(function() {
+			console.log("triggering login box");
+			$(".user-login").click();
+		});
+	</script>
+-->
+	<div style="text-align: center; margin-bottom: 20px">Please login to access your profile.</div>	
+
+	<div class="grid_4">
+		<label class="field" for="" style="width: 100px; text-align: right">Email</label>
+		<input type="text" class="field" id="username" name="username" />
+		<div class="clear"></div>
+		<br>
+		<label class="field" for="" style="width: 100px; text-align: right">Password</label><input type="password" class="field" name="password" id="password" />
+		<br>
+		<input type="submit" id="login-submit" name="submit" value="Login" style="float:right; margin-right: 30px" />
+		<div id="login-forgot">
+			<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px; margin-left: 70px" checked/> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+		</div>	
+	</div>
+
+	{/exp:member:login_form}
+	{/if}
+
+	
+	{if logged_in}
+		<div class="grid_8 marg-b-20">
+			<!-- Update Avatar Image Everytime Profile Page Loaded -->
+			<img src="/scripts/avatar.php?updateavatar=1&uid={member_id}" style="display:none"/>
+				
+			<div id="profile-live_view">
+				<div class="grid_3 nomarg">	
+					{exp:user:edit}									
+						<img src="{photo_url}{photo_filename}" style="width:200px; border: 1px solid black;
+box-shadow: 0px 0px 10px #000"/ onerror="this.src='/images/avatar.png'"></p>						
+					{/exp:user:edit}
+				</div>
+				<div class="grid_5 nomarg">
+					{exp:member:custom_profile_data}
+					<h2 style="border-bottom:none;margin-bottom:0;">{screen_name}</h2>
+					<p class="marg-b-10">(You show up online to others as "{exp:member:custom_profile_data}{exp:low_replace find='&' replace='and' regex='yes'}{if display_name}{display_name}{if:else}{screen_name}{/if}{/exp:low_replace}{/exp:member:custom_profile_data}")</p>
+					<p><b>E-mail Address: </b>{email}</p>
+					<!--<p><b>Phone Number: </b>{if phone}{phone}{if:else}N/A{/if}</p>-->
+
+					<p><b>Location: </b>
+					{if city != ""}
+						{if countrycode != ""}
+							{if countrycode == "US"}
+								{city}, {state}
+							{if:else}
+								{city}, {country}
+							{/if}
+						{if:else}
+							{if state != ""}
+								{city}, {state}
+							{if:else}
+								{city}
+							{/if}
+						{/if}
+					{if:else}
+						{if location != ""}
+							{exp:low_replace find='/[^a-z^A-Z\,\s]/' regex='yes'}{location}{/exp:low_replace}
+						{if:else}
+							N/A
+						{/if}
+					{/if}
+					</p>
+					<p class="marg-t-10"><b>Biography:</b><br><em>{if bio}{bio}{if:else}N/A{/if}</em></p>
+					{/exp:member:custom_profile_data}
+					<br>
+					<div style="width:100%"><a id="edit-profile-button" class="btn btn--full">Update Your Profile</a></div>
+				</div>
+			</div>
+				
+				
+			<div id="profile-edit_view" style="display:none">
+				{exp:user:edit}	
+					<div class="grid_3 nomarg">		
+						<img src="{photo_url}{photo_filename}" style="width:200px; border: 1px solid black; box-shadow: 0px 0px 10px #000"/>
+						<br>
+						<h4 style="margin-right: 15px">Update Your Photo</h4>
+						<input type="file" name="photo_filename" style="width:190px; margin: 0 0 5px 0">
+						<br>
+						<input class="btn btn--small" type="submit" name="submit" value="Submit">
+						<div class="clear"></div>
+					</div>
+					<div class="grid_5 nomarg">
+							
+					<script type="text/javascript">
+						var flag_edit_firstname = 1;
+						var flag_edit_lastname = 1;
+					
+						$(document).ready(function() {	
+							//Parses name into first and last name. Finds last space to keep double names in the first name field together.
+							//Unhyphenated double last names effectively disallowed
+							// And God made the expanse and separated the waters that were under the expanse from the waters that were above the expanse. And it was so.
+							
+							var wName = "{screen_name}";
+							var spacePos = wName.lastIndexOf(" ");	
+							var fName = wName.substring(0,spacePos);	
+							var lName = wName.substring(spacePos+1,wName.length);		
+							$("#editfirstnamenew").val(fName);
+							$("#editlastnamenew").val(lName);
+									
+							$('#editfirstnamenew').keyup(function() {
+								$('#editmulti_firstname').hide();
+								$('#editno_firstname').hide();
+								$('#editnonalphanumeric_firstname').hide();
+											
+								if (($('#editfirstnamenew').val().indexOf("&")!=-1) || ($('#editfirstnamenew').val().indexOf(" ")!=-1))
+								{
+									$('#editmulti_firstname').show();
+									flag_edit_firstname = 0;													
+								}
+								else if ($('#editfirstnamenew').val().length < 2) 
+								{
+									$("#editno_firstname").show();
+									flag_edit_firstname = 0;
+								}
+								else if (/[^A-Za-z]/.test($('#editfirstnamenew').val()) ) 
+								{
+									$('#editnonalphanumeric_firstname').show();
+									flag_edit_firstname = 0;
+								}
+								else { 
+									flag_edit_firstname = 1;	
+								}
+										
+								UpdateShowMeAsOptions();										
+								
+								UpdateProfileEditSubmit();
+							});		// End for $('#editfirstnamenew').keyup
+									
+							$('#editlastnamenew').keyup(function() {
+								$('#editmulti_lastname').hide();
+								$('#editno_lastname').hide();
+								$('#editnonalphanumeric_lastname').hide();
+											
+								if (($('#editlastnamenew').val().indexOf("&")!=-1) || ($('#editlastnamenew').val().indexOf(" ")!=-1)) 
+								{
+									$('#editmulti_lastname').show();
+									flag_edit_lastname = 0;												
+								}
+								else if ($('#editlastnamenew').val().length < 2) 
+								{	
+									$('#editno_lastname').show();		
+									flag_edit_lastname = 0;	
+								}											
+								else if (/[^A-Za-z]/.test($('#editlastnamenew').val()) ) 
+								{
+									$('#editnonalphanumeric_lastname').show();
+									flag_edit_lastname = 0;
+								}
+								else { 
+									flag_edit_lastname = 1; 
+								}
+										
+								UpdateShowMeAsOptions();
+																			
+								UpdateProfileEditSubmit();
+							});		// End for $('#editlastnamenew').keyup
+									
+							$('#editconfirmpassword').keyup(function() {
+								if ($('#editconfirmpassword').val() != $('#editnewpassword').val())	{
+									$("#editmismatched_passwords").show();
+								} else {
+									$("#editmismatched_passwords").hide();					
+								}
+									
+								if ($('#editnewpassword').val().length < 6) {
+									$('#edittooshort_password').show();
+								} else {
+									$('#edittooshort_password').hide();
+								}
+							});		// End for $('#editconfirmpassword').keyup								
+						});	
+															
+								
+						function UpdateProfileEditSubmit() 
+						{
+							if (flag_edit_firstname == 0 || flag_edit_lastname == 0) {
+								$("#member_form input[type='submit']").attr("disabled", "true");
+							}
+							else { 
+								$("#member_form input[type='submit']").removeAttr("disabled"); 
+							}
+						}		
+								
+						function UpdateShowMeAsOptions() 
+						{
+							$("#editprofile_nameselect").html('<option value="' + $('#editfirstnamenew').val() + ' ' + $('#editlastnamenew').val() + '" selected>' + $('#editfirstnamenew').val() + ' ' + $('#editlastnamenew').val() + '</option><option value="' + $('#editfirstnamenew').val() + '">' + $('#editfirstnamenew').val() + '</option><option value="' + $('#editfirstnamenew').val() + ' ' + $('#editlastnamenew').val().substr(0,1) + '">' + $('#editfirstnamenew').val() + ' ' + $('#editlastnamenew').val().substr(0,1) + '</option><option value="' + $('#editlastnamenew').val() + ' Family">' + $('#editlastnamenew').val() + ' Family</option>'); 
+						}						    
+					</script>
+							
+					<h4>Update Your Profile - {email}</h4>
+					<div class="clear"></div>
+					<div class="editprofile_subtitle">First Name:</div><input id="editfirstnamenew" name="editfirstnamenew" style="text-transform: capitalize" />
+					<div id="editnonalphanumeric_firstname" class="editprofile-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+					<div id="editno_firstname" class="editprofile-errormsg" style="display:none">Please enter your first name.</div>
+					<div id="editmulti_firstname" class="editprofile-errormsg" style="display:none">Please enter only your first name.</div> 
+					<div class="clear"></div>				
+										
+					<div class="editprofile_subtitle">Last Name:</div><input id="editlastnamenew" name="editlastnamenew" style="text-transform: capitalize"/>
+					<div id="editnonalphanumeric_lastname" class="editprofile-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+					<div id="editno_lastname" class="editprofile-errormsg" style="display:none">We need your last name, too.<br>Don't worry, you'll be able to keep that hidden below.</div> 
+					<div id="editmulti_lastname" class="editprofile-errormsg" style="display:none">Please enter only one word for your last name.</div> 
+					<div class="clear"></div>
+								
+					<?php
+						
+						$screenname = $this->EE->session->userdata('screen_name');
+						$space_loc = strpos($screenname, " ");
+
+						$firstname = substr($screenname, 0, $space_loc);
+						$firstname_lastinitial = substr($screenname, 0, $space_loc + 2);
+						$lastname = substr($screenname, $space_loc + 1);
+						//echo $screenname;
+					?>
+
+					{exp:member:custom_profile_data}
+						<div class="editprofile_subtitle">Show me as:</div>
+						<select id="editprofile_nameselect" name="display_name" style="width: 191px; margin: 7px 0 0 5px;">
+							<option value="<?php echo $screenname ?>"{if display_name == "<?php echo $screenname ?>"} selected{/if}><?php echo $screenname ?></option>
+							<option value="<?php echo $firstname ?>"{if display_name == "<?php echo $firstname ?>"} selected{/if}><?php echo $firstname ?></option>
+							<option value="<?php echo $firstname_lastinitial ?>"{if display_name == "<?php echo $firstname_lastinitial ?>"} selected{/if}><?php echo $firstname_lastinitial ?></option>
+							<option value="<?php echo $lastname . " Family" ?>"{if display_name == "<?php echo $lastname . " Family"; ?>"} selected{/if}><?php echo $lastname . " Family" ?></option>
+						</select>
+					{/exp:member:custom_profile_data}
+						
+					<div class="clear"></div>									
+					<div class="editprofile_subtitle">Phone Number:</div><p><input id="phone" name="phone" value="{phone}"></p>
+					<div class="editprofile_subtitle">Street:</div><p><input id="locationstreet" name="locationstreet" value="{street}" style="text-transform: capitalize"></p>
+					<div class="editprofile_subtitle">City:</div><p><input id="locationcity" name="locationcity" value="{city}" style="text-transform: capitalize"></p>
+					<div class="editprofile_subtitle">State:</div><p>
+						<select id="locationstate" name="locationstate" style="width: 191px; margin: 7px 0 0 5px;">
+						<option value="">Select...</option>
+						<option value="">None</option>
+						<optgroup label="United States"><option value="AL">AL</option>
+						<option value="AK">AK</option>
+						<option value="AZ">AZ</option>
+						<option value="AR">AR</option>
+						<option value="CA">CA</option>
+						<option value="CO">CO</option>
+						<option value="CT">CT</option>
+						<option value="DE">DE</option>
+						<option value="DC">DC</option>
+						<option value="FL" selected>FL</option>
+						<option value="GA">GA</option>
+						<option value="HI">HI</option>
+						<option value="ID">ID</option>
+						<option value="IL">IL</option>
+						<option value="IN">IN</option>
+						<option value="IA">IA</option>
+						<option value="KS">KS</option>
+						<option value="KY">KY</option>
+						<option value="LA">LA</option>
+						<option value="ME">ME</option>
+						<option value="MD">MD</option>
+						<option value="MA">MA</option>
+						<option value="MI">MI</option>
+						<option value="MN">MN</option>
+						<option value="MS">MS</option>
+						<option value="MO">MO</option>
+						<option value="MT">MT</option>
+						<option value="NE">NE</option>
+						<option value="NV">NV</option>
+						<option value="NH">NH</option>
+						<option value="NJ">NJ</option>
+						<option value="NM">NM</option>
+						<option value="NY">NY</option>
+						<option value="NC">NC</option>
+						<option value="ND">ND</option>
+						<option value="OH">OH</option>
+						<option value="OK">OK</option>
+						<option value="OR">OR</option>
+						<option value="PA">PA</option>
+						<option value="RI">RI</option>
+						<option value="SC">SC</option>
+						<option value="SD">SD</option>
+						<option value="TN">TN</option>
+						<option value="TX">TX</option>
+						<option value="UT">UT</option>
+						<option value="VT">VT</option>
+						<option value="VA">VA</option>
+						<option value="WA">WA</option>
+						<option value="WV">WV</option>
+						<option value="WI">WI</option>
+						<option value="WY">WY</option>
+						</optgroup></select></p>      
+					<div class="clear"></div>
+					<div class="editprofile_subtitle">Zip Code (US Only):</div><p><input id="locationzip" name="locationzip" value="{zipcode}"></p>
+					<div class="editprofile_subtitle">Country:</div><p>
+						<select id="mailing_country_suggestion" name="mailing_country_suggestion" style="width: 191px; margin: 7px 0 0 5px;">
+						<option value="">Choose...</option>
+						<option value="AF">Afghanistan</option>
+						<option value="AL">Albania</option>
+						<option value="DZ">Algeria</option>
+						<option value="AS">American Samoa</option>
+						<option value="AD">Andorra</option>
+						<option value="AO">Angola</option>
+						<option value="AI">Anguilla</option>
+						<option value="AQ">Antarctica</option>
+						<option value="AG">Antigua and Barbuda</option>
+						<option value="AR">Argentina</option>
+						<option value="AM">Armenia</option>
+						<option value="AW">Aruba</option>
+						<option value="AU">Australia</option>
+						<option value="AT">Austria</option>
+						<option value="AZ">Azerbaijan</option>
+						<option value="BS">Bahamas</option>
+						<option value="BH">Bahrain</option>
+						<option value="BD">Bangladesh</option>
+						<option value="BB">Barbados</option>
+						<option value="BY">Belarus</option>
+						<option value="BE">Belgium</option>
+						<option value="BZ">Belize</option>
+						<option value="BJ">Benin</option>
+						<option value="BM">Bermuda</option>
+						<option value="BT">Bhutan</option>
+						<option value="BO">Bolivia</option>
+						<option value="BA">Bosnia and Herzegovina</option>
+						<option value="BW">Botswana</option>
+						<option value="BV">Bouvet Island</option>
+						<option value="BR">Brazil</option>
+						<option value="IO">British Indian Ocean Territory</option>
+						<option value="BN">Brunei Darussalam</option>
+						<option value="BG">Bulgaria</option>
+						<option value="BF">Burkina Faso</option>
+						<option value="BI">Burundi</option>
+						<option value="KH">Cambodia</option>
+						<option value="CM">Cameroon</option>
+						<option value="CA">Canada</option>
+						<option value="CV">Cape Verde</option>
+						<option value="KY">Cayman Islands</option>
+						<option value="CF">Central African Republic</option>
+						<option value="TD">Chad</option>
+						<option value="CL">Chile</option>
+						<option value="CN">China</option>
+						<option value="CX">Christmas Island</option>
+						<option value="CC">Cocos (Keeling) Islands</option>
+						<option value="CO">Colombia</option>
+						<option value="KM">Comoros</option>
+						<option value="CG">Congo</option>
+						<option value="CD">Congo, the Democratic Republic of the</option>
+						<option value="CK">Cook Islands</option>
+						<option value="CR">Costa Rica</option>
+						<option value="CI">Cote D'Ivoire</option>
+						<option value="HR">Croatia</option>
+						<option value="CU">Cuba</option>
+						<option value="CY">Cyprus</option>
+						<option value="CZ">Czech Republic</option>
+						<option value="DK">Denmark</option>
+						<option value="DJ">Djibouti</option>
+						<option value="DM">Dominica</option>
+						<option value="DO">Dominican Republic</option>
+						<option value="EC">Ecuador</option>
+						<option value="EG">Egypt</option>
+						<option value="SV">El Salvador</option>
+						<option value="GQ">Equatorial Guinea</option>
+						<option value="ER">Eritrea</option>
+						<option value="EE">Estonia</option>
+						<option value="ET">Ethiopia</option>
+						<option value="FK">Falkland Islands (Malvinas)</option>
+						<option value="FO">Faroe Islands</option>
+						<option value="FJ">Fiji</option>
+						<option value="FI">Finland</option>
+						<option value="FR">France</option>
+						<option value="GF">French Guiana</option>
+						<option value="PF">French Polynesia</option>
+						<option value="TF">French Southern Territories</option>
+						<option value="GA">Gabon</option>
+						<option value="GM">Gambia</option>
+						<option value="GE">Georgia</option>
+						<option value="DE">Germany</option>
+						<option value="GH">Ghana</option>
+						<option value="GI">Gibraltar</option>
+						<option value="GR">Greece</option>
+						<option value="GL">Greenland</option>
+						<option value="GD">Grenada</option>
+						<option value="GP">Guadeloupe</option>
+						<option value="GU">Guam</option>
+						<option value="GT">Guatemala</option>
+						<option value="GN">Guinea</option>
+						<option value="GW">Guinea-Bissau</option>
+						<option value="GY">Guyana</option>
+						<option value="HT">Haiti</option>
+						<option value="HM">Heard Island and Mcdonald Islands</option>
+						<option value="VA">Holy See (Vatican City State)</option>
+						<option value="HN">Honduras</option>
+						<option value="HK">Hong Kong</option>
+						<option value="HU">Hungary</option>
+						<option value="IS">Iceland</option>
+						<option value="IN">India</option>
+						<option value="ID">Indonesia</option>
+						<option value="IR">Iran, Islamic Republic of</option>
+						<option value="IQ">Iraq</option>
+						<option value="IE">Ireland</option>
+						<option value="IL">Israel</option>
+						<option value="IT">Italy</option>
+						<option value="JM">Jamaica</option>
+						<option value="JP">Japan</option>
+						<option value="JO">Jordan</option>
+						<option value="KZ">Kazakhstan</option>
+						<option value="KE">Kenya</option>
+						<option value="KI">Kiribati</option>
+						<option value="KP">Korea, Democratic People's Republic of</option>
+						<option value="KR">Korea, Republic of</option>
+						<option value="KW">Kuwait</option>
+						<option value="KG">Kyrgyzstan</option>
+						<option value="LA">Lao People's Democratic Republic</option>
+						<option value="LV">Latvia</option>
+						<option value="LB">Lebanon</option>
+						<option value="LS">Lesotho</option>
+						<option value="LR">Liberia</option>
+						<option value="LY">Libyan Arab Jamahiriya</option>
+						<option value="LI">Liechtenstein</option>
+						<option value="LT">Lithuania</option>
+						<option value="LU">Luxembourg</option>
+						<option value="MO">Macao</option>
+						<option value="MK">Macedonia, the Former Yugoslav Republic of</option>
+						<option value="MG">Madagascar</option>
+						<option value="MW">Malawi</option>
+						<option value="MY">Malaysia</option>
+						<option value="MV">Maldives</option>
+						<option value="ML">Mali</option>
+						<option value="MT">Malta</option>
+						<option value="MH">Marshall Islands</option>
+						<option value="MQ">Martinique</option>
+						<option value="MR">Mauritania</option>
+						<option value="MU">Mauritius</option>
+						<option value="YT">Mayotte</option>
+						<option value="MX">Mexico</option>
+						<option value="FM">Micronesia, Federated States of</option>
+						<option value="MD">Moldova, Republic of</option>
+						<option value="MC">Monaco</option>
+						<option value="MN">Mongolia</option>
+						<option value="MS">Montserrat</option>
+						<option value="MA">Morocco</option>
+						<option value="MZ">Mozambique</option>
+						<option value="MM">Myanmar</option>
+						<option value="NA">Namibia</option>
+						<option value="NR">Nauru</option>
+						<option value="NP">Nepal</option>
+						<option value="NL">Netherlands</option>
+						<option value="AN">Netherlands Antilles</option>
+						<option value="NC">New Caledonia</option>
+						<option value="NZ">New Zealand</option>
+						<option value="NI">Nicaragua</option>
+						<option value="NE">Niger</option>
+						<option value="NG">Nigeria</option>
+						<option value="NU">Niue</option>
+						<option value="NF">Norfolk Island</option>
+						<option value="MP">Northern Mariana Islands</option>
+						<option value="NO">Norway</option>
+						<option value="OM">Oman</option>
+						<option value="PK">Pakistan</option>
+						<option value="PW">Palau</option>
+						<option value="PS">Palestinian Territory, Occupied</option>
+						<option value="PA">Panama</option>
+						<option value="PG">Papua New Guinea</option>
+						<option value="PY">Paraguay</option>
+						<option value="PE">Peru</option>
+						<option value="PH">Philippines</option>
+						<option value="PN">Pitcairn</option>
+						<option value="PL">Poland</option>
+						<option value="PT">Portugal</option>
+						<option value="PR">Puerto Rico</option>
+						<option value="QA">Qatar</option>
+						<option value="RE">Reunion</option>
+						<option value="RO">Romania</option>
+						<option value="RU">Russian Federation</option>
+						<option value="RW">Rwanda</option>
+						<option value="SH">Saint Helena</option>
+						<option value="KN">Saint Kitts and Nevis</option>
+						<option value="LC">Saint Lucia</option>
+						<option value="PM">Saint Pierre and Miquelon</option>
+						<option value="VC">Saint Vincent and the Grenadines</option>
+						<option value="WS">Samoa</option>
+						<option value="SM">San Marino</option>
+						<option value="ST">Sao Tome and Principe</option>
+						<option value="SA">Saudi Arabia</option>
+						<option value="SN">Senegal</option>
+						<option value="CS">Serbia and Montenegro</option>
+						<option value="SC">Seychelles</option>
+						<option value="SL">Sierra Leone</option>
+						<option value="SG">Singapore</option>
+						<option value="SK">Slovakia</option>
+						<option value="SI">Slovenia</option>
+						<option value="SB">Solomon Islands</option>
+						<option value="SO">Somalia</option>
+						<option value="ZA">South Africa</option>
+						<option value="GS">South Georgia and the South Sandwich Islands</option>
+						<option value="ES">Spain</option>
+						<option value="LK">Sri Lanka</option>
+						<option value="SD">Sudan</option>
+						<option value="SR">Suriname</option>
+						<option value="SJ">Svalbard and Jan Mayen</option>
+						<option value="SZ">Swaziland</option>
+						<option value="SE">Sweden</option>
+						<option value="CH">Switzerland</option>
+						<option value="SY">Syrian Arab Republic</option>
+						<option value="TW">Taiwan, Province of China</option>
+						<option value="TJ">Tajikistan</option>
+						<option value="TZ">Tanzania, United Republic of</option>
+						<option value="TH">Thailand</option>
+						<option value="TL">Timor-Leste</option>
+						<option value="TG">Togo</option>
+						<option value="TK">Tokelau</option>
+						<option value="TO">Tonga</option>
+						<option value="TT">Trinidad and Tobago</option>
+						<option value="TN">Tunisia</option>
+						<option value="TR">Turkey</option>
+						<option value="TM">Turkmenistan</option>
+						<option value="TC">Turks and Caicos Islands</option>
+						<option value="TV">Tuvalu</option>
+						<option value="UG">Uganda</option>
+						<option value="UA">Ukraine</option>
+						<option value="AE">United Arab Emirates</option>
+						<option value="GB">United Kingdom</option>
+						<option value="US" selected>United States</option>
+						<option value="UM">United States Minor Outlying Islands</option>
+						<option value="UY">Uruguay</option>
+						<option value="UZ">Uzbekistan</option>
+						<option value="VU">Vanuatu</option>
+						<option value="VE">Venezuela</option>
+						<option value="VN">Viet Nam</option>
+						<option value="VG">Virgin Islands, British</option>
+						<option value="VI">Virgin Islands, U.s.</option>
+						<option value="WF">Wallis and Futuna</option>
+						<option value="EH">Western Sahara</option>
+						<option value="YE">Yemen</option>
+						<option value="ZM">Zambia</option>
+						<option value="ZW">Zimbabwe</option>
+						</select></p>
+
+
+					<div class="clear"></div>
+					<div class="editprofile_subtitle">Birthday (mm/dd/yyyy):</div><p>
+						 <input id="bday_m" name="bday_m" value="{if bday_m=='1' OR bday_m=='2' OR bday_m=='3' OR bday_m=='4' OR bday_m=='5' OR bday_m=='6' OR bday_m=='7' OR bday_m=='8' OR bday_m=='9'}0{bday_m}{if:else}{bday_m}{/if}" style="width:30px; text-align:center; "> 
+						/<input id="bday_d" name="bday_d" value="{if bday_d=='1' OR bday_d=='2' OR bday_d=='3' OR bday_d=='4' OR bday_d=='5' OR bday_d=='6' OR bday_d=='7' OR bday_d=='8' OR bday_d=='9'}0{bday_d}{if:else}{bday_d}{/if}" style="width:30px; text-align:center;"> 
+						/<input id="bday_y" name="bday_y" value="{bday_y}" style="width:50px; text-align:center;"></p>
+					<div class="clear"></div>
+<!--
+					<div class="editprofile_subtitle">Spouse: (coming soon)</div><p><input disabled="disabled" id="spouse" name="spouse" value="{spouse}" style="background-color:#eee;"></p>
+					<div class="editprofile_subtitle">Anniversary: (coming soon)</div><p><input disabled="disabled" id="anniversary" name="anniversary" value="{anniversary}" style="background-color:#eee;"></p>
+					<div class="clear"></div>
+-->
+					<div class="editprofile_subtitle" style="text-align:left">Biography:</div>
+					<p class="marg-t-10"><textarea id="bio" name="bio" maxlength="160" style="width: 360px;height: 60px; margin-bottom:0; resize: none"/>{bio}</textarea></p>
+					<div class="clear"></div>
+					<p style="float:right"><strong><span id="bio_count" style="padding-left:7px;"></span></strong> characters remaining.</p>
+					<div class="clear"></div>
+					<a href='#' id='editNameClick'><input class="btn btn--full" type="submit" name="submit" value="Submit"></a>									
+			
+				{/exp:user:edit}
+			
+				<br><br>	
+					
+				<h4>Change Your Password</h4>
+					<script type="text/javascript">
+						var email = "{email}";
+
+						$(document).ready(function() {
+							{if last_segment != "reset"}
+								$("#editnewpassword").select();
+							{/if}
+
+							$('#editconfirmpassword').keyup(function() {
+								if ($('#editconfirmpassword').val() != $('#editnewpassword').val()) {
+									$("#editmismatched_passwords").show();
+								} else {
+									$("#editmismatched_passwords").hide();					
+								}
+								
+								if ($('#editnewpassword').val().length < 6) {
+									$('#edittooshort_password').show();
+								}
+								else {
+									$('#edittooshort_password').hide();
+								}
+							});	
+
+							$("#change_password_form").submit(function() {
+								if ($('#editconfirmpassword').val() == $('#editnewpassword').val() && $('#editnewpassword').val().length >= 6) 
+								{
+									ShowTextModal("Please wait while your password is updated.");
+									$.ajax({
+										url: '/_component/update_password/' + email + '/' + $("#editnewpassword").val(),
+										success: function(data) {	
+											console.log(data);
+											var n = data.indexOf("Your password has been successfully updated");
+											if (n < 0) {
+												ShowTextModal(data);											
+											} else {
+												ShowTextModal("Your password has been successfully updated.");
+											}
+										}
+									});
+								}
+								return false;				
+							});
+							
+							$("#editcurpassword").keyup(function() { $("#editincorrect_password").hide(); });
+							
+						});
+					</script>
+					
+				<form id="change_password_form">				
+					<div class='clear'></div>					
+					<div class="editprofile_subtitle">New Password:</div><input type="password" name="editnewpassword"	id="editnewpassword" />
+					<div class='clear'></div>
+					<div class="editprofile_subtitle">Confirm New Password:</div><input type="password" name="editconfirmpassword"	id="editconfirmpassword" />
+					<div class='clear'></div>
+					<div id="editincorrect_password" class="editprofile-errormsg" style="display:none">Incorrect password entered.</div> 
+					<div id="editmismatched_passwords" class="editprofile-errormsg" style="display:none">Your passwords don't match.</div> 
+					<div id="edittooshort_password" class="editprofile-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+					<input type="submit" name="submit" value="Submit" class="btn btn--full" />
+				</form>
+			
+				<div class="clear"></div>
+			</div>
+		</div>
+					
+		<div class="clear"></div>
+		{embed="_component/divider"}
+		Your latest
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#prayers-filter").change(function(){
+					//$(".class").hide();
+					$(".prayersfiltered").toggle();		
+				});
+				$("#scriptures-filter").change(function(){
+					//$(".class").hide();
+					$(".scripturesfiltered").toggle();		
+				});
+				$("#events-filter").change(function(){
+					//$(".class").hide();
+					$(".eventsfiltered").toggle();		
+				});
+				$("#notes-filter").change(function(){
+					//$(".class").hide();
+					$(".notesfiltered").toggle();		
+				});
+				$("#favorites-filter").change(function(){
+					//$(".class").hide();
+					$(".favoritesfiltered").toggle();		
+				});
+				$("#offsite-filter").change(function(){
+					//$(".class").hide();
+					$(".class").toggle();	
+					$(".Longwood").toggle();		
+					$(".Oviedo").toggle();		
+					$(".Dora").toggle();			
+				});
+
+				$('.event-register').click (function() {
+					var whichID = $(this).attr('id');
+					var targetID = "#"+whichID+" .favorite";
+					var targetURL = $(targetID).attr('href');
+					whichID = whichID.substring(5);
+					registerUserToClass(whichID);
+					$.ajax({
+						success: function(data){
+							$(targetID).text("You're registered");
+						},
+						url: targetURL
+					});		
+					return false;
+				});
+
+			});
+
+			function ToggleNote(id) {
+				$("#" + id).toggle();
+			}
+
+		</script>
+		
+		<input type="checkbox" checked id="prayers-filter"> Prayers &nbsp;&nbsp;<input checked type="checkbox" id="notes-filter"> Notes &nbsp;&nbsp;<input checked type="checkbox" id="comments-filter"> Comments &nbsp;&nbsp; <input checked type="checkbox" id="events-filter"> Events &nbsp;&nbsp;<input checked type="checkbox" id="favorites-filter"> Favorites &nbsp;&nbsp;<input checked type="checkbox" id="scriptures-filter"> Scriptures
+		<ul>
+			{exp:favorites:entries weblog="default_site" orderby="favorites_date" sort="desc" limit="25"}
+				<div class="prayersfiltered">
+					{if channel=="Prayers"}
+					<li class="profile-prayers">
+						<div class="profile_date default_visible">
+							{if '{favorites_date format="%Y"}' != '{current_time format="%Y"}'}
+								{exp:human_time fallback="%M %j, %Y"}{favorites_date}{/exp:human_time}
+							{if:else}
+								{exp:human_time fallback="%M %j"}{favorites_date}{/exp:human_time}
+							{/if}
+						</div>
+						<span> Prayed</span> for <a href="/respond/pray/{entry_id}">
+							{if prayer-name}{exp:phpstringfun function="ucwords"}{prayer-name}{/exp:phpstringfun}{if:else}{exp:phpstringfun function="ucwords"}{author}{/exp:phpstringfun}{/if}</a>{!-- Custom prayer details}{if prayer-custom}{prayer-custom}{/if}{categories}{if category_id == "420"} who posted a prayer from the Seminole County Jail.{/if}{/categories}{--}
+					</li>
+					{/if}
+				</div>
+				<div class="scripturesfiltered">
+					{if channel=="Liturgy"}
+						<li class="profile-readbible">
+							<div class="profile_date default_visible">
+								{if '{favorites_date format="%Y"}' != '{current_time format="%Y"}'}
+									{exp:human_time fallback="%M %j, %Y"}{favorites_date}{/exp:human_time}
+								{if:else}
+									{exp:human_time fallback="%M %j"}{favorites_date}{/exp:human_time}
+								{/if}
+							</div>
+							<span> Read</span> <a href="/respond/readthebible/{entry_date format='%Y-%m-%j'}">{title}</a>
+						</li>
+					{/if}
+				</div>
+				<div class="eventsfiltered">
+					{if channel=="Calendar: Events"}
+						<li class="profile-events">
+							<div class="profile_date default_visible">
+								{if '{favorites_date format="%Y"}' != '{current_time format="%Y"}'}
+									{exp:human_time fallback="%M %j, %Y"}{favorites_date}{/exp:human_time}
+								{if:else}
+									{exp:human_time fallback="%M %j"}{favorites_date}{/exp:human_time}
+								{/if}
+							</div>
+							<span> Registered</span> for <a href="/calendar/details/{url_title}">{title}</a>
+						</li>
+					{/if}
+				</div>
+				<div class="favoritesfiltered">
+					{if channel=="Media"}
+						<li class="profile-media">
+							<div class="profile_date default_visible">
+								{if '{favorites_date format="%Y"}' != '{current_time format="%Y"}'}
+									{exp:human_time fallback="%M %j, %Y"}{favorites_date}{/exp:human_time}
+								{if:else}
+									{exp:human_time fallback="%M %j"}{favorites_date}{/exp:human_time}
+								{/if}
+							</div>
+							<span> Favorited</span> <a href="/media/{url_title}">{title}</a>
+						</li>
+					{/if}
+				</div>
+			{/exp:favorites:entries}
+			<div class="notesfiltered">
+			<?php
+				$member_id_reference = $this->EE->session->userdata('member_id');
+			?>
+			{exp:channel:entries channel="notes" author_id="<?php echo $member_id_reference; ?>" limit="25" disable="categories|category_fields|member_data|pagination"}
+				<li class="profile-notes">
+					<div class="profile_date default_visible">
+						{if '{entry_date format="%Y"}' != '{current_time format="%Y"}'}
+							{exp:human_time fallback="%M %j, %Y"}{entry_date}{/exp:human_time}
+						{if:else}
+							{exp:human_time fallback="%M %j"}{entry_date}{/exp:human_time}
+						{/if}
+					</div>
+					<span> Posted a note</span>
+					{!-- No longer showing the note on the page} <a href="javascript:ToggleNote('note_{entry_id}')">a note</span></a> {!--} on 
+					<a href='/media/{embed="_component/notes-mediaentryurl" the_id="{notes-mediaentryid}"}'>"{embed="_component/notes-title" the_id="{notes-mediaentryid}"}"</a></li>
+				<div id="note_{entry_id}" class="profile_note" style="display:none">{notes-note}</div>
+			{/exp:channel:entries}	
+			</div>
+		</ul>
+	</div>
+	
+	<div class="grid_4">
+		<style>
+			#readbible-mid {
+				padding-left: 10px;
+			}
+			.readbible_more {
+				margin-left: 10px;
+			}
+			.prayer_requests {
+				margin-left: 10px;
+			}
+			.prayer_name {
+				margin-left: 10px;
+			}
+			.prayer_prayer {
+				margin-left: 10px;
+			}
+			.prayer_post {
+				margin-left: 10px;
+			}
+		</style>
+		{embed="/_component/side-liturgy"}
+		{embed="/_component/side-prayer"}
+	</div>
+	{/if}
+	<br>
+</div>
+<div class="clear"></div>
+	</div>
+ </div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

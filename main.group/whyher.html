@@ -1,0 +1,32 @@
+{embed="_includes/html_open" htmltitle="Why Her?"}
+{embed="_includes/header"}
+{embed="_includes/nav" {if segment_2 == 'mvb'}active="about"{if:else}active="resources"{/if}}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Why Her? NOW AVAILABLE!</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	
+	<div id="article-main">
+		{exp:channel:entries channel="article" url_title="whyher" limit="1" status="closed"}
+			<div class="article-mid">
+				<p>{article-body}</p>
+			</div>
+			<div class="article-btm"></div>
+		{/exp:channel:entries}
+	</div>
+	
+
+</div>
+<div class="clear marg-b-60">&nbsp;</div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

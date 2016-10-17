@@ -1,0 +1,333 @@
+{embed="_assets/header" htmltitle="Northland Blogs{if segment_2 != "" AND segment_3 == ""}: {exp:channel:entries channel="blogs" dynamic="on" limit="1"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/navbar" active="resources"}
+
+{if segment_2 != "" AND segment_3 == ""}
+
+	<?php
+	$qstring = '{segment_2}';
+	$show_archive = preg_match("#category#", $qstring) ? 'y' : 'n';
+	$show_pagination = preg_match("#(^|\/)P(\d+)#", $qstring) ? 'y' : 'n';
+	if ($show_archive == 'y') { ?>
+
+	<?php }
+	elseif($show_pagination=="y"){ ?>
+
+	<?php }
+	else { ?>
+	<!-- individual article page -->
+
+		{exp:channel:entries channel="blogs" limit="1" dynamic="on"}
+		<?php $hero=FALSE; ?>
+		  	{categories}
+				<?php 
+				$category = ""; 
+				$category_name = htmlspecialchars("{category_name}"); 
+				$category_id = "{category_id}";
+				if ("{category_name}"=="Featured"){
+					$hero=TRUE;
+				}
+				?>
+			{/categories}
+			<?php if ($hero){ ?>
+			<div class='hero hero--resource' style="background-color: #05253a; -webkit-filter: opacity(100%);">
+				<div class='hero-media' style="background-image: url('<?php
+						ob_start();
+						?>{blog-post}<?php
+						$obcontents = ob_get_contents();
+						ob_end_clean();
+                    	
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$obcontents, $match)){
+							echo $match[1];
+						}
+						?>');-webkit-filter: opacity(10%);"></div>
+				<!--<div class='hero-content'>
+				  <div class='cell'>
+					<ul class='breadcrumbs breadcrumbs--transparent'>
+					  <li><a href="../">Home</a></li>
+					  <li><a href="../resources/">Resources</a></li>
+					  	
+					  <li><a href="/blogs/category/{category_url_title}"><?php echo $category_name ?></a></li>
+					  
+					</ul>
+				  </div>
+				</div>-->
+				<div class='hero-extend' style="background:none;">
+				  <div class='cell'>
+				  	<h1 class='heading heading--l title'>{title}</h1>
+					<h4 class='meta-author'><span>{if blog-author}{blog-author}{if:else}{author}{/if}</span> <span>{entry_date format="%F %j, %Y"}</span> {exp:tag:tags
+					    entry_id="{entry_id}"
+					    orderby="tag_name"
+					    sort="desc"
+					    limit="2"
+					}
+						<span class='tag'>{tag}</span>
+					{/exp:tag:tags}</h4>					{if blog-excerpt}<p class='mbl tss'>{blog-excerpt}</p>{/if}
+				  </div>
+				</div>
+			</div>
+			<?php }else{ ?>
+				<div class='row--inverted'>
+					<div class='cell well'>
+						<div class="card">
+							<!--<ul class='breadcrumbs'>
+								<li><a href="../">Home</a></li>
+								<li><a href="../resources/">Resources</a></li>
+								<li><a href="/blogs/category/{category_url_title}"><?php echo $category_name ?></a></li>
+							</ul>-->
+							<h1 class='heading heading--l title'>{title}</h1>							
+							<h4 class='meta-author'><span>{if blog-author}{blog-author}{if:else}{author}{/if}</span> <span>{entry_date format="%F %j, %Y"}</span> {exp:tag:tags
+							    entry_id="{entry_id}"
+							    orderby="tag_name"
+							    sort="desc"
+							    limit="2"
+							}
+								<span class='tag'>{tag}</span>
+							{/exp:tag:tags}</h4>
+							{if blog-excerpt}<p class='mbl tss'>{blog-excerpt}</p>{/if}
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+		{/exp:channel:entries}
+
+
+
+		<div class='row--inverted entry'>
+			<div class='cell well'>
+				<div class='g'>
+
+				  <!-- article content -->
+				  <div class='g-b g-b--m--3of4'>
+				    <div class='card'>
+				      <article class='article'>
+					  	{exp:channel:entries channel="blogs" limit="1" dynamic="on"}
+					  		{blog-post}
+								<?php
+								ob_start();
+							?>
+							{blog-post}
+							<?php
+								$obcontents = ob_get_contents();
+							  	ob_end_clean();
+							  	$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						  	?>	
+							{exp:tag:tags
+							    entry_id="{entry_id}"
+							    orderby="tag_name"
+							    sort="desc"
+							    limit="2"
+							}
+								<span class='tag'>{tag}</span>
+							{/exp:tag:tags}
+						{/exp:channel:entries}
+				      </article>
+					  	<div class="clear"></div>
+
+						<div id="fb-root"></div>
+						<script>(function(d, s, id) {
+						  var js, fjs = d.getElementsByTagName(s)[0];
+						  if (d.getElementById(id)) return;
+						  js = d.createElement(s); js.id = id;
+						  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=112575096276&version=v2.0";
+						  fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));</script>
+
+						<div class="fb-like" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+						<div><a href="https://twitter.com/share" class="twitter-share-button" data-count="none"><img src="http://northlandchurch.github.io/Website-Styles/assets/images/icon-twitter-white.svg"></a></div>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						<div class="clear"></div>
+						<hr class="rule rule--transparent mbl">
+
+						<div class="blog-comments">
+							{if logged_in}
+								{exp:comment:form preview="weblog/preview"}
+							
+										<h4 id="addacomment">Add a Comment</h4>
+										<textarea name="comment" cols="70" rows="10">{comment}</textarea>
+										<p>
+											<input type="checkbox" name="save_info" value="yes" {save_info} /> Remember my personal information &nbsp;&nbsp;|&nbsp;&nbsp; 
+											<input type="checkbox" name="notify_me" value="yes" {notify_me} /> Notify me of follow-up comments?
+										</p>
+                                	
+										<input type="submit" name="submit" value="Submit" />
+								{/exp:comment:form}
+							{if:else}
+								<h4>Comments - <a class="user-login" href="#login-register-box" style="font-size: 15px; font-weight: 600; font-family: 'museo-sans-1','museo-sans-2',Helvetica, sans-serif; text-align:center">Login to Leave a Comment</a></h4>
+							{/if}
+							<hr class="rule rule--transparent mbl">
+							{exp:comment:entries sort="desc" limit="300"}
+							  
+								{if no_results}<p>No one has commented yet. Be the first!</p>{/if}
+							  		<div class="comment">
+							  	  		<hr class="rule rule mbl">
+								  		<strong>{name}</strong> said (Added on {comment_date format="%F %j, %Y"} at {comment_date format="%h:%i"} {if '{comment_date format="%a"}' == "am"}a.m.{/if}{if '{comment_date format="%a"}' == "pm"}p.m.{/if})
+								  		{comment}
+							  		</div>
+								{/if}
+							{/exp:comment:entries}
+						</div>
+						
+				    </div>
+					
+				  </div>
+				  <!-- end article content -->
+				  
+				  <!-- sidebar -->
+				  <div class='g-b g-b--m--1of4'>
+				  	{embed="_assets/sidebar" whichCategory="<?php echo $category ?>"}
+				  </div>
+				  <!-- end sidebar -->
+				  
+				</div><!-- g -->
+			</div><!-- cell -->
+    	</div><!-- row -->
+	<?php } ?>
+{/if} <!-- end of individual article page -->
+
+
+<!-- code below from previous template, for reference during development -->
+{if segment_2 != "" AND segment_3 == "" AND empty != empty}
+	<?php
+	$qstring = '{segment_2}';
+	$show_archive = preg_match("#category#", $qstring) ? 'y' : 'n';
+	$show_pagination = preg_match("#(^|\/)P(\d+)#", $qstring) ? 'y' : 'n';
+	if ($show_archive == 'y') { ?>
+		<div id="focused" class="blogs">
+			<div class="container_12">
+				{exp:channel:entries channel="blogs" limit="1" orderby="asc" dynamic="off"}
+				<div class="grid_5">
+					<h1>Blog</h1>
+					<img src="{v2-image-asset-url}/main/divider.png" class="divider" />
+					<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">Featured: {title}</a></h2>
+					<p class="info">Written by: {if blog-author}{blog-author}{if:else}{author}{/if} in <?php $cat_count=0 ?>{categories}<?php $cat_count++; if ($cat_count>1){ echo ", "; } ?><a href="/blogs/category/{category_url_title}">{category_name}</a>{/categories}</a> on {entry_date format="%F %j, %Y"}</p>
+					<p>
+					{exp:trunchtml chars="75"}{blog-post}{/exp:trunchtml}
+					</p>
+					<a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><img src="{v2-image-asset-url}/buttons/readmore.png" /></a>
+				</div>
+				<div class="grid_7 blog-featured" style="background-image: url(<?php
+				ob_start();
+				?>{blog-post}<?php
+				$obcontents = ob_get_contents();
+				ob_end_clean();
+				
+				$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+				if(preg_match($pattern,	$obcontents, $match)){
+					echo $match[1];
+				}
+				?>);"></div>
+				{/exp:channel:entries}
+			</div>
+		</div>
+
+		<div class="container_12">
+			<div class="grid_8">
+				{exp:channel:entries channel="blogs" limit="10" offset="11"}
+				<div class="blog-post">
+					<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">{title}</a> <?php $show_tweet=1; ?>{categories}<?php if ("{category_id}"==70){ $show_tweet=0; } ?>{/categories}
+					<?php if ($show_tweet==1){ ?>
+						{exp:shortntweet title='{title}' url='{title_permalink=blogs}'}{/exp:shortntweet}
+					<?php } ?></h2>
+					<p class="info">
+						Posted {entry_date format="%F %j, %Y"} &nbsp;|&nbsp; 
+						Category: <?php $cat_count=0 ?>{categories}<?php $cat_count++; if ($cat_count>1){ echo ", "; } ?><a href="/blogs/category/{category_url_title}">{category_name}</a>{/categories}</a> &nbsp;|&nbsp; 
+						Written by: {if blog-author}{blog-author}{if:else}{author}{/if} 
+						
+					</p>
+					<?php
+					ob_start();
+					?>{blog-post}<?php
+					$obcontents = ob_get_contents();
+					ob_end_clean();
+					
+					$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+					if(preg_match($pattern,	$obcontents, $match)){
+						echo '<img class="preview" src='.$match[1].'>';
+					}
+					?>
+
+					<p>{exp:strip_html keep='a'}{exp:trunchtml chars="300" inline="..."}{blog-post}{/exp:trunchtml}{/exp:strip_html}</p>
+					<div class="clear"></div>
+				</div>
+
+				{paginate}
+				{if "{total_pages}" != 1}
+				<p id="pagination">Page {current_page} of {total_pages} pages {exp:low_replace find='index.php/'}{pagination_links}{/exp:low_replace}</p>
+				{/if}
+				{/paginate}
+		
+				{/exp:channel:entries}
+				<div class="clear"></div>
+			</div>
+
+	<?php } elseif($show_pagination=="y"){ ?>
+
+
+		<div class="container_12">
+			<div class="grid_8">
+				{exp:channel:entries channel="blogs" limit="10" offset="11"}
+				<div class="blog-post">
+					<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">{title}</a> <?php $show_tweet=1; ?>{categories}<?php if ("{category_id}"==70){ $show_tweet=0; } ?>{/categories}
+					<?php if ($show_tweet==1){ ?>
+						{exp:shortntweet title='{title}' url='{title_permalink=blogs}'}{/exp:shortntweet}
+					<?php } ?></h2>
+					<p class="info">
+						Posted {entry_date format="%F %j, %Y"} &nbsp;|&nbsp; 
+						Category: <?php $cat_count=0 ?>{categories}<?php $cat_count++; if ($cat_count>1){ echo ", "; } ?><a href="/blogs/category/{category_url_title}">{category_name}</a>{/categories}</a> &nbsp;|&nbsp; 
+						Written by: {if blog-author}{blog-author}{if:else}{author}{/if} 
+						
+					</p>
+					<?php
+					ob_start();
+					?>{blog-post}<?php
+					$obcontents = ob_get_contents();
+					ob_end_clean();
+					
+					$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+					if(preg_match($pattern,	$obcontents, $match)){
+						echo '<img class="preview" src='.$match[1].'>';
+					}
+					?>
+
+					<p>{exp:strip_html keep='a'}{exp:trunchtml chars="300" inline="..."}{blog-post}{/exp:trunchtml}{/exp:strip_html}</p>
+					<div class="clear"></div>
+				</div>
+
+				{paginate}
+				{if "{total_pages}" != 1}
+				<p id="pagination">Page {current_page} of {total_pages} pages {exp:low_replace find='index.php/'}{pagination_links}{/exp:low_replace}</p>
+				{/if}
+				{/paginate}
+		
+				{/exp:channel:entries}
+				<div class="clear"></div>
+			</div>
+		
+	<?php } else { ?>
+
+		<!-- previously this is was the section of the code for a single blog article -->
+
+	<?php } ?>
+
+			<div id="aside" class="grid_4">
+				<div class="rnd">
+					<h5>Categories</h5>
+					<ul class="rnd-blogs">
+						{exp:channel:categories channel="blogs" style="linear" parent_only="yes"}
+						<li>
+							{if category_id == "427|431"}
+							{if:else}
+								<a href="http://www.northlandchurch.net/blogs/category/{category_url_title}">{category_name}</a>
+							{/if}
+						</li>
+						{/exp:channel:categories}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+<div class="clear"></div>
+{/if}
+
+{embed="_assets/footer"}

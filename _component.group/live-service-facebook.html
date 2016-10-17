@@ -1,0 +1,31 @@
+							<div class="vid_box">
+								
+{exp:channel:entries dynamic="off" channel="media" show_future_entries="yes" orderby="date" category="58" sort="desc" limit="1"}
+										
+<script type='text/javascript' src='http://northlandchurch.net/fb/mediaplayer/swfobject.js'></script>
+  
+<div id='mediaspace'>.</div>
+ 
+<script type='text/javascript'>
+  var so = new SWFObject('http://northlandchurch.net/_flash/player.swf','mpl','620','352','9');
+var counter = 0
+so.addParam('allowFullscreen','true');
+so.addParam('allowscriptaccess','always');
+so.addParam('wmode','opaque');
+so.addVariable('captions','{media-speaker}');
+so.addVariable('file','backup');
+so.addVariable('type','rtmp');
+so.addVariable('streamer','rtmp://174.129.245.138:1935/live/');
+so.addVariable('image','{media-primary}');
+so.addVariable('autostart','true');
+so.addVariable('stretching','width');
+window.onload=function(){
+	if (counter==0){
+		so.write('mediaspace');
+		counter = counter + 1;
+	}
+}
+</script>
+
+{/exp:channel:entries}
+</div>

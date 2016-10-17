@@ -1,0 +1,38 @@
+{embed="volunteer/scripts"}
+
+{exp:channel:entries channel="opportunities" category="455" orderby="date" sort="desc" limit="1000000" dynamic="off"}
+
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories}" id="serve{entry_id}">
+		<div class="respond-serve-tinter">
+			<div class="respond-serve-information">			
+				<h2 class="heading heading--l">{title}</h2>
+				
+				{!-- Which Location --}
+				<div class="respond-serve-marker">
+					{categories}
+						{if category_id == "455"}Longwood{/if}
+						{if category_id == "457"}Mount Dora{/if}
+						{if category_id == "456"}Oviedo{/if}
+					{/categories}
+				</div>
+				
+<!--				<div class="clear"></div> -->
+				
+				<p>{desc}</p>
+				<p>{commitment}</p>
+				
+				<div class="respond-serve-count">
+					{!-- Display amount of people needed --}
+					{if people}
+						<h3>{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+					{/if}
+				</div>
+				
+				<div class="respond-serve-fave">
+					<a href="#" onclick="openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">SIGN ME UP</div></a>
+				</div>
+				<!-- <div class="clear"></div> -->
+			</div>
+		</div>
+	</div>
+{/exp:channel:entries}

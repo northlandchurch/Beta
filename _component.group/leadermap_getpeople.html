@@ -1,0 +1,65 @@
+<?php 
+	$level = "";
+	{exp:member:custom_profile_data}
+		$level = "{leader_map_level}";
+		$latitude = "{exp:strip_html}{latitude}{/exp:strip_html}";
+		$longitude = "{exp:strip_html}{longitude}{/exp:strip_html}";
+	{/exp:member:custom_profile_data}
+	
+	set_time_limit(0);
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	
+	if ($level != "Local" && $level != "All") { die("You are not authorized."); }
+	
+	if ($level == "All") {
+		$latitude_min = $longitude_min = -1000;
+		$latitude_max = $longitude_max = 1000;
+	}
+	
+	if ($level == "Local") {
+		$latitude_min = $latitude - 0.0724;
+		$latitude_max = $latitude + 0.0724;
+		$longitude_min = $longitude - 0.0724;
+		$longitude_max = $longitude + 0.0724;
+	}
+	
+	// Mongodb
+	$start_time = microtime(true);
+	
+	$m = new MongoClient("mongodb://northland:530dogtrack@candidate.19.mongolayer.com:10144/northland");
+	$db = $m->northland;
+	$people_collection = $db->leadermap_people;
+
+	//$cursor = $people_collection->find();
+	$cursor = $people_collection->find(array(
+		'latitude' => array( '$gt' => $latitude_min, '$lt' => $latitude_max ),
+		'longitude' => array( '$gt' => $longitude_min, '$lt' => $longitude_max )
+		//'tags' => array('$in' => array('Elder'))
+	));
+
+	$output_array = array();
+	
+	$tags_array = array();
+	$people_array = array();
+	
+	foreach ($cursor as $document) {
+		if ($document['tags']) {
+			foreach ($document['tags'] as $tag) {
+				$tags_array[] = $tag;
+			}
+		}
+		array_push($people_array, $document);
+	}
+	$tags_array = array_values(array_unique($tags_array));	// Remove tag duplicates
+	sort($tags_array);
+	
+	/*$end_time = microtime(true);
+	
+	echo ($end_time - $start_time);	*/
+	
+	$output_array['people'] = $people_array;
+	$output_array['tags'] = $tags_array;
+	
+	echo json_encode($output_array);
+?>

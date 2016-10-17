@@ -1,0 +1,18 @@
+<rss version="2.0"
+    xmlns:media="http://search.yahoo.com/mrss/" 
+    xmlns:jwplayer="http://developer.longtailvideo.com/trac/wiki/FlashFormats"> 
+  <channel> 
+    <title>Single video with bitrate switching</title> 
+    <item> 
+      <title>Sintel</title> 
+      <description>When an FMS 3.5 server is detected, bitrate switching is also continously done while watching the video.</description> 
+      <media:group> 
+        <media:content bitrate="1628" width="640" url="high" /> 
+        <media:content bitrate="653" width="640" url="med" /> 
+        <media:content bitrate="328" width="640" url="low" /> 
+      </media:group> 
+      <jwplayer:type>rtmp</jwplayer:type> 
+      <jwplayer:streamer>rtmp://107.21.118.65:1935/live-red</jwplayer:streamer> 
+    </item> 
+  </channel> 
+</rss>

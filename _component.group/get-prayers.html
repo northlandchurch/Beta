@@ -1,0 +1,8 @@
+{
+"items" : [ 
+	{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="5" backspace="1"}
+	{ 
+		"Entry": "{entry_id}", 
+		"Name": "{exp:strip_html}{exp:low_replace find='"' replace="'" multiple="yes"}{prayer-name}{/exp:low_replace}{/exp:strip_html}",
+		"Prayer": "{exp:strip_html}{exp:strip_line_breaks}{exp:low_replace find='<br />|"' replace=" |'" multiple="yes"}{prayer-need}{/exp:low_replace}{/exp:strip_line_breaks}"},{/exp:channel:entries} 
+ ]}

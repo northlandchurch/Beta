@@ -1,0 +1,437 @@
+<?php 
+{if segment_2!=""}header('Location: http://www.northlandchurch.net/video/{segment_2}');
+{if:else}header('Location: http://www.northlandchurch.net/resources');
+{/if}
+exit;
+?>
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+?>
+
+{embed="_includes/html_open-beta" htmltitle="Northland Media{if segment_2 != '' AND segment_2 != 'category'}: {exp:channel:entries channel="media" dynamic="on" orderby="date" sort="desc" category="not 58" limit="1" cache="yes" refresh="60"}{title}{/exp:channel:entries}{/if}" videometa='
+{exp:channel:entries channel="media" dynamic="on" orderby="date" sort="desc" limit="1" cache="yes" refresh="60"}<meta property="og:type" content="website" />
+<meta property="og:title" content="{title}" />
+<meta property="og:url" content ="{current_url}" /> 
+<?php
+	$ee_description = "{exp:low_replace find="QUOTE" replace="'"}{exp:strip_html}{media-unit:series-description}{/exp:strip_html}{/exp:low_replace}";
+	if (!$ee_description) {
+		$ee_description = "Highlights from Northland, A Church Distributed";
+	}
+	else {
+		$ee_description = substr($ee_description, 0, 400);
+	}
+?>
+<meta property="og:description" content="<?php echo $ee_description; ?>" />
+<meta property="og:image" content="https://www.northlandchurch.net{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}" />{/exp:channel:entries}
+'}
+
+{exp:channel:entries channel="media" dynamic="on" orderby="date" sort="desc" limit="1" cache="yes" refresh="60"}
+
+<?php
+	$filePath='a';
+?>
+
+{categories}
+<?php
+	if ('{category_id}'=="48" OR '{category_id}'=="44"){
+		$filePath = 'recent';
+	}if ('{category_id}'=="47"){
+		$filePath = "classes";
+	}if ('{category_id}'=="44"){
+		$filePath = 'archive';
+	}
+	
+	$categoryid = '{category_id}';
+
+?>
+{/categories}
+	<?php 
+		$whichFileEncode = "";
+		if ($filePath=="recent"){
+			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-service/{segment_2}{/exp:url_encode}";
+			$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+			$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+		}elseif ($filePath=="classes"){
+			$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/class/{media-video}/playlist.m3u8";
+			$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/class/{media-video}";
+		}elseif ($filePath=="archive"){
+			$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+			if ({entry_date format='%Y'} == '2009')
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4";
+			else if ({entry_date format='%Y'} == '2008')
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+			else 
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+		}
+		else{
+			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-misc/{segment_2}{/exp:url_encode}";
+			$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/misc/{media-video}_med.mp4/playlist.m3u8";
+			$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/misc/{media-video}_high.mp4";
+		}
+	?>
+
+{/exp:channel:entries}
+
+
+
+{embed="_includes/header-beta"}
+{embed="_includes/nav" active="media"}
+<?php $liveVid = 0; ?>
+
+<script src="http://jwpsrv.com/library/Yr4twJz1EeSN_hJtO5t17w.js"></script>
+
+<script type="text/javascript" src="/_assets/js/auto-suggest.js"></script>
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){jQuery.gsuggest({'url':'suggest.cfc'})});
+</script>
+
+
+
+<?php      // **************	MEDIA HOMEPAGE		**************	           ?>
+<?php      // **************	MEDIA HOMEPAGE		**************	           ?>
+<?php      // **************	MEDIA HOMEPAGE		**************	           ?>
+
+
+{if segment_2 == ''}
+
+<div id="focused" class="blogs">
+	<div class="container_12">
+		{exp:channel:entries channel="media" category="48" limit="1" dynamic="off" cache="yes" refresh="30"}
+		<div class="grid_5">
+			<h1>Last Week&#39;s Service</h1>
+			<img src="{v2-image-asset-url}/main/divider.png" class="divider" />
+				<a href="/media/{url_title}"><strong>{title}</strong></a>
+				<p>
+					Speaker: {media-speaker}<br />
+					Date: {entry_date format="%F %j, %Y"}<br />
+					<p>{media-description}</p>
+
+				</p>
+		</div>
+		
+		<div class="grid_7">		
+			{if media-embed != ''}
+				<iframe src="http://player.vimeo.com/video/{media-embed}?title=0&amp;byline=0&amp;portrait=0" width="520" height="293" frameborder="0"></iframe>
+			{if:else}						
+				<div id="vid{entry_id}" >Loading the player...</div>
+				
+				<script type="text/javascript"> 
+					jwplayer("vid{entry_id}").setup({
+						autostart: "true",
+						width: "520",
+						height: "293",
+						mute: "false",
+						volume: 100,    
+						stretching: "uniform",
+						primary: "flash",
+						logo: {
+					        hide: true
+					    },
+						abouttext: "Northland Church",
+						
+					    playlist: [{
+						    image: "{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}",
+							sources: [		
+								{
+									file: "<?php echo $rtmpURL; ?>"
+								}
+							],
+						}],
+					});
+				</script>    
+			{/if}
+		</div>
+		
+		{/exp:channel:entries}
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div id="media-columns" class="container_12" >
+	
+	<div id="series-filter-bar">
+		
+		<div class="series-bar-left">
+			<ul>
+				<li><a href="/series">View All Sermon Series</a></li>
+			</ul>
+		</div>
+		
+		<div class="filter-bar-right">
+			<form method="get" action="/search/results/">
+				<input type="image" src="{v2-image-asset-url}/buttons/search.png" value="Search" alt="Search" name="search" class="button" />
+				<input type="text" name="q" value="" size="30" suggest="yes" suggest_value='[{exp:channel:entries channel='media' cache='yes' refresh='30'}"{title}",{/exp:channel:entries}]'>
+			</form>
+		</div>			
+	</div> 
+	
+	
+	<div class="container_12" style="padding:0 0 10px 0">
+		<h3>Recent Services</h3>
+		{exp:channel:entries channel="media" limit="4" dynamic="off" category="48" cache="yes" refresh="30"}
+			<div class="grid_3">
+				<a href="/media/{url_title}"><img src="{uploaded}/{media-primary}" width="220px" height="124px"></a>
+				<a href="/media/{url_title}"><strong>{title}</strong></a><br>
+				<span class="info">Date: {entry_date format="%F %j, %Y"}</span>
+			</div>
+		{/exp:channel:entries}
+		<div class="clear"></div>
+	</div>
+	
+	<div class="container_12 gray" style="padding:5px 0 10px 0; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB">
+		<h3>Highlights</h3>
+		{exp:channel:entries channel="media" limit="4" dynamic="off" category="45" cache="yes" refresh="30"}
+			<div class="grid_3">
+				<a href="/media/{url_title}">{if media-primary}<img src="{uploaded}/{media-primary}" width="220px" height="124px">{if:else}<img src="{uploaded}/{media-image}" width="220px" height="124px">{/if}</a>
+				<a href="/media/{url_title}"><strong>{title}</strong></a><br>
+				<span class="info">Date: {entry_date format="%F %j, %Y"}</span>
+			</div>
+		{/exp:channel:entries}
+		<div class="clear"></div>
+	</div>
+
+	<div class="container_12" style="padding:5px 0 10px 0;">
+		<h3>
+			Recent Series
+			<div style="float:right; font-weight: 500; font-size: 0.9em"><a href="/series">View All Sermon Series...</a></div>
+		</h3>
+		{exp:channel:entries channel="series" limit="4" dynamic="off" category="286|252" orderby="date" sort="desc" cache="yes" refresh="30"}
+			<div class="grid_3">
+				<a href="{exp:low_replace find='index.php/'}{url_title_path='series'}{/exp:low_replace}">
+					<img src="{v2-image-asset-url}/series/{series-image}" width="220px" height="124px">
+				</a>
+				<a href="{exp:low_replace find='index.php/'}{url_title_path='series'}{/exp:low_replace}"><strong>{title}</strong></a><br>	
+			</div>
+		{/exp:channel:entries}
+		<div class="clear"></div>
+	</div>
+	
+	{!--<div class="container_12" style="padding:5px 0 10px 0">
+		<h3>Stories</h3>
+		{exp:channel:entries channel="media" limit="4" dynamic="off" category="356" cache="yes" refresh="30"}
+		<div class="grid_3">
+			<a href="/media/{url_title}">{if media-primary}<img src="{uploaded}/{media-primary}" width="220px" height="124px">{if:else}<img src="{uploaded}/{media-image}" width="220px" height="124px">{/if}</a>
+			<a href="/media/{url_title}"><strong>{title}</strong></a><br>
+			<span class="info">Date: {entry_date format="%F %j, %Y"}</span>
+		</div>
+		{/exp:channel:entries}
+		<div class="clear"></div>
+	</div>--}
+		
+	<div class="container_12 gray" style="padding:5px 0 10px 0; border-top: 1px solid #BBB; border-bottom: 1px solid #BBB">
+		<h3>Classes &amp; Studies</h3>
+		{exp:channel:entries channel="series" limit="4" dynamic="off" category="287" cache="yes" refresh="30"}
+			<div class="grid_3">
+				<a href="/series/{url_title}"><img src="{v2-image-asset-url}/series/{series-image}" width="220px" height="124px"></a>
+				<a href="/series/{url_title}"><strong>{title}</strong></a><br>
+				{!--}<span class="info">Began on: {entry_date format="%F %j, %Y"}</span>{--}
+			</div>
+		{/exp:channel:entries}
+		<div class="clear"></div>
+	</div>
+	
+	<div class="container_12" style="margin-top: 20px">
+		{embed="_component/medialist-all"}
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<br>
+{/if}
+
+<?php      // **************	INVIDIDUAL MEDIA ENTRY		**************	           ?>
+<?php      // **************	INVIDIDUAL MEDIA ENTRY		**************	           ?>
+<?php      // **************	INVIDIDUAL MEDIA ENTRY		**************	           ?>
+
+{if segment_2 != '' AND segment_2 != 'category'}
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">{exp:channel:entries channel="media" dynamic="on" orderby="date" sort="desc" category="not 58" limit="1" cache="yes" refresh="30"}{title}{/exp:channel:entries}</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12" style="margin-bottom: 15px">
+	<div class="grid_8">
+		{exp:channel:entries channel="media" dynamic="on" limit="1" cache="yes" refresh="60"}
+		
+{if media-embed != ''}
+					{categories}
+						{if category_name=="Student Ministries" || category_name=="Youtube"}
+						<object width="520" height="293"><param name="movie" value="http://www.youtube.com/v/{media-embed}&hl=en&fs=1"></param>
+							<param name="allowFullScreen" value="true"></param>
+							<param name="wmode" value="transparent"> 
+
+							<param name="allowscriptaccess" value="always"></param>
+							<embed src="http://www.youtube.com/v/{media-embed}&hl=en&fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="transparent" width="620" height="502"></embed>
+							</object>
+						{if:else}
+							<?php $showVimeo = true; ?>
+						{/if}
+					{/categories}
+
+					<?php if ($showVimeo == true) : ?>
+						{!--<object width="520" height="293">
+								<param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" />
+								<param name="wmode" value="transparent"> 
+
+								<param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id={media-embed}&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=3366CC&amp;fullscreen=1" />
+								<embed src="http://vimeo.com/moogaloop.swf?clip_id={media-embed}&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=3366CC&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" wmode="transparent" allowscriptaccess="always" width="520" height="293"></embed>
+							</object>--}
+							<iframe src="http://player.vimeo.com/video/{media-embed}?title=0&amp;byline=0&amp;portrait=0" width="620" height="349" frameborder="0"></iframe>
+
+		<?php endif; ?>
+	
+
+{if:else}
+
+<?php if (!$detect->isMobile()): ?>
+	<div id="vid{entry_id}">Loading the player...</div>
+<?php else: ?>
+	<video width="620" height="349" controls poster="{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}">
+		<source src="<?php echo $iosFile; ?>">
+	</video>
+<?php endif; ?>
+
+<script type="text/javascript"> 
+	jwplayer("vid{entry_id}").setup({
+		autostart: "true",
+		width: "620",
+		height: "349",
+		mute: "false",
+		volume: 100,    
+		stretching: "uniform",
+		primary: "flash",
+		logo: {
+	        hide: true
+	    },
+		abouttext: "Northland Church",
+		
+	    playlist: [{
+		    image: "{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}",
+			sources: [		
+				{
+					file: "<?php echo $rtmpURL; ?>"
+				}
+			],
+		}],
+	});
+
+	jwplayer().onReady(function(){
+		jwplayer().seek(0);
+	});
+</script>    
+
+
+<p>{media-description}</p>
+<div class="clear marg-b-20"></div>
+{/if}
+
+<?php if ($categoryid == '48' || $categoryid == '44' || $categoryid == '58' || $categoryid == '47') :?>
+	<h3 style="margin-top: 15px">Take Notes</h3>
+	{if logged_in}
+	<script type="text/javascript">
+		function successResponse(responsejson) {
+			// Update notes form to use the entry_id of the entry created if it's a new entry
+			if ($('input[name=entry_id]').val() == 0) {
+				$('input[name=entry_id]').val(responsejson.entry_id);
+			}
+		}	
+	</script>
+	<div id="notes_wrapper"></div>
+		{embed="/_component/media_notes" week="{media-week}" series="{media-series}" mediaentryid="{entry_id}" defaulttext="{if media-reference}<b>Scriptures Referenced:</b><br>{media-reference}{/if}"}
+	{if:else}
+		<textarea id="notes-note" style="width: 586px; height: 340px; padding: 15px; resize: none;" name="notes-note">{if media-reference}Scriptures Referenced:
+		{exp:strip_html}{media-reference}{/exp:strip_html}{/if}</textarea>
+		<a class="user-login" href="#login-register-box"><img src="/_assets/img/v2/onlineworship/btn-login-email.png" /></a>
+	{/if}		
+<?php endif; ?>
+
+{/exp:channel:entries}
+</div>
+
+
+{exp:channel:entries channel="media" dynamic="on" limit="1" cache="yes" refresh="30"}
+	{media-unit}
+		<div id="aside" class="grid_4 marg-b-20">
+			<div class="top"></div>
+			<div class="mid">
+				<h5>About this series</h5>
+					<img class="series-banner" src="{v2-image-asset-url}/series/{media-unit:series-image}" class="marg-b-10">
+					{if media-unit:series-description != ''}<p>{media-unit:series-description}</p>{/if}
+				<p>For more videos in this series, <a href="http://www.northlandchurch.net/series/{media-unit:url_title}">Click Here</a></p>					
+			</div>
+			<div class="btm"></div>
+			</div>	
+	{/media-unit}
+{/exp:channel:entries}
+<?php if ($categoryid == '48' || $categoryid == '44') :?>
+	<div id="aside" class="grid_4 marg-b-20">
+		<div class="top"></div>
+		<div class="mid">
+			<p>
+				To purchase the CD or DVD of this sermon and others, stop in the bookstore at Longwood, call 407-949-7199 or email <a href="mailto:bookstore@northlandchurch.net">bookstore@northlandchurch.net</a>.
+			</p>
+		</div>
+		<div class="btm"></div>
+	</div>
+<?php endif; ?>
+
+		<div id="aside" class="grid_4">
+			<div class="top"></div>
+			<div class="mid">
+				<h5>Additional Media</h5>
+				<p>
+					<a href="/series" style="margin: 0 0 -3px 0; padding: 0 0 0 18px;">Recent Sermons</a><br>					
+					<a href="/media" style="margin: 0 0 -3px 0; padding: 0 0 0 18px;">All Videos</a><br>
+					<a href="feed://www.northlandchurch.net/feed/audio_podcast/" class="podcast">Subscribe to the audio podcast</a> (<a href="http://itunes.apple.com/us/podcast/northland-a-church-distributeds/id344535242">via iTunes</a>)</a><br />	
+				</p>
+			</div>
+			<div class="btm"></div>
+		</div>
+
+
+	{!--<div id="aside" class="grid_4">
+		<div class="top"></div>
+		<div class="mid">
+			<h5>Podcasts</h5>
+			<p class="">
+				You can subscribe to Northland's audio so that it automatically shows up as soon as we upload it!<br />
+				<a href="feed://www.northlandchurch.net/feed/audio_podcast/" class="podcast">Subscribe to the audio podcast</a> (<a href="http://itunes.apple.com/us/podcast/northland-a-church-distributeds/id344535242">via iTunes</a>)</a><br />
+				<!--<a href="http://www.northlandchurch.net/feed/video_podcast/" class="podcast">Subscribe to the video podcast</a> (<a href="http://itunes.apple.com/us/podcast/northland-a-church-distributeds/id344535293">via iTunes</a>)</a>-->
+			</p>
+		</div>
+		<div class="btm"></div>
+	</div>--}
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=140933859326218";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>	
+	
+	<div style="display:block;width:60px;float:left;margin-top:10px"><div class="fb-like" data-href="{exp:low_replace find="/index.php" replace=""}{exp:current_url:full_url}{/exp:low_replace}" data-send="true" data-layout="box_count" data-width="300" data-show-faces="true" style="margin: 10px;display:inline"></div></div>
+	
+	<div class="clear"></div>
+</div>
+
+</div>
+
+<div class="clear"></div>
+
+<div class="container_12">
+	<hr style="margin-bottom: 15px">
+	{embed="_component/medialist-all"}
+</div>
+
+{/if}
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

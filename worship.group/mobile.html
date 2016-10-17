@@ -1,0 +1,180 @@
+<?php 
+	include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	$detect = new Mobile_Detect();
+?>
+
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"/>
+<meta content="telephone=no" name="format-detection">
+<html>
+<head>
+<title>Northland Online Worship - Mobile</title>
+
+{!-- <script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script> --}
+<script type="text/javascript" src="/_assets/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/_assets/js/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-966214-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css">
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/css-onlineworship-standalonemobile/" />
+
+<script type="text/javascript">
+	$(document).bind("mobileinit", function() {
+		$.mobile.page.prototype.options.headerTheme = "a";
+	    $.mobile.page.prototype.options.contentTheme    = "a";
+	    $.mobile.page.prototype.options.footerTheme = "a";
+	    $.mobile.hidePageLoadingMsg();
+	});
+
+	$(document).ready(function() {				
+		$("#seriesimage").load(function() { UpdatePositions(); });		
+		$(window).bind('orientationchange', function() { UpdatePositions(); });		
+		$(window).resize(function() { UpdatePositions(); });			
+			
+		$("#onlineworshipvid-iphone a").bind('vmousedown', function() {
+			$("#playbutton-bg").css('box-shadow', '0 0 0 #000');
+			$("#playbutton-bg").css('background-color', '#666');
+			$("#seriesimage").css('opacity', '0.5');
+		});		
+		
+		$("#onlineworshipvid-iphone a").bind('vmouseup', function() {
+			$("#playbutton-bg").css('box-shadow', '0 0 12px #000');
+			$("#playbutton-bg").css('background-color', '#000');
+			$("#seriesimage").css('opacity', '0.7');
+		});		
+		
+		UpdatePositions();
+	});
+	
+	function LoadSpanish() {
+		$("#media_iframe").html("<iframe src='http://www.streammonkey.com/iframe/2678' width='100%' height='349px' frameborder='0' allowfullscreen webkitAllowFullScreen mozAllowFullscreen></iframe>");		
+		$("#translation_english").html("<a onclick='LoadEnglish()' class='jwplayer_lang_link'>English</a>");
+		$("#translation_spanish").html("<span class='jwplayer_lang_text'>Espanol</span>");
+		$("#translation_deaf").html("<a onclick='LoadDeaf()' class='jwplayer_lang_link'>Interpreted for the Deaf and Hard of Hearing</a>");
+	}
+	
+	function LoadDeaf() {
+		$("#media_iframe").html("<iframe src='http://www.streammonkey.com/iframe/3377' width='100%' height='349px' frameborder='0' allowfullscreen webkitAllowFullScreen mozAllowFullscreen></iframe>");		
+		$("#translation_english").html("<a onclick='LoadEnglish()' class='jwplayer_lang_link'>English</a>");
+		$("#translation_spanish").html("<a onclick='LoadSpanish()' class='jwplayer_lang_link'>Espanol</a>");
+		$("#translation_deaf").html("<span class='jwplayer_lang_text'>Interpreted for the Deaf and Hard of Hearing</span>");
+	}
+	
+	function LoadEnglish() {
+		$("#media_iframe").html("<iframe src='http://www.streammonkey.com/iframe/2056' width='100%' height='349px' frameborder='0' allowfullscreen webkitAllowFullScreen mozAllowFullscreen></iframe>");		
+		$("#translation_english").html("<span class='jwplayer_lang_text'>English</span>");
+		$("#translation_spanish").html("<a onclick='LoadSpanish()' class='jwplayer_lang_link'>Espanol</a>");
+		$("#translation_deaf").html("<a onclick='LoadDeaf()' class='jwplayer_lang_link'>Interpreted for the Deaf and Hard of Hearing</a>");
+	}
+	
+	function UpdatePositions() {
+		$("#playbutton-bg").css('left', ($("#seriesimage").width() / 2) - ($('#playbutton-bg').width() / 2));
+		$("#playbutton-bg").css('top', ($("#seriesimage").height() / 2));
+	}	
+</script>
+</head>
+<body>
+<div data-role="page" data-theme="a" id="p1"> 
+    <div data-role="header" >
+    	{!-- <a href="https://insite.northlandchurch.net/givingweb/mobilegiving.jsp" rel="external">Tithes</a>--}
+		<a href="https://giving.northlandchurch.net/" rel="external">Tithes</a>
+    	<h1>Online Worship</h1>
+    </div>     
+    <div data-role="content">    
+			{if service_live == "true"}
+			<div id="onlineworshipvid" class="media_home_player">
+				{exp:channel:entries channel="series" limit="1" cache="yes" refresh="30"}
+					<div id="media_iframe">
+						<iframe src='http://www.streammonkey.com/iframe/2056' width='100%' height='200px' frameborder='0' allowfullscreen webkitAllowFullScreen mozAllowFullscreen style="margin-bottom: 10px"></iframe>
+					</div>
+					<div class="clear"></div>
+					<div data-theme="a" data-content-theme="a">
+						{exp:channel:entries entry_id='25096' cache='no'}{exp:strip_html}{body}{/exp:strip_html}{/exp:channel:entries}
+					</div>
+					<div id="seriesdescription" data-role="collapsible" data-theme="a" data-content-theme="a">
+						<h3>Current Series: {title}</h3>
+						<p>{series-description}</p>
+					</div>
+				{/exp:channel:entries}
+				
+			<?php if (({current_time format="%G%i"} > 800) && ({current_time format="%G%i"} < 1030)) : ?>
+					<div id="livevid-quality" class="below_videotab" style="margin-top:-5px; border: none">
+						<p id="language_select"> Translation: 
+							<span id="translation_english">
+								<span class="jwplayer_lang_text">English</span>
+							</span>
+						| <span id="translation_spanish">
+							<a id="jwplayer_spanish" onclick="LoadSpanish()" class="jwplayer_lang_link">Espanol</a>
+						</span>
+						</p>
+					</div>
+				<?php endif; ?>	
+				
+				<?php if (({current_time format="%G%i"} > 1030) && ({current_time format="%G%i"} < 1230)) : ?>
+					<div id="livevid-quality" class="below_videotab" style="margin-top:-5px; border: none">
+						<p id="language_select"> Translation: 
+							<span id="translation_english">
+								<span class="jwplayer_lang_text">English</span>
+							</span>
+						| <span id="translation_spanish">
+							<a id="jwplayer_spanish" onclick="LoadSpanish()" class="jwplayer_lang_link">Espanol</a>
+						</span>
+						| <span id="translation_deaf">
+							<a id="jwplayer_deaf" onclick="LoadDeaf()" class="jwplayer_lang_link">Interpreted for the Deaf and Hard of Hearing</a>
+						</span>
+						</p>
+					</div>
+				<?php endif; ?>	
+				
+			</div>
+			{if:else}
+			<div id="onlineworshipvid" class="media_home_player">
+			
+				<div style="padding: 5%">
+					<div style="text-align:center">
+						Service is currently not live.	
+					</div>
+					<div style="width:80%; margin: 3% auto 0 auto">
+						<b>Service times:</b><br>
+						- Saturdays at 5pm<br>
+						- Sundays at 9am, 11am, and 5pm<br>
+						- Mondays at 7pm.
+					</div>
+				</div>
+			</div>
+			{/if}			
+			
+		<ul id="whatscurrent" data-theme="a" data-content-theme="a" style="margin: 0" data-role="listview">
+			<li data-role="list-divider" data-theme="a">What's Current</li>
+			
+			{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="7" cache="yes" refresh="30"}
+			<li>
+				<a href="{happening-link}" title="{happening-description}">{title}</a>
+				{happening-description}
+			</li>
+			{/exp:channel:entries}	
+			
+		</ul>	
+		
+		{exp:channel:entries channel="series" limit="1" cache="yes" refresh="30"}
+			<h4 style="margin-bottom: 5px">Current Series:</h4>
+			<img style="width: 100%" src="/_assets/img/v2/series/{series-image}">
+			<p>{series-description}</p>				
+		{/exp:channel:entries}		
+		</div>		
+	</div>
+</div>
+</body></html>

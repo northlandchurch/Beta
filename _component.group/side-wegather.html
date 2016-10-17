@@ -1,0 +1,22 @@
+<div class="joinus">
+<!--	<h4>Times and Locations</h4>	-->
+	<h4>You're Invited!</h4>
+</div>
+<div id="timetable" style="display:block">
+	<div class="timetableday">Saturday</div><div class="timetabletime">5 p.m.</div>
+	<div class="timetableday">Sunday</div><div class="timetabletime">9, 11 a.m. &amp; 5 p.m.</div>
+	<div class="timetableday">Monday</div><div class="timetabletime">7 p.m.</div>
+</div>
+<div class="timezone" style="display:block">
+    {!-- This covers timezone statements up through November 2014 --}
+	{if '{current_time format="%Y%m%d"}' > "20121104" AND '{current_time format="%Y%m%d"}' < "20130310"}
+		All times Eastern Standard Time (E.S.T)
+	{if:elseif '{current_time format="%Y%m%d"}' > "20131103" AND '{current_time format="%Y%m%d"}' < "20130309"}
+		All times Eastern Standard Time (E.S.T)
+	{if:else}
+		All times Eastern Daylight Time (E.D.T)
+	{/if}
+</div>
+<div id="assemble">
+	We gather for worship in <a href="/locations/category/longwood">Longwood</a>, <a href="/locations/category/oviedo">Oviedo</a>, <a href="/locations/category/mountdora">Mount Dora</a>, at <a href="/housechurch">house churches</a> and for <a href="/locations/category/Online">LIVE worship online</a>. Directions, a message from the site minister and specific times of worship are available on each<br> site's page.
+</div>

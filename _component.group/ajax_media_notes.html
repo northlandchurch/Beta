@@ -1,0 +1,18 @@
+<?php 
+	//$member_id_reference = $this->EE->session->userdata('member_id');
+	if (isset($_POST["mediaseries"])) { 
+		echo "B";
+		die();
+	}
+	
+	if (isset($_POST["mediaweek"]) || isset($_POST["mediaseries"])) {
+		echo "C";
+		$media_week = $_POST["mediaweek"];
+		$media_series = $_POST["mediaseries"];
+	}
+	else {
+		echo "A";
+		die();
+	}
+?>
+{embed="/_component/media_notes" week="<?php echo $media_week; ?>" series="<?php echo $media_series; ?>" authorid="<?php echo $member_id_reference; ?>"}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Pray</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link href="//cloud.typography.com/6046374/767068/css/fonts.css" rel="stylesheet" type="text/css">
+	<link rel="shorcut icon" href="/_img/favicon.png">
+    <link rel="stylesheet" href="/_assets/css/css_prpl.css" type="text/css">
+	<!-- Added to Augment PRPL's base CSS -->
+	<link rel="stylesheet" href="/_assets/css/css_billy_added.css" type="text/css">
+</head>
+<body class="template-pray">
+{embed="_includes/header"}
+<div class="main-wrapper">
+
+	{!-- MANY --}
+	{if segment_3==""}
+	<section id="prayer-section">	
+		<div class="section-tab color-red">
+			<a href="/respond/pray/" class="tab-title">Prayers</a>
+		</div>
+		<div class="container">
+			<div class="card-row js-slick-tablet-max flex-desktop-min">
+				{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="24" dynamic="off" disable="categories|member_data|pagination"}
+				<article class="card card-fourth">
+					<div class="copy-container">
+						<p class="date">{entry_date format="%F %j"}</p>
+						<h3><?php echo ucwords(strtolower("{prayer-name}"));?></h3>
+						<p class="body-copy">
+							{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{prayer-need}{/exp:strip_html}{/exp:trunchtml}
+							<a class="main-link" href="/respond/pray/{entry_id}/">Read More <span class="icon-arrow-filled"></span></a>
+						</p>
+					</div>
+
+					<div class="details prayer-details-favorite" id="pray{entry_id}">
+						<div class="detail-left">
+							{exp:favorites:entry_count entry_id="{entry_id}"}
+							{if favorites_count_public}
+							<p><span class="icon-heart active"></span><span class="pray-count">{favorites_count_public}</span> <span class="extra-content">Prayed</span></p>
+							{/if}
+							{/exp:favorites:entry_count}
+						</div>
+						<div class="detail-right">
+							{if logged_in && (screen_name!="Anonymous Member")}
+								<!-- logged in -->
+								{exp:favorites:saved entry_id="{entry_id}"}
+									{if saved}
+										<!-- saved -->
+										<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">You Prayed <span class="icon-arrow-filled"></span></a>
+									{if:else}
+										<!-- not saved -->
+										<a class="main-link favorite-pray" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>				
+									{/if}
+								{/exp:favorites:saved}
+							{if:else}
+								<!-- not logged in -->
+								<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>
+							{/if}
+						</div>
+					</div>
+				</article>
+				{/exp:channel:entries}
+			</div><!-- /.card-row -->
+		</div><!-- /.container -->
+	</section>
+
+	{!-- ONE --}
+	{if:else}
+	<section id="prayer-section">	
+		<div class="section-tab color-red">
+			<a href="/respond/pray/" class="tab-title">Prayers</a>
+		</div>
+		<div class="container">
+			<div class="card-row">
+				{exp:channel:entries channel="prayers" dynamic="on" orderby="date" sort="desc" limit="1" require_entry="yes" disable="categories|member_data|pagination"}
+				{if no_results}
+					{redirect="/respond/pray/"}
+				{/if}
+				<article class="card card-full">
+					<div class="copy-container">
+						<p class="date">{entry_date format="%F %j"}</p>
+						<h3><?php echo ucwords(strtolower("{prayer-name}"));?></h3>
+						{if member_group == "1"}
+							<p>
+								<a class="user-login" href="#moreinfopray{entry_id}" style="color:#4A90E2;">{author}</a> 
+								posted this on 
+								{entry_date format="%M %j, %Y"} at {entry_date format="%g:%i"} 
+								{if '{entry_date format="%a"}' == "am"}a.m.{/if}
+								{if '{entry_date format="%a"}' == "pm"}p.m.{/if}
+							(*only super admins see this*)
+							</p>
+						{/if}
+						<p class="body-copy">
+							{exp:strip_html}{prayer-need}{/exp:strip_html}
+						</p>
+					</div>
+
+					<div class="details prayer-details-favorite" id="pray{entry_id}">
+						<div class="detail-left">
+							{exp:favorites:entry_count entry_id="{entry_id}"}
+							{if favorites_count_public}
+							<p><span class="icon-heart active"></span><span class="pray-count">{favorites_count_public}</span> <span class="extra-content">Prayed</span></p>
+							{/if}
+							{/exp:favorites:entry_count}
+						</div>
+						<div class="detail-right">
+							{if logged_in && (screen_name!="Anonymous Member")}
+								<!-- logged in -->
+								{exp:favorites:saved entry_id="{entry_id}"}
+									{if saved}
+										<!-- saved -->
+										<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">You Prayed <span class="icon-arrow-filled"></span></a>
+									{if:else}
+										<!-- not saved -->
+										<a class="main-link favorite-pray" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>				
+									{/if}
+								{/exp:favorites:saved}
+							{if:else}
+								<!-- not logged in -->
+								<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>
+							{/if}
+						</div>
+					</div>
+				</article>
+				{/exp:channel:entries}
+			</div><!-- /.card-row -->
+			<a href="/respond/pray/" class="main-link view-link">View All Prayers <span class="icon-arrow-filled"></span></a>
+		</div><!-- /.container -->
+	</section>
+	{/if}
+
+	{embed="_includes/footer"}
+	
+</div><!-- /.main-wrapper -->
+</body>
+</html>

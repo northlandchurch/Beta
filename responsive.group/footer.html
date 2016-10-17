@@ -1,0 +1,164 @@
+<div class="container_12" data-swiftype-index='false'>
+	{embed="component/divider"}
+	<div class="grid_12" id="previous">
+		<div class="previous_holder">
+			{exp:channel:entries channel="sequence" url_title="content_sequencer" dynamic="off"}
+				{if segment_1 == 'responsive' && segment_2 == '' OR segment_1 == 'responsive' && segment_2 == 'index'}
+					{sequencer site="default_site|planning" limit="6" offset="3"}
+							{embed="/_component/thumb_entries" sequenced="{url_title}"}
+							{embed="/_component/thumb_calendar" sequenced="{url_title}"}
+					{/sequencer}
+				{if:else}
+					{sequencer site="default_site|planning" limit="6"}
+							{embed="/_component/thumb_entries" sequenced="{url_title}"}
+							{embed="/_component/thumb_calendar" sequenced="{url_title}"}
+					{/sequencer}
+				{/if}
+			{/exp:channel:entries}
+		</div>
+	</div>
+	<div class="clear"></div>
+	{embed="component/divider"}
+</div>
+<div style="clear:both"></div>
+<div id="footer" data-swiftype-index='false'>
+	<div class="container_12">
+		<div class="nav">
+			<a href="http://secure.northlandchurch.net/insitegiving/giving.do" class="meta-link">Tithes &amp; Offerings</a>
+
+			<a href="/get_involved/">Get Involved</a>
+			<a href="/resources/">Resources</a>
+			<a href="/media/">Media</a>
+			<a href="/calendar/">Calendar</a>
+			<a href="/articles/history/">About</a>
+			<a href="/new/">New to Northland?</a>
+			<div class="clear"></div>
+		</div>
+		<div class="shade">
+			<div class="grid_3">
+				<a href=" " onclick="window.open('https://northlandchurch.wufoo.com/forms/m7x1w3/',  null, 'height=514, width=680, toolbar=0, location=0, status=1, scrollbars=1,resizable=1'); return false"><img src="/_assets/img/v2/buttons/request-help.png" /></a>
+				<a href="/resources/newsletter/"><img src="/_assets/img/v2/buttons/newsletter.png"></a>
+				<ul class="marg-b-10 marg-t-10">
+					&copy; <?php echo date('Y');?> Northland, A Church Distributed<br />
+					530 Dog Track Road<br />
+					Longwood, FL 32750<br />
+					Phone: 1 (407) 949-4000<br />
+					Fax: 1 (407) 949-4020<br />
+					<a href="mailto:info@northlandchurch.net">info@northlandchurch.net</a>
+				</ul>
+
+				<a href="http://www.ecfa.org/MemberProfile.aspx?ID=21254"><img src="/_img/ecfa.png" /></a>
+			</div>
+
+			<div class="grid_9">
+				<div class="footer_links">
+					<ul>
+						<li><strong>General Info</strong></li>
+						<li><a href="/locations">Service Times &amp; Locations</a></li>
+						<li><a href="/articles/mvb">Mission/Values/Beliefs</a></li>
+						<li><a href="/articles/history">History</a></li>
+						<li><a href="/team/dr_joel_c_hunter">Senior Pastor</a></li>
+						<li><a href="/team/">Meet the Team</a></li>
+						<li><a href="/serve/local/">Local Partnerships</a></li>
+						<li><a href="/serve/global/">Global Partnerships</a></li>
+						<li><a href="/respond/pray/">Prayer</a></li>
+						<li><a href="/faq/">FAQs</a></li>
+						<li><a href="/bookstore/">Bookstore</a></li>
+						<li><a href="/main/cafe/">Nature's Table Caf&eacute;</a></li>
+						<li><a href="/employment/">Employment</a></li>
+						<li><a href="mailto:robert.andrescik@northlandchurch.net">Media Inquires</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Get Involved</strong></li>
+						<li><a href="/serve/">About Serving</a></li>
+						<li><a href="/volunteer/">Volunteer at Northland</a></li>
+						<li><a href="/serve/local/">Serve Locally</a></li>
+						<li><a href="/serve/global/">Serve Globally</a></li>
+					</ul>
+					<ul>
+						<li><strong>Media</strong></li>
+						<li><a href="/media/">Media Player</a></li>
+						<li><a href="/newspaper/">Northland Newspaper</a></li>
+						<li><a href="http://twitter.com/northlandchurch">Twitter</a></li>
+						<li><a href="http://www.facebook.com/northlandchurch">Facebook</a></li>
+						<li><a href="/blogs/">Blogs</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Worship</strong></li>
+						<li><a href="/articles/how_why_and_where_we_worship/">How, Why, &amp; Where We Worship</a></li>
+						<li><a href="http://northlandchurch.net/worship">LIVE Online Worship</a></li>
+						<li><a href="/housechurch/">Start a House Church</a></li>
+						<li><a href="/iphone">Mobile</a></li>
+					</ul>
+					<ul>
+						<li><strong>Locations</strong></li>
+						<li><a href="/locations/category/longwood/">Longwood</a></li>
+						<li><a href="/locations/category/oviedo">Oviedo</a></li>
+						<li><a href="/locations/category/mountdora">Mount Dora</a></li>
+						<li><a href="/locations/category/online">Online</a></li>
+						<li><a href="/housechurch">House Churches</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Ministries</strong></li>
+						<li><a href="/ministries/marriage-ministries/">Marriage</a></li>
+						<li><a href="/ministry/finance_ministries/">Personal Finance</a></li>
+						<li><a href="/ministries/parenting/">Parenting</a></li>
+						<li><a href="/ministries/divorcecare/">DivorceCare</a></li>
+						<li><a href="/ministries/griefshare/">GriefShare</a></li>
+						<li><a href="/ministries/access-ministries/">Disability</a></li>
+						<li><a href="/ministries/disaster_response/">Disaster Response</a></li>
+						<li><a href="/lifehope/">LifeHope (Benevolence)</a></li>
+						<li><a href="/ministries/resource_point/">Resource Point</a></li>
+						<li><a href="/ministries/peaceseekers/">PeaceSeekers</a></li>
+						<li><a href="/ministries/jail_and_prison_transition/">Prison & Jail</a></li>
+					</ul>
+					<ul>
+						<li><strong>Pastoral Care</strong></li>
+						<!--<li><a href="/ministries/financial_help/">Financial Help</a></li>-->
+						<li><a href="/ministries/counseling/">Counseling</a></li>
+						<li><a href="/ministries/baptism/">Baptisms</a></li>
+						<li><a href="/ministries/funerals-memorials/">Funerals/Memorials</a></li>
+						<li><a href="/ministry/weddings/">Weddings</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Children</strong></li>
+						<li><a href="/ministries/childrens_church/">Children's Ministries</a></li>
+						<li><a href="/ministries/co-op/">Co-Op/Kindergarten</a></li>
+						<li><a href="/ministries/baby_dedication/">Baby Dedication</a></li>
+						<li><a href="/ministries/parenting/">Parenting Ministry</a></li>
+						<li><a href="http://www.childrensministrywarehouse.net/">Children's Curriculum</a></li>
+					</ul>
+					<ul>
+						<li><strong>Youth</strong></li>
+						<li><a href="/ministries/middle_school_ministries/">Middle School</a></li>
+						<li><a href="/ministries/high_school_ministries/">High School</a></li>
+						<li><a href="/ministries/college_ministries/">College</a></li>
+						<li><a href="/ministries/young_adult_ministries/">Young Adult</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Giving</strong></li>
+						<li><a href="http://secure.northlandchurch.net/insitegiving/giving.do">About Giving</a></li>
+					</ul>
+					<ul>
+						<li><strong>More Languages</strong></li>
+						<li><a href="/espanol/">En Español</a></li>
+					</ul>
+					
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</div>

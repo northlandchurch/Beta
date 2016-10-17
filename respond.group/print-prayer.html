@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Prayer {current_time format="%D, %F %j, %Y"}</title>
+	<link rel="stylesheet" type="text/css" media="all" href="/_includes/print-prayer.css" />
+</head>
+<body>
+	<h1>Prayer for {current_time format="%l, %F %j, %Y"}</h1>
+	<br>
+	<h2 class="centered">Pray for Dr. Hunter and the Elders, Pastors and Staff</h2>
+	<h2 class="centered">Weekend worship services at various sites and online</h2>
+	<h2 class="centered">Weekday ministry responsibilities and opportunities</h2>
+	<h2 class="centered">Distributed Partners, Distributed Journeys and Distributed Churches and congregations.</h2>
+	<h2 class="centered">Pray for Government Leadership</h2>
+	<h2 class="centered">Pray for missionaries serving around the world</h2>
+	<h2 class="centered">Pray for the churches as they come together to help the homeless in Seminole and Orange Counties.</h2>
+	<br>
+	<h3>Prayer Requests</h3>
+	{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" display_by="day" limit="7"}
+	<!--{categories}{category_id}{/categories}-->
+		<h2>
+			{prayer-name}								
+			
+		</h2>
+		<p class="prayer_need">{prayer-need}</p>
+	{/exp:channel:entries}
+</body>
+</html>

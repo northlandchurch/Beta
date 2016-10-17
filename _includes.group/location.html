@@ -1,0 +1,28 @@
+			<?php
+			if (isset($_COOKIE['nacd-sitelocation'])){
+			?>	
+			
+				You've indicated you worship <?php 
+					$site = $_COOKIE['nacd-sitelocation'];
+					if ($site=="Online"){
+						echo $site;
+					}else{
+						echo "in ".$site;
+					}
+					echo "."
+					?> You can change to <a href="http://www.northlandchurch.net/locations/category/longwood/" id="longwood" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Longwood</a>, 
+					<a href="http://www.northlandchurch.net/locations/category/mountdora/" id="mountdora" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Mount Dora</a>, 
+					<a href="http://www.northlandchurch.net/locations/category/online/" id="online" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Online</a>,  
+					<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="oviedo" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Oviedo</a> or 
+					<a href="#" id="nolocation" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">choose no location</a>.
+					</p>
+			
+			<?php	
+			}else{
+			?>
+				<p>You can focus on your site if you want to get involved in your community. Select your location: 
+				<a href="http://www.northlandchurch.net/locations/category/longwood/" id="longwood" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Longwood</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/mountdora/" id="mountdora" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Mount Dora</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="online" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Online</a> or 
+				<a href="http://www.northlandchurch.net/locations/category/oviedo/" id="oviedo" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Oviedo</a>.</p>
+			 <?php } ?>

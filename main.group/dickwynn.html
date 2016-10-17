@@ -1,0 +1,103 @@
+{embed="_includes/html_open" htmltitle="Dick Wynn"}
+{embed="_includes/header"}
+{embed="_includes/nav" active="resources"}
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+
+
+		<div id="title-bar">
+			<div class="top"></div>
+			<div class="container_12">
+				{exp:channel:entries channel="blogs" limit="1" url_title="details_on_dick_wynns_funeral_service"}<h1 class="grid_12">{title}</h1>{/exp:channel:entries}
+				<div class="clear"></div>
+			</div>
+			<div class="btm"></div>
+		</div>
+		<div class="container_12">
+			<div class="grid_8">
+					<div class="vid_box">
+						<div id="servicevid">Loading the player...</div>
+						<script type="text/javascript"> 
+						jwplayer("servicevid").setup({
+						    flashplayer: "/jw/jw54/player.swf",
+						    autoplay: "false",
+						    skin: "/jw/jw54/skins/glow/glow.zip",
+						    height: 360,
+						    width: 640,
+						    plugins: {
+						    	"gapro":{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true}
+						    	 }
+						    
+							}).onReady(function() {
+								if (this.container.tagName.toLowerCase() == "object") {
+								// Flash case
+								this.load({
+							   	  file: "http://nacdvideo.s3.amazonaws.com/misc/dick_med.mp4",
+							 	  //image: "/_img/uploads/{location-video-img}"
+								})
+							} else {
+							// HTML5 case
+								this.load({
+							 	   file: "http://nacdvideo.s3.amazonaws.com/misc/dick_med.mp4",
+							 	   //image: "/_img/uploads/{location-video-img}"
+								 });
+								}
+							});
+						</script> 
+				
+					</div>
+					<div style="clear:both">&nbsp;</div>
+					<div class="vid_box">
+						<div id="altservicevid">Loading the player...</div>
+						<script type="text/javascript"> 
+						jwplayer("altservicevid").setup({
+						    flashplayer: "/jw/jw54/player.swf",
+						    autoplay: "false",
+						    skin: "/jw/jw54/skins/glow/glow.zip",
+						    height: 360,
+						    width: 640,
+						    plugins: {
+						    	"gapro":{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true}
+						    	 }
+						    
+							}).onReady(function() {
+								if (this.container.tagName.toLowerCase() == "object") {
+								// Flash case
+								this.load({
+							   	  file: "http://nacdvideo.s3.amazonaws.com/misc/DickWynnFuneralMichigan.mp4",
+							 	  //image: "/_img/uploads/{location-video-img}"
+								})
+							} else {
+							// HTML5 case
+								this.load({
+							 	   file: "http://nacdvideo.s3.amazonaws.com/misc/DickWynnFuneralMichigan.mp4",
+							 	   //image: "/_img/uploads/{location-video-img}"
+								 });
+								}
+							});
+						</script> 
+				
+					</div>
+					
+			</div>		
+			
+			<div class="grid_4">
+				<p>Richard (Dick) R. Wynn, age 71, of Leesburg, Florida, passed away unexpectedly at his home on Friday, March 25, 2011.</p>
+				
+				<p>A man with impact around the world, Dick traveled to all 50 states and 75 nations of the world for ministry purposes, literally circling the globe 25 times, and making 52 trips to India in the past 41 years. He served for several years as Northland’s chief of staff and was a beloved and respected member of the Northland family.</p>
+				
+				<p>He was born in North Branch, Mich., on September 16, 1939. He met his wife, Janet, at Owosso College, and they were married in 1962. Dick served in the ministry of Youth for Christ for 34 years in several leadership roles, including President of the national organization and Asia Pacific Area Director. He was an ordained pastor in the Wesleyan Church and while with YFC, also served as a founding pastor of Kentwood Community Church. He faithfully served the ministries of Emerging Young Leaders, Equip, Crown Financial Ministries and Care for Pastors.</p>
+				
+				<p>Dick is survived by his wife, Janet, daughter Ronda (Dan) Chapin, son Jeff (Bonnie), and four grandchildren, Zack and Amanda Chapin, Alex and Maggie Wynn. His funeral service was held this week in Grand Rapids, Mich.</p>
+		
+			</div>
+			
+    	
+		</div>
+
+		
+
+<div class="clear marg-b-60">&nbsp;</div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

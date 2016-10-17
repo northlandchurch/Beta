@@ -1,0 +1,241 @@
+{embed="_assets/header" htmltitle="Resources Tagged: {segment_3}"}
+{embed="_assets/navbar"}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});
+
+	// Random order	
+//	$container.isotope({ sortBy : 'random' });
+	$('.grid').isotope({ filter: "*" });
+
+	
+	// Filter functions
+	var filterFns = {
+		// show if number is greater than 50
+		numberGreaterThan50: function() {
+			var number = $(this).find('.number').text();
+			return parseInt( number, 10 ) > 50;
+		},
+		// show if name ends with -ium
+		ium: function() {
+			var name = $(this).find('.name').text();
+			return name.match( /ium$/ );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', '.filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+		
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+	
+	// change is-checked class on buttons
+	$('.filters-button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', '.filter-item', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+	
+	$('.grid-item').imagesLoaded({ background: true }, function() {
+		$(".grid").isotope({ sortBy : 'sort' });
+	});
+});
+</script>
+
+<div class='row row--inverted'>
+    <div class='cell well' style="margin-top:104px">
+		<div class='g'>
+			<h4 style='font-family: "Archer A", "Archer B", Futura, "Trebuchet MS", Arial, sans-serif;
+			font-weight:700;text-transform:none;margin-bottom: 40px;;text-align:center;font-size:2rem'>Resources about <span class="tag" style="font-size:2rem">{segment_3}</span></h4>
+			
+			{!-- Previously this page had the functionality to allow one to sort the tagged entries by 'blog' vs. 'video'
+			
+			<div class='filter' style="margin-bottom:0;margin-top:40px">
+				<div class="tag"><a href="/resources/tag/truth">Truth</a></div>
+				<div class="tag"><a href="/resources/tag/wisdom">Wisdom</a></div>
+				<div class="tag"><a href="/resources/tag/relationships">Relationships</a></div>
+				<div class="tag"><a href="/resources/tag/mission">Mission</a></div>
+				<!--<div class="tag"><a href="/resources/tag/culture">Culture</a></div><br>-->
+				<div class="filters-button-group">
+					<a class="filter-item is-checked" href="#" onclick="return false;" data-filter="*">Show all</a>
+					<a class="filter-item" href="#" onclick="return false;" data-filter=".blog">Blog</a>
+					<a class="filter-item" href="#" onclick="return false;" data-filter=".video">Video</a>
+					<a class="filter-item" href="#" onclick="return false;" data-filter=".pray">Prayer</a>
+					<a class="filter-item" href="#" onclick="return false;" data-filter=".serveopp">Volunteer</a>
+				</div>
+			</div>
+			--}
+			
+			{embed="_assets/resource_nav"}
+
+			<div class="grid resources" style="padding-left:0;padding-right:0">
+				<?php $count = 0; ?>
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				<!-- /////							Tag-based content							// -->
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				{!-- live services are category 58 so be sure to exclude those from the loop else the player will break --}
+				{exp:tag:entries inclusive="yes" tag="{segment_3}" orderby="entry_date" limit="20" sort="desc" paginate="bottom" category="not 58"}
+					{if channel=="Blogs"}
+					<div class="grid-item blog <?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:50%' <?php }else{ ?> style='width:25%' <?php } ?>>
+						<div class="sort" style="display:none">
+							<?php $count++; echo $count; ?>
+						</div>
+						<div class='has-editorials'>
+							<?php
+							ob_start();
+							?>{blog-post}<?php
+							$obcontents = ob_get_contents();
+							ob_end_clean();
+							$img = '';
+							$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+							if(preg_match($pattern,	$obcontents, $match)){
+								$img = $match[1];
+							}
+							//$size = getimagesize($img);
+							//$height = $size[1];
+
+							?>
+							<a class="editorial editorial--sidebar editorial--spotlight" href="/blogs/{url_title}">
+								<div class='editorial-text'>
+									<img src="<?php echo $img ?>"{!--style="height:<?php echo $height.'px'; ?>"--}>
+									<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+										<h2 class='editorial-title'>{title}</h2>
+										<p class='meta-excerpt'>
+											{blog-excerpt}
+										</p>
+										<div class='meta'>
+											<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+											<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+										</div>
+									<?php if($count==1){ echo "</div>"; } ?>
+								</div>
+							</a>
+						</div>
+					</div>
+					{if:elseif channel=="Podcasts"}
+					<div class="grid-item podcast <?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:50%' <?php }else{ ?> style='width:25%' <?php } ?>>
+						<div class="sort" style="display:none">
+							<?php $count++; echo $count; ?>
+						</div>
+						<div class='has-editorials'>
+							<a class="editorial editorial--sidebar editorial--spotlight" href="/podcast/{url_title}">
+								<div class='editorial-text'>
+									<img src="{podcast-episode-photo}"{!--style="height:<?php echo $height.'px'; ?>"--}>
+									<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+										<h2 class='editorial-title'>{title}</h2>
+										{!--<p class='meta-excerpt'>
+											{blog-excerpt}
+										</p>--}
+										<div class='meta'>
+											<h4 class='meta-author'>
+												{if podcast-episode-host}
+													{podcast-episode-host}
+												{if:else}
+													{author}
+												{/if}
+												{if podcast-episode-guest}
+													with guest {podcast-episode-guest}
+												{/if}
+											</h4>
+											<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+										</div>
+									<?php if($count==1){ echo "</div>"; } ?>
+								</div>
+							</a>
+						</div>
+					</div>
+					{if:elseif channel=="Media"}
+						<?php $isAAP = false; ?>
+						{categories}
+							{if category_id=="527"}
+								<?php $isAAP = true; ?>
+							{/if}
+						{/categories}	
+						
+						<?php
+						if($isAAP == true) {
+						?>
+						{!-- ASK A PASTOR --}
+						<div class="grid-item askapastorvideo <?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:50%' <?php }else{ ?> style='width:25%' <?php } ?>>
+							<div class="sort" style="display:none">
+								<?php $count++; echo $count; ?>
+							</div>
+							<div class='has-editorials'>
+								<a class="editorial editorial--sidebar editorial--spotlight" href="/video/{url_title}">
+									<div class='editorial-text'>
+										<img src="/_img/uploads/{media-primary}"{!--style="height:<?php echo $height.'px'; ?>"--}>
+										<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+											<h2 class='editorial-title'>{title}</h2>
+											<div class='meta'>
+												<h4 class='meta-author'>
+													{if media-speaker}
+														{media-speaker}
+													{if:else}
+														{author}
+													{/if}
+												</h4>
+												<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+											</div>
+										<?php if($count==1){ echo "</div>"; } ?>
+									</div>
+								</a>
+							</div>
+						</div>
+						<?php
+						}
+						else {
+						?>
+						<div class="grid-item video<?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:100%' <?php }else{ ?> style='width:25%' <?php } ?>>
+							<div class="sort" style="display:none">
+								<?php $count++; echo $count; ?>
+							</div>
+							<div class='has-editorials'>
+								<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+									<div class='editorial-text'>
+										<h4 class='meta-author'>{if media-speaker=="Worship Team"}Worship Video{if:else}{media-speaker}{/if}</h4>
+										<h2 class='editorial-title'>{exp:trunchtml chars="55" inline="..."}{title}{/exp:trunchtml}</h2>
+										<div class='editoral-video'>
+											<i class='material-icons'>play_arrow</i>
+										</div>
+										<div class='meta'>
+											<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<?php
+						}
+						?>
+					{/if}
+				{/exp:tag:entries}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+
+
+
+
+
+
+

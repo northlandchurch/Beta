@@ -1,0 +1,39 @@
+<div id="thelatest" class="container_12" style="background:none" data-swiftype-index='false'>
+	<div class="grid_4">
+		<h5>Blogs</h5>
+		<ul id="blog-list">
+		{exp:channel:entries channel="blogs" limit="4" dynamic="on"}
+			<li>
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+				<span class="info">{entry_date format="%F %j, %Y"}</span>
+			</li>
+		{/exp:channel:entries}
+			<li class="more"><a href="/blogs/">View more Blogs</a></li>
+	</div>
+
+	<div class="grid_4">
+		<h5>Media</h5>
+		<ul id="media-list">
+		{exp:channel:entries channel="media" category="not 58" limit="4" dynamic="on"}
+			<li>
+				{if media-image}<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-image}" /></a>{/if}
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+				<span class="info">{entry_date format="%F %j, %Y"}</span>
+				<div class="clear"></div>
+			</li>
+		{/exp:channel:entries}
+			<li class="more"><a href="/media/">View more Media</a></li>
+		</ul>
+	</div>
+
+	{!--<div class="grid_4">
+		<h5>Events</h5>
+		<ul id="calendar-list">
+			
+			{embed="_component/events_footer"}
+
+		<li class="more"><a href="/calendar">View more Calendar Events</a></li>
+	</div>--}
+
+	<div class="clear" id="test"></div>
+</div>

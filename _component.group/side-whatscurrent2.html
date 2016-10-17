@@ -1,0 +1,31 @@
+{!--<div id="whatscurrent_holder">
+	<div id="whatscurrent-top"></div>
+	<div id="whatscurrent-mid">
+		<h2 style="border-bottom:none;margin-left:20px;margin-top:12px;">What's Current</h2>
+		<div class="homecal">
+			{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="4"}
+			<li>
+				<a href="{happening-link}" title="{happening-description}">{title}</a><br />
+				{happening-description}
+			</li>
+			{/exp:channel:entries}
+		</div>
+	</div>
+	<div id="whatscurrent-bottom">
+		<div class="whatscurrent-finish"></div>
+		<div class="whatscurrent-corner"></div>
+	</div>
+</div>--}
+<div id="whatscurrent_holder">
+	<div class="joinus">
+		<h4>What's Current</h4>
+	</div>
+	<div class="homecal">
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="4"}
+		<li>
+			<a href="{happening-link}" title="{happening-description}">{title}</a><br />
+			{happening-description}
+		</li>
+		{/exp:channel:entries}
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:jwplayer="http://developer.longtailvideo.com/">
+     {exp:channel:entries channel="media" url_title="{segment_3}" limit="1" dynamic="off"}
+    
+    <channel>
+      <title>Media</title>
+  
+      <item>
+        <title>{title}</title>
+        <description>{media-description}</description>     
+     <media:group>
+        <media:content bitrate="800" url="mp4:amazons3/nacdvideo/class/{media-video}" width="640" />
+   		<media:thumbnail url="{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}" />
+      </media:group>
+      {/exp:channel:entries}
+      <jwplayer:streamer>rtmp://video.northlandchurch.net:1935/vods3/_definst_</jwplayer:streamer>
+    </item>
+
+  </channel>
+</rss>

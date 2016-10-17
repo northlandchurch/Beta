@@ -1,0 +1,290 @@
+{embed="responsive/html_open" htmltitle="Pray at Northland, A Church Distributed"}
+{embed="responsive/respond-header"}
+{embed="responsive/header"}
+{embed="responsive/nav" active=""}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".prayer_entry").each(function(i) {
+		$(this).delay(i * 400).fadeIn();
+	});
+
+	// Load more entries when user scrolls to bottom of entries
+	var currently_lazyloading = 0; // Is window already attempting to load more entries?
+	var position = $("#lazyload_moreentries").offset().top;
+	var entries_offset = 10; // Current number of entries shown to skip over when loading new entries
+	
+	$(window).scroll(function() {
+		var scrolldepth = $(window).scrollTop() + $(window).height();
+		
+		if (scrolldepth > position) {
+			if (currently_lazyloading == 0) {
+				$.get("/_component/lazyload_prayers/{if segment_3 == "jail"}jail{if:else}all{/if}/" + entries_offset,function(data) {		
+					$("#entries").append(data);
+					position = $("#lazyload_moreentries").offset().top;
+					entries_offset += 10;
+					
+					// Reset so can load more later, but if data length < 10 reached end of entries and stop trying to load new ones
+					if (data.length > 10) {
+						if (entries_offset < 10) { currently_lazyloading = 0; }
+						else { $("#lazyload_moreentries").show(); }
+					}
+					UpdateVisibility();
+				});	
+				
+				currently_lazyloading = 1;
+			}
+		}
+	});
+	
+	$("#lazyload_moreentries").click(function() {
+		$("#lazyload_moreentries").fadeOut("fast");
+		$.get("/_component/lazyload_prayers/{if segment_3 == "jail"}jail{if:else}all{/if}/" + entries_offset,function(data) {	
+			$(".prayer_entry").each(function(i) {
+				$(this).delay(i * 400).fadeIn();
+			});
+					
+			$("#entries").append(data);
+			entries_offset += 10;
+			
+			$("#lazyload_moreentries").show();
+			
+			UpdateVisibility();
+		});			
+	});
+
+	
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});	
+	$('.pray-card-top').live("click", function() {
+		var loggedStatus = $("#logged_status").text();
+	//	console.log(loggedStatus);
+		//if (loggedStatus.indexOf("ogged in")!=-1){
+			var whichID = $(this).attr('id');
+			var targetURL = $("#"+whichID+" .favorite").attr('href');
+			var count = $("#"+whichID+" .count").html();
+			$.ajax({
+				success: function(data){
+					var madeFave = $("#"+whichID+" .favorite").css("backgroundPosition");
+						
+					if (madeFave!="0px -64px"){
+						$("#"+whichID+" .count").html(parseInt(count)+1);
+					}
+					$("#"+whichID+" .favorite").css("background-position","0 -64px");
+					if (parseInt(count)==1){
+						$("#"+whichID+" .people-prayed").html("People have prayed");
+					}
+				},
+				url: targetURL
+			});		
+			return false;
+		//}else{
+	//		$(".user-login").click();
+	//		return false;
+	//	}
+	});
+	$(".permalink").click(function(e){
+		e.stopPropagation();
+		document.location.href=$(this).attr('href');
+	});
+	
+	$(".liturgy-verse").hide();
+	//toggle the componenet with class msg_body
+	$(".btn-readnow").click(function() {
+		$(this).next(".liturgy-verse").slideToggle(500);
+	});
+	
+	var currtime = new Date();
+	var theHour = currtime.getHours();
+	if (theHour<11){
+		$(".morning").slideToggle(500);
+	}
+	if ((theHour>=11) && (theHour<17)){
+		$(".midday").slideToggle(500);
+	}
+	if (theHour>=17){
+		$(".evening").slideToggle(500);
+	}
+	totalCount = 0;
+	$(".count").each ( function() {
+	                   totalCount += parseInt ( $(this).val());
+	                });
+//alert(totalCount);
+	
+	$('.prayer_prayed').click (function() {
+		var loggedStatus = $("#logged_status").text();
+	//	console.log(loggedStatus);
+		//if (loggedStatus.indexOf("logged in")!=-1){
+			var whichID = $(this).attr('id');
+			var targetURL = $("#"+whichID+" .favorite").attr('href');
+			var count = $("#"+whichID+" .prayer_number").html();
+			$.ajax({
+				success: function(data){
+					var madeFave = $("#"+whichID+" .favorite").css("backgroundPosition");
+
+					if (madeFave!="0px -17px"){
+						$("#"+whichID+" .prayer_number").html(parseInt(count)+1);
+					}
+					$("#"+whichID+" .favorite").css("background-position","0 -17px");
+					if (parseInt(count)==1){
+						$("#"+whichID+" .prayer_count");
+					}
+				},
+				url: targetURL
+			});		
+			return false;
+		//}else{
+	//		$(".user-login").click();
+	//		return false;
+	//	}
+	});
+
+	$(".permalink").click(function(e){
+		e.stopPropagation();
+		document.location.href=$(this).attr('href');
+	});
+
+	$(".liturgy-verse").hide();
+	//toggle the componenet with class msg_body
+	$(".btn-readnow").click(function() {
+		$(this).next(".liturgy-verse").slideToggle(500);
+	});
+});
+
+function ShowLongPrayer(id) {
+	$('#prayer_short_' + id).removeClass('prayer_pray');
+	$('#prayer_short_' + id).addClass('hidden');
+	$('#prayer_long_' + id).addClass('prayer_pray');
+	$('#prayer_long_' + id).removeClass('hidden');
+}
+</script>
+
+<style type="text/css">
+	.prayer_entry {
+		display: none;
+	}
+</style>
+<div id="respond-pray">
+	<div class="container_12" style="padding-bottom: 25px">
+		<div class="grid_12 marg-b-60">		
+		</div>
+		
+		<div id="respond-pray-left" class="grid_8">
+			<div id="pray-title">
+				<div class="pray-title-left grid_3">
+					PRAY
+				</div>	
+				<div class="pray-title-right grid_4">
+					<span>Engage in conversation with God.</span><br>
+					The eyes of the Lord are on the righteous and his ears are attentive to their prayers.<br><em>-Peter, an eyewitness (1 Peter 3:12 NIV)</em>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div id="pray-prayers">
+				Prayers
+			</div>
+			<p id="request-instructions" class="grid_4">Prayer isn't just about asking God for help. (Related: <a href="http://www.everystudent.com/wires/prayers.html">What is prayer?</a>) Prayer also offers a unique opportunity to invite others to ask God for help on our behalf.<br>
+				Lift some of these requests up to God during your prayer time today. If you have a prayer request to share, click the button to the right so that others may pray for you. </p>
+				
+				{if logged_in && (screen_name!="Anonymous Member")}
+					<a class="user-login" href="#submit-prayer-request"><div id="btn-request" class="grid_4"></div></a>
+				{if:else}
+					<a class="user-login" href="#login-register-box"><div id="btn-request" class="grid_4"></div></a>
+				{/if}
+				
+
+				<div style="display:none">
+					<div id="submit-prayer-request" class="modaling">
+						{embed="_component/prayer-post"}
+					</div>
+				</div>
+
+				<div class="clear marg-b-20"></div>
+				
+				<div id="entries">
+				{if segment_3 == "jail"}
+					{embed="_component/lazyload_prayers" segment_3="jail"}
+				{if:else}
+					{embed="_component/lazyload_prayers"}
+				{/if}		
+				</div>	
+				<div id="lazyload_moreentries" class="grid_2 push_3 nomarg" style="display:none; padding: 5px 7px; background-image: -webkit-linear-gradient(bottom, #978EAB, #BDB1D6); background-color: #978EAB; border: 1px #393045 solid; box-shadow: 0 2px 5px #0A001F; font-size: 14px; text-transform: uppercase; color: #3B2F4C; cursor: pointer; text-align: center; font-weight: 700; font-family: 'museo-sans-1','museo-sans-2,Helvetica, sans-serif">Load More...</div>
+				<div class="clear"></div>
+		</div>
+		
+		
+		<div id="respond-pray-right" class="grid_4">
+			<a class="modal" href="#latest-worship"><div id="pray-play" class="default_visible marg-b-60"></div></a>
+			<div style="display:none">
+				<div id="latest-worship">
+					<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+					<iframe src="http://player.vimeo.com/video/12696690?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+				</div>
+			</div>	
+			<div class="clear"></div>
+			
+			<div class="pray-side-mid">
+				<div id="how-to-pray"></div>
+				<p>Have questions about prayer, or wondering how to talk with God?</p>
+				<a href="http://www.everystudent.com/wires/prayers.html" target="_blank"><div id="btn-what_is_prayer"></div></a>
+				<a href="http://www.northlandchurch.net/blogs/how_do_i_pray/"><div id="btn-how_do_i_pray"></div></a>
+			</div>
+			
+			{!-- UNCEASING APP}
+			<div class="pray-side-mid">
+				<div id="unceasing"></div>
+				<p>Northland is currently testing a mobile prayer app. If you want to help us test, sign up at </p>
+				<a class="large" href="http://www.unceasing.org">www.unceasing.org</a>
+			</div>
+			{--}
+
+			<div class="pray-side-mid">
+				<div id="pray-daily-lit"></div>
+				<p>Get to know God better by praying through Scripture as you rise in the morning, as you reconnect midday and as you rest in the evening.</p> 
+				
+				<p><a href="/respond/readthebible">Click Here</a> to pray through our daily liturgy with other Northlanders. Below are the Scriptures for the liturgy today, <a href="/respond/readthebible">{current_time format="%F %d, %Y"}</a>.</p>
+				<h3><a href="/respond/readthebible">Rising</a> <span class="info">(morning)</span></h3>
+				
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Morning" cache="yes" refresh="120"}
+						<span>{title}</span> ({liturgy-translation})<br />
+							{exp:trunchtml chars="260" inline="...<a href='/respond/readthebible'>(continue reading)</a>"}{liturgy-scripture}{/exp:trunchtml}<br><br>
+					{/exp:channel:entries}		
+				</p>
+				<h3><a href="/respond/readthebible">Reconnecting</a> <span class="info">(midday)</span></h3>
+				
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Midday" cache="yes" refresh="120"}
+						<span>{title}</span> ({liturgy-translation})<br />
+						{exp:trunchtml chars="258" inline="...<a href='/respond/readthebible'>(continue reading)</a>"}{liturgy-scripture}{/exp:trunchtml}<br><br>
+					{/exp:channel:entries}
+				</p>
+				<h3><a href="/respond/readthebible">Resting</a> <span class="info">(evening)</span></h3>
+				
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="{current_time format='%Y-%m-%d'} 00:00" stop_before="{current_time format='%Y-%m-%d'} 23:59" search:liturgy-sequence="=Evening" cache="yes" refresh="120"}
+					<span>{title}</span> ({liturgy-translation})<br />
+						{exp:trunchtml chars="260" inline="...<a href='/respond/readthebible'>(continue reading)</a>"}{liturgy-scripture}{/exp:trunchtml}<br><br>
+					{/exp:channel:entries}
+				</p>	
+			</div>
+		</div>		
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+
+{embed="_includes/html_close"}

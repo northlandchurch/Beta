@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed>
+	<resultLength>20</resultLength>
+	<endIndex>20</endIndex>
+
+	{exp:channel:entries channel="media" category="377" dynamic="on"}
+	<!--  {categories}{category_id} {/categories}  -->
+	
+	
+	<item sdImg="http://www.northlandchurch.net/_img/uploads/{media-video}_roku.jpg" hdImg="http://www.northlandchurch.net/_img/uploads/{media-video}_roku.jpg">
+		<title>{title}</title>
+		<contentId>{entry_id}</contentId>
+		<contentType>Talk</contentType>
+		<contentQuality>SD</contentQuality>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>1500</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_high.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>850</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_med.mp4</streamUrl>
+		</media>
+		<media>
+			<streamFormat>mp4</streamFormat>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>400</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_low.mp4</streamUrl>
+		</media>
+		{if media-description}
+		<synopsis>{exp:strip_html}{media-description}{/exp:strip_html}</synopsis>
+		{if:else}
+		<synopsis>Song performed by {media-speaker} from {entry_date format="%F %d, %Y"}</synopsis>
+		{/if}
+		<genres>Clip</genres>
+		<runtime>1260</runtime>
+	</item>	
+	{/exp:channel:entries}
+
+</feed>

@@ -1,0 +1,34 @@
+<?php
+	$roster="";
+	$anon_count=0;
+	$user="{embed:you}";
+?>
+
+{exp:favorites:members orderby="screen_name" sort="asc" entry_id="{embed:which_entry}"}
+	<?php
+		
+		if ("{screen_name}"!="Anonymous Member"){
+			$next_user = "{screen_name}";
+			//echo $next_user;
+			//echo $user;
+			//echo strcasecmp(trim($next_user), trim($user)) . "<br>";
+			if (strcmp($next_user, $user)==0){
+			}else{
+				$roster=$roster."{screen_name}".", ";
+			}
+		}else{
+			$anon_count++;
+		}
+	?>
+{/exp:favorites:members}
+<?php 
+	$roster_length = strlen($roster)-2;
+	$roster = substr($roster, 0, $roster_length);
+	//$lastcomma = strrpos($roster,',');
+	//$lastname = substr($roster,$lastcomma+1);
+	//$roster = substr($roster,0,$lastcomma);
+	//$roster = $roster . " and " . $lastname ." and $anon_count anonymous prayers.";
+	$roster = $roster . " and $anon_count anonymous prayers.";
+
+	echo $roster; 
+?>

@@ -1,0 +1,125 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.event-register').click (function() {
+			var whichID = $(this).attr('id');
+			var targetID = "#"+whichID+" .favorite";
+			var targetURL = $(targetID).attr('href');
+			whichID = whichID.substring(5);
+			registerUserToClass(whichID);
+			$.ajax({
+				success: function(data){
+					$(targetID).html("<div class='sprite-registered'> </div>");
+				},
+				url: targetURL
+			});		
+			return false;
+		});	
+	});
+</script>
+{exp:calendar:events date_range_start="today" date_range_end="+8 months" url_title="{embed:sequenced}"}
+	<div id="events_home_top"></div>
+	<div id="events_home_mid">
+		<div class="events_home_icon"></div>
+		<h2><a href="/calendar/details/{url_title}">{event_title}</a></h2>		
+		<?php if ("{current_time format='%m%d'}"-"{entry_date format='%m%d'}" == 0){ ?>
+			<h3>Posted Today</h3>
+		<?php }elseif (("{current_time format='%m%d'}"-"{entry_date format='%m%d'}" < 2 ) && ("{current_time format='%d'}"-"{entry_date format='%d'}" != 0 )){ ?>
+			<h3>Posted Yesterday</h3>			
+		<?php } ?>
+		
+		<div class="clear"></div>
+		<img class="events_home-img" src="{event_image}" align="left">
+		<div class="events_home_info">
+			<p>{exp:strip_html}{exp:word_limit total="60"}{event_summary}{/exp:word_limit}{/exp:strip_html}</p>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="events_home_specifics">
+		<div class="border-top"></div>
+		<div class="events_date_location">
+			{if event_first_date}
+				<div class="grid_3 home-cal-date">
+					<div class="events_specifics_date">
+						{event_first_date format="%l"}, {event_first_date format="%F %j"}
+					</div>
+				</div>
+				<div class="grid_3 home-cal-time">
+					<div class="events_specifics_time">
+						{if event_start_time == "%g:00" && event_end_time == "%g:00"}
+							{event_start_time format="%g %a"} - {event_end_time format="%g %a"}	
+						{if:else}
+							{event_start_time format="%g:%i %a"} - {event_end_time format="%g:%i %a"}
+						{/if}
+					</div>
+				</div>
+			{/if}
+			{if event_start_time}
+				<div class="grid_2 home-cal-location">
+					<div class="events_specifics_location">
+						{if event_location}
+							{event_location}
+						{/if}
+						{if event_address}
+							{event_address}
+						{/if}
+						{if event_room}
+							{event_room}
+						{/if}
+					</div>
+				</div>
+			{/if}
+			{if event_location || event_address || event_room}
+				<div class="grid_2 home-cal-signup">
+					<div class="events_specifics_location">
+						{if event_price}
+							{exp:strip_html keep="a"}{event_price}{/exp:strip_html}
+							{if event_registration}<br><br><a href="{event_registration}"><img src="/_img/adapt/events_signup.png"></a>{/if}
+						{/if}
+        			</div>
+				</div>
+			{/if}
+			<br><br>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+		<div id="events_home-bottom">
+			<div class="events_home-corner"></div><div class="events_home-finish"></div>
+		</div>
+	<div class="clear"></div>
+{/exp:calendar:events}
+
+{!--<div class="events_home_top"></div>
+<div class="events_home_mid">
+	<div class="events_home_icon"></div>
+	<h4>{event_start_date format='%l, %F %j, %Y'}</h4>
+	<div class="clear"></div>
+	<img class="events_home_mid-img" src="{event_image}">
+	<div class="events_home_info">
+		<h3>{exp:trunchtml char="85" exact="no"}{event_title}{/exp:trunchtml}</h3>
+		<p>{exp:strip_html}{exp:word_limit total="45"}{event_summary}{/exp:word_limit}{/exp:strip_html}</p>
+	</div>
+	<div class="clear"></div>
+	<div class="border-top"></div>
+	<div class="events_home_specifics">
+		<div class="events_specifics_date">
+			{event_first_date format="%l"}<br>{event_first_date format="%F %j"}
+		</div>
+		<div class="events_specifics_time">
+			{if event_start_time == "9:00"}
+				{event_start_time format="%g"} - {event_end_time format="%g %a"}
+			{if:else}
+				{event_start_time format="%g:%i"} - {event_end_time format="%g:%i %a"}
+			{/if}
+		</div>
+		<div class="events_specifics_location">
+			{event_location}<br>
+			<p class="events_specifics_location-sub">{event_address}<br>{event_room}</p>
+		</div>
+		<div class="events_specifics_register">
+			{exp:strip_html keep="a"}{event_price}<br>{event_registration}{/exp:strip_html}
+		</div>
+	</div>
+</div>
+<div class="events_home_btm"></div>
+<div class="clear"></div>--}

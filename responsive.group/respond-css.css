@@ -1,0 +1,2829 @@
+/* ---------- Respond Page Styles */
+#respond-btn
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -35px;
+	width: 257px;
+	height: 36px;
+}
+
+/* --- Worship God --- */
+
+
+#respond-worship
+{
+	background-color: #852301;
+	background-image: url({v2-image-asset-url}/respond/worship/bg.jpg);
+	background-repeat: repeat-x;
+}
+
+	#respond-worship p
+	{
+		color: #fff;
+		line-height: 18px;
+	}
+
+	#respond-worship a
+	{
+		color: #ffba00;
+		text-decoration: none;
+	}
+
+#worship-title
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-bottom: 30px;
+	z-index: 10;
+	margin-top: 20px;
+}
+	.worship-title-left
+	{
+		display: inline;
+		float: left;
+		margin-top: 21px;
+		font-weight: 900;
+		font-size: 70px;
+		text-transform: uppercase;
+		line-height: 68px;
+		text-align: right;
+		margin-left: -10px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #e28e00;
+	}
+	.worship-title-right
+	{
+		float: left;
+		color: #000;
+		font-size: 15px;
+		font-weight: 100;
+		margin-top: 28px;
+		text-transform: none;
+	}
+	.worship-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #f6db00;
+	}
+
+
+#worship-preparetitle
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-weight: 100;
+	font-size: 36px;
+	line-height: 32px;
+	color: #fff;
+	float: left;
+	text-transform: uppercase;
+}
+	#worship-preparetitle p {
+		padding: 0;
+		line-height: 37px;
+	}
+	#worship-preparetitle span {
+		font-weight: 700;
+	}
+
+#worship-currentseries
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -792px 0;
+	width: 186px;
+	height: 14px;
+	margin-bottom: 15px;
+}
+
+#dove
+{
+	background-image: url({v2-image-asset-url}/respond/worship/dove.png);
+	width: 240px;
+	height: 253px;
+	position: absolute;
+	float: right;
+	margin-top: 15px;
+	margin-left: 3px;
+}
+
+#worship-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -570px -211px;
+	width: 108px;
+	height: 100px;
+	float: right;
+	margin-top: 28px;
+	margin-right: 60px;
+}
+
+#worship-blog_title
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -792px -35px;
+	width: 170px;
+	height: 22px;
+	margin-bottom: 10px;
+}
+
+#worship-mini_play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -719px -214px;
+	width: 46px;
+	height: 43px;
+	float: left;
+	padding: 0 10px 0 0;
+}
+
+#worship-left-column
+{
+}
+#worship-left-column h3 {
+	font-size: 18px;
+	text-transform: uppercase;
+}
+.worship-divider
+{
+	background-image: url({v2-image-asset-url}/respond/worship/divider-horizon.png);
+	height: 2px;
+}
+
+#worship-attribute
+{
+	background-image: url({v2-image-asset-url}/respond/worship/attribute-bar.png);
+	width: 568px;
+	height: 28px;
+	margin-left: -5px;
+	padding: 11px 0 0 13px;
+}
+
+	#worship-attribute p
+	{
+		color: #581701;
+		font-size: 14px;
+		text-shadow: #f6db7f 0 1px 0;
+	}
+
+#worship-music img
+{
+	float: left;
+	margin-right: 10px;
+}
+
+.respond-left-column
+{
+}
+
+.worship-side-mid
+{
+	background-image: url(/_img/adapt/worshipgod-side-bg.png);
+	padding: 20px 12px 10px 12px;
+	margin-bottom: 20px;
+	
+	/*Rounded Corners*/
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* future proofing */
+	-khtml-border-radius: 4px; /* for old Konqueror browsers */
+}
+
+
+.worship-current-series-img
+{
+	width: 311px;
+}
+
+#worship-series-play img
+{
+	float: left;
+	margin-right: 5px;
+}
+
+#worship-series-info img
+{
+	float: left;
+	margin-right: 10px;
+	width: 100px;
+}
+
+#worship-series-play p
+{
+	font-size: 14px;
+	margin-top: 6px;
+	float: left;
+	padding-bottom: 4px;
+}
+
+#worship-blog .info
+{
+	color: #fff;
+}
+
+#worship-blog li
+{
+	padding-bottom: 10px;
+}
+
+.worship-lit
+{
+	font-size: 14px;
+	line-height: 20px;
+}
+
+#respond-worship .worship-application p
+{
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 18px;
+	color: #fff;
+}
+
+
+/* --- Read the Bible --- */
+
+#respond-bible
+{
+	background-color: #224516;
+	background-image: url({v2-image-asset-url}/respond/bible/bg.jpg);
+	background-repeat: repeat-x;
+}
+
+	#respond-bible p
+	{
+		color: #fff;
+		line-height: 18px;
+	}
+
+		#respond-bible .liturgy-verse, #reading-the-bible
+		{
+			font-size: 12px;
+			line-height: 20px;
+			display: none;
+			clear: both;
+			border-top: 1px solid #2b5818;
+			padding-top: 10px;
+		}
+
+			#respond-bible .liturgy-verse span
+			{
+				font-size: 18px;
+				line-height: 20px;
+				color: #79B540;	
+				margin-top: 10px;			
+			}
+
+	#respond-bible a
+	{
+		color: #79b540;
+		text-decoration: none;
+		cursor: pointer;
+		font-weight: 700;
+		font-size: 14px;
+	}
+
+#bible-title
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-bottom: 30px;
+	z-index: 10;
+	margin-top: 20px;
+}
+	.bible-title-left
+	{
+		display: inline;
+		float: left;
+		margin-top: 21px;
+		font-weight: 900;
+		font-size: 70px;
+		text-transform: uppercase;
+		line-height: 68px;
+		text-align: right;
+		margin-left: -10px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #56a500;
+	}
+	.bible-title-right
+	{
+		float: left;
+		color: #000;
+		font-size: 15px;
+		font-weight: 100;
+		margin-top: 28px;
+		text-transform: none;
+	}
+	.bible-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #b2e43c;
+	}
+
+#printing-press
+{
+	background-image: url({v2-image-asset-url}/respond/bible/printing-press.png);
+	width: 538px;
+	height: 542px;
+	position: absolute;
+	float: right;
+	z-index: ;
+	margin: -61px 0 0 384px;
+}
+
+#bible-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -574px -573px;
+	width: 108px;
+	height: 100px;
+	float: right;
+	margin-top: 28px;
+	margin-right: 60px;
+}
+
+#respond-bible-left
+{
+	float: left;
+}
+
+	#respond-bible-left h1
+	{
+		font-size: 32px;
+		float: left;
+		text-shadow: #1a3510 0 -1px 0;
+	}
+
+	#respond-bible-left h1 span
+	{
+		font-size: 14px;
+	}
+
+#bible-liturgy
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-weight: 100;
+	height: 32px;
+	font-size: 36px;
+	color: #fff;
+	float: left;
+	text-transform: uppercase;
+}
+	#bible-liturgy p {padding: 0;}
+	#bible-liturgy span {
+		font-weight: 700;
+	}
+
+#bible-askpastor
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: 0 -606px;
+	width: 238px;
+	height: 28px;
+	margin-bottom: 15px;
+}
+
+#bible-readnow
+{
+	background-image: url(/_img/sprite/master_sprite.png);
+	background-position: -266px -284px;
+	width: 110px;
+	height: 34px;
+}
+
+#day-box
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -719px -576px;
+	height: 34px;
+	float: right;
+	margin-top: -2px;
+}
+
+	#day-box p
+	{
+		text-align: center;
+		font-size: 16px;
+		float: left;
+		width: 125px;
+		margin-top: 8px;
+		font-weight: bold;
+		padding: 0px;
+		margin-left: 4px;
+	}
+
+	#day-box img
+	{
+		float: right;
+		margin: 7px 8px 0 0;
+	}
+
+	#bible-tweet
+	{
+		margin: 7px 0 0 7px;
+		float: left;
+	}
+
+.respond-bible-divide
+{
+	background-image: url({v2-image-asset-url}/respond/bible/divider-horizon.png);
+	background-repeat: repeat-x;
+	height: 2px;
+	margin: 5px 0;
+}
+
+.btn-readnow, #btn-readingthebible
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -251px;
+	margin: 8px 0 6px 0;
+	cursor: pointer;
+	float: right;
+	width: 110px;
+	height: 34px;
+}
+
+.bible-info
+{
+	font-size: 11px;
+	margin-left: 4px;
+}
+
+#respond-bible .scripture-union
+{
+	float: right;
+	font-size: 10px;
+	font-style: italic;
+	color: #17300c;
+}
+
+
+#weekly-answers
+{
+	margin-top: 10px;
+}
+
+	#weekly-answers span
+	{
+		font-size: 14px;
+		font-weight: bold;
+	}
+
+#bible-askpastor textarea
+{
+	background: none;
+	background-image: url({v2-image-asset-url}/respond/bible/textarea.png);
+	height: 150px;
+	width: 419px;
+	border: none;
+	color: #fff;
+	font-size: 11px;
+	line-height: 17px;
+}
+
+#bible-askpastor input
+{
+	background: none;
+	background-image: url({v2-image-asset-url}/respond/bible/input.png);
+	height: 23px;
+	width: 154px;
+	border: none;
+	color: #fff;
+	font-size: 11px;
+	line-height: 17px;
+	margin-right: 10px;
+}
+
+#bible-askpastor input#bible-send
+{
+	background: none;
+	background-image: url({v2-image-asset-url}/respond/bible/btn-send.png);
+	height: 39px;
+	width: 78px;
+	border: none;
+	color: #fff;
+	font-size: 11px;
+	line-height: 17px;
+	cursor: pointer;
+	margin: 0px;
+	margin-left: -4px;
+	}
+
+
+
+#respond-bible-right
+{
+	float: left;
+}
+
+.bible-side-mid
+{
+	background-image: url(/_img/adapt/readbible-side-bg.png);
+	padding: 10px 12px 0 12px;
+	margin-bottom: 20px;
+	
+	/*Rounded Corners*/
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* future proofing */
+	-khtml-border-radius: 4px; /* for old Konqueror browsers */
+}
+
+
+#readthebible_side-holder
+{
+	margin-bottom: 15px;
+}
+.readthebible_side-right {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-weight: 500;
+	font-size: 18px;
+	color: #fff;
+	text-transform: uppercase;
+	padding-top: 3px;
+	padding-left: 10px;
+	float: left;
+	clear: right;
+	margin-bottom: 10px;
+}
+.readthebible_side-right span {
+	font-size: 14px;
+	text-transform: none;
+}
+
+.weekly-scriptures {
+	background-image: url(/_img/adapt/icons/weeklyscriptures.png);
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+.online-bibles {
+	background-image: url(/_img/adapt/icons/onlinebible.png);
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+.free-bible {
+	background-image: url(/_img/adapt/icons/freebible.png);
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+.reading-resources {
+	background-image: url(/_img/adapt/icons/readingresources.png);
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+
+.scripture
+{
+	font-size: 15px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+#bible-media
+{
+	background-image: url({v2-image-asset-url}/respond/bible/bible-media.png);
+	width: 130px;
+	height: 13px;
+	margin-bottom: 15px;
+}
+
+#bible-study
+{
+	background-image: url({v2-image-asset-url}/respond/bible/bible-study.png);
+	width: 191px;
+	height: 17px;
+	margin-bottom: 15px;
+}
+.read {
+	font: 12px;
+	display: none;
+}
+.result { display: none;
+}
+.read, .readed {
+	font-size: 12px !important;
+}
+.people-read {
+	float: right;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-size: 12px !important;
+	color: #ffffff !important;
+	font-family: sans-serif;
+	font-weight: 100;	
+	text-align: right;
+}
+.count {
+	font-size: 12px !important;
+	color: #ffffff !important;
+	font-family: sans-serif;
+	font-weight: 100;	
+}
+#datepicker-text2 {
+	width: 205px;
+	height: 18px;
+	background: url('http://northlandchurch.net/_img/calendar-respond.png') no-repeat;
+	margin-bottom: 20px;
+}
+#datepicker2 {	
+	margin-left: 40px;
+	padding-bottom: 10px;
+}
+#datepicker2 span {
+	display: none;	
+}
+#datepicker2 table span {
+	display: block;
+}
+
+
+
+/* --- Pray --- */
+
+#respond-pray
+{
+	background-color: #3b3247;
+	background-image: url({v2-image-asset-url}/respond/pray/bg.jpg);
+	background-repeat: repeat-x;
+}
+
+	#respond-pray p
+	{
+		color: #8d7ca0;
+		line-height: 20px;
+	}
+
+	#respond-pray a
+	{
+		color: #caaae1;
+		text-decoration: none;
+	}
+
+#pray-title
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-bottom: 30px;
+	z-index: 10;
+}
+	.pray-title-left
+	{
+		display: inline;
+		float: left;
+		height: 65px;
+		margin-top: 21px;
+		margin-left: 5%;
+		font-weight: 900;
+		font-size: 72px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #c6b4d1;
+	}
+	.pray-title-right
+	{
+		float: left;
+		color: #e9d7ff;
+		font-size: 15px;
+		font-weight: 100;
+		
+		text-transform: none;
+	}
+	.pray-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #fff;
+	}
+
+#pray-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -935px -933px;
+	width: 108px;
+	height: 100px;
+	margin-right: 90px;
+	float: right;
+}
+
+#respond-pray-left
+{
+	float: left;	
+}
+
+
+
+#pray-prayers
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 36px;
+	color: #fff;
+	text-transform: uppercase;
+	margin-top: 60px;
+	margin-bottom: 20px;
+	font-style: normal;
+}
+
+p#request-instructions
+{
+	line-height: 18px;
+	font-size: 12px;
+	float: left;
+	color: #fff;
+}
+
+#btn-request
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -431px -360px;
+	width: 306px;
+	height: 105px;
+	float: left;
+	margin: 0-65px 0 0 ;
+}
+
+
+.pray-card-top
+{
+	background-image: url({v2-image-asset-url}/respond/pray/card-top.png);
+	background-repeat: no-repeat;
+	height: 53px;
+	max-width: 580px;
+	padding: 16px 20px 20px 20px;
+}
+
+	.pray-card-top h1
+	{
+		color: #3b2f4c;
+		font-size: 27px;
+		text-shadow: #ccc4d6 0 1px 0;
+		line-height: 27px;
+		margin-bottom: 5px;
+		float: left;
+	}
+
+	#respond-pray p.pray-card-date 
+	{
+		background-color: #a79eb5;
+		padding: 2px 4px;
+		color: #514662;
+		font-size: 10px;
+		float: left;
+		clear: both;
+	}
+
+	.name-date
+	{
+		float: left;
+		width: 50%;
+	}
+	.name-date h1 {
+		max-height: 28px;
+		max-width: 420px;
+		overflow: hidden;
+	}
+
+
+	.pray-card-options
+	{
+		float: right;
+		padding-right: 10px;
+	}
+
+	#pray-for {
+	width: 146px;
+	height: 32px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	}
+
+	#pray-for li {
+	float: left;
+	}
+
+	#pray-for li a {
+	position: absolute;
+	top: 0;
+	margin: 0;
+	padding: 0;
+	display: block;
+	height: 40px;
+	background: url({v2-image-asset-url}/respond/pray/heart-sprite.png) no-repeat;
+	text-indent: -9999px;
+	overflow: hidden;
+	}
+
+	/*up state*/
+	li#pray-for-li a {
+	left: 0;
+	width: 146px;
+	background-position: 0 0;
+	}
+
+	/*hover state*/
+	li#pray-for-li a:hover {
+	background-position: 0 -32px;
+	}
+
+	/*hover state*/
+	li#pray-for-li .faved a {
+	background-position: 0 -65px;
+	}
+
+	.prayer-number
+	{
+		background-image: url({v2-image-asset-url}/respond/pray/number-container.png);
+		height: 22px;
+		width: 35px;
+		float: left;
+	}
+
+	p.people-prayed
+	{
+		float: left;
+		color: #fff;
+		font-weight: bold;
+		font-size: 11px;
+		margin: 2px 0 0 7px;
+	}
+
+	#respond-pray .prayer-number p
+	{
+		color: #fff;
+		font-size: 14px;
+		font-weight: bold;
+		text-shadow: #93899e 0 1px 0;
+		text-align: center;
+		width: 100%;
+		padding-top: 2px;
+	}		
+
+
+
+
+.pray-card-mid
+{
+	background-image: url({v2-image-asset-url}/respond/pray/card-mid.png);
+	background-repeat: repeat-y;
+	max-width: 602px;
+}
+
+	.pray-card-mid p
+	{
+		margin-top: 10px;
+		padding: 0px;
+		line-height: 18px;
+	}
+
+	.card-bg
+	{
+		background-image: url({v2-image-asset-url}/respond/pray/card-bg.jpg);
+		background-repeat: no-repeat;
+		margin-left: 4px;
+		padding: 12px;
+	}
+
+
+.pray-card-btm
+{
+	background-image: url({v2-image-asset-url}/respond/pray/card-btm.png);
+	background-repeat: no-repeat;
+	height: 25px;
+	margin: 0 0  15px -7px;
+	padding-right: 29px;
+}
+
+
+#respond-pray-right
+{
+}
+
+
+
+.pray-side-mid
+{
+	background-image: url(/_img/adapt/prayer-side-bg.png);
+	padding: 20px 12px;
+	margin-bottom: 10px;
+	
+	/*Rounded Corners*/
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* future proofing */
+	-khtml-border-radius: 4px; /* for old Konqueror browsers */
+}
+
+	#respond-pray .pray-side-mid p
+	{
+		color: #fff;
+	}
+
+	#respond-pray .pray-side-mid .info
+	{
+		color: #fff;
+	}
+
+
+	.pray-side-top2
+	{
+		background-image: url({v2-image-asset-url}/respond/pray/side-top2.png);
+		height: 19px;
+		width: 308px;
+	}
+
+	.pray-side-mid2
+	{
+		background-image: url({v2-image-asset-url}/respond/pray/side-mid2.png);
+		width: 284px;
+		padding: 0 12px 0 12px;
+	}
+
+		#respond-pray2 .pray-side-mid2 p
+		{
+			color: #fff;
+		}
+
+		#respond-pray2 .pray-side-mid2 .info
+		{
+			color: #fff;
+		}
+
+	.pray-side-btm2
+	{
+		background-image: url({v2-image-asset-url}/respond/pray/side-btm2.png);
+		height: 16px;
+		width: 308px;
+		margin-bottom: 15px;
+	}
+
+#how-to-pray
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -251px;
+	width: 145px;
+	height: 19px;
+	margin-bottom: 15px;
+}
+
+#unceasing
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -215px;
+	width: 124px;
+	height: 19px;
+	margin-bottom: 15px;
+}
+
+#pray-daily-lit
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -180px;
+	width: 151px;
+	height: 18px;
+	margin-bottom: 15px;
+}
+
+	#pray-daily-lit2
+	{
+		background-image: url(/_assets/img/v2/respond/pray/dailylit.png);
+		background-repeat: no-repeat;
+		width: 151px;
+		height: 18px;
+		margin-bottom: 15px;
+	}
+
+.pray-side-mid h3
+{
+	color: white;
+	font-size: 14px;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+#btn-what_is_prayer
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -358px;
+	width: 275px;
+	height: 34px;
+}
+
+#btn-how_do_i_pray
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -304px;
+	width: 275px;
+	height: 34px;
+}
+
+#pray-btn-sendquestions
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -143px;
+	width: 311px;
+	height: 39px;
+}
+
+#pray-btn-readanswers
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -197px;
+	width: 311px;
+	height: 39px;
+}
+
+#pray-btn-youversion
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -560px;
+	width: 277px;
+	height: 34px;
+}
+
+#pray-btn-biblegateway
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -522px;
+	width: 277px;
+	height: 34px;
+}
+
+#pray-btn-abs
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -287px -520px;
+	width: 277px;
+	height: 34px;
+}
+
+
+/* --- Serve Others --- */
+
+#respond-serve
+{
+	background-color: #10293d;
+	background-image: url({v2-image-asset-url}/respond/serve/bg.jpg);
+	background-repeat: repeat-x;
+	color: #fff;
+}
+
+	#respond-serve p
+	{
+		color: #fff;
+		line-height: 20px;
+		word-wrap: break-word;
+	}
+
+	#respond-serve a
+	{
+		color: #fff;
+		text-decoration: none;
+	}
+
+
+#serve-title
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	z-index: 10;
+}
+	.serve-title-left
+	{
+		display: inline;
+		float: left;
+		height: 65px;
+		margin-left: 5%;
+		text-align: left;
+		margin-bottom: 90px;
+	}
+	.serve-title-left h1 {
+		font-weight: 900;
+		line-height: 74px;
+		font-size: 72px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #77b6f0;
+	}
+	.serve-title-left h2 {
+		color: #77B6F0;
+		text-shadow: #0D2233 0px -1px 0px;
+		font-size:34px;
+		border-bottom: none;
+		padding-top: 10px;
+		float: left;
+		margin-left: 15px;
+	}
+	.serve-title-right
+	{
+		float: left;
+		color: #77b6f0;
+		font-size: 15px;
+		font-weight: 100;
+		margin-top: 7px;
+		text-transform: none;
+	}
+	.serve-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #fff;
+	}
+	.respond-serve-sitename {
+		margin-bottom: 25px;
+	}
+
+.respond-serve-header {
+	color: #fff;
+	border-bottom: none;
+	margin-bottom: 15px;
+}
+#serve-loading {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	text-align: center;
+	width: 100%;
+}
+#serve-loading p {
+	padding-top: 10px;
+}
+
+
+#serve-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -576px -1296px;
+	width: 108px;
+	height: 100px;
+	margin-top: 15px;
+	margin-right: 90px;
+	float: right;
+}
+
+#respond-serve-left
+{
+	float: left;
+}
+#respond-serve-right
+{
+	float: left;
+}
+
+#serve-today
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 36px;
+	font-weight: 300;
+	color: #fff;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+#serve-today span {
+	font-weight: 700;
+}
+
+#serve-this-week
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 36px;
+	font-weight: 300;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+.serve-beautiful {
+	background-color: rgba(225, 225, 225, 0.2);
+	background-image: url({v2-image-asset-url}/respond/serve/bg.jpg);
+	background-position: -90px -130px;
+	box-shadow: 1px 1px 15px rgba(38, 29, 28, 1);
+}
+	.serve-beautiful h2 {
+		color: #fff;
+		float: left;
+		font-size: 20px;
+		line-height: 22px;
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 10px;
+		max-width: 68%;
+	}
+	.respond-serve-highlight h2 {
+		font-size: 24px;
+		line-height: 26px;
+	}
+	.respond-serve-count {
+		float: left;
+		margin-right: 20px;
+		padding-top: 25px;
+		text-align: right;
+	}
+		.respond-serve-count {
+			text-align: left;
+		}
+		.serve-beautiful h3 {
+			color: #fff;
+			font-size: 14px;
+			font-weight: 300;
+			padding-bottom: 0;
+			margin-bottom: 0;
+			border-bottom: none;
+		}
+		.serve-beautiful h4 {
+			color: #fff;
+			font-weight: 300;
+			font-size: 12px;
+			padding: 0;
+		}
+	.serve-beautiful p {
+		padding-top: 5px;
+		padding-bottom: 0;
+		font-size: 14px;
+	}
+	.respond-serve-highlight p {
+		font-size: 16px;
+	}
+.respond-serve-marker {
+	background-image: url({v2-image-asset-url}/respond/serve/marker.png);
+	background-repeat: no-repeat;
+	height: 18px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	font-size: 18px;
+	margin-top: 2px;
+	padding-left: 20px;
+	float: right;
+	max-width: 30%;
+}
+.respond-serve-featured {
+	background-color: #1d3651;
+	float: right;
+	padding: 10px 20px;
+	font-size: 16px;
+	box-shadow: inset 0 0 5px 0 #000;
+}
+.respond-serve-tinter {
+	background-color: rgba(255, 255, 255, 0.05);
+	margin-bottom: 15px;
+	padding: 20px;
+}
+.respond-serve-highlight-header {
+	color: #fff;
+	font-size: 22px;
+	margin: 20px 0;
+	border-bottom: none;
+}
+.respond-serve-highlight {
+	background-color: rgba(255, 255, 255, 0.05);
+	padding: 30px 20px;
+}
+.respond-serve-highlight-btm {
+	margin: 40px 0;
+}
+.respond-serve-fave {
+	float: right;
+	margin-top: 5px;
+}
+.respond-serve-button {
+	float: left;
+	padding: 5px 10px;
+	background-image: -webkit-linear-gradient(bottom, #1d3651, #365574);
+	background-color: #1d3651;
+	border: 1px #172638 solid;
+	font-weight: 500;
+	font-size: 14px;		
+	text-transform: uppercase;
+	color: #fff;
+	box-shadow: 1px 1px 15px rgba(38, 29, 28, 1);
+	margin-top: 23px;
+}
+
+.ccb_link {
+	display: none;
+	visibility: hidden;
+}
+.serve-number {
+	display: none;
+	visibility: hidden;
+}
+
+.serve-side-top
+{
+	background-image: url({v2-image-asset-url}/respond/serve/side-top.png);
+	height: 14px;
+	width: 308px;
+}
+
+.serve-side-mid
+{
+	background-image: url(/_img/adapt/serve-side-bg.png);
+	padding: 20px 12px;
+	margin-bottom: 10px;
+	
+	/*Rounded Corners*/
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* future proofing */
+	-khtml-border-radius: 4px; /* for old Konqueror browsers */
+}
+
+	#respond-serve .serve-side-mid p
+	{
+		color: #fff;
+	}
+
+	.serve-side-mid li
+	{
+		padding-bottom: 10px;
+	}
+
+	.serve-side-mid h2 {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 18px;
+		color: #fff;
+		border-bottom: none;
+		text-transform: uppercase;
+	}
+	.serve-option {
+		background-color: #3e6c90;
+		margin: 10px 0;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 15px;
+		font-weight: 300;
+		text-transform: uppercase;
+		-webkit-box-shadow: 0 8px 6px -6px black;
+		   -moz-box-shadow: 0 8px 6px -6px black;
+		        box-shadow: 0 8px 6px -6px black;
+	
+	}
+	.serve-option p {
+		padding: 10px;
+		text-align: right;
+	}
+	.serve-option img {
+		float: left;
+		padding-top: 5px;
+		padding-left: 6px;
+	}
+	.serve-top-contain {
+		margin-bottom: 80px;
+		border-bottom: 5px solid #365574;
+		-webkit-box-shadow: 0 8px 6px -6px black;
+		   -moz-box-shadow: 0 8px 6px -6px black;
+		        box-shadow: 0 8px 6px -6px black;
+	}
+	.serve-top-option {
+		background:#1D3651;
+		position:relative;
+		float: left;
+		padding: 10px 15px;
+		margin: 20px 10px 0 10px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-size: 18px;
+		font-weight: 500;
+		color:#fff;
+	}
+	.chosen {
+		background:#365574;
+		margin-top: 10px;
+		margin-left: 0px;
+		padding: 15px 15px;
+		font-weight: 700;
+	}
+	
+	.serve-side-mid li a
+	{
+		font-size: 16px;
+		color: #bbdcf3;
+		margin-bottom: 10px;
+	}
+
+	#respond-serve .serve-side-mid .info
+	{
+		color: #fff;
+	}
+	
+.serve-choices-locations {
+	clear:both;
+	padding:10px;
+}
+.serve-choices-locations p {
+	display: inline;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.serve-side-btm
+{
+	background-image: url({v2-image-asset-url}/respond/serve/side-btm.png);
+	height: 15px;
+	width: 308px;
+	margin-bottom: 15px;
+}
+
+#serve-btn-northland
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -467px -85px;
+	width: 276px;
+	height: 44px;
+}
+
+#serve-btn-locally
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -467px -129px;
+	width: 276px;
+	height: 44px;
+}
+
+#serve-btn-globally
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -467px -174px;
+	width: 276px;
+	height: 44px;
+}
+
+#serve-btn-virtually
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -467px -218px;
+	width: 276px;
+	height: 44px;
+}
+
+#serve-btn-needs
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: -467px -262px;
+	width: 276px;
+	height: 44px;
+}
+
+#ways-to-serve
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -323px;
+	width: 155px;
+	height: 23px;
+	margin-bottom: 15px;
+}
+
+#local-serve-day
+{
+	background-image: url({v2-image-asset-url}/respond/serve/local-serve-day.png);
+	width: 177px;
+	height: 18px;
+	margin-bottom: 15px;
+}
+
+#local-serve
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -286px;
+	width: 160px;
+	height: 18px;
+	margin-bottom: 15px;
+}
+
+#find-purpose
+{
+	background-image: url({v2-image-asset-url}/respond/serve/find-purpose.png);
+	width: 187px;
+	height: 21px;
+	margin-bottom: 15px;
+}
+
+
+
+	#respond-serve .serve-today-date
+	{
+		color: #fff;
+		font-size: 16px;
+		text-transform: uppercase;
+		float: left;
+		padding-bottom: 0px;
+		margin-top: 5px;
+	}
+
+.serve-tweet-box
+{
+	background-image: url({v2-image-asset-url}/respond/serve/tweet-box.png);
+	width: 92px;
+	height: 21px;
+	float: right;
+	padding: 5px 6px 6px 6px;
+}	
+
+.serve-horizon-divider
+{
+	background-image: url({v2-image-asset-url}/respond/serve/divider-horizon.png);
+	height: 2px;
+	margin: 2px 0px 10px 0px;
+}	
+
+/*#respond-serve h1, #respond-serve h1 p
+{
+	color: #77b6f0;
+	font-size: 24px;
+	text-shadow: #0d2233 0px -1px 0px;
+	line-height: 30px;
+}	*/
+
+.serve-today-options-top
+{
+	background-image: url({v2-image-asset-url}/respond/serve/bar-top.png);
+	width: 605px;
+	height: 2px;
+}
+
+.serve-today-options-mid
+{
+	background-image: url({v2-image-asset-url}/respond/serve/bar-mid.png);
+	width: 585px;
+	padding: 3px 10px;
+}	
+
+	#respond-serve .serve-today-options-mid li a
+	{
+		color: #fff;
+	}
+
+
+	.serve-arrow
+	{
+		background-image: url({v2-image-asset-url}/respond/serve/arrow-right.png);
+		width: 13px;
+		height: 10px;
+		float: left;
+		margin: 7px 20px 0 25px;
+	}
+
+	.people-served-box
+	{
+		background-image: url({v2-image-asset-url}/respond/serve/people-served-box.png);
+		width: 26px;
+		height: 22px;
+		float: left;
+		margin: 0 6px 0 0;
+	}
+
+		#respond-serve .serve-today-options-mid p
+		{
+			font-size: 11px;
+			padding: 0px;
+			float: left;
+			line-height: normal;
+			margin-top: 5px;
+		}
+
+		#respond-serve .people-served-box p
+		{
+			width: 24px;
+			text-align: center;
+			color: #fff;
+			font-size: 11px;
+		}
+
+		.btn-share-story
+		{
+			float: left;
+			margin: 0px 10px;
+		}
+
+.serve-today-options-btm
+{
+	background-image: url({v2-image-asset-url}/respond/serve/bar-btm.png);
+	width: 605px;
+	height: 3px;
+}	
+
+.serve-divider-vert
+{
+	background: url({v2-image-asset-url}/respond/serve/divider-vert.png) no-repeat;
+	width: 2px;
+	height: 21px;
+	float: left;
+	margin-left: 10px;
+}	
+
+#mark-served {
+width: 121px;
+height: 16px;
+margin: 0;
+padding: 0;
+position: relative;
+float: left;
+margin-top: 3px;
+}
+
+#mark-served li {
+float: left;
+background-image: url(/_img/sprite/respond_11.png);
+background-position: -432px -1313px;
+}
+
+#mark-served li a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 16px;
+background-image: url(/_img/sprite/respond_11.png);
+background-position: -432px -1295px;
+text-indent: -9999px;
+overflow: hidden;
+}
+
+/*up state*/
+li#mark-served-li a {
+left: 0;
+width: 121px;
+background-position: -432px -1295px;
+}
+
+/*hover state*/
+li#mark-served-li a:hover {
+background-position: -432px -1313px;
+}
+
+/*hover state*/
+li#mark-served-li .faved a {
+background-position: -432px -1313px;
+}
+
+
+
+#serve-open-close {
+width: 23px;
+height: 21px;
+margin: 0;
+padding: 0;
+position: relative;
+float: right;
+}
+
+#serve-open-close li {
+float: left;
+}
+
+#serve-open-close li a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 21px;
+background: url({v2-image-asset-url}/respond/serve/updown-sprite.png) no-repeat;
+text-indent: -9999px;
+overflow: hidden;
+}
+
+/*up state*/
+li#serve-open-close-li a {
+left: 0;
+width: 121px;
+background-position: 0 0;
+}
+
+/*hover state*/
+li#serve-open-close-li a:hover {
+background-position: 0 -21px;
+}	
+
+#respond-serve .serve-org-title
+{
+	color: #fff;
+	padding-bottom: 0px;
+	margin-bottom: 7px;
+}
+
+.serve-org-options li
+{
+	color: #77B6F0;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.serve-org-options li a
+{
+	color: #fff;
+	font-weight: normal;
+}
+
+
+	.serve-org-options li span
+	{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #fff;
+		font-size: 12px;
+		line-height: 12px;
+		font-weight: 500;
+		text-transform: uppercase;
+		margin-right: 15px;
+	}
+
+#serve-stories
+{
+	width: 275px;
+	float: left;
+}
+
+	#serve-stories-title
+	{
+		background: url({v2-image-asset-url}/respond/serve/stories-serving.png) no-repeat;
+		width: 272px;
+		height: 17px;
+		margin-bottom: 30px;
+	}
+
+	.serve-story-block
+	{
+		margin-bottom: 40px;
+	}
+
+	#respond-serve .serve-story-block h1
+	{
+		color: #fff;
+		margin-bottom: 5px;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 14px;
+	}
+
+	.serve-story-block img
+	{
+		float:  left;
+		margin: 0 10px 0 10px;
+	}
+
+	.serve-story-block p
+	{
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+
+	.serve-story-block .serve-horizon-divider
+	{
+		float:  left;
+		width: 80px;
+		margin-top: 14px;
+	}
+
+
+#serve-ways
+{
+	width: 275px;
+	float: right;
+}
+
+	#serve-ways-title
+	{
+		background: url({v2-image-asset-url}/respond/serve/more-ways.png) no-repeat;
+		width: 243px;
+		height: 17px;
+		margin-bottom: 30px;
+	}
+
+	.serve-story-block .way-divider
+	{
+		width: 160px;
+	}
+
+
+
+
+/* --- Live Generously --- */
+
+#respond-generous
+{
+	background-color: #c29104;
+	background-image: url({v2-image-asset-url}/respond/generous/bg.jpg);
+	background-repeat: repeat-x;
+	color: #fff;
+}
+
+	#respond-generous .divider-horizon
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/divider-horizon.png);
+		background-repeat: repeat-x;
+		height: 2px;
+	}
+
+	#respond-generous p
+	{
+		color: #fff;
+		line-height: 20px;
+	}
+
+
+	#respond-generous h1
+	{
+		color: #593c0e;
+		line-height: 20px;
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+
+		#respond-generous h1 span
+		{
+			color: #fff;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+
+	#respond-generous a
+	{
+		color: #f4d401;
+		text-decoration: none;
+	}
+
+#generous-title
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-bottom: 30px;
+	z-index: 10;
+}
+	.generous-title-left
+	{
+		float: left;
+		line-height: 65px;
+		margin-top: 21px;
+		font-weight: 900;
+		font-size: 72px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #c6b4d1;
+		text-align: right;
+	}
+	.generous-title-right
+	{
+		margin-top: 20px;
+		float: left;
+		color: #685203;
+		font-size: 15px;
+		font-weight: 100;
+		text-transform: none;
+	}
+	.generous-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #000;
+	}
+
+#generous-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -1727px -287px;
+	width: 108px;
+	height: 100px;
+	float: right;
+}
+
+#respond-generous-left {
+	float: left;
+}
+#respond-generous-right {
+	float: left;
+}
+
+#btn-tithes
+{
+	background-image: url(/_img/sprite/buttons_11.png);
+	background-position: 0 -412px;
+	width: 315px;
+	height: 44px;
+	margin-bottom: 15px;
+}
+
+.generous-side-top
+{
+	background-image: url({v2-image-asset-url}/respond/generous/side-top.png);
+	height: 10px;
+	width: 307px;
+}
+
+.generous-side-mid
+{
+	background-image: url({v2-image-asset-url}/respond/generous/side-mid.png);
+	width: 283px;
+	padding: 0 12px 0 12px;
+}
+
+	#generous-offerings
+	{
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		font-weight: 300;
+		font-size: 28px;
+		text-transform: uppercase;
+		margin-bottom: 15px;
+		margin-top: 60px;
+	}
+
+	#generous-fpu
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/fpu.png);
+		width: 250px;
+		height: 24px;
+		margin-bottom: 15px;
+	}
+
+	#generous-coach
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/budget-coach.png);
+		width: 204px;
+		height: 22px;
+		margin-bottom: 15px;
+	}
+
+	#find-peace
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/find-peace.png);
+		width: 114px;
+		height: 62px;
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+
+	#generous-serve
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/serve-others.png);
+		width: 156px;
+		height: 18px;
+		margin-bottom: 15px;
+	}
+
+	#generous-stories
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/stories.png);
+		width: 227px;
+		height: 19px;
+		margin-bottom: 15px;
+	}
+
+	.generous-side-mid li
+	{
+		padding-bottom: 10px;
+	}
+
+
+	.generous-side-mid li a
+	{
+		font-size: 16px;
+		color: #bbdcf3;
+		margin-bottom: 10px;
+	}
+
+	#respond-generous .generous-side-mid .info
+	{
+		color: #fff;
+	}
+
+.generous-side-btm
+{
+	background-image: url({v2-image-asset-url}/respond/generous/side-btm.png);
+	height: 11px;
+	width: 307px;
+	margin-bottom: 15px;
+}
+
+#generous-mission
+{
+	background-image: url({v2-image-asset-url}/respond/generous/generous-mission.png);
+	width: 418px;
+	height: 31px;
+	margin-bottom: 20px;
+}
+
+h1#generous-mission-header
+{
+	color: #fff;
+	font-size: 40px;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+h1#generous-mission-header span
+{
+	font-weight: 900;
+}			
+
+#generous-partner-vid
+{
+	float: left;
+	margin-top: 38px;
+}
+
+#generous-partner-info
+{
+}
+
+#mission-box
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -1223px -287px;
+	background-repeat: no-repeat;
+	width: 280px;
+	margin-bottom: 40px;
+	float: left;	
+}
+
+#mission-box h1
+{
+	width: 225px;
+	padding: 50px 20px 0 20px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 500;
+	text-shadow: #bd9749 0 1px 0;
+}
+
+#mission-box #partner-goal
+{
+	font-size: 48px;
+	margin-top: 65px;
+	font-weight: 700;
+	line-height: 48px;
+}	
+
+#partner-donation
+{
+	margin: 90px 0 0 63px;
+}	
+
+#generous-progress-bar
+{
+	float: left;
+	width: 275px;
+	margin-left: 30px;
+}
+
+	#generous-progress-bar ul
+	{
+		float: left;
+	}
+
+	#generous-progress-bar li
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/marker.png);
+		background-repeat: no-repeat;
+		background-position: 0px 8px;
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		color: #804f01;
+		text-shadow: #cba034 0 1px 0;
+		font-weight: 900;
+		width: 65px;
+		float: right;
+		clear: both;
+		margin-bottom: 54px;
+		padding-left: 30px;
+	}	
+
+
+	#generous-bar
+	{
+		background-image: url(/_img/sprite/respond_11.png);
+		background-position: -1509px -288px;
+		width: 139px;
+		height: 514px;
+		float: left;
+		padding: 4px;
+		overflow: hidden;
+		margin-right: 10px;
+	}
+
+	#bar-fill
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/bar-fill.png);
+		width: 139px;
+		height: 514px;
+		margin-top: 514px;
+	}	
+
+	#generous-bar-mask
+	{
+		background-image: url({v2-image-asset-url}/respond/generous/mask.png);
+		width: 170px;
+		height: 68px;
+		z-index: 99;
+		position: absolute;
+		margin: 465px 0 0 -18px;
+		clear: both;
+	}
+
+	#amount-box
+	{
+		background-image: url(/_img/sprite/respond_11.png);
+		background-position: -1871px -214px;
+		width: 97px;
+		height: 31px;
+		z-index: 99;
+		position: absolute;
+		margin: 449px 0 0 160px;
+		padding: 10px 0 0 5px;
+	}
+
+		#amount-box h1
+		{
+			color: #fff;
+			font-size: 18px;
+			font-weight: 700;
+			text-align: center;
+		}
+
+#generous-invite-box
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -1584px -214px;
+	width: 255px;
+	height: 53px;
+	padding: 9px 0 0 9px;
+	margin: 50px 0 0 3px;
+}		
+
+#generous-twitter
+{
+	margin-top: 10px;
+	float: left;
+	margin-left: 20px;
+}
+
+#generous-fb
+{
+	margin-top: 10px;
+	float: left;
+	margin-left: 10px;
+}
+
+.generous_lessismore-total {
+	width: 220px;
+	height: 50px;
+	float: left;
+	margin-top: 75px;
+	margin-left: 50px;
+	
+}
+	.generous_lessismore-total h1 {
+		font-size: 28px;
+		font-weight: 500;
+		text-align: right;
+	}
+	.generous_lessismore-total h2 {
+		font-weight: 300;
+		font-size: 26px;
+		border-bottom: none;
+		color: #fff;
+		text-align: right;
+	}
+
+
+/* --- Be in Community --- */
+
+#respond-community
+{
+	background-color: #3e6078;
+	background-image: url({v2-image-asset-url}/respond/community/bg.jpg);
+	background-repeat: repeat-x;
+	color: #fff;
+}
+
+	#respond-community .divider-horizon
+	{
+		background-image: url({v2-image-asset-url}/respond/community/divider-horizon.png);
+		background-repeat: repeat-x;
+		height: 2px;
+	}
+
+	#respond-community p
+	{
+		color: #fff;
+		line-height: 20px;
+	}
+
+
+	#respond-community h1
+	{
+		line-height: 40px;
+		font-size: 40px;
+		margin-bottom: 20px;
+		text-transform: uppercase;
+	}
+
+		#respond-community h1#sub
+		{
+			font-size: 24px;
+			line-height: 24px;
+			margin-bottom: 15px;
+			margin-top: 40px;
+		}
+
+		#respond-community h1 span
+		{
+			color: #fff;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+
+	#respond-community a
+	{
+		color: #9dd6ff;
+		text-decoration: none;
+	}
+
+#community-title
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -1224px -865px;
+	width: 739px;
+	height: 192px;
+	margin-top: 50px;
+	z-index: 10;
+	position: absolute;
+	margin-left: -50px;
+}
+
+#community-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -934px -933px;
+	width: 108px;
+	height: 100px;
+	float: right;
+	margin-top: 90px;
+	margin-right: 50px;
+}
+
+#respond-community-left
+{
+	float: left;
+	width: 605px;
+}
+
+
+
+
+.community-side-top
+{
+	background-image: url({v2-image-asset-url}/respond/community/side-top.png);
+	height: 12px;
+	width: 308px;
+}
+
+.community-side-mid
+{
+	background-image: url({v2-image-asset-url}/respond/community/side-mid.png);
+	width: 268px;
+	padding: 0 20px;
+}
+
+.community-side-btm
+{
+	background-image: url({v2-image-asset-url}/respond/community/side-btm.png);
+	height: 13px;
+	width: 308px;
+	margin-bottom: 20px
+}	
+
+
+
+
+#community-fb-q-top
+{
+	background-image: url({v2-image-asset-url}/respond/community/fb-wall-q-top.png);
+	width: 616px;
+	margin-left: -17px;
+	margin-top: 30px;
+}
+
+#community-fb-q-mid
+{
+	background-image: url({v2-image-asset-url}/respond/community/fb-wall-q-mid.png);
+	background-repeat: repeat-y;
+	width: 566px;
+	padding: 5px 25px;
+}	
+
+	#community-fb-q-mid h1
+	{
+		font-size: 20px;
+		line-height: 28px;
+		margin-bottom: 0px;
+		font-weight: 300;
+		text-align: center;
+		text-transform: none;
+		padding: 10px 0;
+		text-shadow: #2b4254 0 -1px 0;
+	}	
+
+
+#community-fb-top
+{
+	background-image: url({v2-image-asset-url}/respond/community/fb-wall-top.png);
+	height: 19px;
+	width: 616px;
+}
+
+#community-fb-mid
+{
+	background-image: url({v2-image-asset-url}/respond/community/fb-wall-mid.png);
+	background-repeat: repeat-y;
+	width: 600px;
+	padding-left: 40px;
+}	
+
+#community-fb-btm
+{
+	background-image: url({v2-image-asset-url}/respond/community/fb-wall-btm.png);
+	height: 39px;
+	width: 620px;
+	margin-left: -4px
+}
+
+#community-fb
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -396px;
+	width: 251px;
+	height: 20px;
+	margin-bottom: 15px;
+}
+
+#community-connect
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -360px;
+	width: 204px;
+	height: 22px;
+	margin-bottom: 15px;
+}
+
+
+#community-fb-bg
+{
+	background: #fff;
+	width: 260px;
+}
+
+.community-day
+{
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+
+
+
+
+
+/* --- Be in Community --- */
+
+#respond-story
+{
+	background-color: #2a221d;
+	background-image: url({v2-image-asset-url}/respond/story/bg.jpg);
+	background-repeat: repeat-x;
+	color: #fff;
+}
+
+
+	#respond-story p
+	{
+		color: #fff;
+		line-height: 20px;
+	}
+
+
+	#respond-story h1
+	{
+		line-height: 40px;
+		font-size: 28px;
+		margin-bottom: 20px;
+		text-transform: uppercase;
+	}
+
+
+
+		#respond-story h1 span
+		{
+			color: #fff;
+			font-weight: 900;
+			text-transform: uppercase;
+			font-size: 50px;
+		}
+
+	#respond-story a
+	{
+		color: #9dd6ff;
+		text-decoration: none;
+	}
+
+#story-title
+{
+	margin-top: 80px;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	margin-bottom: 30px;
+	z-index: 10;
+}
+	.story-title-left
+	{
+		display: inline;
+		text-align: right;
+		float: left;
+		width: 240px;
+		height: 100%;
+		line-height: 65px;
+		margin-right: 20px;
+		font-weight: 900;
+		font-size: 72px;
+		color: #fff;
+		text-shadow: 0px 0px 60px #57453d;
+	}
+	.story-title-right
+	{
+		float: left;
+		color: #b69b90;
+		font-size: 15px;
+		font-weight: 100;
+
+		text-transform: none;
+	}
+	.story-title-right span {
+		font-size: 24px;
+		line-height: 26px;
+		text-transform: uppercase;
+		color: #eed9cf;
+	}
+
+
+#story-play
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -1008px -1222px;
+	width: 180px;
+	height: 100px;
+	float: right;
+	margin-top: 20px;
+	margin-right: 50px;
+}
+
+#respond-story-left
+{
+	float: left;
+	width: 605px;
+}
+
+.story-side-mid
+{
+	background-image: url(/_img/adapt/story-side-bg.png);
+	padding: 20px 12px;
+	margin-bottom: 10px;
+	
+	/*Rounded Corners*/
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px; /* future proofing */
+	-khtml-border-radius: 4px; /* for old Konqueror browsers */
+}
+
+
+.story-thumb
+{
+	float: left;
+	width: 165px;
+	margin-right: 25px;
+	margin-bottom: 30px;
+}
+
+.story-preview
+{
+	width: 165px;
+}
+
+#story-upload
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -432px;
+	width: 205px;
+	height: 20px;
+	margin-bottom: 15px;
+}
+
+#story-how
+{
+	background-image: url(/_img/sprite/respond_11.png);
+	background-position: -791px -467px;
+	width: 210px;
+	height: 19px;
+	margin-bottom: 15px;
+}
+
+/* --- Respond Page --- */
+
+	.respond-block
+	{
+		height: 260px;
+	}
+
+	.respond-block img
+	{
+		bottom: 1px;
+	}
+
+	#respond-block-worship h1
+	{
+		color: #e17300;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-worship h2
+	{
+		color: #a45400;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+
+	#respond-block-bible h1
+	{
+		color: #4e9622;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-bible h2
+	{
+		color: #305a16;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+
+	#respond-block-pray h1
+	{
+		color: #6f5c87;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-pray h2
+	{
+		color: #4a3a5e;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+
+	#respond-block-serve h1
+	{
+		color: #3f72a0;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-serve h2
+	{
+		color: #2a5068;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+
+	#respond-block-generous h1
+	{
+		color: #dda600;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-generous h2
+	{
+		color: #b67c00;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+
+	#respond-block-community h1
+	{
+		color: #689eb9;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-community h2
+	{
+		color: #44738a;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}
+
+	#respond-block-story h1
+	{
+		color: #665249;
+		font-size: 24px;
+		line-height: 28px;
+		font-weight: 900;
+		margin-bottom: 5px;
+	}
+
+	#respond-block-story h2
+	{
+		color: #40322c;
+		font-size: 16px;
+		line-height: 16px;
+		font-weight: 300;
+		border-bottom: none;
+	}	
+	
+	
+.login-errormsg {
+	width: 85%;
+	background-color: #48C;
+	border-width: 1px;
+	border-color: #24A;
+	border-style: solid;
+	padding: 5px;
+	text-align: center;
+	color: #FFF;
+	margin: 5px 0 5px 10%;
+}
+
+.modaling input#prayer-submit{
+	background-image: url(/_assets/img/v2/respond/pray/btn-prayer-request.png);
+	width: 118px;
+	height: 59px;
+	float: right;
+	cursor: pointer;
+	
+}	
+
+#fancybox-inner b {
+	font-size: 13px;
+}
+
+.login-errormsg b {
+	font-size: 14px;
+}
+
+.login-errormsg a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+.login-errormsg a:hover {
+	font-style: italic;
+}
+	
+#login-register-box input#login-submit, #user-login-box input#login-submit
+{
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+#login-forgot p
+{
+	font-size: 11px;
+}
+
+
+#login-register
+{
+	margin-top: 26px;
+	margin-left: -10px;
+}
+
+#login-register p
+{
+	font-size: 14px;
+}
+
+#login-register a
+{
+	color: #fff;
+}
+
+#ccbform p
+{
+	font-size: 14px;
+	color: #fff;
+}
+
+#ccbform a
+{
+	color: #fff;
+}
+
+#login-register-box, #ccbform, #register-box, #confirmation, #full-group, .modaling
+{
+	background: #357299;
+	width: 432px;
+	padding: 20px 30px 0 30px;
+}
+
+#login-register-box h1 a, #user-login-box h1 a, #signup-box h1 a, .modaling h1 a
+{
+	color: #183243;
+	text-decoration: none;
+}
+
+#login-register-box h1 a:hover, #user-login-box h1 a:hover, #signup-box h1 a:hover, .modaling h1 a:hover
+{
+	color: #FFF;
+	text-decoration: none;
+}
+	
+#login-register-box p, #user-login-box p, #register-box p, #signup-box p, #confirmation p, .modaling a, #modal-box p
+{
+	padding: 0px;
+	color: white;
+}
+
+
+#login-register-box h1, #user-login-box h1,	#register-box h1, #signup-box h1, #confirmation h1, .modaling a, #modal-box h1
+{
+	font-size: 20px;
+	line-height: 20px;
+	padding-bottom: 10px;
+}
+
+#login-register-box h1 span, #user-login-box h1 span, #signup-box h1 span, #register-box h1 span, #confirmation h1 span, #modal-box h1 span
+{
+	font-size: 12px;
+	line-height: 16px;
+	color: #91CAF0;	
+}
+
+#login-register-box label, #user-login-box label, #login-register-box p, #signup-box label, #register-box label, #register-box p, #confirmation label, .modaling a, #modal-box label
+
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	color: #91caf0;
+	font-weight: 300;
+}
+	
+#login-register-box label.field, #user-login-box label.field, #signup-box label.field, #register-box label.field, #confirmation label.field, .modaling a, #modal-box label.field
+
+{
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	color: #91caf0;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: 300;
+	clear: both;
+	width: 100px;
+	text-align: right;
+	margin-top: 14px;
+	float: left;
+}
+
+label.auto-login
+{
+	float: none;
+}
+
+#login-register-box input.field, #ccbform input.field, #user-login-box input.field,  #signup-box input.field, #register-box input.field, .modaling input.field, #modal-box input.field
+
+{
+	background: none;
+	background-image: url(/_assets/img/v2/login/field.png);
+	background-repeat: no-repeat;
+	width: 281px;
+	height: 28px;
+	border: none;
+	float: right;
+	padding: 0px;
+	margin: 5px 0;
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	color: #fff;
+	padding: 10px;
+	font-size: 16px;
+}
+

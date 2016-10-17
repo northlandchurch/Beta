@@ -1,0 +1,102 @@
+<?php
+	$query = $this->EE->db->where('entry_id', (int){embed:entry_id})->get('channel_data');
+	
+	foreach($query->result() as $row) {
+		$entry_id = {embed:entry_id};
+		$number_of_contributors = $row->field_id_515;
+		$resourcepoint_id = $row->field_id_498;
+		$description = $row->field_id_499;
+		
+		$need1_description = $row->field_id_500;
+		$need1_needamount = $row->field_id_501;
+		$need1_needreceived = $row->field_id_502;
+		
+		$need2_description = $row->field_id_503;
+		$need2_needamount = $row->field_id_504;
+		$need2_needreceived = $row->field_id_505;
+		
+		$need3_description = $row->field_id_506;
+		$need3_needamount = $row->field_id_507;
+		$need3_needreceived = $row->field_id_508;
+		
+		$need4_description = $row->field_id_509;
+		$need4_needamount = $row->field_id_510;
+		$need4_needreceived = $row->field_id_511;
+		
+		$need5_description = $row->field_id_512;
+		$need5_needamount = $row->field_id_513;
+		$need5_needreceived = $row->field_id_514;
+    }
+    
+    //echo $need1_description;
+    
+    $total_needamount = $need1_needamount + $need2_needamount + $need3_needamount + $need4_needamount + $need5_needamount;
+    $total_needreceived = $need1_needreceived + $need2_needreceived + $need3_needreceived + $need4_needreceived + $need5_needreceived;
+    
+    if ($total_needamount > 0) { $total_percentmet = number_format(($total_needreceived / $total_needamount) * 100, 1); }
+    else { $total_percentmet = 0; }
+    
+   /* $json_array = array(
+    	"resourcepoint_id" => $resourcepoint_id,
+    	"description" => $description,
+    	"total_need" => $total_needamount,
+    	"total_received" => $total_needreceived,
+    	"total_percentmet" => $total_percentmet,
+    	"need1" => array("description" => $need1_description, "need_amount" => $need1_needamount, "need_received" => $need1_needreceived)
+    );
+    
+    if ($need2_description) { $json_array["need2"] = array("description" => $need2_description, "need_amount" => $need2_needamount, "need_received" => $need2_needreceived); }
+    
+    if ($need3_description) { $json_array["need3"] = array("description" => $need3_description, "need_amount" => $need3_needamount, "need_received" => $need3_needreceived); }
+    
+    if ($need4_description) { $json_array["need4"] = array("description" => $need4_description, "need_amount" => $need4_needamount, "need_received" => $need4_needreceived); }
+    
+    if ($need5_description) { $json_array["need5"] = array("description" => $need5_description, "need_amount" => $need5_needamount, "need_received" => $need5_needreceived); }
+    
+    echo json_encode($json_array);*/
+
+?>
+
+<div id="<?php=$entry_id?>" class="lifehope_entry">
+	<div class="description">$description</div>
+	<div class=""></div>
+
+</div>
+
+<div class="need_entry">							
+		<div class="title">$description</div>										
+		<div class="need_info">
+			<h1>$total_needamount need</h1>
+			
+			<div class="progress_bar">
+				<div class="progress_bar_percent" style="width: $total_percentmet%"></div>
+			</div>
+			
+			<div class="contributors">1 PERSON HAS HELPED</div>
+			
+			<ul>
+				<li>$need1_needamount - $need1_description</li>
+			
+			</ul>
+		</div>
+		
+		<div class="help_meet_need">Help Meet This Need</div>
+	
+		<div class="clear"></div>
+		
+		<div class="select_gift" style="display:none">
+			<div class="header">STEP 1 OF 2: SELECT GIFT</div>
+			<div class="description">Give $50 to Rent from (credit card here)</div>
+			<div class="proceed_to_confirmation">Proceed to Confirmation</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="confirm_gift" style="display:none; margin-top:10px">
+			<div class="header">STEP 2 OF 2: CONFIRMATION</div>
+			<div class="description">You have selected to donate $50 to Rent from (credit card here)</div>
+			<div class="confirm_donation">Confirm Donation</div>
+		</div>
+		
+		<div class="clear"></div>
+</div>	

@@ -1,0 +1,291 @@
+{embed="_includes/html_open"}
+<link rel="stylesheet" type="text/css" href="/_assets/css/css_datepicker.css">
+</head>
+<body class="template-readthebible">
+{embed="_includes/header"}
+<div class="main-wrapper">
+
+	<section class="card-section">
+		<div class="container">
+			<div class="card-row flex-tablet-min">
+				<article class="card card-half">
+					<div id="datepicker" class=""></div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="card-section">
+		<div class="container">
+			<div class="card-row flex-tablet-min">
+				<article class="card card-half">
+					<div class="copy-container">
+						<h2>
+							<a href="/articles/praying_scripture_together/">Praying Scripture Together</a>
+						</h2>
+
+						<p class="author">
+							by <strong>Sean Cooper</strong>
+						</p>
+
+						<p class="body-copy">
+							God is listening to the prayers of people around the world right now. Our Creator, who never sleeps nor slumbers, made us to be communicators, and not just with one another. Somehow in the majesty of God’s thoughtfulness, your words mean something significant. This means many great things for each of us. Most amazingly, though, it speaks much about God.
+						</p>
+
+						<a href="/articles/praying_scripture_together/" class="main-link">Read More <span class="icon-arrow-filled"></span></a>
+					</div>
+				</article>
+				<article class="card card-half">
+					<div class="copy-container">
+						<h2>
+							<a href="/articles/reading_the_bible">Reading the Bible</a>
+						</h2>
+
+						<p class="author">
+							by <strong>Vernon Rainwater</strong>
+						</p>
+
+						<p class="body-copy">
+							Why should we read the Bible? There are lots of ways I could approach a topic like this. I could talk about why we gravitate toward a certain translation of the Bible. I could explain why we believe the Bible is historically accurate and inerrant in the original text. I think I can make a fairly convincing case for why we can trust the Bible to be historically accurate, authoritative … that it's true in our lives and for our lives.
+						</p>
+
+						<a href="/articles/reading_the_bible/" class="main-link">Read More <span class="icon-arrow-filled"></span></a>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+
+	{if segment_3 != ''}
+		{!-- All liturgy entries are from 2014. Any date with a year past 2014 will not
+		return any results. Thus, we must parse segment3 for the month-day, and
+		concat "2014" in order to generate a query to retrieve a past day's reading. --}
+		<?php
+			$query = "2014" . date("-m-j", strtotime('{segment_3}'));
+		?>
+	{/if}
+	
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- 							Morning liturgy 									-->
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<section id='morning'>
+		<div class="section-tab color-blue">
+			<a href="" class="tab-title">Rising (Morning)</a>
+		</div>
+
+		<div class="container">
+		{if segment_3 == ''}
+			<!-- normal retrieval -->
+			{exp:channel:entries
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date"
+				sort="asc"
+				show_future_entries="yes"
+				start_on="2014-{current_time format='%m-%d'} 00:00"
+				stop_before="2014-{current_time format='%m-%d'} 23:59"
+				search:liturgy-sequence="=Morning"
+			}
+
+		{if:elseif segment_3 != ''}
+			<!-- calendar retrieval -->
+			{exp:channel:entries
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date"
+				sort="asc"
+				show_future_entries="yes"
+				start_on="<?php echo $query; ?> 00:00"
+				stop_before="<?php echo $query; ?> 23:59"
+				display_by="day"
+				search:liturgy-sequence="=Morning"
+			}
+		{/if}
+			<article class="card daily-liturgy" style="background-image: url('/_img/img_prpl/reading-bible-grayscale.jpg');">
+				<div class="copy-container">
+					<div class="details">
+						<div class="detail-left">
+							<p class="card-title">
+								<span class="icon-book-open"></span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}
+							</p>
+						</div>
+						<div class="detail-right">
+							<p class="date">{entry_date format="%F %j"}</p>
+						</div>
+					</div>
+
+					<p class="body-copy">
+						{liturgy-scripture}
+					</p>
+					
+					<!-- Implementation for Favorite function for reading -->
+					{exp:favorites:saved entry_id="{entry_id}"}
+						{if saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>
+						{/if}
+
+						{if not_saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>
+						{/if}
+					{/exp:favorites:saved}
+				</div>
+			</article>
+			{/exp:channel:entries}
+		</div>
+	</section>
+
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- 							Midday liturgy 										-->
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<section id='midday'>
+		<div class="section-tab color-blue">
+			<a href="" class="tab-title">Reconnecting (Midday)</a>
+		</div>
+
+		<div class="container">
+		{if segment_3 == ''}
+			<!-- normal retrieval -->
+			{exp:channel:entries 
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date"
+				sort="asc"
+				show_future_entries="yes"
+				start_on="2014-{current_time format='%m-%d'} 00:00"
+				stop_before="2014-{current_time format='%m-%d'} 23:59"
+				search:liturgy-sequence="=Midday"
+			}
+
+			{if:elseif segment_3 != ''}
+			<!-- calendar retrieval -->
+			{exp:channel:entries 
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date" 
+				sort="asc"
+				show_future_entries="yes"
+				start_on="<?php echo $query; ?> 00:00" 
+				stop_before="<?php echo $query; ?> 23:59" 
+				search:liturgy-sequence="=Midday"
+			}
+		{/if}
+			<article class="card daily-liturgy" style="background-image: url('/_img/img_prpl/reading-bible-grayscale.jpg');">
+				<div class="copy-container">
+					<div class="details">
+						<div class="detail-left">
+							<p class="card-title">
+								<span class="icon-book-open"></span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}
+							</p>
+						</div>
+						<div class="detail-right">
+							<p class="date">{entry_date format="%F %j"}</p>
+						</div>
+					</div>
+
+					<p class="body-copy">
+						{liturgy-scripture}
+					</p>
+					
+					<!-- Implementation for Favorite function for reading -->
+					{exp:favorites:saved entry_id="{entry_id}"}
+						{if saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>
+						{/if}
+
+						{if not_saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>
+						{/if}
+					{/exp:favorites:saved}
+				</div>
+			</article>
+			{/exp:channel:entries}
+		</div>
+	</section>
+
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<!-- 							Evening liturgy 									-->
+	<!-- ////////////////////////////////////////////////////////////////////////////// -->
+	<section id='evening'>
+		<div class="section-tab color-blue">
+			<a href="" class="tab-title">Resting (Evening)</a>
+		</div>
+		
+		<div class="container">
+		{if segment_3 == ''}
+			<!-- normal retrieval -->
+			{exp:channel:entries
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date"
+				sort="asc"
+				show_future_entries="yes"
+				start_on="2014-{current_time format='%m-%d'} 00:00"
+				stop_before="2014-{current_time format='%m-%d'} 23:59"
+				search:liturgy-sequence="=Evening"
+			}	
+		{if:elseif segment_3 != ''}
+			<!-- calendar retrieval -->
+			{exp:channel:entries
+				channel="liturgy"
+				disable="categories|member_data|pagination"
+				orderby="date"
+				sort="asc"
+				show_future_entries="yes"
+				start_on="<?php echo $query; ?> 00:00"
+				stop_before="<?php echo $query; ?> 23:59"
+				display_by="day"
+				search:liturgy-sequence="=Evening"
+			}
+		{/if}
+			<article class="card daily-liturgy" style="background-image: url('/_img/img_prpl/reading-bible-grayscale.jpg');">
+				<div class="copy-container">
+					<div class="details">
+						<div class="detail-left">
+							<p class="card-title">
+								<span class="icon-book-open"></span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}
+							</p>
+						</div>
+						<div class="detail-right">
+							<p class="date">{entry_date format="%F %j"}</p>
+						</div>
+					</div>
+
+					<p class="body-copy">
+						{liturgy-scripture}
+					</p>
+					
+					<!-- Implementation for Favorite function for reading -->
+					{exp:favorites:saved entry_id="{entry_id}"}
+						{if saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>
+						{/if}
+
+						{if not_saved}
+							<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>
+						{/if}
+					{/exp:favorites:saved}
+				</div>
+			</article>
+			{/exp:channel:entries}
+		</div>
+	</section>
+
+	{embed="_includes/footer"}
+</div><!-- /.main-wrapper -->
+
+<script type="text/javascript" src="/_assets/js/jquery-ui-1.12.1.custom.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#datepicker').datepicker({
+		showOn: "both",
+		dateFormat: "yy-mm-dd",
+		maxDate: "$date",
+		onSelect: function (dateText, inst) {
+			document.location.href = "/respond/readthebible/" + dateText;
+		}
+	});
+});
+</script>
+</body>
+</html>

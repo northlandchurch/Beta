@@ -1,0 +1,19 @@
+{if embed:header-title}<h5>{embed:header-title}</h5>{/if}
+<ul>
+	{exp:calendar:cal calendar_name="{segment_4}{if segment_4 == 'oviedo'}|Oviedo_Serve_Teams{/if}" pad_short_weeks="n" date_range_start="today" date_range_end="+1 month"}
+	
+	
+		{display_each_day}
+		{if day_event_total>0}<h3 style="margin:10px 0 0px 0;padding-bottom:2px;border:none">{day format="%F %j, %Y"}</h3>{/if}
+
+		{events}
+			<a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{event_title}</strong></a><br>
+
+			{/events}
+		   {/display_each_day}
+
+	 {/exp:calendar:cal} 
+	
+
+</ul>
+<div class="clear"></div>

@@ -1,0 +1,81 @@
+<div class="respond-serve-select" style="margin-right:10px;">
+	<select name="ministries">
+			<option value="all">Sort by Ministry</option>
+			<option value="all">Show All Opportunities</option>
+
+			{exp:channel:categories channel="opportunities" style="linear" sort="asc"}
+				{if parent_id == "459"}
+					<option value="{category_id}">{category_name}</option>
+				{/if}
+			{/exp:channel:categories}
+	</select>
+</div>
+<div class="respond-serve-select">
+	<select name="interests">
+			<option value="all">Sort by Interest</option>
+			<option value="all">Show All Opportunities</option>
+			
+			{exp:channel:categories channel="opportunities" style="linear" sort="asc"}
+				{if parent_id == "460"}
+					<option value="{category_id}">{category_name}</option>
+				{/if}
+			{/exp:channel:categories}
+	</select>
+</div>
+
+<div class="serve-choices-locations">Showing opportunities in <p class="longwoodchoice">Longwood</p>, <p class="oviedochoice">Oviedo</p> and <p class="mountdorachoice">Mount Dora</p></div>
+
+<div class="clear"></div>
+
+<div id="serve-today"></div>
+<div id="respond-serve-contain">
+	{exp:channel:entries channel="opportunities" orderby="date" sort="desc"}
+		<div class="respond-serve-opp {categories}{category_id} {/categories}" id="serve{entry_id}">
+			<div class="respond-serve-tinter">
+				<h2>{title}</h2>
+				<div class="clear"></div>
+				
+				<p>{desc}</p>
+				<p>{commitment}</p>
+				
+				<div class="respond-serve-count">
+			   		{exp:favorites:entry_count entry_id="{entry_id}"}
+						{if people}<h3>{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>{/if}
+						{!--{if logged_in && (screen_name!="Anonymous Member")}
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									{if favorites_count_public >= "1"}<h4 class="count"><span class="number">{favorites_count_public}</span> {if favorites_count_public > 1}others have{if:else}other{/if} also signed up</h4>{/if}
+								{if:else}
+									{if favorites_count_public == "1"}<h4 class="count">1 person has signed up</h4>{/if}
+									{if favorites_count_public > "1"}<h4 class="count"><span class="number">{favorites_count_public}</span> people have signed up</h4>{/if}
+								{/if}
+							{/exp:favorites:saved}
+						{/if}--}
+			   			<script type="text/javascript">
+			   				$(document).ready(function() {
+			   					var favorites_count_public = "{favorites_count_public}"
+			   				});
+			   			</script>
+			   		{/exp:favorites:entry_count}
+				</div>
+				
+				<span class="ccb_link">{ccbForm}</span>
+				
+				<div class="respond-serve-fave">
+					{if logged_in && (screen_name!="Anonymous Member")}
+						{exp:favorites:saved entry_id="{entry_id}"}
+							{if saved}
+								<div class="respond-serve-button"><a class="favorite favorited" id="{entry_id}">I SIGNED UP</a></div>
+							{if:else}
+								<div class="respond-serve-button"><a class="favorite" id="{entry_id}" href="/_component/favorite-add/{entry_id}/">SIGN ME UP</a></div>						
+							{/if}
+						{/exp:favorites:saved}
+					{if:else}
+						<div class="respond-serve-button"><a class="favorite" id="{entry_id}" href="/_component/favorite-add/{entry_id}/">SIGN ME UP</a></div>	
+					{/if}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	{/exp:channel:entries}	
+</div>

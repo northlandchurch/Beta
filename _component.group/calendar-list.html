@@ -1,0 +1,24 @@
+			<h5>{embed:header-title}</h5>
+			<ul>
+			{exp:repeet:parse date_header_interval="month"}
+				{repeet:no_results}Oops, looks like there aren't any events in the time range you specified.{/repeet:date_header}
+				{exp:repeet:get_ids channel="classes" parse="inward"}
+				{exp:channel:entries channel="classes" sort="asc" dynamic="off" order_by="date" {if category-display}category="{embed:category-display}"{/if} entry_id="{repeet:entry_ids}" show_expired="no" show_future_entries="yes"}
+				{repeet:item}				
+					{repeet:entry_date}{entry_date format="%Y-%m-%d %H:%i"}{/repeet:entry_date}
+					{repeet:expiration_date}{expiration_date format="%Y-%m-%d %H:%i"}{/repeet:expiration_date}
+					{repeet:interval}{calendar-time-repeat}{/repeet:interval}
+					{repeet:include_dates}{calendar-include}{/repeet:include_dates}
+					{repeet:exclude_dates}{calendar-exclude}{/repeet:exclude_dates}
+					{repeet:display}
+					<li>
+						<a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{title}</strong></a><br />
+						<em><strong>Today</strong> {if calendar-start}&nbsp;|&nbsp; <strong>Time:</strong> {calendar-start}{if calendar-end} - {calendar-end}{/if}{/if}</em>
+					</li>
+					{/repeet:display}
+				{/repeet:item}
+				{/exp:channel:entries}
+				{/exp:repeet:get_ids}
+			{/exp:repeet:parse}
+			</ul>
+			<div class="clear"></div>

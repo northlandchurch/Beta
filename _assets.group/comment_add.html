@@ -1,0 +1,189 @@
+<div class="blog-comments" data-swiftype-index='false'>
+	<a name='blog-comments'  style="margin-top: -235px; padding-top: 235px; display: block;"></a>
+	{if logged_in}
+		{exp:comment:form preview="weblog/preview"}
+			<h4 id="addacomment">Add a Comment</h4>
+			<textarea name="comment" cols="70" rows="7" style="line-height:20px; font-size:20px;">{comment}</textarea>
+			<p class="tss">
+				<input type="checkbox" name="save_info" value="yes" {save_info} /> Remember my personal information
+				<BR />
+				<input type="checkbox" name="notify_me" value="yes" {notify_me} /> Notify me of follow-up comments?
+			</p>
+			<input type="submit" name="submit" value="Submit" class="btn" />
+		{/exp:comment:form}
+	{if:else}
+
+		{!-- DESKTOP LOGIN --}
+		<div class="desktop-fancybox-login">
+			<h4>Comments - <a class="user-login" href="#login-register-box" style="font-size: 15px; font-weight: 600; font-family: 'museo-sans-1','museo-sans-2',Helvetica, sans-serif; text-align:center">Login to Leave a Comment</a></h4>
+		</div>
+
+		{!-- MOBILE LOGIN --}
+		<div class="form-wrapper">
+			<input name="accordion" type="radio">
+			<h4>Comments - <a class="form-wrapper-text">Login to Leave a Comment.</a></h4>
+			{exp:member:login_form form_class="login_form collapse-form" return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+				<p>
+					<label class="field" for="">Email:</label><input type="text" class="field" id="username" name="username" />
+				</p>	
+				{!-- EMAIL NOT REGISTERED --}
+				<div id="no-email" style="display:none;float:right;">
+					<div class="clear"></div>
+					<div class="tss login-errormsg">
+						<strong>Email Address Not Registered</strong>
+						<p><a href="#section2" onclick="javascript:$('#create_new').trigger('click');" id="new-email" style="color:white;">Your email address isn't in our system. Click here to create a new account.</a></p>
+					</div>
+				</div>
+
+				{!-- EMAIL IS WRONG --}
+				<div id="email_invalid" style="display:none;">	
+					<div class="clear"></div>	
+					<div class="tss login-errormsg">			
+						<strong>Invalid Email Address Entered</strong>
+						<p>We need a valid email to proceed.</p>
+					</div>
+				</div>
+
+				{!-- PASSWORD --}
+				<p>
+				<label class="field" for="">Password:</label><input type="password" class="field" name="password" id="password" />
+				</p>
+				{!-- INCORRECT PASSWORD --}
+				<div class="clear"></div>
+				<div id="login-forgot-pass" class="tss login-errormsg" style="display:none">
+					<strong>Incorrect Password Entered</strong><br>
+					<p><a href="#" id="reset_pw" style="color:white">Forgot your password? Click here to have your password emailed.</a></p>
+				</div>
+
+				{!-- AUTO-LOGIN --}
+				<p class="tss" style="float:right; width:100%; text-align:center; margin-top:-10px;">
+					<input type="checkbox" name="auto_login" id="auto_login" style="margin-bottom: 0px" checked /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label>
+				</p>	
+				<div class="clear"></div>
+
+				{!-- LOGIN BUTTON --}
+				<input type="submit" id="submit-login" name="submit" value="Login" class="btn" />
+				<div class="clear"></div>
+			{/exp:member:login_form}
+		</div><!-- ./form-wrapper -->
+
+		{!-- MOBILE CREATE A NEW ACCOUNT --}
+		<div class="form-wrapper">
+			<input name="accordion" type="radio">
+			<h4>OR<a class="form-wrapper-text">Create a New Account.</a></h4>
+			<form class="login_form collapse-form" method="post" autocomplete="off">	
+				{!-- REGISTER SECTION --}
+				<div id="feature-register">
+					<h1 style="padding-bottom:10px;" class="heading heading--m">Account Registration</h1>
+					{!-- OLD WELCOME MESSAGE}<p class="marg-b-20" style="color:#EEE">Thanks for creating an account and joining the Northland congregation!</p>{
+					{!
+					{exp:user:forgot_password return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+						<input type="hidden" name="email" id="email" /></p>
+						<input type="hidden" name="submitf" value="Submit" />	
+					{/exp:user:forgot_password}
+
+					{exp:member:login_form return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+						<input type="hidden" name="email" id="email" /></p>
+						<input type="hidden" name="password" id="password" /></p>
+						<input type="hidden" name="password" value="Submit" />
+					{/exp:member:login_form}	
+					{
+
+					{!-- REGISTRATION CREDENTIALS --}
+					<div id="wrap_email">
+						<label class="field" for="email">Email Address:</label><br>
+						<input class="field" type="text" name="emailnew" id="emailnew" />
+						<p class="clear"></p>
+
+						{!-- EMAIL IS WRONG --}
+						<div id="email_invalid1" class="tss login-errormsg" style="display:none">
+							<strong>Invalid Email Address Entered</strong><br>
+							<p>We need a valid email to proceed</p>
+						</div> 
+
+						{!-- ACCOUNT ALREADY EXISTS --}
+						<div id="existing_account1" class="tss login-errormsg" style="display:none">
+							<strong><span id="your_email1"></span> is already registered.</strong><br>
+							<a href="#section1" onclick="javascript:$('#signin_link').trigger('click');" style="color:white;">Click here to login.</a>
+						</div>
+
+						{!-- MULTIPLE ACCOUNTS EXIST --}
+						<div id="tss existing_multiple_account1" style="display:none">
+							We already have multiple accounts registered for <span id="your_email2"></span>. Please contact an administrator to resolve.
+						</div>
+					</div>
+
+					{!-- FIRST NAME --}
+					<div id="wrap_firstname">
+						<label class="field" for="firstname">First Name:</label><br>
+						<input class="field" type="text" name="firstnamenew" id="firstnamenew" />
+						<div class="clear"></div>
+						<div id="nonalphanumeric_firstname" class="tss login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+						<div id="no_firstname" class="tss login-errormsg" style="display:none">Please enter your first name.</div>
+						<div id="multi_firstname" class="tss login-errormsg" style="display:none">Please enter only your first name.</div> 
+					</div>
+
+					{!-- LAST NAME --}
+					<div id="wrap_lastname">
+						<label class="field" for="lastname">Last Name:</label><br>
+						<input class="field" type="text" name="lastnamenew" id="lastnamenew" /></p>
+						<div class="clear"></div>
+						<div id="nonalphanumeric_lastname" class="tss login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+						<div id="no_lastname" class="tss login-errormsg" style="display:none">We need your last name, too. Don't worry, you'll be able to keep that hidden.</div> 
+						<div id="multi_lastname" class="tss login-errormsg" style="display:none">Please enter only one word for your last name.</div> 
+					</div>
+
+					{!-- PASSWORD --}
+					<div id="wrap_password">
+						<label class="field" for="password">Password:</label><br>
+						<input class="field" type="password" name="passwordnew" id="passwordnew" />
+					</div>
+
+					{!-- PASSWORD CONFIRM --}
+					<div id="wrap_password_confirm">
+						<label class="field" for="password_confirm">Confirm Password:</label><br>
+						<input class="field" type="password" name="password_confirmnew" id="password_confirmnew" /></p>
+						<div class="clear"></div>
+						<div id="mismatched_passwords" class="tss login-errormsg" style="display:none">Your passwords don't match.</div> 
+						<div id="tooshort_password" class="tss login-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+					</div>
+
+					{!-- CAPTCHA SECURITY --}
+					{if captcha}
+						<p><label for="captcha">Please enter in the word you see below:</label> <input class="field" type="text" name="captcha" id="captcha" style="width: 150px;" /></p>
+						<p>{captcha}</p>
+					{/if}
+
+					<div class="clear"></div>
+
+					{!-- ACCEPT TERMS --}
+					<p><input type="checkbox" name="accept_termsnew" id="accept_termsnew" value="y" checked /> <label class="field" for="accept_terms">Accept Terms?</label></p>
+					<div id="needtoaccepterms" class="tss login-errormsg" style="display:none">You need to accept the terms before registering.</div> 
+
+					<div class="clear"></div>
+
+					<div id="fixerrors" class="tss login-errormsg" style="display:none">You must accept the terms and enter all required fields to register.</div>
+					<div id="submittingregistration" class="login-errormsg" style="display:none">We're setting up your account now.</div>
+
+					<p><a href='#' id='registerClick'><input id="submit-register" type="submit" name="submit-register" value="Register" class="btn" /></a></p>
+
+					{if user_no_results}
+						<p>You're currently logged in, and must be logged out to register a new account.</p>
+					{/if}
+					<div class="clear pad-b-20"></div>
+				</div>	
+			</form>	
+		</div><!-- ./form-wrapper -->
+	{/if}
+
+	<hr class="rule rule--transparent mbl">
+
+	{exp:comment:entries sort="desc" limit="300"}
+		{if no_results}<p class="tss">No one has commented yet. Be the first!</p>{/if}
+		<div class="tss">
+			<strong>{name}</strong> said (Added on {comment_date format="%F %j, %Y"} at {comment_date format="%h:%i"} {if '{comment_date format="%a"}' == "am"}a.m.{/if}{if '{comment_date format="%a"}' == "pm"}p.m.{/if})
+			{comment}
+			<hr class="rule rule mbl">
+		</div>
+	{/exp:comment:entries}
+</div>

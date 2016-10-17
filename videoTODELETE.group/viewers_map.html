@@ -1,0 +1,122 @@
+{embed="_includes/html_open_worship"}
+{!-- Google Maps Javascript --}
+<script type="text/javascript" src="http://www.northlandchurch.net/_assets/js/markerclusterer_packed.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://www.northlandchurch.net/_assets/js/infobox_packed.js"></script>
+
+<style type="text/css">
+	#map-viewer, #map-viewer2 {
+		-webkit-transition: opacity 0.4s ease-in-out;
+		background-color:#fff;
+		overflow: hidden;		
+	}
+	#map_img, #map_img2 {
+		-webkit-transition: -webkit-transform 4s linear;
+		-webkit-transform: translate(0,0) scale(1.5);
+	}
+	body {	
+		background: none;
+		background-color: #000;
+		font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;		
+	}
+	#location {
+		-webkit-transition: all 1s ease-in-out;
+		text-shadow: 0 0 6px #000;
+	}
+</style>
+
+<script type="text/javascript">
+	var map_currently_visible = 1;
+	
+	
+	function PanToLocation(location) {
+		var zoom_start = 1.5; // Starting zoom scale value
+		var position_scale = 6; // Scalar value for position panning limits
+		var zoom_scale = 3; // Scalar value for zoom panning limits
+		
+		var zoom_random_decimal;
+		var pan_random_x;
+		var pan_random_y;
+		
+		
+		// Scale animations for map
+		if (Math.random() > 0.5) { zoom_random_decimal = zoom_start + (Math.floor((Math.random() * zoom_scale)+1) / 10); }
+		else { zoom_random_decimal = zoom_start - (Math.floor((Math.random() * zoom_scale)+1) / 10); }		
+		
+		// Position animations for map
+		if (Math.random() > 0.5) { pan_random_x = (Math.random() * position_scale) + 1; }
+		else { pan_random_x = -((Math.random() * position_scale) + 1) }
+		
+		if (Math.random() > 0.5) { pan_random_y = (Math.random() * position_scale) + 1; }
+		else { pan_random_y = -((Math.random() * position_scale) + 1); }
+		
+		if (map_currently_visible == 1) {
+			$("#map_img2").one('load', function() {	
+				$("#location").fadeOut('fast', function() {			
+					$("#map-viewer").css('opacity', '0');
+		       		$("#map-viewer2").css('opacity', '1'); 
+		       		$("#map-viewer2 img").css("-webkit-transform", "translate(" + pan_random_x + "em," + pan_random_y + "em) scale(" + zoom_random_decimal + ")"); 
+		       		$("#map-viewer img").css("-webkit-transform", "translate(0,0) scale(1.5)");
+		       		map_currently_visible = 2;
+		       		
+		       		$("#location").text(location);
+					setTimeout("$('#location').fadeIn('fast')", 200);
+		       	});
+			})
+			.attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + location + '&markers=color:red%7C' + location + '&zoom=6&maptype=satellite&size=1000x1000&sensor=false');
+		}
+		else {
+			$("#map_img").one('load', function() {
+				$("#location").fadeOut('fast', function() {	
+					$("#map-viewer2").css('opacity', '0');
+		       		$("#map-viewer").css('opacity', '1'); 
+		       		$("#map-viewer img").css("-webkit-transform", "translate(" + pan_random_x + "em," + pan_random_y + "em) scale(" + zoom_random_decimal + ")"); 
+		       		$("#map-viewer2 img").css("-webkit-transform", "translate(0,0) scale(1.5)")
+		       		map_currently_visible = 1;
+		       		
+		       		$("#location").text(location);
+					$('#location').fadeIn('fast');
+		       	});
+			})
+			.attr('src', 'http://maps.googleapis.com/maps/api/staticmap?center=' + location + '&markers=color:red%7C' + location + '&zoom=6&maptype=satellite&size=1000x1000&sensor=false');
+		}		
+	}
+	
+	$(document).ready(function() {
+		GetFeaturedCities();
+	});
+	
+	var citiesarray;
+	var cities_counter = 0;
+	var scrolling_started = 0; // Flag for if scrolling has started
+	
+	function GetFeaturedCities() {
+		$.getJSON("/scripts/admin-getfeaturedcities.php", function(json) {
+			citiesarray = json;		
+			if (scrolling_started == 0) {
+				StartCityCycle();
+				scrolling_started = 1;
+			}
+			setTimeout("GetFeaturedCities()", 5000);
+		});
+	}
+	
+	function StartCityCycle() {
+		PanToLocation(citiesarray[cities_counter]);
+		
+		if ((cities_counter) < citiesarray.length - 1) {
+			cities_counter++;
+		}
+		else {
+			cities_counter = 0;
+		}
+		
+		setTimeout("StartCityCycle()", 2500);
+	}
+	
+</script>
+{!-- End Google Maps Javascript --}
+
+<div id="map-viewer" style="width:700px; height: 600px; float: left; position: absolute"><img id='map_img' /></div>
+<div id="map-viewer2" style="width:700px; height: 600px; float: left; position: absolute; opacity: 0"><img id='map_img2' /></div>
+<div id="location" style="float: left; position: absolute; top: 560px; width: 680px; text-align: right; color: white; font-size: 35px"></div>

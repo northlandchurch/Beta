@@ -1,0 +1,189 @@
+<script type="text/javascript">
+$(document).ready(function() {	
+	// Modal
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});
+/*	
+	// Featured posts
+	$('.cat452').prependTo('.respond-serve-sites');
+	$('.cat452 .respond-serve-tinter').addClass('respond-serve-highlight');
+	$('<h2 class="respond-serve-highlight-header">Featured Opportunities:</h2>').insertBefore('.cat452:first');
+	$('<div class="respond-serve-highlight-btm"></div>').insertAfter($('.cat452:last'));
+*/
+	$(".permalink").click(function(e){
+		e.stopPropagation();
+		document.location.href=$(this).attr('href');
+	});
+	
+	// Site Location Selection
+	$(document).ready(function(){	
+		// Show Volunteer opportunities when clicked 'Volunteer'
+	    $(".choices-volunteer").click(function(){
+		    $('.serve-choices-all').hide();
+		    $('.serve-choices-serve').hide();
+		    $('.serve-choices-volunteer').fadeIn('slow');
+			
+			$('.serveopportunity').hide();
+			$('.volunteeropportunity').show();
+
+			$('#titlename').fadeOut('slow', function() {
+				$("#titlename").html("Volunteer Opportunities");
+			    $('#titlename').fadeIn('slow');
+			});
+		});
+		// Show Serve opportunities when clicked 'Serve'
+	    $(".choices-serve").click(function(){
+		    $('.serve-choices-all').hide();
+		    $('.serve-choices-volunteer').hide();
+		    $('.serve-choices-serve').fadeIn('slow');
+
+			$('.volunteeropportunity').hide();
+			$('.serveopportunity').show();
+
+			$('#titlename').fadeOut('slow', function() {
+				$("#titlename").html("Serve Opportunities");
+			    $('#titlename').fadeIn('slow');
+			});
+		});
+		// Show All opportunities when clicked 'All'
+	    $(".choices-all").click(function(){
+		    $('.serve-choices-serve').hide();
+		    $('.serve-choices-volunteer').hide();
+		    $('.serve-choices-all').fadeIn('slow');
+
+			$('.volunteeropportunity').show();
+			$('.serveopportunity').show();
+
+			$('#titlename').fadeOut('slow', function() {
+				$("#titlename").html("Volunteer/Serve Opportunities");
+			    $('#titlename').fadeIn('slow');
+			});
+		});
+		// All sites
+		$(".allsitechoice").click(function(){
+			// Change choices menu
+			$('.serve-choices-locations').fadeOut('slow', function() {
+			    $('.serve-choices-locations').html('Showing opportunities in <p class="longwoodchoice">Longwood</p>, <p class="mountdorachoice">Mount Dora</p> and <p class="oviedochoice">Oviedo</p>');
+			    $('.serve-choices-locations').fadeIn('slow');
+			});
+			// Swap out opportunities with loading delay
+			$('.respond-serve-sites').fadeOut('slow');
+			$('#serve-loading').fadeIn('slow');
+			$(".respond-serve-sites").load("/_component/volunteer-allsites", function(){
+		    	$('.respond-serve-sites').fadeIn('slow');
+				$('#serve-loading').fadeOut('fast');
+			});
+			// Replace location name <h2>
+			$('.respond-serve-sitename').fadeOut('slow', function() {
+				$(".respond-serve-sitename").html("");
+			    $('.respond-serve-sitename').fadeIn('slow');
+			});
+		});	
+		// Longwood
+	    $(".longwoodchoice").click(function(){
+			$('.serve-choices-locations').fadeOut('slow', function() {
+			    $('.serve-choices-locations').html('Showing opportunities at Longwood. See opportunities at <p class="allsitechoice">All Sites</p>, <p class="mountdorachoice">Mount Dora</p> and <p class="oviedochoice">Oviedo</p>');
+			    $('.serve-choices-locations').fadeIn('slow');
+			});
+			$('.respond-serve-sites').fadeOut('slow');
+			$('#serve-loading').fadeIn('slow');
+			$(".respond-serve-sites").load("/_component/volunteer-longwood", function(){
+		    	$('.respond-serve-sites').fadeIn('slow');
+				$('#serve-loading').fadeOut('fast');
+			});
+			$('.respond-serve-sitename').fadeOut('slow', function() {
+				$(".respond-serve-sitename").html("at Longwood");
+			    $('.respond-serve-sitename').fadeIn('slow');
+			});
+		});
+		// Mount Dora
+	    $(".mountdorachoice").click(function(){
+		    $('.serve-choices-locations').fadeOut('slow', function() {
+			    $('.serve-choices-locations').html('Showing opportunities at Mount Dora. See opportunities at <p class="allsitechoice">All Sites</p>, <p class="longwoodchoice">Longwood</p> and <p class="oviedochoice">Oviedo</p>');
+			    $('.serve-choices-locations').fadeIn('slow');
+			});
+			$('.respond-serve-sites').fadeOut('slow');
+			$('#serve-loading').fadeIn('slow');
+			$(".respond-serve-sites").load("/_component/volunteer-mountdora", function(){
+		    	$('.respond-serve-sites').fadeIn('slow');
+				$('#serve-loading').fadeOut('fast');
+			});
+			$('.respond-serve-sitename').fadeOut('slow', function() {
+				$(".respond-serve-sitename").html("at Mount Dora");
+			    $('.respond-serve-sitename').fadeIn('slow');
+			});
+		  });
+		// Oviedo
+	    $(".oviedochoice").click(function(){
+		    $('.serve-choices-locations').fadeOut('slow', function() {
+			    $('.serve-choices-locations').html('Showing opportunities at Oviedo. See opportunities at <p class="allsitechoice">All Sites</p>, <p class="longwoodchoice">Longwood</p> and <p class="mountdorachoice">Mount Dora</p>');
+			    $('.serve-choices-locations').fadeIn('slow');
+			});
+			$('.respond-serve-sites').fadeOut('slow');
+			$('#serve-loading').fadeIn('slow');
+			$(".respond-serve-sites").load("/_component/volunteer-oviedo", function(){
+		    	$('.respond-serve-sites').fadeIn('slow');
+				$('#serve-loading').fadeOut('fast');
+			});
+			$('.respond-serve-sitename').fadeOut('slow', function() {
+				$(".respond-serve-sitename").html("at Oviedo");
+			    $('.respond-serve-sitename').fadeIn('slow');
+			});
+		  });
+	});
+	
+	// Filter drop-down results
+	$('select[name=ministries]').change(function(){ UpdateFilters(); });
+	$('select[name=interests]').change(function(){ UpdateFilters(); });
+	
+	function UpdateFilters() {
+		var ministry = $("select[name=ministries]").val();
+		var interest = $("select[name=interests]").val();
+		
+		$(".respond-serve-opp").addClass('hidden');
+		$(".respond-serve-highlight-header").hide();
+		$(".respond-serve-highlight-btm").hide();
+		
+		// If both filters applied
+		if (ministry != "all" && interest != "all") {
+			$("." + ministry).filter("." + interest).removeClass('hidden');
+			$("#no_results").hide()
+			if ($(".respond-serve-opp:visible").length == 0) {
+				$("#no_results").show();
+			}
+		}
+		// If interest applied
+		else if (ministry == "all" && interest != "all") {
+			$("." + interest).removeClass('hidden');
+			$("#no_results").hide()
+		}
+		// If ministry filter applied
+		else if (interest == "all" && ministry != "all") {
+			$("." + ministry).removeClass('hidden');
+			$("#no_results").hide()
+		}
+		// If both filters reset
+		else if (ministry == "all" && interest == "all")  {
+			$(".cat460").removeClass('hidden');
+			$("#no_results").hide()
+			$('<h2 class="respond-serve-highlight-header">Featured Opportunities:</h2>').insertBefore('.cat452:first');
+			$('<div class="respond-serve-highlight-btm"></div>').insertAfter($('.cat452:last'));
+		}
+		// If nothing applied, show all (default category is 460)
+		else {
+			$(".cat460").removeClass('hidden');
+			$("#no_results").hide()
+			$('<h2 class="respond-serve-highlight-header">Featured Opportunities:</h2>').insertBefore('.cat452:first');
+			$('<div class="respond-serve-highlight-btm"></div>').insertAfter($('.cat452:last'));
+		}	
+		
+	}
+});
+</script>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+<link rel="shorcut icon" href="/_img/favicon.png" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/adapt/main.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/adapt/full.css" />
+
+</head>
+<body id="nav" style="background:inherit">
+
+<div class="left-box">
+<div id="inside-media">
+{exp:channel:entries channel="media" dynamic="off" category="not 217|58|226" sort="desc" limit="2"}
+	<p {switch='class="marg-b-20"|'}>
+		{if media-image}<a href="{exp:low_replace find='index.php/'}{url_title_path='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-primary}" class="preview left" /></a>{/if}
+		<a href="{exp:low_replace find='index.php/'}{url_title_path='media'}{/exp:low_replace}" style="color:white"><strong>{title}</strong></a><br />
+		<em style="color:#babcbe">{entry_date format="%F %j, %Y"}</em>
+	</p>
+{/exp:channel:entries}
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+{embed="_assets/header"}
+{embed="_assets/navbar"}
+<div class="hero hero--secondary" style="background-color:black;-webkit-filter: opacity(90%);">
+	<div class="hero-media" style="background-image: url(https://photos-4.dropbox.com/t/2/AAAXS1xfwoTq1OFP0LUNsbUjuTAgJVs3wKrsoJJ9vA2mwA/12/19086/jpeg/32x32/1/_/1/2/aboutbg.jpg/EPaeIBjE85LcBCACKAI/DqrW6qvfUPZUcSgT6hpzNRax71UD3xwX04kRPVK2DJs?size=1280x960&size_mode=2)"></div>
+	<div class="hero-content" href="#" style="padding:20vh 40px 5vh">
+		<div class="cell cell--l">
+		<h1 class="heading heading--l" style="text-transform: none;width:100%;text-align: left;">
+			We were built for relationships - to follow Jesus in community. 
+			<!--Connecting with others allows us to mature as Christians and equips us to expand God’s kingdom! Whether you’re ready to dig deeper into your faith through a group study or class, feel called to serve or volunteer, or are ready to start a house church, we want to welcome you into our spiritual family. If you’re not sure where to start, stop by the HUB, open Monday-Friday from 9a.m.-5p.m and after every worship service. Discover what YOUR next connection might be!-->
+		</h1>
+		</div>
+	</div>
+</div>
+<div class='row row--inverted'>
+  <div class='cell well'>
+	{embed="_assets/next_event" page="Connect"}
+
+	{embed="_assets/next_event" page="Connect" offset="1"}
+
+	{embed="_assets/next_event" page="Connect" offset="2"}
+
+	<div class="g-b g-b--m--1of4">
+		{exp:channel:entries channel="blogs" category="{embed:whichCategory}" offset="3" limit="1" dynamic="off"}
+		<a class="media media--large media--connect" style="background-image: url(<?php
+		ob_start();
+		?>{blog-post}<?php
+		$obcontents = ob_get_contents();
+		ob_end_clean();
+
+		$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+		if(preg_match($pattern,	$obcontents, $match)){
+			echo $match[1];
+		}
+		?>)" href="/blogs/{url_title}">
+			<div class="media-content">
+
+				<h3>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h3>
+				{if blog-excerpt}<p>{blog-excerpt}</p>{/if}
+				<!-- <div class="btn btn--small btn--transparent">Read More</div>-->
+			</div>
+		</a>
+		{/exp:channel:entries}
+	</div>
+	
+	<div class="g-b g-b--m--1of4">
+		{!-- live services are category 58 so be sure to exclude those from the loop else the player will break --}
+		{exp:channel:entries channel="media" limit="1" dynamic="off" category="not 58"}
+		<a class="media media--large media--connect" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+			<div class="media-content">
+				<div class='editoral-video'>
+					<i class='material-icons'>play_arrow</i>
+				</div>					
+				<h3>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h3>
+				<div class='meta'>
+					<h4 class='meta-author' style>{media-speaker}</h4>
+				</div>
+				{exp:tag:tags entry_id="{entry_id}" limit='1'}<div class='tag'>{tag}</div>{/exp:tag:tags}
+			</div>
+		</a>
+		{/exp:channel:entries}
+	</div>
+
+	<div class="g-b g-b--m--1of4">
+		<a class="media media--large media--connect" style="background-image: url(/_img/website_assets/centralgatherings_400x400.jpg)" href="/locations">
+			<div class="media-content">
+				<h3>Locations &amp; Times</h3>
+				<!-- <div class="btn btn--small btn--transparent">Learn More</div> -->
+			</div>
+		</a>
+	</div>
+	<div class="g-b g-b--m--1of4">
+		{exp:channel:entries channel="media" limit="1" dynamic="off" offset="2"}
+		<a class="media media--large media--connect" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+			<div class="media-content">
+				<div class='editoral-video'>
+					<i class='material-icons'>play_arrow</i>
+				</div>					
+				<h3>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h3>
+				<div class='meta'>
+					<h4 class='meta-author' style>{media-speaker}</h4>
+				</div>
+				{exp:tag:tags entry_id="{entry_id}" limit='1'}<div class='tag'>{tag}</div>{/exp:tag:tags}
+			</div>
+		</a>
+		{/exp:channel:entries}
+	</div>
+  </div>
+</div>
+<div class='row row--inverted'>
+	<div class='cell well'>
+		<div class="g">
+			<div class="g-b g-b--m--4of4">
+				<div class='cell well'>
+
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/ministries_400x400.jpg)" href="http://beta.northlandchurch.net/main/ministries/">
+							<div class="media-content">
+								<h3 class="mbf tss">Ministries</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/centralgatherings_400x400.jpg)" href="/locations/">
+							<div class="media-content">
+								<h3 class="mbf tss">Locations &amp; Times</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/distributedchurch_400x400.jpg)" href="/distributedchurch/">
+							<div class="media-content">
+								<h3 class="mbf tss">Distributed Church</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/events_400x400.jpg)" href="http://calendar.northlandchurch.net/">
+							<div class="media-content">
+								<h3 class="mbf tss">Events</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/service_projects_400x400.jpg)" href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30432">
+							<div class="media-content">
+								<h3 class="mbf tss">Service Projects</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/distjourney_400x400.jpg)" href="http://somedayistoday.net/">
+							<div class="media-content">
+								<h3 class="mbf tss">Distributed Journeys</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/classes_400x400.jpg)" href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30424">
+							<div class="media-content">
+								<h3 class="mbf tss">Classes</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/men_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31367">
+							<div class="media-content">
+								<h3 class="mbf tss">Men</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/women_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31372">
+							<div class="media-content">
+								<h3 class="mbf tss">Women</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/children_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31359">
+							<div class="media-content">
+								<h3 class="mbf tss">Children</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/students_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31371">
+							<div class="media-content">
+								<h3 class="mbf tss">Students</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/pastoralcare_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31358">
+							<div class="media-content">
+								<h3 class="mbf tss">Pastoral Care</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/recovery_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31357">
+							<div class="media-content">
+								<h3 class="mbf tss">Recovery</h3>	
+							</div>
+						</a>
+					</div>
+
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/specialneeds_400x400.jpg)" href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31370">
+							<div class="media-content">
+								<h3 class="mbf tss">Special Needs Groups</h3>	
+							</div>
+						</a>
+					</div>
+					<div class="g-b g-b--m--1of4">
+						<a class="media media--small media--connect" style="background-image: url(/_img/website_assets/volunteer_400x400.jpg)" href="/volunteer">
+							<div class="media-content">
+								<h3 class="mbf tss">Volunteer at Northland</h3>	
+							</div>
+						</a>
+					</div>
+					{!-- 
+						<div class="g-b g-b--m--1of4">
+							<a class="media media--small media--connect" style="background-image: url()" href="">
+								<div class="media-content">
+									<h3 class="mbf tss"></h3>	
+								</div>
+							</a>
+						</div>
+					--}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+
+
+
+
+
+

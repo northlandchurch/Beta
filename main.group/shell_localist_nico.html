@@ -1,0 +1,1241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+<!-- LOCALIST COMMENT - START head_tags -->
+<!-- LOCALIST COMMENT - PLACEHOLDER localist_styles -->
+<!-- LOCALIST COMMENT - PLACEHOLDER localist_js -->
+<style>
+
+</style>
+<meta name="google-site-verification" content="OJLx2hzHKIPa40gTzRa3HJx1ictCULtE0cuY-bStIus" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"UgQEUFNRGwADV1VXAQI="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e){function n(t,e,n){n||(n={});for(var r=o[t],a=r&&r.length||0,s=n[i]||(n[i]={}),u=0;a>u;u++)r[u].apply(s,e);return s}function r(t,e){var n=o[t]||(o[t]=[]);n.push(e)}var o={},i="nr@context";e.exports={on:r,emit:n}},{}],2:[function(t){function e(t,e,n,i,s){return u?u-=1:r("err",[s||new UncaughtException(t,e,n)]),"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t(5),a=window.onerror,s=!1,u=0;t("loader").features.push("err"),window.onerror=e,NREUM.noticeError=n;try{throw new Error}catch(d){"stack"in d&&(t(1),t(2),"addEventListener"in window&&t(3),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(4),s=!0)}i.on("fn-start",function(){s&&(u+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&u>0&&(u-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:5,2:4,3:3,4:6,5:1,6:14,handle:"D5DuLP",loader:"G9z0Bl"}],3:[function(t){function e(t){r.inPlace(t,["addEventListener","removeEventListener"],"-",n)}function n(t){return t[1]}var r=t(1),o=(t(3),t(2));if(e(window),"getPrototypeOf"in Object){for(var i=document;i&&!i.hasOwnProperty("addEventListener");)i=Object.getPrototypeOf(i);i&&e(i);for(var a=XMLHttpRequest.prototype;a&&!a.hasOwnProperty("addEventListener");)a=Object.getPrototypeOf(a);a&&e(a)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&e(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=e["nr@wrapped"]?t[1]=e["nr@wrapped"]:e["nr@wrapped"]=t[1]=r(e,"fn-"):"function"==typeof e.handleEvent&&r.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:15,2:1,3:14}],4:[function(t){var e=(t(3),t(1)),n=t(2);e.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=e(t[0],"fn-")})},{1:15,2:1,3:14}],5:[function(t){function e(t){var e=t[0];"string"==typeof e&&(e=new Function(e)),t[0]=n(e,"fn-")}var n=(t(3),t(1)),r=t(2);n.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",e)},{1:15,2:1,3:14}],6:[function(t){function e(){o.inPlace(this,s,"fn-")}function n(t,e){o.inPlace(e,["onreadystatechange"],"fn-")}function r(t,e){return e}var o=t(1),i=t(2),a=window.XMLHttpRequest,s=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];window.XMLHttpRequest=function(t){var n=new a(t);try{i.emit("new-xhr",[],n),o.inPlace(n,["addEventListener","removeEventListener"],"-",function(t,e){return e}),n.addEventListener("readystatechange",e,!1)}catch(r){try{i.emit("internal-error",r)}catch(s){}}return n},window.XMLHttpRequest.prototype=a.prototype,o.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",r),i.on("send-xhr-start",n),i.on("open-xhr-start",n)},{1:15,2:1}],7:[function(t){function e(){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;u>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,d="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,f=e(d);if(f&&(r.rxSize=f),this.sameOrigin){var c=t.getResponseHeader("X-NewRelic-App-Data");c&&(n.cat=c.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}t("loader").features.push("xhr");var o=t("handle"),i=t(1),a=t(5),s=["load","error","abort","timeout"],u=s.length,d=t(2);t(3),t(4),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var d=e(o);d&&(r.txSize=d)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",e)}catch(r){}}};for(var f=0;u>f;f++)n.addEventListener(s[f],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+d(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+d(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)&&e()},{1:8,2:11,3:3,4:6,5:1,handle:"D5DuLP",loader:"G9z0Bl"}],8:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],D5DuLP:[function(t,e){function n(t,e){var n=r[t];return n?n.apply(this,e):(o[t]||(o[t]=[]),void o[t].push(e))}var r={},o={};e.exports=n,n.queues=o,n.handlers=r},{}],11:[function(t,e){function n(t){if(!t||"object"!=typeof t&&"function"!=typeof t)return-1;if(t===window)return 0;if(o.call(t,"__nr"))return t.__nr;try{return Object.defineProperty(t,"__nr",{value:r,writable:!0,enumerable:!1}),r}catch(e){return t.__nr=r,r}finally{r+=1}}var r=1,o=Object.prototype.hasOwnProperty;e.exports=n},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&u&&u.body){p.proto="https"===c.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=u.createElement("script");e.src=p.proto+t.agent,u.body.appendChild(e)}}function r(){"complete"===u.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=window,u=s.document,d="addEventListener",f="attachEvent",c=(""+location).split("?")[0],p=e.exports={offset:i(),origin:c,features:[]};u[d]?(u[d]("DOMContentLoaded",o,!1),s[d]("load",n,!1)):(u[f]("onreadystatechange",r),s[f]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}],14:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],15:[function(t,e){function n(t,e,r,s){function nrWrapper(){try{var n,a=u(arguments),d=this,f=r&&r(a,d)||{}}catch(c){i([c,"",[a,d,s],f])}o(e+"start",[a,d,s],f);try{return n=t.apply(d,a)}catch(p){throw o(e+"err",[a,d,p],f),p}finally{o(e+"end",[a,d,n],f)}}return a(t)?t:(e||(e=""),nrWrapper[n.flag]=!0,nrWrapper)}function r(t,e,r,o){r||(r="");var i,s,u,d="-"===r.charAt(0);for(u=0;u<e.length;u++)s=e[u],i=t[s],a(i)||(t[s]=n(i,d?s+r:r,o,s,t))}function o(t,e,n){try{s.emit(t,e,n)}catch(r){i([r,t,e,n])}}function i(t){try{s.emit("internal-error",t)}catch(e){}}function a(t){return!(t&&"function"==typeof t&&t.apply&&!t[n.flag])}var s=t(1),u=t(2);e.exports=n,n.inPlace=r,n.flag="nr@wrapper"},{1:1,2:14}]},{},["G9z0Bl",2,7]);</script>
+<meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="shorcut icon" href="http://northlandchurch.net/_img/favicon.png" />
+<title>Northland Calendar</title>
+<link rel="stylesheet" type="text/css" media="all" href="http://northlandchurch.net/_assets/css/fancybox.css" />
+<link rel="stylesheet" type="text/css" media="all" href="http://northlandchurch.net/_assets/css/bx-slider.css" />
+<link rel="stylesheet" type="text/css" media="all" href="http://northlandchurch.net/_includes/adapt/main.css" />
+<link rel="stylesheet" type="text/css" media="all" href="http://northlandchurch.net/_includes/datepicker.css" />
+<link type="text/css" href="http://northlandchurch.net/_assets/css/jixedbar/jx.stylesheet.css" rel="stylesheet" />
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery.flow.1.2.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery.validate.pack.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery.cookies.2.2.0.min.js"></script>
+
+<script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/swfobject.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/lazyload.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/fancybox.js"></script>
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/bx-slider.js"></script>
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/ui.js"></script>
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/nacd-global.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/nacd-registration.js"></script>
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/nacd-class-registration.js"></script>
+
+<script>
+(function(doc) {
+
+	var addEvent = 'addEventListener',
+	    type = 'gesturestart',
+	    qsa = 'querySelectorAll',
+	    scales = [1, 1],
+	    meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+
+	function fix() {
+		meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
+		doc.removeEventListener(type, fix, true);
+	}
+
+	if ((meta = meta[meta.length - 1]) && addEvent in doc) {
+		fix();
+		scales = [.25, 1.6];
+		doc[addEvent](type, fix, true);
+	}
+
+}(document));
+</script>
+
+<script src="http://northlandchurch.net/_assets/js/gatag.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-966214-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script type="text/javascript" src="http://northlandchurch.net/_assets/js/jquery-ui-1.8.17.custom.min.js"></script>
+
+
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+<!-- LOCALIST COMMENT - END head_tags -->
+
+</head>
+
+<body>
+<!-- LOCALIST COMMENT - START body -->
+
+<script type="text/javascript">
+	// If user is using Internet Explorer, don't let console.log() break it
+	if (typeof console == "undefined") {
+		console = { log : function(){}};
+	}
+	
+	/*var datalog = "";
+	var consolelogtime;
+	
+	
+	// Use this one for bug reporting
+	console = { log: function(data) {
+			consolelogtime = new Date();
+			datalog = datalog + consolelogtime.getHours() + ":" + consolelogtime.getMinutes() + ":" + consolelogtime.getSeconds() + " - " + data + "\n";
+			
+		} 
+	};*/
+		
+		
+	
+	
+	
+	
+	$(document).ready(function() {
+
+		$('.ticket_action').insertBefore('.box_header.vevent h2:first');
+
+		var indices = [];
+		var new_URL = "/calendar?";
+		
+		for(var i=0; i<window.location.search.length;i++) {
+   			if (window.location.search[i] === "=") indices.push(i);
+		}
+		
+		for(var i=0; i<indices.length;i++) {
+			if (i>0){
+				new_URL = new_URL + "&";
+			}
+			new_URL = new_URL + "event_types%5B%5D=" + window.location.search.substr(indices[i]+1,5);
+		}
+		var time_filter = "";
+
+  		$("#Event_List a").click(function(event){
+			event.preventDefault();
+			var this_link = this.href;
+			if (this_link.indexOf("day")>-1){
+				time_filter = "day";
+			}
+			if (this_link.indexOf("week")>-1){
+				time_filter = "week";
+			}
+			if (this_link.indexOf("month")>-1){
+				time_filter = "month";
+			}
+			this_link = this_link.substr(this_link.indexOf("?")+1, this_link.length);
+
+			switch (time_filter){
+				case "day": 
+				case "week":
+				case "month":
+					new_URL = "/calendar/" + time_filter + new_URL.substr(new_URL.indexOf("?"), new_URL.length);
+
+					break;
+				default:
+					if (new_URL != "/calendar?"){
+						new_URL = new_URL + "&" + this_link;
+					}else{
+						new_URL = new_URL + this_link;
+					}
+					break;
+			}
+			
+			
+			window.open(new_URL,"_self");
+		});
+
+
+
+		$("#topsearch input").attr("placeholder","Search the calendar...");
+
+
+		switch (window.location.pathname) {
+		
+			case "/search/groups":
+			case "/search/places":
+				$("#event_sidebar").hide();
+				break;
+		
+		}
+
+		var url_string = window.location.pathname;
+
+		var stringEvent = "/event/";
+		if (url_string.indexOf(stringEvent) >=0) {
+			$('#event_sidebar').hide()
+			$('#group_sidebar').hide()
+			$('#location_sidebar').hide()
+			$("#menu").hide();
+			
+		}
+		
+		var stringSearch = "/search";
+		if (url_string.indexOf(stringSearch) >=0) {
+			$('#event_sidebar').hide()
+			$('#location_sidebar').hide()
+			$('#group_sidebar').hide()
+		}
+
+		var stringGroups = "/search/groups";
+		if (url_string.indexOf(stringGroups) >=0) {
+			$('#event_sidebar').hide()
+			$('#location_sidebar').hide()
+			$('#group_sidebar').show()
+		}
+		
+		var stringLocation = "/search/places";
+		if (url_string.indexOf(stringLocation) >=0) {
+			$('#group_sidebar').hide()
+			$('#event_sidebar').hide()
+			$('#location_sidebar').show()
+		}
+
+		
+		var stringLogIn = "/auth/login";
+		if (url_string.indexOf(stringLogIn) >=0) {
+			$('#event_sidebar').hide()
+			$('#group_sidebar').hide()
+			$('#location_sidebar').hide()
+
+		}
+
+		var stringGroup = "/group/";
+		if (url_string.indexOf(stringGroup) >=0) {
+			$('#event_sidebar').hide()
+			$('#location_sidebar').hide()
+			$('#group_sidebar').show()
+		}
+		
+		var stringSearch = "/search/events";
+		if (url_string.indexOf(stringSearch) >=0) {
+			$('#event_sidebar').hide()
+			$('#location_sidebar').hide()
+			$('#group_sidebar').hide()
+		}
+		
+			
+
+		$.ajax({
+			url: '/_component/countdown',
+			success: function(data) {
+				$("#countdown").replaceWith(data);
+				$("#countdown").fadeIn('slow');
+			}
+		});
+	});
+	
+	function ee_logout() {
+		$.cookies.del('ee_screenname');
+		$.ajax({
+		  	url: "/?ACT=10",
+		  	complete: function() {location.reload();}
+		});
+	}
+
+	function ShowTextModal(input) {
+		//$.fancybox.close();
+		$("#text_modal").html(input);
+		$("#show_text_modal").trigger('click');
+	}
+
+
+
+	$(function() {
+		$( ".accordion" ).accordion({
+			autoHeight: false,
+			navigation: false
+		});
+	});
+</script>
+
+
+<div style="display:none;">
+	<strong>Service Times:</strong> Saturdays at 5 p.m., Sundays at 9, 11 a.m., 5 p.m. and	Mondays at 7 p.m. (EST).<br>
+	Just as God has uniquely created each individual, designing within each one the potential to contribute something precious to the lives of others, so too God has created diversity in His kingdom so that each congregation and Christian organization will make a unique contribution to the world.
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {UpdateVisibility();});	
+			
+			$(window).resize(function() {UpdateVisibility();});
+			
+			function UpdateVisibility() {
+				// Defines mobile v full
+				if ($(window).width() <= 770) {
+					$('.default_visible').hide();
+					$('.default_hidden').hide();
+					$('.nav-placeholder').removeClass('nav-hover');
+					$('.shinethelight').show();
+				} else {
+					$('.default_visible').show();		
+					$('.nav-placeholder').addClass('nav-hover');
+					$('.shinethelight').hide();
+				}
+			}
+</script>
+<script type="text/javascript">
+
+function UpdateJWPlayer(id) {
+	console.log("updating size");
+	if (id == 'all') {
+		$(".media_home_player").each(function() { 
+			temp_val = $(this).attr('id').replace("video", "");
+			console.log("Fired! " + temp_val);
+			UpdateJWPlayer(temp_val); 
+		});
+		console.log("Received");
+	}
+	else {		
+		onwidth = $("#video" + id).width();
+		if ($(window).width() > $('.grid_8').width()) {
+			maxwidth = parseInt($('.grid_8').width()) - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right'));
+		}
+		else {
+			maxwidth = parseInt($(window).width()) - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right'));
+		}
+
+		// If window is greater than 720, don't allow to grow larger than desktop size (for use when adapt.js is loading the desktop css href, limits video for growing too big to properly fit when new css loads)
+		if (maxwidth > 720) {
+			maxwidth = 620 - parseInt($(".media_home_mid").css('padding-left')) - parseInt($(".media_home_mid").css('padding-right')); // 620 is the width of grid_8 in the desktop css
+		}
+
+		console.log("grid 8 " + $('.grid_8').width() + "max width: " + maxwidth);
+
+		if (onwidth > maxwidth) { onwidth = maxwidth; }						
+		onheight = Math.round(onwidth*.5625);
+		console.log(onwidth + " and " + onheight);
+		jwplayer('vid' + id).resize(onwidth, onheight);
+	}
+}
+
+$(window).resize(function() {UpdateJWPlayer('all');});	
+</script>
+
+<script type=text/javascript>
+// Called by Adapt.js
+/*function myCallback(i, width) {
+	
+}*/
+
+var ADAPT_CONFIG = {
+  dynamic: true,
+  path: 'http://northlandchurch.net/_includes/adapt/',
+  //callback: myCallback,
+  range: [
+    '0px to 769px  = mobile.css',
+    '770px  	   = full.css'
+  ]
+};
+</script>
+<script src="http://northlandchurch.net/_includes/adapt/adapt.js"></script>
+
+<div id="header" class="container_12">
+	<a href="http://www.northlandchurch.net"><div class="northland-logo"></div></a>
+	
+	<div id="header-content">
+		<div id="meta-links">
+			<script type="text/javascript">
+			
+			function UpdateFancyBoxBinds() {
+				$(".user-login, .login .signup-box").fancybox({
+					'hideOnContentClick': true,
+					'width': '100%',
+					'autoDimensions': true,
+					'padding': 5,
+					'scrolling': 'no',
+					'hideOnOverlayClick': true,
+					'hideOnContentClick': false,
+					'overlayOpacity': 0.9,
+					'overlayColor': '#10202b',
+					'transitionIn': 'fade',
+					'transitionOut': 'fade'
+				});
+			}	
+			
+			$(document).ready(function() {UpdateFancyBoxBinds();});
+					
+			</script>			
+									
+			<div id="tithesofferings">
+				<a href='http://secure.northlandchurch.net/insitegiving/giving.do'>Tithes &amp; Offerings</a>			</div>
+			<div id="logged_status" style="float:right">	
+			
+		</div>
+		
+		
+		
+		
+		
+		<div style="display: none">
+				
+			<div id="login-register-box">
+				<form id="forgot_password_form" method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="144" />
+<input type="hidden" name="RET" value="" />
+<input type="hidden" name="params_id" value="SPCQUUwnCmjFWWtPyZGSoCrFt" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+					<input type="hidden" name="email" id="email" />
+					<p><input type="submit" name="submit_button" value="Submit" style="display:none"/></p>
+				</form>
+				<div class="accordion">	
+					
+					<h1><a href="#section1" id="signin_link">Sign In</a> or <a href="#section2" onclick="javascript:$('#create_new').trigger('click');">Create a New Account</a></h1>
+					
+					
+					<div id="feature-login">
+						<h1>Login</h1>
+						<p class="marg-b-20" style="color:#EEE; margin-bottom: 5px;">	
+							If you've ever registered at Northland before, you likely already have an account. Try logging in first to find out.<br><br>
+							<strong>Don't remember your password?</strong><br>
+							Enter your email below and click "login" to get an option to reset it.
+						</p>
+						
+								
+						<form class="login_form" method="post" action="http://www.northlandchurch.net/index.php"  >
+<div class='hiddenFields'>
+<input type="hidden" name="ACT" value="9" />
+<input type="hidden" name="RET" value="&lt;?php echo $_SERVER[&#39;HTTP_REFERER&#39;]; ?&gt;" />
+<input type="hidden" name="site_id" value="1" />
+</div>
+
+
+							<label class="field" for="">Email:</label><input type="text" class="field" id="username" name="username" />
+							
+							
+							<div id="no-email" style="display:none;float:right;">
+								<div class="clear"></div>
+								<div class="login-errormsg">
+									<strong>Email Address Not Registered</strong>
+									<p><a href="#section2" onclick="javascript:$('#create_new').trigger('click');" id="new-email" style="color:white;">Your email address isn't in our system. Click here to create a new account.</a></p>
+								</div>
+							</div>
+                            
+							
+							<div id="email_invalid" style="display:none;">	
+								<div class="clear"></div>	
+								<div class="login-errormsg">			
+									<strong>Invalid Email Address Entered</strong>
+									<p>We need a valid email to proceed.</p>
+								</div>
+							</div>
+							
+									
+							<label class="field" for="">Password:</label><input type="password" class="field" name="password" id="password" />
+							
+									
+							<div class="clear"></div>
+							<div id="login-forgot-pass" class="login-errormsg" style="display:none">
+								<strong>Incorrect Password Entered</strong><br>
+								<p><a href="#" id="reset_pw" style="color:white">Forgot your password? Click here to have your password emailed.</a></p>
+							</div>
+							
+							
+							<p style="float:right; width:100%; text-align:center; margin-top:10px;">
+								<input type="checkbox" name="auto_login" id="auto_login" style="margin-bottom: 0px" checked /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label>
+							</p>	
+							<div class="clear"></div>
+  
+							
+							<input type="submit" id="submit-login" name="submit" value="Login" />
+							<div class="clear"></div>
+						</form>
+								
+						<div class="clear marg-b-20" ></div>
+					</div>	
+						
+							
+					<h1 class="pad-b-5" style="margin-bottom:0px; padding-bottom:0px; height: 0; background:none"><a href="#section2" id="create_new" style="display:none">Create a New Account</a></h1>
+					
+					<form method="post" autocomplete="off">	
+								
+						<div id="feature-register">
+							<h1 style="padding-bottom:10px;">Account Registration</h1>
+							
+							
+							<div class="label_padding">
+                    	
+							<!--
+										<p><label for="">Username:</label> <input class="field" type="text" name="usernamenew" id="usernamenew" style="width: 250px;" /></p>
+										<p><label for="screen_name">Screen Name:</label> <input class="field" type="text" name="screennamenew" id="screennamenew" style="width: 250px;" /></p>
+							-->
+							
+							<div id="wrap_email">
+								<label class="field" for="email">Email Address:</label> 
+        						<input class="field" type="text" name="emailnew" id="emailnew" />
+								<p class="clear"></p>
+								
+								
+								<div id="email_invalid1" class="login-errormsg" style="display:none">
+									<strong>Invalid Email Address Entered</strong><br>
+									<p>We need a valid email to proceed</p>
+								</div> 
+								
+								
+								<div id="existing_account1" class="login-errormsg" style="display:none">
+									<strong><span id="your_email1"></span> is already registered.</strong><br>
+									<a href="#section1" onclick="javascript:$('#signin_link').trigger('click');">Click here to login.</a>
+								</div>
+								
+								
+								<div id="existing_multiple_account1" style="display:none">
+									We already have multiple accounts registered for <span id="your_email2"></span>. Please contact an administrator to resolve.
+        						</div>
+							</div>
+							
+							
+							<div id="wrap_firstname">
+								<label class="field" for="firstname">First Name:</label>
+        						<input class="field" type="text" name="firstnamenew" id="firstnamenew" />
+        						<div class="clear"></div>
+        						<div id="nonalphanumeric_firstname" class="login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+        						<div id="no_firstname" class="login-errormsg" style="display:none">Please enter your first name.</div>
+								<div id="multi_firstname" class="login-errormsg" style="display:none">Please enter only your first name.</div> 
+							</div>
+							
+							
+							<div id="wrap_lastname">
+								<label class="field" for="lastname">Last Name:</label>
+        						<input class="field" type="text" name="lastnamenew" id="lastnamenew" /></p>
+        						<div class="clear"></div>
+        						<div id="nonalphanumeric_lastname" class="login-errormsg" style="display:none">Only letters A-Z are valid characters.</div>
+								<div id="no_lastname" class="login-errormsg" style="display:none">We need your last name, too. Don't worry, you'll be able to keep that hidden.</div> 
+								<div id="multi_lastname" class="login-errormsg" style="display:none">Please enter only one word for your last name.</div> 
+							</div>
+							
+							
+							<div id="wrap_password">
+								<label class="field" for="password">Password:</label>
+        						<input class="field" type="password" name="passwordnew" id="passwordnew" />
+							</div>
+							
+							
+							<div id="wrap_password_confirm">
+								<label class="field" for="password_confirm">Confirm Password:</label>
+        						<input class="field" type="password" name="password_confirmnew" id="password_confirmnew" /></p>
+        						<div class="clear"></div>
+								<div id="mismatched_passwords" class="login-errormsg" style="display:none">Your passwords don't match.</div> 
+								<div id="tooshort_password" class="login-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+							</div>
+						</div> 
+						
+						
+						        				
+        				<div class="clear"></div>
+						
+						
+						<p><input type="checkbox" name="accept_termsnew" id="accept_termsnew" value="y" checked /> <label for="accept_terms">Accept Terms?</label></p>
+						<div id="needtoaccepterms" class="login-errormsg" style="display:none">You need to accept the terms before registering.</div> 
+        				
+						<div class="clear"></div>
+						
+						<div id="fixerrors" class="login-errormsg" style="display:none">You must accept the terms and enter all required fields to register.</div>
+						<div id="submittingregistration" class="login-errormsg" style="display:none">We're setting up your account now.</div>
+						
+						<p><a href='#' id='registerClick'><input id="submit-register" type="submit" name="submit-register" value="Register" /></a></p>
+        				
+        				        				<div class="clear pad-b-20"></div>
+					</form>	
+        
+										
+						
+					<div class="clear"></div>
+							
+				</div>	
+			</div>
+		</div>
+	</div>
+		
+</div>	
+	<div id="countdown" style="display:none"></div>	
+	
+</div>
+
+
+<!--
+<div style="display:none;">
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr valign="bottom" align="left">
+        <td bgcolor="black" cellpadding="1" nowrap>
+            <font size="1" color="white">
+                <b>&nbsp;Online Community Login</b>
+            </font>
+        </td>
+    </tr>
+    <tr valign="top" align="left">
+        <td>
+            <table width="150" cellpadding="1" cellspacing="0" bgcolor="black">
+                <tr>
+                    <td width="100%">
+                        <form id="ccbloginform" action="https://northland.ccbchurch.com/login.php" method="post" target="ccb">
+                            <table width="100%" cellpadding="4" cellspacing="0" border="0">
+                                <tr>
+                                    <td bgcolor="white" valign="top" align="left" width="100%">
+                                        <input type="hidden" name="ax" value="login">
+                                        <table cellpadding="1" cellspacing="1" border="0">
+                                            <tr>
+                                                <td valign="bottom" align="left">
+                                                    <font size="1" color="black">
+                                                        <b>Username</b>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <input type="text" id="ccblogin" name="form[login]" value="" size="15" maxlength="50">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="bottom" align="left">
+                                                    <font size="1" color="black">
+                                                        <b>Password</b>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <input type="password" id="ccbpassword" name="form[password]" value="" size="15" maxlength="20">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle" align="left">
+                                                    <input type="submit" value="Login">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <font size="-2">
+                                                        <a href="https://northland.ccbchurch.com/w_password.php"><font color="black">Forgot Password?<br /></font></a>
+                                                        <a href="https://northland.ccbchurch.com/w_sign_up.php"><font color="black">Sign Up<br /></font></a>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</div>	
+
+<iframe name="ccb" width='1' height='1' frameborder='0'></iframe>
+-->
+</div>
+
+</div>
+
+	
+</div>
+
+<a class="user-login" id="show_text_modal" href="#text_modal" style="display:none"></a>
+<div style="display:none"><div id="text_modal"></div></div>
+<div style="display:none"><div id="ccbform"></div></div>
+<script type="text/javascript">
+$(function() {
+       var zIndexNumber = 1000;
+       // Put your target element(s) in the selector below!
+       $(".nav-hover").each(function() {
+               $(this).css('zIndex', zIndexNumber);
+               zIndexNumber -= 10;
+       });
+});
+</script>
+
+<script type="text/javascript" language="Javascript">
+$(document).ready(function() {	
+	var $menu = $('div.nav-hover');
+	var $open = $('#nav-main li');
+	//create an emtpy object to keep track of the timeouts
+	var menuTimeouts = {};
+	//hide all of the menus
+	$menu.hide();
+	$('.nav-hover').hide();
+	//hide all of the menus
+	$open.each(function() {
+		$(this).mouseenter(function() {
+			$menu.hide();
+			$('#' + this.id + ' .nav-hover').fadeIn('fast');
+			$('#' + this.id + ' .nav-hover').css('zIndex', '99999');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '-135px');
+		});
+		$(this).mouseleave(function() {
+			$('#' + this.id + ' .nav-hover').fadeOut('fast');
+			$('#nav ul li#' + this.id + ' a').css('background-position-x', '0px');
+		});
+	});
+});
+
+</script>
+<div id="nav" class="container_12 default_visible" style="display:none">
+	<div>
+		<div id="social" class="default_visible">
+			<a href="http://www.facebook.com/northlandchurch"><img src="http://www.northlandchurch.net/_assets/img/v2/nav/facebook.png" /></a>
+			<a href="http://twitter.com/northlandchurch"><img src="http://www.northlandchurch.net/_assets/img/v2/nav/twitter.png" /></a>
+		</div>
+		<div id="search" class="default_visible">
+			<form id="sitesearch" method="get" action="http://northlandchurch.net/search/results/">
+
+				<input 	onfocus="if (this.value === 'Search...') {this.value =''}" 
+						onblur="if (this.value === '') {this.value ='Search...'}"
+						type="text" name="q" id="keywords" value="Search...">
+
+			</form>
+		</div>
+		<ul id="nav-main" class="default_visible">
+			<li id="bethechurch">
+				<a href="http://northlandchurch.net/respond" class="nav-main">Respond to God</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Be the Church. <span>Everywhere, Every day.</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+							<p>When we come to God, it is because we are responding to His voice. It is God who initiates; God who calls; God who saves. When we truly see Him for Who He is, we are compelled to worship HIm, to respond to HIs nature. When we respond, others are blessed. When we are the church, we respond to God for the benefit of others.</p> 
+							</div>
+							<div class="right-box">
+								<div><a href="http://northlandchurch.net/respond/worshipgod/">Worship God</a></div>
+								<div><a href="http://northlandchurch.net/respond/readthebible/">Read the Bible</a></div>
+								<div><a href="http://northlandchurch.net/respond/shareyourstory/">Share Your Story</a></div>
+								<div><a href="http://northlandchurch.net/respond/beincommunity/">Be in Community</a></div>
+								<div><a href="http://northlandchurch.net/respond/pray/">Pray</a></div>
+								<div><a href="http://northlandchurch.net/respond/serveothers/">Serve Others</a></div>
+								<div><a href="http://northlandchurch.net/respond/livegenerously/">Live Generously</a></div>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="getinvolved">
+				<a href="http://northlandchurch.net/get_involved/" class="nav-main">Get Involved</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Get connected and <span>Involved</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+								<p>The last thing Jesus did on Earth was entrust the church into the hands of regular people. Keep the tradition alive, get involved and be the church.</p>
+								<br />
+								<div id="mylocation" class="choose-location">
+																<p>You can focus on your site if you want to get involved in your community. Select your location: 
+				<a href="http://calendar.northlandchurch.net/northland_at_longwood_327" id="longwood" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Longwood</a>, 
+				<a href="http://calendar.northlandchurch.net/northland_at_mount_dora_870" id="mountdora" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Mount Dora</a>, 
+				<a href="http://www.northlandchurch.net/locations/category/online/" id="online" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Online</a> or 
+				<a href="http://calendar.northlandchurch.net/northland_at_oviedo_231" id="oviedo" class="site" onClick="return refreshIt('mylocation', 'http://www.northlandchurch.net/v92801_includes/location')">Oviedo</a>.</p>
+			 
+								</div>
+							</div>
+							<div class="right-box">
+								<div><a href="http://northlandchurch.net/classes/">Classes and Studies</a></div>
+								<div><a href="http://northlandchurch.net/ministries/">Groups and Ministries</a></div>
+								<div><a href="http://northlandchurch.net/locations/">Locations</a></div>
+								<div><a href="http://northlandchurch.net/housechurch/">House Churches</a></div>
+								<div><a href="http://northlandchurch.net/serve/">Serving Opportunities</a></div>
+								<div><a href="http://northlandchurch.net/volunteer/">Volunteer at Northland</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="resources">
+				<a href="http://northlandchurch.net/resources/" class="nav-main">Media &amp Blogs</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Media &amp Blogs</h2>
+						<div class="vert-line">
+							<div class="left-box">
+								<iframe id="mediaframe" src="http://www.northlandchurch.net/_component/recent_media_loader" height="346px" noborder scrolling="no"></iframe>
+								<div id="media-holder"></div>
+								
+								<br>
+								<div><a href="http://northlandchurch.net/media">View all media</a></div>
+							</div>
+							<div class="right-box">
+								<div><a href="http://northlandchurch.net/blogs/">Blogs</a></div>
+								<div><a href ="http://northlandchurch.net/articles/">Articles</a></div>
+								<div>
+									<a href="http://northlandchurch.net/newspaper/">Latest Newspaper</a><br />									
+								</div>
+								<div><a href="http://northlandchurch.net/media">Media</a></div>
+								<div><a href="http://northlandchurch.net/press">Press</a></div>
+								<div><a href="http://northlandchurch.net/series/">Studies &amp; Series</a></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="calendar">
+				<a href="http://calendar.northlandchurch.net" class="nav-main">Calendar</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Up and coming <span>Events</span></h2>
+						<div class="vert-line">
+							<div class="left-box">
+							<table id="calendar-nav">
+							<tbody><tr class="month"><td colspan="7">February 2015</td></tr><tr class="days"><td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td></tr><tr class="week"><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/01" style="background-position-x: 0px;">1</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/02" style="background-position-x: 0px;">2</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/03" style="background-position-x: 0px;">3</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/04" style="background-position-x: 0px;">4</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/05" style="background-position-x: 0px;">5</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/06" style="background-position-x: 0px;">6</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/07" style="background-position-x: 0px;">7</a></td></tr><tr class="week"><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/08" style="background-position-x: 0px;">8</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/09" style="background-position-x: 0px;">9</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/10" style="background-position-x: 0px;">10</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/11" style="background-position-x: 0px;">11</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/12" style="background-position-x: 0px;">12</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/13" style="background-position-x: 0px;">13</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/14" style="background-position-x: 0px;">14</a></td></tr><tr class="week"><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/15" style="background-position-x: 0px;">15</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/16" style="background-position-x: 0px;">16</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/17" style="background-position-x: 0px;">17</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/18" style="background-position-x: 0px;">18</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/19" style="background-position-x: 0px;">19</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/20" style="background-position-x: 0px;">20</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/21" style="background-position-x: 0px;">21</a></td></tr><tr class="week"><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/22" style="background-position-x: 0px;">22</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/23" style="background-position-x: 0px;">23</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/24" style="background-position-x: 0px;">24</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/25" style="background-position-x: 0px;">25</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/26" style="background-position-x: 0px;">26</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/27" style="background-position-x: 0px;">27</a></td><td><a href="http://calendar.northlandchurch.net/calendar/day/2015/02/28" style="background-position-x: 0px;">28</a></td></tr></tbody></table>
+
+<p class="meta" style="font-size:11px;">Click on a date above to see<br> what's happening.</p>
+							</div>
+							<div class="right-box" style="display:none">
+								
+
+	<p>
+		<a href="http://northlandchurch.net/calendar/details/cfcarts_presents_calling_londontwo_sides_of_the_best_of_british_music" title="CFCArts Presents: Calling London—Two Sides of the Best of British Music"><strong>CFCArts Presents: Calling London—Two Sides of the Best of British Music</strong></a><br />
+		<span class="info" style="color:#8596A1;">
+
+	
+					Fri, June 20
+		 from 
+		8 
+			 
+					 to 
+		10 
+			
+			p.m.		    
+	
+    
+</span>
+</p>
+
+
+
+
+	<p>
+		<a href="http://northlandchurch.net/calendar/details/the_magic_of_voices_a_cappella_dreams" title="The Magic of Voices: A Cappella Dreams"><strong>The Magic of Voices: A Cappella Dreams</strong></a><br />
+		<span class="info" style="color:#8596A1;">
+
+	
+					Sun, July 6
+		 from 
+		7:30 
+			 
+					 to 
+		9 
+			
+			p.m.		    
+	
+    
+</span>
+</p>
+
+
+
+
+	<p>
+		<a href="http://northlandchurch.net/calendar/details/dignity_serves_training" title="&#8220;Dignity Serves&#8221; Training"><strong>&#8220;Dignity Serves&#8221; Training</strong></a><br />
+		<span class="info" style="color:#8596A1;">
+
+	
+					Fri, July 18
+		 from 
+		6 
+			 
+					 to 
+		9 
+			
+			p.m.		    
+	
+    
+</span>
+</p>
+
+
+							
+							<a href="http://northlandchurch.net/calendar/"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/more-events.png" /></a>
+							</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li id="about">
+				<a href="http://northlandchurch.net/about/" class="nav-main">About</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">Find out more <span>about Northland</span></h2>
+						<div><a href="http://northlandchurch.net/about/">General Info</a></div>
+						<div><a href="http://northlandchurch.net/team/dr_joel_c_hunter/">Senior Pastor Joel Hunter</a></div>
+						<div><a href="http://northlandchurch.net/team/">Meet the Team</a></div>
+						<div><a href="http://northlandchurch.net/partners">Partners</a></div>
+						<div><a href="http://northlandchurch.net/faq/">FAQs</a></div>
+						<div><a href="http://northlandchurch.net/articles/mvb/">Mission / Vision / Belief</a></div>
+						<div><a href="http://northlandchurch.net/employment/">Employment</a></div>
+					</div>
+				</div>
+			</li>
+			<div id="nav-divider" class="default_visible"></div>
+			<li id="newtonorthland">
+				<a href="http://northlandchurch.net/new/" class="nav-main">New to Northland?</a>
+				<div class="nav-hover nav-placeholder default_hidden">
+					<div class="inner">
+						<h2 class="nav-details">New to Northland? <span>Start here</span></h2>
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-1.png" class="left" />
+							<a href="http://northlandchurch.net/new/">Click here</a> to access important content for those who are new to Northland.
+						</p>
+						<img src="http://www.northlandchurch.net/_assets/img/v2/main/divider.png" class="divider" />
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-2.png" class="left" />
+							<a href="http://northlandchurch.net/about/">Click here</a> to read more about Northland, A Church Distributed and learn about what we believe.
+						</p>
+						<img src="http://www.northlandchurch.net/_assets/img/v2/main/divider.png" class="divider" />
+						<p>
+							<img src="http://www.northlandchurch.net/_assets/img/v2/nav/new-3.png" class="left" />
+							<a href="http://northlandchurch.net/locations/">Find a location</a> near you and get connected! We have many sites including <a href="http://northlandchurch.net/locations/category/online/">worship available live online!</a>
+						</p>
+					</div>
+				</div>
+			</li>
+			<li id="newtogod" >
+				<a href="http://newtogod.com" class="nav-main" target="_blank">New to God?</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="container_12 shinethelight" style="display:none;">
+
+	<select id="nav-mobile" class="shinethelight" onchange="javascript:handleSelect(this)">
+		<option selected="selected" disabled="disabled">&nbsp;Click to Navigate</option>
+	    <option value="http://northlandchurch.net/">Home</option> 
+	    <option value="http://northlandchurch.net/respond">Respond to God</option> 
+	    <option value="http://northlandchurch.net/get_involved">Get Involved</option> 
+	    <option value="http://northlandchurch.net/resources">Media & Blogs</option> 
+	    <option value="http://calendar.northlandchurch.net">Calendar</option> 
+		<option value="/about">About</option> 
+		<option value="/new">New to Northland?</option>
+		<option value="http://newtogod.com">New to God?</option>
+	</select>
+	<script type="text/javascript">
+		//Link to the appropriate option value
+		function handleSelect(elm)
+		{window.location = elm.value;}
+	</script>
+</div>
+
+<div class="nav-shadow"></div>
+<!-- updated -->
+
+<div class="container_12">
+
+	<!-- LOCALIST COMMENT - PLACEHOLDER content -->
+
+<div class="grid_4 omega">
+	<!-- LOCALIST COMMENT - PLACEHOLDER user_menu -->
+	
+	
+</div>	
+
+<div class="grid_4 omega" id="event_sidebar">
+  
+<div id="homepage_nav_new">
+  <div class="item nav_calendar">
+    <h3><span><a href="http://calendar.northlandchurch.net/calendar">All Events</a></span></h3>
+  </div>
+  
+  
+    <div class="item nav_place">
+      <h3><span><a href="http://calendar.northlandchurch.net/browse/businesses">Locations</a></span></h3>
+    </div>
+  
+  
+  
+    <div class="item nav_group">
+      <h3><span><a href="http://calendar.northlandchurch.net/browse/groups">Ministries &amp; Groups</a></span></h3>
+    </div>
+  
+</div>
+
+
+
+
+ <div id="Event_List">
+
+	<h3><span>Sort By</span></h3>
+		<p><a href="http://northlandchurch.net/calendar/day">Day</a><br>
+		<a href="http://northlandchurch.net/calendar/week">Week</a><br>
+		<a href="http://northlandchurch.net/calendar/month">Month</a></p>
+	
+	<h3><span>Event Types</span></h3>
+	<p><a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30420">Bible Studies</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30418">Baptism</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30426">Care</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30424">Classes &amp; Training</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30853">Concerts &amp; Events</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=31325">Guest Speakers</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30429">Prayer</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30432">Serve</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30430">Special Interest</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=32409">Worship</a><br></p>
+
+	<h3><span>Audience</span></h3>
+	<p><a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30854">Adults</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30436">Children</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=31184">Couples</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30437">Families</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30438">Men</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=31183">Singles</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30439">Students</a><br>
+	<a href="http://calendar.northlandchurch.net/calendar?event_types%5B%5D=30440">Women</a><br></p><br>
+
+ </div>
+
+
+</div>
+
+
+
+
+<div class="grid_4 omega" id="group_sidebar">
+
+<div id="group_list">
+	<h3><span>Groups</span></h3>
+	<p><a href="/search/groups?group_types%5B%5D=31357">Addiction &amp; Recovery</a><br>
+	<a href="/search/groups?group_types%5B%5D=31376">Bible Study</a><br>
+	<a href="/search/groups?group_types%5B%5D=31358">Care</a><br>
+	<a href="/search/groups?group_types%5B%5D=31359">Children</a><br>
+	<a href="/search/groups?group_types%5B%5D=31360">Community</a><br>
+	<a href="/search/groups?group_types%5B%5D=31365">Finances</a><br>
+	<a href="/search/groups?group_types%5B%5D=31366">High School</a><br>
+	<a href="/search/groups?group_types%5B%5D=31374">Jail &amp; Prison</a><br>
+	<a href="/search/groups?group_types%5B%5D=31364">Marriage &amp; Family</a><br>
+	<a href="/search/groups?group_types%5B%5D=31367">Men</a><br>
+	<a href="/search/groups?group_types%5B%5D=31368">Middle School</a><br>
+	<a href="/search/groups?group_types%5B%5D=32428">Serve Teams</a><br>
+	<a href="/search/groups?group_types%5B%5D=31375">Singles</a><br>
+	<a href="/search/groups?group_types%5B%5D=31370">Special Needs</a><br>
+	<a href="/search/groups?group_types%5B%5D=31371">Students</a><br>
+	<a href="/search/groups?group_types%5B%5D=31372">Women</a><br></p>
+</div>
+
+
+
+</div>
+
+<div class="grid_4 omega" id="location_sidebar">
+
+<div id="location_list">
+	<h3><span>Location</span></h3>
+	<p><a href="/search/places?business_types%5B%5D=31353">Worship Sites</a><br>
+	<a href="/search/places?business_types%5B%5D=33228">Other Locations</a></p>
+</div>
+
+
+
+
+</div>
+
+
+
+</div>
+
+<div class="clear"></div>
+
+
+<div class="marg-b-40"></div>
+
+
+
+<div id="footer">
+	<div class="container_12">
+		<div class="nav">
+			<a href="http://secure.northlandchurch.net/insitegiving/giving.do" class="meta-link">Tithes &amp; Offerings</a>
+
+			<a href="http://www.northlandchurch.net/get_involved/">Get Involved</a>
+			<a href="http://www.northlandchurch.net/resources/">Resources</a>
+			<a href="http://www.northlandchurch.net/media/">Media</a>
+			<a href="http://calendar.northlandchurch.net/">Calendar</a>
+			<a href="http://www.northlandchurch.net/articles/history/">About</a>
+			<a href="http://www.northlandchurch.net/new/">New to Northland?</a>
+			<div class="clear"></div>
+		</div>
+		<div class="shade">
+			<div class="grid_3">
+				<a href=" " onclick="window.open('https://northlandchurch.wufoo.com/forms/m7x1w3/',  null, 'height=514, width=680, toolbar=0, location=0, status=1, scrollbars=1,resizable=1'); return false"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/request-help.png" /></a>
+				<a href="http://www.northlandchurch.net/resources/newsletter/"><img src="http://www.northlandchurch.net/_assets/img/v2/buttons/newsletter.png"></a>
+				<ul class="marg-b-10 marg-t-10" style="font-size:11px;">
+					&copy; 2014 Northland, A Church Distributed<br />
+					530 Dog Track Road<br />
+					Longwood, FL 32750<br />
+					Phone: 1 (407) 949-4000<br />
+					Fax: 1 (407) 949-4020<br />
+					<a href="mailto:info@northlandchurch.net">info@northlandchurch.net</a>
+				</ul>
+
+				<a href="http://www.ecfa.org/MemberProfile.aspx?ID=21254"><img src="http://www.northlandchurch.net/_img/ecfa.png" /></a>
+			</div>
+
+			<div class="grid_9">
+				<div class="footer_links">
+					<ul>
+						<li><strong>General Info</strong></li>
+						<li><a href="http://www.northlandchurch.net/locations">Service Times &amp; Locations</a></li>
+						<li><a href="http://www.northlandchurch.net/articles/mvb">Mission/Values/Beliefs</a></li>
+						<li><a href="http://www.northlandchurch.net/articles/history">History</a></li>
+						<li><a href="http://www.northlandchurch.net/team/dr_joel_c_hunter">Senior Pastor</a></li>
+						<li><a href="http://www.northlandchurch.net/team/">Meet the Team</a></li>
+						<li><a href="http://www.northlandchurch.net/serve/local/">Local Partnerships</a></li>
+						<li><a href="http://www.northlandchurch.net/serve/global/">Global Partnerships</a></li>
+						<li><a href="http://www.northlandchurch.net/respond/pray/">Prayer</a></li>
+						<li><a href="http://www.northlandchurch.net/faq/">FAQs</a></li>
+						<li><a href="http://www.northlandchurch.net/bookstore/">Bookstore</a></li>
+						<li><a href="http://www.northlandchurch.net/main/cafe/">Nature's Table Caf&eacute;</a></li>
+						<li><a href="http://www.northlandchurch.net/employment/">Employment</a></li>
+						<li><a href="mailto:robert.andrescik@northlandchurch.net">Media Inquires</a></li>
+						<li><a href="http://www.northlandchurch.net/blogs/parking_lot_map/">Parking Lot Map</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Get Involved</strong></li>
+						<li><a href="http://www.northlandchurch.net/serve/">About Serving</a></li>
+						<li><a href="http://www.northlandchurch.net/volunteer/">Volunteer at Northland</a></li>
+						<li><a href="http://www.northlandchurch.net/serve/local/">Serve Locally</a></li>
+						<li><a href="http://www.northlandchurch.net/serve/global/">Serve Globally</a></li>
+					</ul>
+					<ul>
+						<li><strong>Media</strong></li>
+						<li><a href="http://www.northlandchurch.net/media/">Media Player</a></li>
+						<li><a href="http://www.northlandchurch.net/newspaper/">Northland Newspaper</a></li>
+						<li><a href="http://twitter.com/northlandchurch">Twitter</a></li>
+						<li><a href="http://www.facebook.com/northlandchurch">Facebook</a></li>
+						<li><a href="http://www.northlandchurch.net/blogs/">Blogs</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Worship</strong></li>
+						<li><a href="http://www.northlandchurch.net/articles/how_why_and_where_we_worship/">How, Why, & Where We Worship</a></li>
+						<li><a href="http://www.northlandchurch.net/worship">LIVE Online Worship</a></li>
+						<li><a href="http://www.northlandchurch.net/housechurch/">Start a House Church</a></li>
+					</ul>
+					<ul>
+						<li><strong>Locations</strong></li>
+						<li><a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a></li>
+						<li><a href="http://www.northlandchurch.net/locations/category/oviedo">Oviedo</a></li>
+						<li><a href="http://www.northlandchurch.net/locations/category/mountdora">Mount Dora</a></li>
+						<li><a href="http://www.northlandchurch.net/locations/category/online">Online</a></li>
+						<li><a href="http://www.northlandchurch.net/housechurch">House Churches</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Ministries</strong></li>
+						<li><a href="http://www.northlandchurch.net/ministry/marriage-ministries/">Marriage</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/finance_ministries/">Personal Finance</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/parenting/">Parenting</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/divorcecare/">DivorceCare</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/griefshare/">GriefShare</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/access-ministries/">Disability</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/disaster_response/">Disaster Response</a></li>
+						<li><a href="http://www.northlandchurch.net/lifehope/">LifeHope (Benevolence)</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/resource_point/">Resource Point</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/peaceseekers/">PeaceSeekers</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/jail_and_prison_transition/">Prison & Jail</a></li>
+					</ul>
+					<ul>
+						<li><strong>Pastoral Care</strong></li>
+						<!--<li><a href="http://www.northlandchurch.net/ministries/financial_help/">Financial Help</a></li>-->
+						<li><a href="http://www.northlandchurch.net/ministries/counseling/">Counseling</a></li>
+						<li><a href="http://www.northlandchurch.net/ministries/baptism/">Baptisms</a></li>
+						<li><a href="http://www.northlandchurch.net/ministries/funerals-memorials/">Funerals/Memorials</a></li>
+						<li><a href="http://www.northlandchurch.net/ministries/weddings/">Weddings</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Children</strong></li>
+						<li><a href="http://www.northlandchurch.net/ministry/childrens_church/" target="_blank">Children's Ministries</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/co-op/">Co-Op/Kindergarten</a></li>
+						
+						<li><a href="http://www.northlandchurch.net/ministry/parenting/">Parenting Ministry</a></li>
+						<li><a href="http://resourcewell.org/children-ministry/">Children's Curriculum</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/worship_in_the_arts_camp/">Worship in the Arts Camp</li>
+					</ul>
+					<ul>
+						<li><strong>Youth</strong></li>
+						<li><a href="http://www.northlandchurch.net/ministry/middle_school_ministries/">Middle School</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/high_school_ministries/">High School</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/college_ministries/">College</a></li>
+						<li><a href="http://www.northlandchurch.net/ministry/young_adult_ministries/">Young Adult</a></li>
+					</ul>
+				</div>
+				<div class="footer_links">
+					<ul>
+						<li><strong>Giving</strong></li>
+						<li><a href="http://secure.northlandchurch.net/insitegiving/giving.do">About Giving</a></li>
+					</ul>
+					<ul>
+						<li><strong>More Languages</strong></li>
+						<li><a href="http://www.northlandchurch.net/espanol/">En Español</a></li>
+					</ul>
+					
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+  var _sf_async_config = { uid: 35455, domain: 'northlandchurch.net' };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src',
+        (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+        "js/chartbeat.js");
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-2.newrelic.com","licenseKey":"09c0c78cd7","applicationID":"3334563","transactionName":"ZQFbZRRZWUpUW0APWlxLeFISUVhXGn1xSVxcAFxJ","queueTime":0,"applicationTime":1092,"ttGuid":"","agentToken":"","userAttributes":"","errorBeacon":"jserror.newrelic.com","agent":"js-agent.newrelic.com\/nr-380.min.js"}</script>
+
+<!-- LOCALIST COMMENT - END body -->
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-2.newrelic.com","licenseKey":"09c0c78cd7","applicationID":"3334563","transactionName":"ZQFbZRRZWUpUW0APWlxLeFISUVhXGn1xSVxcAFxJ","queueTime":0,"applicationTime":453,"ttGuid":"","agentToken":"","userAttributes":"","errorBeacon":"bam.nr-data.net","agent":"js-agent.newrelic.com\/nr-411.min.js"}</script>
+
+<!-- LOCALIST COMMENT - END body -->
+
+</body>
+</html>

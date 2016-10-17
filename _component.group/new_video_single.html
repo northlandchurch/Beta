@@ -1,0 +1,158 @@
+<div class="container">
+	<section id="video-section">
+	
+	{exp:channel:entries channel="media" dynamic="on" limit="1" require_entry="yes"}
+		{if no_results}
+			{redirect="/video/"}
+		{/if}
+
+		{!--
+		TODO: add video player conditionals
+		--}
+		<?php
+			$filePath='a';
+			$showVimeo = false;
+			$showYoutube = false;
+			$series_title="";
+			$series_url_title="";
+		?>
+		{categories}
+			{!--
+				Media Categories
+				+-----+-----------------------------
+				|  ID | NAME
+				+-----+-----------------------------
+				| 527 | "Ask A Pastor"
+				+-----+-----------------------------
+				|  48 | "Recent Worship Services"
+				+-----+-----------------------------
+				|  44 | "Sermon Archive"
+				+-----+-----------------------------
+				| 356 | "Stories"
+				+-----+-----------------------------
+				| 281 | "Featured"
+				+-----+-----------------------------
+				|  58 | "Live Service"
+				+-----+-----------------------------
+				|  45 | "Highlights"
+				+-----+-----------------------------
+				|  47 | "Classes"
+				+-----+-----------------------------
+			--}
+			<?php
+				if ('{category_id}'=="48" OR '{category_id}'=="44"){
+					$filePath = 'recent';
+				}
+				if ('{category_id}'=="47"){
+					$filePath = "classes";
+				}
+				if ('{category_id}'=="44"){
+					$filePath = 'archive';
+				}
+				
+				/* Categories which are hosted on Youtube */
+				if('{category_id}'=='527'){
+					$showYoutube = true;
+				}
+				
+				$categoryid = '{category_id}';
+			?>
+		{/categories}
+		<?php 
+	//		$whichFileEncode = "";
+			if ($filePath=="recent"){
+	//			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-service/{segment_2}{/exp:url_encode}";
+				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+			}
+			elseif ($filePath=="classes")
+			{
+				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/class/{media-video}/playlist.m3u8";
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/class/{media-video}";
+			}
+			elseif ($filePath=="archive")
+			{
+				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+				if ({entry_date format='%Y'} == '2009')
+				{
+					$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4";
+	//				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+				}
+				else if ({entry_date format='%Y'} == '2008')
+					$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{media-video}";
+				else {
+					$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_high.mp4";
+	//				$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-service/{segment_2}{/exp:url_encode}";
+					$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4/playlist.m3u8";
+					$rtmpURL = "rtmp://174.129.245.138:1935/vods3/_definst/mp4:amazons3/nacdvideo/{entry_date format='%Y'}/{entry_date format='%y%m%d'}_service_pc.mp4";
+				}
+			}
+			else
+			{
+	//			$whichFileEncode = "{exp:url_encode}http://www.northlandchurch.net/media/entry-misc/{segment_2}{/exp:url_encode}";
+				$iosFile = "http://174.129.245.138:1935/vods3/_definst_/mp4:amazons3/nacdvideo/misc/{media-video}_med.mp4/playlist.m3u8";
+				$rtmpURL = "rtmp://video.northlandchurch.net:1935/vods3/_definst/mp4:amazons3/nacdvideo/misc/{media-video}_high.mp4";
+			}
+			
+			if($showYoutube == false){
+				$showVimeo = true;
+			}
+		?>
+
+		<article class="card card-full">
+			{if media-embed != ''}
+				<?php if ($showVimeo == true) : ?>
+				<iframe src="https://player.vimeo.com/video/{media-embed}?autoplay=1" width="960" height="540" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<?php elseif ($showYoutube == true) : ?>
+				<iframe src="http://www.youtube.com/v/{media-embed}&hl=en&fs=1&autoplay=1&rel=0&showinfo=0" type="application/x-shockwave-flash" allowscriptaccess="always" wmode="transparent" width="960" height="540" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<?php endif; ?>
+			{if:else}
+				<div id="vid{entry_id}">
+					<video width="960" height="540"  controls poster="{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}">
+						<source src="<?php echo $iosFile; ?>">
+					</video>
+				</div>
+				<script src="http://jwpsrv.com/library/Yr4twJz1EeSN_hJtO5t17w.js"></script>
+				<script type="text/javascript">
+					jwplayer("vid{entry_id}").setup({
+						autostart: "true",
+						width: "100%",
+						aspectratio: "16:9",
+						mute: "false",
+						volume: 100,
+						stretching: "uniform",
+						primary: "flash",
+						logo: {
+							hide: true
+						},
+						abouttext: "Northland Church",
+
+						playlist: [{
+							image: "{if media-primary}/_img/uploads/{media-primary}{if:else}/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}{/if}",
+							sources: [
+							{
+								file: "<?php echo $rtmpURL; ?>"
+							}
+							],
+							}],
+					});
+				</script>
+			{/if}
+			<div class="copy-container">
+				<h2>{title}</h2>
+				<p class="author">by <strong>{media-speaker}</strong></p>
+				<p class="body-copy">
+					{exp:strip_html}{media-description}{/exp:strip_html}
+				</p>
+				<p class="body-copy">
+					{entry_date format="%F %j, %Y"}
+					{media-unit}
+					<a href="/series/{media-unit:url_title}" class="main-link">Series: {media-unit:title}<span class="icon-arrow-filled"></span></a>
+					{/media-unit}
+				</p>
+			</div>
+		</article>
+
+	{/exp:channel:entries}
+	</section>
+</div><!-- /.container -->

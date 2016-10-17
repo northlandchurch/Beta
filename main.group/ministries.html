@@ -1,0 +1,140 @@
+{if segment_3!=""}
+	<?php
+	header("HTTP/1.1 301 Moved Permanently"); 
+	header('Location: http://www.northlandchurch.net/ministries/');
+	exit;
+	?>
+{/if}
+
+{embed="_assets/header" htmltitle="Ministries"}
+{embed="_assets/navbar" active=""}
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+		<div class='g'>
+			<div class='g-b g-b--m--1of2'>
+				<h1 class='heading heading--l mbxl'>
+					Ministries
+				</h1>
+			</div>
+		</div>
+		<div class='g'>
+			<div class='g-b g-b--s--2of3 g-b--m--3of4 fr'>
+				<hr class='rule mbl mtf'>
+				<h2 class='heading--italic heading--m mbl'>All Ministries</h2>
+				<div class='g g--dib'>
+					<div id="groups_results" class="place_group">
+
+
+						<?php 
+
+					$urlstr = 'http://calendar.northlandchurch.net/api/2/groups?sort=name&pp=100';
+
+					$ch = curl_init($urlstr);
+
+					curl_setopt( $ch, CURLOPT_HEADER, 0);
+					curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+					curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+
+					$localist_groups = curl_exec($ch);
+					curl_close($ch);
+
+					$data = json_decode($localist_groups);
+					$total = count($data->groups);
+
+					// Event ID array to check duplicate events.
+					$result = "";
+
+					for ($i=0; $i<$total; $i++) {
+						$group = $data->groups[$i]->group;
+						//echo $group->name."<br><br>";
+						//print_r($group);
+						//echo "------------------------------------------------------------------------------------------------------------------------------------------------";
+						//				echo $group->name;
+						//		echo $event->first_date . " - " . $event->last_date . PHP_EOL;
+						//		echo $event->event_instances[0]->event_instance->start . PHP_EOL;
+						//		echo $event->event_instances[0]->event_instance->all_day . PHP_EOL;
+						//		echo var_dump($event->event_instances);
+						//		echo PHP_EOL;
+
+
+						//$group = "";
+						echo "<div class='deck g-b g-b--m--1of2 g-b--l--1of3'>";
+						echo "	<a href=". $group->localist_url ."><div class='media media--medium' style='background-image: url(". $group->photo_url . ")'></div>";
+						echo "  <h4 class='deck-title'>". $group->name . "</h4>";
+						//echo "  <p class='deck-description'>". preg_replace('/((\w+\W*){24}(\w+))(.*)/', '${1}', $group->description_text) ."</p>";
+						echo "  </a>";
+						echo "</div>";
+					}
+
+					//	var_dump($event);
+
+					//die($result);
+					?>
+
+				</div>
+			</div>
+		</div>
+
+		<div class='g-b g-b--s--1of3 g-b--m--1of4'>
+			<hr class='rule mbl mtf'>
+
+			<h3 class='heading--italic heading--m mbl'>Groups</h3>
+
+            <ul>
+    			<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31357">
+    				Addiction &amp; Recovery
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31360">
+    				Affinity Groups
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31376">
+    				Bible Study
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31358">
+    				Care
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31359">
+    				Children
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31365">
+    				Finances
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31366">
+    				High School
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31364">
+    				Marriage &amp; Family
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31367">
+    				Men
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31368">
+    				Middle School
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=32428">
+    				Serve Teams
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31375">
+    				Singles
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31370">
+    				Special Needs
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31371">
+    				Students
+    			</a></li>
+				<li><a href="http://calendar.northlandchurch.net/search/groups?group_types%5B%5D=31372">
+    				Women
+    			</a></li>
+            </ul>
+		</div>
+
+
+		<div class="clear"></div>
+
+
+{embed="_assets/footer"}
+
+
+

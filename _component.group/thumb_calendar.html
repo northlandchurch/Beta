@@ -1,0 +1,20 @@
+{exp:calendar:events date_range_start="today" date_range_end="+8 months" url_title="{embed:sequenced}"}
+	<div class="grid_2 previous_thumbs">
+		<div class="event_mini">
+			 <a href="/calendar/details/{url_title}"><img class="events_mini-img" src="{event_image}"></a>
+					<a href="/calendar/details/{url_title}">
+						<h4>{exp:trunchtml chars="45" inline="..." exact="no"}{event_title}{/exp:trunchtml}</h4>
+					</a>
+			 <div class="border-mini"></div>
+			 <ul>
+			 	<li>{event_first_date format="%F %j"}</li>
+			 	<li>
+					{event_start_time format="%g:%i %A"} - {event_end_time format="%g:%i %A"}
+				</li>
+			 	<li>{exp:strip_html}{event_location}{/exp:strip_html}</li>
+			 </ul>
+		</div>
+		<div class="clear"></div>
+		<div class="event_mini-btm"></div>
+	</div>
+{/exp:calendar:events}

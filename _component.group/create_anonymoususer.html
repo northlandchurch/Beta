@@ -1,0 +1,77 @@
+<?php
+	$salt = '';
+	$screen_name = 'Anonymous Member';
+	$group_id = '10';
+	$temp_username = 'anonymous_'.$this->EE->functions->random('encrypt');
+	$temp_pass = $this->EE->functions->hash("monkey");
+		
+	// Create Anonymous User	
+	$this->EE =& get_instance();
+	$this->ip = $this->EE->input->ip_address();	
+	
+	$data['username']    = $temp_username;	
+	$data['password']    = $temp_pass;
+	$data['ip_address']  = $this->ip;
+	$data['unique_id']   = $this->EE->functions->random('encrypt');
+	$data['join_date']   = $this->EE->localize->now;
+	$data['email']       = 'nomail@northlandchurch.net';
+	$data['screen_name'] = $screen_name;
+	$data['group_id']    = $group_id;
+	$data['accept_messages'] = 'n';
+	$data['accept_admin_email'] = 'n';  
+	$data['accept_user_email'] = 'n';
+	$data['notify_by_default'] = 'n';
+	$data['notify_of_pm'] = 'n';
+	$data['display_avatars'] = 'n';
+	$data['display_signatures']  = 'n';
+	$data['smart_notifications'] = 'n';
+	
+	$this->EE->db->insert('members', $data);
+	
+	$member_id = $this->EE->db->insert_id();
+	
+    // Kee/Mike W Code to add info to both tables
+    $mem_data['member_id'] = $member_id;
+    $mem_data['m_field_id_3'] = ""; // Latitude
+    $mem_data['m_field_id_4'] = ""; // Longitude
+    $mem_data['m_field_id_5'] = "Worshiper"; // Role
+    $this->EE->db->insert('member_data', $mem_data);
+    // End Custom Code
+	
+	// Log User into ExpressionEngine
+	/*$postdata = http_build_query(
+	    array(
+	        'ACT' => '9',
+	        'RET' => '-2',
+	        'site_id' => '1',
+	        'username' => $temp_username,
+	        'password' => 'monkey',
+	        'auto_login' => '1'
+	    )
+	);
+	
+	$opts = array('http' =>
+	    array(
+	        'method'  => 'POST',
+	        'header'  => 'Content-type: application/x-www-form-urlencoded',
+	        'content' => $postdata
+	    )
+	);
+	
+	$context  = stream_context_create($opts);
+	
+	$result = file_get_contents('http://www.northlandchurch.net/index.php', false, $context);
+	echo $result;*/
+	
+	$json = array();
+	
+	$json['username'] = $temp_username;
+	$json['password'] = 'monkey';
+	
+	// encode array $json to JSON string
+	$encoded = json_encode($json);
+	 
+	// send response back to index.html
+	// and end script execution
+	die($encoded);
+?>

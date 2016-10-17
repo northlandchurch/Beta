@@ -1,0 +1,238 @@
+<?php
+if($_SERVER["REQUEST_URI"] == '/locations/category/lakecounty/')
+{
+header("Location: http://calendar.northlandchurch.net/lakecounty");
+exit;
+}
+if($_SERVER["REQUEST_URI"] == '/locations/category/mountdora/') 
+{
+header("Location: http://calendar.northlandchurch.net/lakecounty");
+exit;
+}
+if($_SERVER["REQUEST_URI"] == '/locations/category/oviedo/') 
+{
+header("Location: http://www.northlandoviedo.net");
+exit;
+}
+if($_SERVER["REQUEST_URI"] == '/locations/category/longwood/') 
+{
+header("Location: http://northlandchurch.enterprise.localist.com/northland_at_longwood_327");
+exit;
+}
+?>
+{embed="_assets/header" htmltitle="{if segment_2 == ''}Northland Locations{/if}{if segment_2 != ''}Northland at {exp:channel:entries channel="locations" dynamic="on"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/navbar" active="locations"}
+
+
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script type="text/javascript">
+	var map;
+
+	function LoadMap() {
+		var mapOptions;
+		mapOptions = {
+			zoom: 2,
+			scrollwheel: false,
+			center: new google.maps.LatLng(20, 18),			
+			mapTypeId: google.maps.MapTypeId.HYBRID,
+			streetViewControl: false,
+			panControl: false,
+			overviewMapControl: false,
+			mapTypeControl: false
+		};
+			
+		var iconF = '{v2-image-asset-url}/icons/map-local.png';
+		{!--var iconF = '{website-assets}/fa-fire.png';--}
+		{!--var iconF = '{website-assets}/christmas174.png';--}
+		var iconG = '{v2-image-asset-url}/icons/map-partner.png';
+		var iconH = '{v2-image-asset-url}/icons/map-house.png';
+		var iconJ = '{v2-image-asset-url}/icons/map-jail.png';
+		
+		
+		map = new google.maps.Map(document.getElementById("map"), mapOptions);			
+
+		{!-- local --}
+		{exp:channel:entries channel="locations"  category="27"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconF});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer">{if entry_id != "21694"}<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='locations/category'}{/exp:low_replace}">{title}</a></h2>{if:else}<h2><a href="{exp:low_replace find="index.php/"}http://www.northlandchurch.net/locations/category/oviedo{/exp:low_replace}">{title}</a></h2>{/if}<img src="/_img/uploads/{location-image}" style="max-width: 200px; float: left; margin-right: 20px"/><div style="float: right; width: 350px">{exp:low_replace find="\n" multiple="yes" regex="yes"}<p>{location-descrip}</p><p>{location-address}{/exp:low_replace}</p></div></div>' });
+			marker{entry_id}.setMap(map);					
+			{if segment_2 == ""}google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );{/if}
+		{/exp:channel:entries}		
+		
+		{!-- house churches --}
+		{exp:channel:entries channel="locations"  category="318"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconH});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer"><h2>{title}</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}<b>Service Time(s): </b>{location-servicetimes}<br><b>Address: </b>{location-address}<br><b>Contact: </b>{location-contact}{/exp:low_replace}</div></div>' });
+			marker{entry_id}.setMap(map);		
+			{if segment_2 == ""}google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );{/if}		
+		{/exp:channel:entries}
+
+		{!-- jail ministry --}
+		{exp:channel:entries channel="locations"  category="317"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconJ});
+			{!--var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer"><h2>{title}</h2><img src="/_img/uploads/{location-image}" style="max-width: 200px; float: left; margin-right: 20px"/><p style="float: right; width: 350px">{exp:low_replace find="\n" multiple="yes" regex="yes"}{location-descrip}</p><p>{location-address}{/exp:low_replace}</p></div>' });--}
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer"><h2>{title}</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}{if location-address}<b>Address: </b>{location-address}{/if}{/exp:low_replace}</div></div>' });
+			marker{entry_id}.setMap(map);		
+			{if segment_2 == ""}google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );{/if}	
+		{/exp:channel:entries}
+		
+		{!-- global --}
+		{exp:channel:entries channel="locations"  category="28"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconG});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer"><h2>{title}</h2><img src="/_img/uploads/{location-image}" style="max-width: 200px; max-height: 200px; float: left; margin-right: 20px"/><p style="float: right; width: 350px">{exp:low_replace find="\n" multiple="yes" regex="yes"}{location-descrip}</p><p>{location-address}{/exp:low_replace}</p></div>' });
+			marker{entry_id}.setMap(map);		
+			{if segment_2 == ""}google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );{/if}	
+		{/exp:channel:entries}
+	}
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	console.log("Before loadmap");
+	LoadMap();
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+});
+</script>
+
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				<h1 class='heading heading--l'>Locations</h1>
+		        <p class='mbxl tss'>
+		        	As a distributed church, Northland connects with individuals and organizations outside its four walls, worshiping and serving together everywhere, every day. 
+		        	While most Northlanders gather at our Central Florida sites, many also gather in house churches, in prisons and online.
+		        	Our global partnerships provide mutual opportunities to connect outside our own cultures and to partner together in building the Kingdom of God.
+		        </p>
+			</div>
+		</div>
+
+
+		<hr class="rule mbl">
+
+		<div class='g'>
+    		<div class='g-b g-b--m--1of1'>
+    			<p class="legend marg-t-5">Map Legend:</p><img src="{v2-image-asset-url}/icons/map-legend.jpg" class="legend marg-b-10"/>
+				<div id="map" style="width: 940px; height: 500px"></div>
+    		</div>
+    	</div>
+
+    	<hr class="rule mbl">
+
+    	<div class='g'>
+    		<div class='g-b g-b--m--2of3'>
+				<h2 class="marg-b-20 large">Locations in Central Florida</h2>
+				
+				{!-- Place Longwood Location at the top --}
+				{exp:channel:entries category="27" channel="locations" entry_id="100"}
+					<div class="location">
+						{if location-url !=""}
+							<h3><a href="{location-url}">{title}</a></h3>
+						{/if}
+						<div class='g-b g-b--m--1of3'>
+							<img src="{image-asset-url}/uploads/{location-image}" class="left" />
+						</div>
+						<div class='g-b g-b--m--2of3'>
+						   	{location-servicetimes}
+							{location-servicesoffered}
+							<p>
+								<a href="{location-maplink}" title="Google Map of {title}">Google Map</a><br />
+							</p>
+							{location-contact}
+						</div>
+					</div>
+					<hr class="rule mbl">
+				{/exp:channel:entries}
+				
+				{!-- All Local Locations, minus Longwood --}
+				{exp:channel:entries category="27" channel="locations" entry_id="not 100" orderby="title" sort="asc"}
+					<div class="location">
+						{if location-url !=""}
+							<h3><a href="{location-url}">{title}</a></h3>
+						{if:else}
+							{if entry_id != "21694"}
+							<h3><a href="{exp:low_replace find='index.php/'}{title_permalink='locations/category'}{/exp:low_replace}">{title}</a></h3>
+							{if:else}
+							<h3><a href="{exp:low_replace find='index.php/'}http://www.northlandchurch.net/locations/category/oviedo{/exp:low_replace}">{title}</a></h3>
+							{/if}
+						{/if}
+						<div class='g-b g-b--m--1of3'>
+							<img src="{image-asset-url}/uploads/{location-image}" class="left" />
+						</div>
+						<div class='g-b g-b--m--2of3'>
+							{if location-servicetimes}
+						   		{location-servicetimes}
+							{/if}
+							{location-servicesoffered}
+							<p>
+								<a href="{location-maplink}" title="Google Map of {title}">Google Map</a><br />
+							</p>
+							{location-contact}
+						</div>
+					</div>
+					<hr class="rule mbl">
+				{/exp:channel:entries}
+			
+				<h2>House Churches</h2>
+						
+				{exp:channel:entries category="318" channel="locations" orderby="title" sort="asc"}
+				<div class="location" name="{entry_id}">
+					<h3>{title}</h3>
+					<div>
+						{if location-descrip}
+							{location-descrip}<br><br>
+						{/if}				
+						{if location-servicetimes}
+					   		<strong>Service Times: </strong>
+					   		{location-servicetimes}<br>
+						{/if}
+						<strong>Where We Worship:</strong>
+						{location-address}<br>
+						
+						<strong>Contact Us -</strong>
+						{location-contact}
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<hr class="rule mbl">
+				{/exp:channel:entries}
+          	</div>
+
+	      	<div class='g-b g-b--m--1of3'>
+	      		<h5><a href="/partners/global/">Global Partners</a></h5>
+
+				<hr class="rule mbl">
+				{exp:channel:entries channel="locations"  category="28" orderby="title" sort="asc"}
+					{title}<br/>
+				{/exp:channel:entries}
+				
+				<hr class="rule mbl">
+				
+				<h5>House Churches</h5>
+				{exp:channel:entries channel="locations"  category="318" orderby="title" sort="asc"}
+					{title}<br />
+				{/exp:channel:entries}
+				
+				<hr class="rule mbl">
+				
+				<h5>Prison Ministries</h5>
+				{exp:channel:entries channel="locations"  category="317" orderby="title" sort="asc"}
+					{title}<br/>
+				{/exp:channel:entries}
+	      	</div>
+	    </div>
+
+	</div>
+</div>
+
+{embed="_assets/footer"}

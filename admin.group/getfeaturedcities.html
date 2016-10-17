@@ -1,0 +1,18 @@
+<?php
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		date_default_timezone_set('America/New_York');
+		
+		mysql_select_db(EE_DB_NAME, $con);
+	
+	$sql="SELECT * FROM onlinefeaturedcities";	
+	
+	$result = mysql_query($sql) or die();
+	while ($row = mysql_fetch_array($result)) {
+		$arr = array("id" => $row['id'], "fullname" => $row['fullname'], "location" => $row['location']);
+		echo json_encode($arr);
+	}
+?>

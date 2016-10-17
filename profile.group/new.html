@@ -1,0 +1,243 @@
+{embed="_includes/html_open"}
+{embed="_includes/header-beta"}
+{embed="_includes/nav"}
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".hideme").hide();
+	//toggle the componenet with class msg_body
+	$(".showme").click(function() {
+		$(this).next(".hideme").slideToggle(500);
+	});
+	$("#bio_count").text(160-$("#bio").val().length);
+	$("#bio").keydown(function(){
+		var text_length = $("#bio").val().length;
+		$("#bio_count").text(160-text_length);
+	})
+})
+</script>
+
+<div id="title-bar">
+		<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}" />
+		<input type="hidden" id="current_email" name="current_email" value="{email}" />
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>{if logged_in && (screen_name!="Anonymous Member")}My Profile{if:else}Login to Edit Your Profile{/if}</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+<div class="container_12">
+		{if logged_in && (screen_name!="Anonymous Member")}
+		{if:else}
+		{exp:member:login_form redirect="profile"}
+		<div class="grid_4">
+			<label class="field" for="">Email</label><input type="text" class="field" id="username" name="username" />
+			<div class="clear"></div>
+			<br>
+			<label class="field" for="">Password</label><input type="password" class="field" name="password" id="password" />
+			
+			<input type="submit" id="login-submit" name="submit" value="Login" />
+			<div id="login-forgot">
+				<p><input type="checkbox" name="auto_login" id="auto_login" value="1" style="margin-bottom: 0px" /> <label class="auto-login" for="auto_login">Auto-login on future visits?</label></p>	
+				<p><a href="{path=prelaunchmain/forgot_password}/">Forgot Your Username or Password?</a></p>
+			</div>	
+		</div>
+		{/exp:member:login_form}
+		{/if}
+		<div class="grid_8">
+			{if logged_in && (screen_name!="Anonymous Member")}
+			{exp:user:edit}
+			<div class="grid_2" style="margin: 0;">			
+				<img src="{photo_url}{photo_filename}" style="width:140px"/></p>
+				<p class="showme"><strong><u>Update Your Photo</u></strong></p>
+				<p class="hideme">
+				<br><input type="file" name="photo_filename" style="width:150px">
+				<br><input type="submit" value="Submit" name="upload_photo"/>
+				<br><br>
+				<input type="submit" name="remove_photo" value="Remove Current Photo?" /></p> 
+			</div>
+			<div class="grid_3">
+				<h3 style="margin-bottom:0;border:none" class="showme">{screen_name}</h3>
+        	    <p class="hideme">
+					First Name: <input id="editfirstnamenew" name="editfirstnamenew" style="width:135px;margin-left:5px"/><br />
+        	   		Last Name: <input id="editlastnamenew" name="editlastnamenew" style="width:135px;margin-left:5px" />
+					<br>
+					<a href='#' id='editEmailClick'><input type="submit" name="submit" value="Submit" /></a>
+				</p>
+				<div class='clear'></div>
+				
+				<h3 style="margin: 10px 0 0 0;border:none" class="showme">{email}</h3>
+        	    <p class="hideme">
+					<input id="editemailnew" name="editemailnew" value="{email}" style="width:205px;" />
+					<a href='#' id='editEmailClick'><input type="submit" name="submit" value="Submit" /></a>
+				</p>
+				{/exp:user:edit}
+				<div class="clear"></div>
+				
+				{if logged_in && (screen_name!="Anonymous Member")}
+				<h3 style="margin: 10px 0 0 0;border:none" class="showme">My Password</h3>
+				<div class="hideme">
+					{exp:user:edit}
+						<div class="profile_subheader">Current password</div><div class='clear'></div><input type="password" name="editcurpassword" 		id="editcurpassword" 	style="width:200px;" />
+						<div class="profile_subheader">New password</div><div class='clear'></div><input 	type="password" name="editnewpassword" 		id="editnewpassword" 	style="width:200px;" />
+						<div class="profile_subheader">Password confirm</div><div class='clear'></div><input type="password" name="editconfirmpassword" 	id="editconfirmpassword"  style="width:200px;" />
+						<div class='clear'></div>
+						<a href='#' id='editPasswordClick'><input type="submit" name="submit" value="Submit" /></a>
+					{exp:user:edit}
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="grid_3">
+			</div>
+			<div class="grid_3">
+				{exp:user:edit}
+				<h3 style="margin-bottom:0;border:none">My Bio</h3>
+				<textarea id="bio" name="bio" maxlength="160" style="width:200px; height:96px; margin-bottom:0; resize: none"/>{bio}</textarea>You have <strong><span id="bio_count"></span></strong> characters remaining.
+				<input type="submit" name="submit" value="Submit" style="float:right" />
+				{/exp:user:edit}
+			</div>
+			<div class="grid_8 marg-t-10" style="margin-left:0;">
+					Your latest
+						<script type="text/javascript">
+						$(document).ready(function(){
+							$("#prayers-filter").change(function(){
+								//$(".class").hide();
+								$(".prayersfiltered").toggle();		
+							});
+							$("#scriptures-filter").change(function(){
+								//$(".class").hide();
+								$(".scripturesfiltered").toggle();		
+							});
+							$("#events-filter").change(function(){
+								//$(".class").hide();
+								$(".eventsfiltered").toggle();		
+							});
+							$("#notes-filter").change(function(){
+								//$(".class").hide();
+								$(".notesfiltered").toggle();		
+							});
+							$("#favorites-filter").change(function(){
+								//$(".class").hide();
+								$(".favoritesfiltered").toggle();		
+							});
+							$("#offsite-filter").change(function(){
+								//$(".class").hide();
+								$(".class").toggle();	
+								$(".Longwood").toggle();		
+								$(".Oviedo").toggle();		
+								$(".Dora").toggle();			
+							});
+
+							$('.event-register').click (function() {
+								var whichID = $(this).attr('id');
+								var targetID = "#"+whichID+" .favorite";
+								var targetURL = $(targetID).attr('href');
+								whichID = whichID.substring(5);
+								registerUserToClass(whichID);
+								$.ajax({
+									success: function(data){
+										$(targetID).text("You're registered");
+									},
+									url: targetURL
+								});		
+								return false;
+							});
+
+						});
+
+						function ToggleNote(id) {
+							$("#" + id).toggle();
+						}
+
+					</script>
+					<input type="checkbox" checked id="prayers-filter"> Prayers &nbsp;&nbsp;<input checked type="checkbox" id="notes-filter"> Notes &nbsp;&nbsp;<input checked type="checkbox" id="comments-filter"> Comments &nbsp;&nbsp; <input checked type="checkbox" id="events-filter"> Events &nbsp;&nbsp;<input checked type="checkbox" id="favorites-filter"> Favorites &nbsp;&nbsp;<input checked type="checkbox" id="scriptures-filter"> Scriptures
+					<ul>
+					{exp:favorites:entries weblog="default_site" orderby="favorites_date" sort="desc" limit="25"}
+						<div class="prayersfiltered">
+							{if channel=="Prayers"}
+							<li>Prayed for <a href="/respond/pray/{entry_id}">{if prayer-name}{prayer-name}{if:else}{author}{/if}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+							{/if}
+						</div>
+						<div class="scripturesfiltered">
+							{if channel=="Liturgy"}
+								<li>Read <a href="/respond/readthebible/{entry_date format='%Y-%m-%j'}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+							{/if}
+						</div>
+						<div class="eventsfiltered">
+							{if channel=="Calendar: Events"}
+								<li>Signed up for <a href="/calendar/details/{url_title}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+							{/if}
+						</div>
+						<div class="favoritesfiltered">
+							{if channel=="Media"}
+								<li>Added <a href="/media/{url_title}">{title}</a> on {favorites_date format="%l, %F %j, %Y"}</li>
+							{/if}
+						</div>
+							{/exp:favorites:entries}
+						<div class="notesfiltered">
+						<?php
+							$member_id_reference = $this->EE->session->userdata('member_id');
+						?>
+							{exp:channel:entries channel="notes" author_id="<?php echo $member_id_reference; ?>" limit="25"}
+								<li>You posted a <a href="javascript:ToggleNote('note_{entry_id}')">note</a> for the sermon series "{service-series}" on {entry_date format="%l, %F %j, %Y"}.</li>
+								<div id="note_{entry_id}" class="profile_note" style="display:none">{notes-note}</div>
+							{/exp:channel:entries}	
+						</div>
+					</ul>
+			</div>
+		</div>
+		<div class="grid_4">
+
+			<div class="pray-side-top2"></div>
+			<div class="pray-side-mid2">
+				<div id="pray-daily-lit2"></div>
+				<p>Get to know God better by praying through Scripture as you rise in the morning, as you reconnect midday and as you rest in the evening.</p> 
+
+				<p><a href="/respond/readthebiblebeta">Click Here</a> to pray through our daily liturgy with other Northlanders. Below are the Scriptures for the liturgy today, <a href="/respond/readthebiblebeta">{current_time format="%F %d, %Y"}</a>.</p>
+				<h3><a href="/respond/readthebiblebeta">Rising</a> <span class="info">(morning)</span></h3>
+
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00"}
+						{if liturgy-sequence=="Morning"}
+						<span>{title}</span> ({liturgy-translation})<br />
+							{exp:trunchtml chars="75"}{liturgy-scripture}{/exp:trunchtml}...<br><br>
+						{/if}
+					{/exp:channel:entries}		
+				</p>
+				<h3><a href="/respond/readthebiblebeta">Reconnecting</a> <span class="info">(midday)</span></h3>
+
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00"}
+						{if liturgy-sequence=="Midday"}
+							<span>{title}</span> ({liturgy-translation})<br />
+							{exp:trunchtml chars="75"}{liturgy-scripture}{/exp:trunchtml}...<br><br>
+						{/if}
+					{/exp:channel:entries}
+				</p>
+				<h3><a href="/respond/readthebiblebeta">Resting</a> <span class="info">(evening)</span></h3>
+
+				<p>
+					{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="no" start_on="{current_time format='%Y-%m-%d'} 00:00"}
+						{if liturgy-sequence=="Evening"}
+						<span>{title}</span> ({liturgy-translation})<br />
+							{exp:trunchtml chars="75"}{liturgy-scripture}{/exp:trunchtml}...<br><br>
+						{/if}
+					{/exp:channel:entries}
+				</p>	
+			</div>
+			<div class="pray-side-btm2"></div>
+		</div>
+		
+		{/if}
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="clear"></div>
+	{/if}
+<div class="clear"></div>
+ 
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

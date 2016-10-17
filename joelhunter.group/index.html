@@ -1,0 +1,113 @@
+{embed="_assets/header" htmltitle="Dr. Joel C. Hunter"}
+{embed="_assets/navbar" active="about"}
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+		{exp:channel:entries channel="staff" url_title="dr_joel_c_hunter" limit="1"}
+				<?php 
+					$name = "{title}";
+					$name = str_replace(' ', '_', $name); //for picture url
+					$fullname = "{title}";
+					$fullname = explode(" ", $fullname);
+					$firstname = "";
+					for($i = 0; $i < count($fullname) - 1; $i++){
+						$firstname = $firstname . $fullname[$i] . " ";
+					}
+					$lastname = array_pop($fullname);
+				?>
+
+				<ul class='breadcrumbs'>
+					<li><a href="../../">Home</a></li>
+					<li><a href="../../about/">About</a></li>
+					<li><a href="../team">Team</a></li>
+				</ul>
+				<div class='g mtl'>
+					<div class='g-b g-b--m--1of4'>
+						<div class='media media--large' style='background-image: url("/_img/uploads/{staff-image}")'></div>
+					</div>
+					<div class='g-b g-b--m--3of4 fr'>
+						<h1 class='heading heading--italic heading--l title'>{if staff-honorific}{staff-honorific} {/if}{title}</h1>
+						<h4 class='heading tcs tsxxs dib'>{staff-title}</h4>
+						<hr class='rule mbl mtf'>
+						{if staff-honorific}
+							<h2 class='heading--italic heading--m mbl'>
+								About {staff-honorific} <?php echo ($lastname);?>
+							</h2>
+						{if:else}
+							<h2 class='heading--italic heading--m mbl'>
+								About <?php echo ($firstname); ?>
+							</h2>
+						{/if}
+						<div class="bio">{staff-bio}</div>
+					</div>
+					<div class='g-b g-b--m--1of4'>
+						<hr class='rule mbl'>
+						{if staff-email}
+						<h2 class='heading--italic heading--m mbl'>
+							Contact 
+							{if staff-honorific}
+								{staff-honorific} <?php echo ($lastname);?>
+							{if:else}
+								<?php echo ($firstname); ?>
+							{/if}
+						</h2>
+
+						<dl class='dictionary'>
+							{if staff-phone}
+						  		<dt class='dictionary-term'>Phone:</dt>
+						  		<dd class='dictionary-definition'>{staff-phone}</dd>
+						  	{/if}
+						  	{if staff-email}
+						  		<dt class='dictionary-term'>Email:</dt>
+						  		<dd class='dictionary-definition'><a href="mailto:{staff-email}">{staff-email}</a></dd>
+						  	{/if}
+						  	{if staff-twitter}<a href="{staff-twitter}"><img src="{image-asset-url}/social/twitter.png" /></a>{/if}
+						  	{if staff-facebook}<a href="{staff-facebook}"><img src="{image-asset-url}/social/fb.png" /></a>{/if}
+						  	{if staff-blog}<a href="{staff-blog}"><img src="{image-asset-url}/social/rss.png" /></a>{/if}
+							{if staff-flickr}<a href="{staff-flickr}"><img src="{image-asset-url}/social/flickr.png" /></a>{/if}
+						</dl>
+						{/if}
+					</div>
+					<div class='g-b g-b--m--1of4'>
+						<hr class='rule mbl'>
+						<h5>CLICK TO ORDER NOW</h5>
+						<iframe 
+							class="shopify-widget"
+							style="display:block;margin: 0 auto;"
+							frameborder="0"
+							scrolling="no"
+							src="//widgets.shopifyapps.com/embed/products/i-dont-do-crazy-anymore?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197"
+							width="160"
+							height="295">
+						</iframe>
+						<hr style="margin-bottom:20px;border-color:#f0f0f0;">						
+						<iframe
+							class="shopify-widget"
+							style="display:block;margin: 0 auto;"
+							frameborder="0"
+							scrolling="no"
+							src="//widgets.shopifyapps.com/embed/products/church-distributed-by-dr-joel-c-hunter?shop=distributed-church.myshopify.com&style=mnml&image-size=compact&destination=checkout&button-bg-color=%23347197"
+							width="160"
+							height="275">
+						</iframe>
+						<hr style="margin-bottom:20px;border-color:#f0f0f0;">
+						<h5>PRESS LINKS</h5>
+						<p class="marg-b-20">
+							<a href="mailto:robert.andrescik@northlandchurch.net">Robert Andrescik, Director of Public Relations</a>.<br />
+							<a href="https://drive.google.com/file/d/0B_Mmr0pQgBWbLVZEQndNYzVsSXM/edit?usp=sharing">Download photo of Dr. Hunter</a>.
+						</p>
+						<h5>OTHER LINKS</h5>
+						<p>
+							<a href="http://www.pastorjoelhunter.com" title="Dr. Hunter's Website.">Dr. Hunter's Website: "Good News in the Public Square"</a><br /><br />
+							<a href="http://en.wikipedia.org/wiki/Joel_Hunter" title="Dr. Hunter's Wikipedia Page">Dr. Hunter's Wikipedia Page</a><br /><br />
+						</p>
+
+					</div>
+				</div>
+
+		{/exp:channel:entries}
+	</div>
+</div>
+
+{embed="_assets/footer" active="about"}
+

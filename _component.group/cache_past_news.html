@@ -1,0 +1,102 @@
+<?php
+require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+$cache			= new KeePHPCache();
+$exp_interval 	= '{embed:expired_at}';					// Expiration interval: minutes
+$request_uri 	= '{embed:file_name}';					// Retrieve a file name as a parameter e.g) /_component/cache_past_news
+// when this page is accessed directly e.g) http://www.northlandchurch.net/_component/cache_past_news
+if ($request_uri == '')
+{
+	$request_uri = $_SERVER['REQUEST_URI'];				// e.g) /_component/cache_past_news
+}
+
+// Get location of cache file (/var/www/ee/new_page_caching/$request_uri/index.html)
+$file = $cache->getRealCacheFilePath($request_uri); 	
+
+// Check if the cache file is expired
+if (!$cache->isCacheExpired($request_uri, $exp_interval))
+{
+	include($file); 		// include cache file
+	echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+}
+else
+{
+	ob_start(); 			// start output buffering
+?>
+<div class="card-row flex-tablet-min">
+	<article class="card card-half">
+		{!-- Most Recent Worship Service --}
+		{!-- 
+		  Media Categories
+		  +----+-----------------------------
+		  | ID | NAME
+		  +----+-----------------------------
+		  | 48 | "Recent Worship Services"
+		  +----+-----------------------------
+		  | 58 | "Live Service"
+		  +----+-----------------------------
+		--}
+		{exp:channel:entries channel="media" orderby="date" sort="desc" category="not 58" category="48" limit="1" disable="member_data|pagination"}
+			<div class="featured-image" style="background-image: url('/_img/uploads/{media-primary}');">
+				<div class="details">
+					<div class="detail-left">
+						<p class="card-title">Latest Service</p>
+					</div>
+					<div class="detail-right">
+						<p class="date">{entry_date format="%F %j, %Y"}</p>
+					</div>
+				</div>
+
+				<img src="/_img/uploads/{media-primary}" class="visually-hidden">
+
+				<a href="/video/{url_title}"></a>
+			</div>
+
+			<div class="copy-container">
+				<h2><a href="/video/{url_title}">{title}</a></h2>
+				<p class="author">by <strong>{media-speaker}</strong></p>
+				<p class="body-copy">{media-description}</p>
+				<a href="/video/{url_title}" class="main-link">View Sermon <span class="icon-arrow-filled"></span></a>
+			</div>
+		{/exp:channel:entries}
+	</article>
+	{!-- Featured Videos --}
+	{exp:channel:entries channel=controller" url_title="featured_video_controller"}
+	{exp:playa:children disable="categories|member_data|pagination"}
+	{if count == 1}
+	<article class="card card-video">
+		<a href="/video/{url_title}">
+			<div class="featured-video" style="background-image: url('/_img/uploads/{media-primary}');">
+				<div class="details">
+					<div class="detail-left">
+						<p class="card-title">{title}</p>
+					</div>
+					<div class="detail-right">
+						<p class="date">{entry_date format="%F %j, %Y"}</p>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="copy-container">
+	{if:else}
+			<div class="thumbnail">
+				<a href="/video/{url_title}">
+					<img src="/_img/uploads/{media-primary}">
+				</a>
+			</div>					
+	{/if}
+	{if count == total_results}
+		</div>
+	</article>
+	{/if}
+	{/exp:playa:children}
+	{/exp:channel:entries}
+</div><!-- /.card-row -->
+<?php
+	$fp = fopen($file, 'w'); 			// open cache file
+	fwrite($fp, ob_get_contents()); 	// create new cache file
+	fclose($fp); 						// close cache file
+	ob_end_flush(); 					// flush output buffered
+	echo "<!-- End of Live contents at " . $request_uri . "... -->";
+}
+?>

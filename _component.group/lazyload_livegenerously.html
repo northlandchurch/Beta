@@ -1,0 +1,92 @@
+<?php
+	require_once("scripts/includes/initialize.php");
+
+	$this->EE->load->library('api');
+	$this->EE->api->instantiate('session');
+	$member_id =  $this->EE->session->userdata('member_id');
+?>
+	
+{exp:channel:entries channel="live_generously_lifehope" status="needsmet" limit="10" offset="{segment_3}" dynamic="off"}		
+	
+<?php
+	$total_needamount = (int){need_1_amount_needed} + (int){need_2_amount_needed} + (int){need_3_amount_needed} + (int){need_4_amount_needed} + (int){need_5_amount_needed};
+   
+    $total_needreceived = (int){total_amount_received};
+    
+    if ($total_needamount > 0) { $total_percentmet = number_format(($total_needreceived / $total_needamount) * 100, 1); }
+    else { $total_percentmet = 0; }
+    
+    if ($total_percentmet > 100) { $total_percentmet = 100; }
+    
+    if ($total_needreceived >= $total_needamount) { $needs_met = true; }
+    else { $needs_met = false; }
+    
+    // Generate text for contributors    		
+	if ($this->EE->session->userdata('member_id') == 0) { $contributed = 0; }
+	else {
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }		
+		mysql_select_db(EE_DB_NAME, $con);
+	
+		$sql = "SELECT * FROM exp_favorites WHERE entry_id={entry_id} AND member_id=" . $member_id;
+		$result = mysql_query($sql) or die(mysql_error());
+
+		if (mysql_num_rows($result) > 0) { $contributed = 1; }
+		else { $contributed = 0; }
+	}
+	
+	{exp:favorites:entry_count entry_id="{entry_id}"}
+		$number_of_contributors = {favorites_count_public};
+	{/exp:favorites:entry_count}
+	
+	$contributors_text = "";
+		
+	if ($contributed == 1) { 
+		if ($number_of_contributors == 1) { $contributors_text = "YOU HELPED"; }
+		else { 
+			if ($number_of_contributors > 2) { $contributors_text = "YOU AND " . ((int)$number_of_contributors - 1) . " OTHERS HELPED"; }
+			if ($number_of_contributors == 2) { $contributors_text = "YOU AND 1 OTHER HELPED"; }
+		}
+	}
+	
+	else {
+		if ($number_of_contributors > 1) { $contributors_text = $number_of_contributors . " PEOPLE HELPED"; }
+		if ($number_of_contributors == 1) { $contributors_text = "1 PERSON HELPED"; }
+	}
+
+								
+?>	
+	
+<div class="need_entry" id="entry_{entry_id}" style="">		
+	<div class="need_completed_header">
+		<h1 style="color: #FFF; margin: 0">$<?php echo $total_needamount; ?> NEED MET</h1>
+		<div class="contributors completed_contributors"><?php echo $contributors_text; ?></div>
+	</div>
+	<div class="need_tinter">						
+		<div class="title" style='margin:0'>{if persons_location}<div style="display:inline; font-weight: 300">{persons_location}</div> - {/if}{description}</div>										
+		<div class="need_info">
+			<ul>
+				{if need_1_description}<li>${need_1_amount_needed} - {need_1_description}</li>{/if}
+				{if need_2_description}<li>${need_2_amount_needed} - {need_2_description}</li>{/if}
+				{if need_3_description}<li>${need_3_amount_needed} - {need_3_description}</li>{/if}
+				{if need_4_description}<li>${need_4_amount_needed} - {need_4_description}</li>{/if}
+				{if need_5_description}<li>${need_5_amount_needed} - {need_5_description}</li>{/if}
+			</ul>
+		</div>
+				
+		{if logged_in}
+			{exp:favorites:saved entry_id="{entry_id}"}
+				{if saved}
+					<div class="clear"></div><div class='thank_you_for_giving'>THANK YOU FOR GIVING!</div><div class='clear'></div>
+				{/if}
+			{/exp:favorites:saved}			
+		{/if}
+		<div class="clear"></div>
+		
+		</div>
+		<div class="clear"></div>
+</div>	
+
+<div class="clear"></div>
+{/exp:channel:entries}	

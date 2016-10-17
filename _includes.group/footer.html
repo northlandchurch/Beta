@@ -1,0 +1,63 @@
+<footer>
+	<div class="contact-information">
+		<div class="container clearfix">
+			<div class="form-section">
+				<h3>Sign up for our Newsletter</h3>
+				<h5>Find out about what's going on in the Northland community in our weekly email.</h5>
+				<form>
+					<input type="email" placeholder="Email Here" class="input-text">
+					<input type="submit" value="submit" class="button-submit">
+				</form>
+			</div>
+			<div class="location-section">
+			{!--
+				Location Entry_IDs
+			  +-----+-----------------------------
+			  |  ID | NAME
+			  +-----+-----------------------------
+			  |  45 | Lake County
+			  +-----+-----------------------------
+			  | 255 | Oviedo
+			  +-----+-----------------------------
+			  | 100 | Longwood
+			  +-----+-----------------------------
+			--}
+			{exp:channel:entries channel="locations" fixed_order="45|255|100" disable="categories|member_data|pagination"}
+				{if count % 2 == 1}
+				<div class="clearfix">
+				{/if}
+					<div class="location">
+						<div class="location-upper">
+							{if location-url !=""}
+							<a class="localist-page" href="{location-url}"></a>
+							{/if}
+							<h4><span class="icon-location-pin"></span>{title}</h4>
+							<p>
+							{location-address}
+							</p>
+						</div>
+						<a href="tel:+1{location-phone}" class="contact-phone">{location-phone}</a>
+					</div>
+				{if count % 2 == 0 OR count == total_results}
+				</div>
+				{/if}
+			{/exp:channel:entries}
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom social-bar">
+		<div class="container clearfix">
+			<ul class="social-links">
+				<li><a href="https://www.facebook.com/northlandchurch" class="icon-facebook"></a></li>
+				<li><a href="https://twitter.com/northlandchurch" class="icon-twitter"></a></li>
+				<li><a href="https://vimeo.com/northlandchurch" class="icon-vimeo"></a></li>
+				<li><a href="https://instagram.com/northlandchurch/" class="icon-instagram"></a></li>
+				<li><a href="https://soundcloud.com/northlandchurch" class="icon-soundcloud"></a></li>
+				<li><a href="https://www.youtube.com/user/NorthlandChurch" class="icon-youtube"></a></li>
+			</ul>
+			<a class="contact-email" href="mailto:hello@northlandchurch.net"><span class="icon-email"></span>hello@northlandchurch.net</a>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/_assets/js/main.js"></script>
+</footer>

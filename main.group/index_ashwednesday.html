@@ -1,0 +1,132 @@
+{embed="responsive/html_open"}
+
+<meta property="og:type" content="blog" /> 
+	<meta property="og:image" content="http://www.northlandchurch.net/_img/northland.jpg" />
+	<meta property="og:title" content="Northland, A Church Distributed" /> 
+	<meta property="og:description" content="We are a congregation of 20,000 focused on building an international community of worshipers. Led by senior pastor Dr. Joel C. Hunter, the church connects thousands of believers worldwide, bringing live, interactive streaming of its weekly services to the Web, Facebook, iPhone and other environments. Northland has several sites throughout Central Florida, as well many house churches and partner ministries around the globe." />
+
+{embed="responsive/header"}
+
+{embed="responsive/nav" active="home"}
+{!-- Login to EE with insite credentials if cookie is stored --}
+{if logged_in}
+{if:else}
+	{exp:member:login_form form_class="insite_ee_login_form"}
+	<input type="hidden" id="username" name="username" />
+	<input type="hidden" name="password" id="password" />
+	<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+	{/exp:member:login_form}
+	
+	<script type="text/javascript">
+	// Log user into EE with insite cookie information
+	$(document).ready(function() {
+		if ($.cookies.get('insite.northlandchurch.userid') && $.cookies.get('insite.northlandchurch.password')) {
+			$(".insite_ee_login_form #username").val($.cookies.get('insite.northlandchurch.userid'));
+			$(".insite_ee_login_form #password").val($.cookies.get('insite.northlandchurch.password'));
+			var values = $(".insite_ee_login_form").serialize();
+			$.ajax({
+				url: '/index.php',
+				type: 'POST',
+				data: values,
+				success: function(data) {	
+					if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+						console.log("Insite->EE Cookie Login Successful");
+						location.reload();
+					}
+					else {
+						console.log("Insite->EE Cookie Login Unsuccessful");
+					}
+				}
+			});
+		}
+	});
+	</script>
+{/if}
+
+<style type="text/css">
+	/* Background color for home only */
+	body {
+		background-color: #EEE;
+	}
+</style>
+
+<!-- loadstorm-34595 -->
+<!-- loadstorm-srv75449 -->
+
+<style type="text/css">
+	/* ---------- ASH WEDNESDAY --- */
+#ashwed-home {
+	background-image: url(/_img/ashwed/bg.png);
+	background-repeat: repeat;
+	border-bottom: 1px solid rgb(88, 0, 100);
+	box-shadow: 0 2px 5px rgb(43, 0, 56);
+}
+#ashwed-foreground {
+	background-image: url(/_img/ashwed/cover.png);
+	margin: 0 auto;
+	height: 300px;
+	width: 1200px;
+	text-align: center;
+}
+#ashwed-joinworship {
+	padding-top: 155px;
+	margin-left: -40px;
+}
+
+</style>
+
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if service_live=="true"}
+		<script type="text/javascript">
+		function UpdateCount(updatetime) {
+			$.get('/scripts/totalgroupsize.txt', function(data) {
+				$('#current-viewers').html('Join with the ' + data + '<br> around the world worshiping with us right now!');
+			});
+
+			if (updatetime) {
+				setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+			}
+		}
+
+
+		$(document).ready(function() {
+			UpdateCount(5000);
+		});
+		</script>
+	{!--	<div class="container_12 liveworship_container">
+			<div class="liveworship_home" onclick="location.href='/worship';" style="cursor:pointer;">
+				<h1>LIVE <span>WORSHIP ONLINE</span> NOW</h1>
+				<h2>Join with the <p id="current-viewers"></p> around the world worshiping with us right now!</h2>
+			</div>
+		</div>--}
+		
+		<div id="ashwed-home">
+			<div id="ashwed-foreground">
+				<div id="ashwed-joinworship">
+					<a href="/worship"><img src="/_img/ashwed/worship-button.png"></a>
+					<h1 style="font-size: 20px; line-height: 25px" id="current-viewers"></h1>
+				</div>
+			</div>
+			<div class="clear"></div>	
+		</div>
+	{if:else}
+		<div id="ashwed-home">
+			<div id="ashwed-foreground">
+				<div id="ashwed-joinworship">
+					<h1 style="margin: 10px 0 0 55px; line-height: 47px;">Join us for worship at 7pm<br>in Longwood, Oviedo, or Online.</h1>
+				</div>
+			</div>
+			<div class="clear"></div>	
+		</div>
+	{/if}
+{/exp:channel:entries}
+
+	<div class="container_12 masters_holder">
+		<div class="grid_8 masters">
+			<div class="home_main">
+				{if service_live=="false"}
+					<h2 class="home_title">Current Series:</h2>
+				{/if}
+				<img src="http://www.northlandchurch.net/_assets/img/v2/series/backtobasics.jpg" alt="Back to Basics: Practical Discipleship" style="max-width:100%;repeat:no-repeat"><br>
+				<div class="home_description">
+					Historically, Lent was a time when the church went <strong>back to basics</strong> 

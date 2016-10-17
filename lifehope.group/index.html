@@ -1,0 +1,52 @@
+<?php
+header("location:http://calendar.northlandchurch.net/group/lifehope");
+exit;
+?>
+
+{embed="responsive/html_open" htmltitle="LifeHope"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>LifeHope</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm">
+		<div class="container_12">
+			<div class="grid_12">
+				<ul class="mininav">
+					{exp:channel:entries channel="LifeHope" orderby="date" sort="asc" dynamic="off"}
+					{if url_title == "home"}
+						<li {if segment_2 == ""}class="active"{/if}{if segment_2 == url_title}class="active"{/if}><a href="{site_url}/lifehope/">{title}</a></li>
+					{if:else}
+						<li {if segment_2 == url_title}class="active"{/if}><a href="{site_url}/lifehope/{url_title}">{title}</a></li>
+					{/if}
+					{/exp:channel:entries}
+					{clear}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="subpage_container">
+	{if segment_2 == ""}
+		<div class="container_12">
+			{exp:channel:entries channel="LifeHope" url_title="home"}
+				{lifehope-body}
+			{/exp:channel:entries}
+		</div>
+	{if:else}
+		<div class="container_12">
+			{exp:channel:entries channel="LifeHope" url_title="{segment_2}"}
+				{lifehope-body}
+			{/exp:channel:entries}
+		</div>
+	{/if}
+</div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

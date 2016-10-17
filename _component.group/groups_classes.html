@@ -1,0 +1,142 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		if ($('#offsite-filter').attr('checked')) {
+		}else{
+			$(".class").hide();	
+			$(".Longwood").show();		
+			$(".Oviedo").show();		
+			$(".Dora").show();
+		}
+		if ($('#longwood-filter').attr('checked')) {
+		}else{
+			$(".Longwood").hide();
+		}
+		if ($('#oviedo-filter').attr('checked')) {
+		}else{
+			$(".oviedo").hide();
+		}
+		if ($('#mountdora-filter').attr('checked')) {
+		}else{
+			$(".mountdora").hide();
+		}
+
+		$("#longwood-filter").change(function(){
+			//$(".class").hide();
+			$(".Longwood").toggle();		
+		});
+		$("#oviedo-filter").change(function(){
+			//$(".class").hide();
+			$(".Oviedo").toggle();		
+		});
+		$("#mountdora-filter").change(function(){
+			//$(".class").hide();
+			$(".Dora").toggle();		
+		});
+		$("#offsite-filter").change(function(){
+			//$(".class").hide();
+			$(".class").toggle();	
+			$(".Longwood").toggle();		
+			$(".Oviedo").toggle();		
+			$(".Dora").toggle();			
+		});
+		$('.event-register').click (function() {
+			
+			var whichID = $(this).attr('id');
+			var targetID = "#"+whichID+" .favorite";
+			var targetURL = $(targetID).attr('href');
+			whichID = whichID.substring(5);
+			registerUserToClass(whichID);
+			$.ajax({
+				success: function(data){
+					$(targetID).text("You're registered");
+				},
+				url: targetURL
+			});		
+			return false;
+		});
+
+	});
+
+</script>
+<?php $count = 0 ?>		
+
+{exp:calendar:events orderby="title" sort="asc" date_range_start="today" date_range_end="+6 months" enable="categories|category_fields" category="382" calendar_id="{embed:the_id}" start_on="{embed:start_settings}" dynamic="off" {if segment_2==""}limit="1"{/if}}
+		<?php
+			$count = "$count" + 1;
+			if ($count == 1){ ?>
+				<h3 style="margin-bottom:5px;">Classes and Studies:</h3>
+				<p>Show meetings at: <input type="checkbox" checked id="longwood-filter"> Longwood &nbsp;&nbsp;<input checked type="checkbox" id="mountdora-filter"> Mount Dora &nbsp;&nbsp;<input checked type="checkbox" id="longwood-filter"> Oviedo &nbsp;&nbsp;<input checked type="checkbox" id="offsite-filter"> Offsite</p>
+				
+			<?php }
+		?>
+		
+{/exp:calendar:events}
+{exp:calendar:events orderby="title" sort="asc" date_range_start="today" date_range_end="+6 months" enable="categories|category_fields" category="382" calendar_id="{embed:the_id}"  start_on="{embed:start_settings}" dynamic="off" {if segment_2==""}limit="1"{/if}}	
+		<div class="class {categories}{category_name}{/categories}">
+			<strong><a href="/calendar/details/{url_title}">{title}</a></strong>
+		
+				{!--{if event_registration}
+					<?php $reg_link='{event_registration}'; $finding_word='northland.ccbchurch'; $finding_word2='e-vent'; $pos=strpos($reg_link, $finding_word); $pos2=strpos($reg_link, $finding_word2); ?>
+					<?php if ($pos2 !== false) { ?>
+						<h5>Purchase Information:</h5>
+						<a href="{exp:strip_html}{event_registration}{/exp:strip_html}"><img src="{v2-image-asset-url}/buttons/ticket-purchase.png" border="0" /></a>
+					<br>
+					<?php } else if ($pos !== false)  { ?>
+						<script type="text/javascript">
+						
+							//alert("{screen_name}");
+							
+						</script>
+						
+						{if logged_in && (screen_name!="Anonymous Member") && (screen_name!="sync")}
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									| You're registered
+								{/if}
+								{if not_saved}
+									| <span class="event-register" id="event{entry_id}">
+									<a class="favorite" href="/_component/favorite-add/{entry_id}/">Register</a></span>
+
+								{/if}
+							{/exp:favorites:saved} 
+						{if:else}
+						    <a class="user-login" href="#login-register-box">Register</a>
+						{/if}
+
+					<?php } else { ?>
+						<!--<br />{event_registration} <br />-->
+					<?php } ?>
+
+				{/if}--}
+				<div style="clear:both"></div>
+				{rules}
+					{if event_has_rules}
+						{if event_never_ends}
+							{event_first_date format="%l"}s			
+						{if:else}
+							{if {event_first_date format="%l"}=={event_last_date format="%l"}}
+								{event_first_date format="%l"}s, {event_first_date format="%F %j"}-{event_last_date format="%F %j"}
+							{if:else}
+								{event_first_date format="%l"}, {event_first_date format="%F %j"}-{event_last_date format="%l"}, {event_last_date format="%F %j"}
+							{/if}
+						{/if} 
+					{if:else}
+						{event_first_date format="%l"}, {event_first_date format="%F %j, %Y"}
+					{/if}
+					 from {if {event_start_date format="%i"}=="00"}
+						{event_start_date format="%g%a"}
+					{if:else}
+						{event_start_date format="%g:%i%a"}
+					{/if}
+					to 
+					{if {event_end_date format="%i"}=="00"}
+						{event_end_date format="%g%a"}
+					{if:else}
+						{event_end_date format="%g:%i%a"}
+					{/if}
+				{/rules}
+				{if event_location}at {event_location}{/if} 
+				<p>{exp:trunchtml chars="350" inline="..."}{exp:strip_html keep='a'}{event_summary}{/exp:strip_html}{/exp:trunchtml}</p>
+		</div>
+		<div class="clear"></div>
+{/exp:calendar:events}

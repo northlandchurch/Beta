@@ -1,0 +1,32 @@
+{exp:channel:entries limit="1"}
+
+<div class="social_share_options" {if embed:anchorbottom == "true"}id="social-sharing"{/if}>
+<!-- {title_permalink} -->
+<!-- {url_title} -->
+
+	{!-- 
+	FB default app id
+	<div class="fb_share">
+		<a class="btn" href="https://www.facebook.com/sharer/sharer.php?u={exp:low_replace find='index.php/'}{title_permalink='{embed:contentchannel}'}{/exp:low_replace}" target="_blank">
+			<i class="fa fa-facebook fa-fw"></i>
+		</a>
+	</div>
+	--}
+	<div class="fb_share">
+		<a class="btn" href="https://www.facebook.com/sharer/sharer.php?u={exp:low_replace find='index.php/'}{title_permalink='{embed:contentchannel}'}{/exp:low_replace}&app_id=112575096276" target="_blank">
+			<i class="fa fa-facebook fa-fw" style="/* font-size: 22px; */"></i>
+		</a>
+	</div>
+
+	<div class="twitter_share">
+		<a class="btn" href="https://twitter.com/intent/tweet?url={exp:low_replace find='index.php/'}{title_permalink='{embed:contentchannel}'}{/exp:low_replace}">
+			<i class="fa fa-twitter fa-fw" style="/* font-size: 22px; */"></i>
+		</a>
+	</div>
+	<div class="email_share">
+		<a class="btn" href="mailto:?to=&subject=Check%20this%20out%20on%20Northland%27s%20Site!&body={exp:low_replace find='index.php/'}{title_permalink='{embed:contentchannel}'}{/exp:low_replace}">
+			<i class="fa fa-envelope fa-fw" style="/* font-size: 22px; */"></i>
+		</a>
+	</div>
+</div>
+{/exp:channel:entries}

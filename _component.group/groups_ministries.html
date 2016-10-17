@@ -1,0 +1,324 @@
+<script type="text/javascript" src="/_assets/js/nacd-class-registration.js"></script>
+
+<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}"	/>
+<input type="hidden" id="ee_email" name="ee_email" value="{email}"	/>
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Ministries and Groups</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_4">
+		{!--<p class="marg-b-20">Welcome! It is Northland's desire that you have everything you need in order to fulfill His calling on your life. Here, you'll learn about the many resources that the church has to offer that will help you to do exactly that. Remember ... you are God's workmanship, created in Christ Jesus to do good works, which God prepared in advance for you to do! (Ephesians 2:10). Questions? Contact the church ({encode="info@northlandchurch.net" title="info@northlandchurch.net"}  or 407-949-4000).</p>
+		<div id="ministry-btns" class="marg-b-20">
+			<a href="/ministries/category/adult"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/adult.jpg" /></a>
+			<a href="/group/student"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/youth.jpg" /></a>
+			<a href="/ministries/category/children"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/children.jpg" /></a>
+			<a href="/ministries/category/familymarriage"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/family.jpg" /></a>
+			<a href="/group/finance"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/finances.jpg" /></a>
+			**<a href="/ministries/category/prayer"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/prayer.jpg" /></a>**
+			<a href="/ministries/category/care"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/care.jpg" /></a>
+			<a href="/ministries/category/special_needs"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/special-needs.jpg" /></a>
+			<a href="/ministries/category/serving"><img src="http://www.northlandchurch.net/_assets/img/v2/ministries/service.jpg" /></a>!--}
+		<p>Christ-centered community takes a variety of forms. Whether it's connecting with others in a large-scale support group at church or joining a small community group of Northlanders near your home, there is a place for you! Find your fit:</p>
+				<ul>
+				<h3 style="margin-bottom:5px;">Search by Category</h3>				
+			<li><input type="checkbox" id="addiction" {if segment_2=="addiction"}checked="checked"{/if} class='filter filter-category'> Addiction</li>
+			<li><input type="checkbox" id="adults" {if segment_2=="adults"}checked="checked"{/if} class='filter filter-category'> Adults</li>
+			<li><input type="checkbox" id="care" {if segment_2=="care"}checked="checked"{/if} class='filter filter-category'> Care</li>
+			<li><input type="checkbox" id="children" {if segment_2=="children"}checked="checked"{/if} class='filter filter-category'> Children</li>
+			<li><input type="checkbox" id="community" {if segment_2=="community" || segment_2 == "new"}checked="checked"{/if} class='filter filter-category'> Community Groups (Small Groups)</li>
+			<li><input type="checkbox" id="conflict" {if segment_2=="conflict"}checked="checked"{/if} class='filter filter-category'> Conflict</li>
+			<li><input type="checkbox" id="college" {if segment_2=="college"}checked="checked"{/if} class='filter filter-category'> College</li>
+			<li><input type="checkbox" id="dinnergroups" {if segment_2=="dinnergroups"}checked="checked"{/if} class='filter filter-category'> Dinner Groups</li>
+			<li><input type="checkbox" id="family" {if segment_2=="family"}checked="checked"{/if} class='filter filter-category'> Family and Marriage</li>
+			<li><input type="checkbox" id="finance" {if segment_2=="finance"}checked="checked"{/if} class='filter filter-category'> Finance</li>
+			<li><input type="checkbox" id="highschool" {if segment_2=="highschool"}checked="checked"{/if} class='filter filter-category'> High School</li>
+			<li><input type="checkbox" id="men" {if segment_2=="men"}checked="checked"{/if} class='filter filter-category'> Men</li>
+			<li><input type="checkbox" id="middleschool" {if segment_2=="middleschool"}checked="checked"{/if} class='filter filter-category'> Middle School</li>
+			<li><input type="checkbox" id="service" {if segment_2=="service"}checked="checked"{/if} class='filter filter-category'> Service</li>
+			<li><input type="checkbox" id="special_needs" {if segment_2=="special_needs"}checked="checked"{/if} class='filter filter-category'> Special Needs</li>
+			<li><input type="checkbox" id="students" {if segment_2=="students"}checked="checked"{/if} class='filter filter-category'> Students</li>
+		</ul>
+		<br>
+		<h3 style="margin-bottom:5px;">Search by Day</h3>
+			<input type="checkbox" id="sunday-filter" class='filter'> Sunday<br>	
+			<input type="checkbox" id="monday-filter" class='filter'> Monday<br>
+			<input type="checkbox" id="tuesday-filter" class='filter'> Tuesday<br>
+			<input type="checkbox" id="wednesday-filter" class='filter'> Wednesday<br>
+			<input type="checkbox" id="thursday-filter" class='filter'> Thursday<br>
+			<input type="checkbox" id="friday-filter" class='filter'> Friday<br>
+			<input type="checkbox" id="saturday-filter" class='filter'> Saturday<p>
+					{!--{embed="_component/assoc_ministries" relatedgroups="{exp:channel:entries channel='calendar_calendars' orderby='title' dynamic='off' category='405' backspace='1'}{entry_id}|{/exp:channel:entries}"}--}
+
+    	
+			<div class="clear"></div>
+	</div>
+	<div class="grid_8" id="group_list">	
+		<style type="text/css">
+			#map-viewer { 
+				width: 100%;
+				height: 400px;				
+				border-width: 1px;
+				border-color: #000;
+				border-style: solid;
+			}
+			#map-bottombar {
+				color:#220;
+				margin: 0 0 10px 0;
+				padding: 5px 0;
+				font-size: 11px;
+				background-color:#EEE;
+				border-style:solid;
+				border-color:#000;
+				border-width: 0 1px 1px 1px;
+				border-radius: 0 0 4px 4px;
+				width: 100%;
+				height: 52px;
+			}
+			#map-bottombar-features	{
+				float: left;
+				margin-left: 8px;
+			}
+			#map-toggle {		
+				float: right;		
+				margin: 1px 8px 0 0;
+			}	
+			#map-highlighted {				
+				background-color: #DDD;
+				margin: 5px 0;
+			}
+			.highlighted_header {
+				padding: 10px 0 0 10px;
+				font-size: 16px;
+				font-color: #000;
+				font-weight: bold;	
+			}
+			.highlighted {
+				padding: 5px 20px;
+			}
+			.highlighted p {
+				padding: 0;
+			}
+			.infoBox {
+				width: 200px;
+				padding: 10px;
+				background-color: #FFF;
+				overflow-x: hidden;	
+				overflow-y: auto;
+			}
+			input[type="checkbox"] {
+				padding: 0px;
+			}
+		</style>
+		<script type="text/javascript" src="/_assets/js/markerclusterer_packed.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="/_assets/js/infobox_packed.js"></script>
+		<script type="text/javascript">
+			var map;
+			var markerCluster;
+			var markersarray = [];	
+			var mapOptions;
+					mapOptions = {
+					zoom: 11,
+					scrollwheel: false,
+					center: new google.maps.LatLng(28.684922, -81.336486),
+					mapTypeId: google.maps.MapTypeId.HYBRID,
+					streetViewControl: false,
+					panControl: false,
+					overviewMapControl: false,
+					mapTypeControl: false					
+					};
+						
+			var infobox_options = {
+				alignBottom: true,
+				pixelOffset: new google.maps.Size(-50, -25)
+				
+			};
+			var infoWindow = new InfoBox(infobox_options);
+			
+			function Filter() {
+				var day_string = "";
+				var category_string = "";				
+				
+				// Days filter										
+				if ($("#monday-filter").attr('checked')) { day_string += ", .Monday"; }
+				if ($("#tuesday-filter").attr('checked')) { day_string += ", .Tuesday"; }	
+				if ($("#wednesday-filter").attr('checked')) { day_string += ", .Wednesday"; }	
+				if ($("#thursday-filter").attr('checked')) { day_string += ", .Thursday";; }	
+				if ($("#friday-filter").attr('checked')) { day_string += ", .Friday"; }	
+				if ($("#saturday-filter").attr('checked')) { day_string += ", .Saturday"; }	
+				if ($("#sunday-filter").attr('checked')) { day_string += ", .Sunday"; }
+				
+				// Categories filter
+				$('.filter-category').each(function() { 
+					if ($(this).attr('checked')) {
+						category_string += ", ." + $(this).attr('id');
+					}
+				});
+				
+				if (day_string == "") { day_string = "*"; }
+				if (category_string == "") { category_string = "*"; }
+				
+				$(".group_entry").hide();
+				
+				// Filter by map area only
+				if ($("#map-filter").attr('checked')) {		
+					var viewportusers_array = FindUsersBoundingBox(map.getBounds()); // Get users that are in current viewport	
+					var id_string = ""; 
+					
+					for (var i = 0; i < viewportusers_array.length; i++) {
+						$("#group_" + viewportusers_array[i]).filter(day_string).filter(category_string).show(); 
+					}							
+				}
+				else {
+					$(".group_entry").filter(day_string).filter(category_string).show();
+				}		
+				if (day_string!="*" || category_string!="*"){
+					if (day_string!="*"){
+						day_results = " on " + day_string.substr(3);
+						day_results = day_results.replace(/\./gi,"");
+						day_results = day_results.replace(/\,/gi," or");
+					}else{ 
+						day_results ="";
+					}
+					if (category_string!="*"){
+						category_results = " for " + category_string.substr(3).replace(/\./gi,"").replace(/\,/gi," or");
+					}else{ 
+						category_results ="";
+					}
+					
+					//$("#rules").text("Results" + category_results + day_results + ".");
+				}
+				// Show viewers on map that fit the filter
+				for (var i = 0; i < markersarray.length; i++) {
+					if ($("#group_" + markersarray[i].getTitle()).is(':visible')) {
+						markersarray[i].setVisible(true);
+					}
+					else {
+						markersarray[i].setVisible(false);
+					}
+				}
+				markerCluster.repaint();	
+			}
+			
+			$(document).ready(function() {				
+				map = new google.maps.Map(document.getElementById("map-viewer"), mapOptions);						
+				
+				markerCluster = new MarkerClusterer(map, [], { zoomOnClick: false, averageCenter: true, gridSize: 15, ignoreHidden: true });		
+				
+				google.maps.event.addListener(map, 'bounds_changed', function() { Filter(); })
+				google.maps.event.addListener(markerCluster, 'click', function(markercluster) { ClusterClicked(markercluster) });
+				google.maps.event.addListener(map, 'zoom_changed', function() { 
+					ClearHighlighted();
+				})
+				google.maps.event.addListener(infoWindow,'closeclick', function(){ ClearHighlighted();  });
+				$(".filter").change(function() { 
+					Filter();
+					ClearHighlighted();				
+				 });
+					
+				markerCluster.addMarkers(markersarray);	
+				$('.group_entry').show();				
+			});
+			
+			function ClearHighlighted() {
+				infoWindow.close();
+				$('#map-highlighted').empty();
+			}
+			
+			function AddMarker(id, lat, lng, infowindowhtml) {
+				if ((lat != 0) && (lng != 0)) {
+					var marker = new google.maps.Marker({position: new google.maps.LatLng(lat,lng), title: id, animation: google.maps.Animation.DROP});		
+					markersarray.push(marker);
+					google.maps.event.addListener(marker, 'click', function() { MarkerClicked(marker); })
+					$('#map-info').append("<div id='" + id + "'>" + infowindowhtml + "</div>");
+				}				
+			}
+			
+			function MarkerClicked(marker) {
+				infoWindow.close();
+				var html_content = "";
+				var title;
+				
+				title = marker.getTitle();
+				html_content = $('#' + title).html();
+				$('#map-highlighted').empty();	
+				$('#map-highlighted').html("<div class='highlighted_header'>Selected Ministry</div><div class='highlighted single'>" + $('#group_' + title).html()  + "</div>");
+				infoWindow.setContent(html_content);
+				
+				infoWindow.setPosition(marker.getPosition());
+				infoWindow.open(map);	
+				$('.infowindow_details').show();
+			}
+			
+			// Event handler for cluster click	
+			function ClusterClicked(markercluster) {
+				var cluster_markers = [];
+				var title;
+				var infohtml_content = "";
+				var highlighthtml_content = "";
+				infoWindow.close();
+				
+				cluster_markers = markercluster.getMarkers(); // Get markers managed by cluster
+				//map.panTo(markercluster.getCenter());
+				
+				highlighthtml_content += "<div class='highlighted_header'>Selected Ministries</div>";
+				for (var i = 0; i < cluster_markers.length; i++) {	
+					title = cluster_markers[i].getTitle();
+					infohtml_content += "<div>" + $('#' + title).html() + "</div>";
+					highlighthtml_content += "<div class='highlighted multiple'>" + $('#group_' + title).html() + "</div>";
+				}				
+				
+				infoWindow.setContent(infohtml_content);
+				$('#map-highlighted').html(highlighthtml_content);
+				$('.infowindow_details').hide();
+
+				infoWindow.setPosition(markercluster.getCenter());
+				infoWindow.open(map);
+			}
+		
+			// Find users within a certain latlngbounds (i.e. the current map view)
+			function FindUsersBoundingBox(latlngbounds) {			
+				// latlngbounds is a google.maps.LatLngBounds object
+				var currentviewportidsArray = [];				
+				for(var i = 0; i < markersarray.length; i++) {					
+					if (latlngbounds.contains(markersarray[i].getPosition())) {
+						if (markersarray[i].getTitle()) {
+							currentviewportidsArray.push(markersarray[i].getTitle().toString());
+						}
+					}			
+				}
+				return currentviewportidsArray;
+			}	
+		</script>
+		
+		<div id="map-info" style="display:none"></div>
+		<div id="map-viewer"></div>
+		<div id="map-bottombar">
+			<div id="map-bottombar-features">
+				&nbsp;&nbsp;&nbsp;<b>New Map Features: </b><br>
+				- <i>Search by location.</i> Select button on right. Move and zoom the map.<br>
+				- <i>Select a marker above.</i> See the group(s) at that location.				
+			</div>
+			<div id="map-toggle"><input type="checkbox" id="map-filter" class='filter' style="margin: 0"> Only Show Groups Within Above Map Area</div>
+		</div>
+		<div class="clear"></div>			
+		<div id="map-highlighted" class='assoc_groups'></div>			
+		
+		{embed="_component/assoc_groups" relatedgroups="{exp:channel:entries channel='calendar_calendars' orderby='title' dynamic='off' category='402|405' backspace='1'}{entry_id}|{/exp:channel:entries}"}
+
+	
+	</div>
+
+	
+	
+</div>
+<div class="clear marg-b-60">&nbsp;</div>

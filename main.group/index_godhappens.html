@@ -1,0 +1,292 @@
+{embed="_includes/html_open"}
+
+<?php 
+	$isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+	$isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+	if (isset($_SERVER['HTTP_REFERER'])){
+		$fromMobile = (bool) strpos($_SERVER['HTTP_REFERER'],'iphone');
+	}else{
+		$fromMobile = FALSE;
+	}
+	if ($isiPhone==TRUE && $fromMobile==FALSE){
+		header('Location: http://northlandchurch.net/iphone'); exit();	
+	}
+?>
+
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<script type="text/javascript">
+var liveService = "FALSE";
+
+$(document).ready(function(){
+	$("#home-worship-vid, #live-stream").click(function(){
+		swfobject.embedSWF(player, "home-vid", "620","367", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+	});
+	
+});
+</script>
+
+
+
+
+{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+	 {if media-live=="Yes"}
+	<div>
+{/exp:channel:entries}	
+	<div class="container_12">
+		<div id="home-live-vid">
+			{exp:channel:entries dynamic="off" channel="media" orderby="date" category="58" show_future_entries="yes" sort="desc" limit="1"}
+		{if media-live=="Yes"}
+			
+				<script type="text/javascript">	
+				var liveService = "TRUE";
+					var flashvars_home = <?php echo '{'; ?>swfLocation:"{flash-asset-url}/",
+						page:location.href,
+						file:"http://hwcdn.net/r3c3x6t9/fls/308344-nacd_basic2.smil",
+						titleLabel:'{media-series}',
+						title:'{title}',
+
+						type:'highwinds',
+						autostart:'true',
+						stretching:'exactfit',
+						image:'/_img/uploads/{media-primary}',
+
+						plugins:'gapro-1',
+						'gapro.accountid':'UA-966214-1',
+						'gapro.trackstarts':'true',
+						'gapro.trackpercentage':'true',
+						'gapro.tracktime':'true',
+						subtitle:'{media-speaker}'<?php echo '}'; ?>;
+				</script>
+		{/if} 
+			
+					{exp:channel:entries dynamic="off" channel="media" orderby="date" category="48" sort="desc" limit="1" offset="0"}
+						<script type="text/javascript">	
+							if (liveService!="TRUE"){
+							var flashvars_home = <?php echo '{'; ?>swfLocation:"{flash-asset-url}/",
+								page:location.href,
+								file:"http://hwcdn.net/r3c3x6t9/fms/service/{entry_date format='%y%m%d'}_service_stream.mp4",
+								titleLabel:'{media-series}',
+								title:'{title}',
+								type:'highwinds',
+								autostart:'true',
+								stretching:'exactfit',
+								image:'/_img/uploads/{media-primary}',
+		
+								plugins:'gapro-1',
+								'gapro.accountid':'UA-966214-1',
+								'gapro.trackstarts':'true',
+								'gapro.trackpercentage':'true',
+								'gapro.tracktime':'true',
+								subtitle:'{media-speaker}'<?php echo '}'; ?>;
+							}
+							var params_home = <?php echo '{'; ?>allowscriptaccess:"always",allowfullscreen:"true"<?php echo '}'; ?>;
+							var attributes_home = <?php echo '{'; ?>id:'flashObject_home', name:'flashObject',bgcolor:'0x000000'<?php echo '}'; ?>;
+							var player="{flash-asset-url}/player.swf"
+								
+							</script>
+							
+				{/exp:channel:entries}
+		{/exp:channel:entries}
+						
+						<div id="video-player">
+							<div id="home-vid"></div>
+						</div>
+					</div>
+
+					<script type="text/javascript">	
+											if (liveService!="TRUE"){
+											var flashvars_home = <?php echo '{'; ?>swfLocation:"{flash-asset-url}/",
+												page:location.href,
+												file:"http://hwcdn.net/r3c3x6t9/fms/service/{entry_date format='%y%m%d'}_service_stream.mp4",
+												titleLabel:'{media-series}',
+												title:'{title}',
+												type:'highwinds',
+												autostart:'true',
+												stretching:'exactfit',
+												image:'/_img/uploads/{media-primary}',
+
+												plugins:'gapro-1',
+												'gapro.accountid':'UA-966214-1',
+												'gapro.trackstarts':'true',
+												'gapro.trackpercentage':'true',
+												'gapro.tracktime':'true',
+												subtitle:'{media-speaker}'<?php echo '}'; ?>;
+											}
+											var params_home = <?php echo '{'; ?>allowscriptaccess:"always",allowfullscreen:"true"<?php echo '}'; ?>;
+											var attributes_home = <?php echo '{'; ?>id:'flashObject_home', name:'flashObject',bgcolor:'0x000000'<?php echo '}'; ?>;
+											var player="{flash-asset-url}/player.swf"
+
+											</script>
+
+							<!-- Channel entries go here -->
+
+										<div id="video-player">
+											<div id="home-vid"></div>
+										</div>
+									</div>
+
+
+
+
+						
+						<div id="focused_godhappens" <?php if ($isiPad==TRUE) { ?> style='';<?php } ?>>
+							<div class="container_12">
+								<div class="grid_5" style="float:right; margin-left: 45px">
+									<br>
+									<div id="home-godhappens-caption_live">
+                                	
+										<p class="grid_4" style="color: #ffd;text-shadow: 1px 1px 0 #000;padding-top:95px;">
+											Sometimes our greatest act of faith is to simply do nothing, because God is moving, independent of our efforts or failures. This mini-series represents an opportunity to breathe deeply, to rest in the arms of Jesus and focus on the character of God and the total adequacy of the Spirit for our everyday lives.
+										</p>
+									</div>
+								</div>
+								<div class="grid_6" style="float:left;height:300px;">
+										<div>
+											<div id="live-worship-text" style="color:black; margin-top:20px;"><h1>Worship is LIVE</h1></div>
+                                    	
+                                    	
+                                    	
+                                    	
+													<a class="live-nav-links" id="login" href="http://insite.northlandchurch.net/insiteworship/worship.do"></a><p class="live-nav-text-godhappens">Login to worship with the Northland community</p>
+													<div class="clear"></div>
+													<a class="live-nav-links" id="video-only" href="/video-only"></a><p class="live-nav-text-godhappens">View the video-only stream</p>
+													<div class="clear"></div>
+													<a class="live-nav-links" id="facebook" href="http://apps.facebook.com/northlandchurch/"></a><p class="live-nav-text-godhappens">Connect with Facebook friends in our worship app</p>
+													<div class="clear"></div>
+													<a class="live-nav-links" id="mobile" href="http://www.northlandchurch.net/iphone"></a><p class="live-nav-text-godhappens">Connect from your mobile device</p>
+													<div class="clear"></div>
+													<a class="live-nav-links" id="spanish" href="http://www.northlandchurch.net/espanol"></a><p class="live-nav-text-godhappens">En español</p>
+													<div class="clear"></div>
+                                    	
+                                    	
+                                    	
+									<?php if (!$isiPad==TRUE) { ?>
+                                	
+									<?php }else{ ?>
+										<div style="float:right;padding-top:90px">
+											<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
+							   				<video src="http://174.129.245.138:1935/live/iphonemed/playlist.m3u8" width="620" height="352" controls preload></video>
+										</div>
+										<div style="clear:both"></div>
+                                	
+									<?php } ?>
+
+										</div>
+								</div>
+								
+							
+							</div>
+							<div class="clear"></div>
+						</div>
+	
+ {if:else} 
+
+<div id="home-godhappens-bg-long">
+<div class="container_12">
+	<div class="grid_12">
+		<div class="clear"></div>
+		<img src="/_img/series/godhappens-logo.png" style="float:left;margin:35px 0 0 0;">
+		<div id="home-godhappens-caption">
+			<p style="color: #ffd;text-shadow: 1px 1px 0 #000;padding-top:145px;padding-left:20px;padding-right:10px;">
+				Sometimes our greatest act of faith is to simply do nothing, because God is moving, independent of our efforts or failures. This mini-series represents an opportunity to breathe deeply, to rest in the arms of Jesus and focus on the character of God and the total adequacy of the Spirit for our everyday lives.
+			</p>
+			<br>
+			<p id="home-godhappens-caption-last"><strong>Last week's message</strong>
+			{exp:weblog:entries weblog="media" limit="1"}
+				<img style="width: 90px; float: left; margin-right: 10px" src="/_img/uploads/makingroomforredemption_thumb.jpg">
+			{/exp:weblog:entries}
+			<br>
+			{exp:weblog:entries weblog="media" category="48" dynamic="off" limit="1"}		
+				<a href="http://www.northlandchurch.net/media/bad_relationships_good_example/" >{title}</a><br />
+				<span>{media-speaker}</span><br></p><br>
+			{/exp:weblog:entries}
+		</div>
+	</div>
+
+
+	<div class="clear"></div>	
+
+</div>
+		
+
+{/if}
+	
+
+</div>
+
+
+<!--<div class="container_12">	
+	
+	<div id="home-bottom">	
+		<div class="grid_4">
+			<p><span> ABOUT THE SERIES</span></p>
+			<div class="last-week-box">
+				<p>There are all kinds of appetites and habits that falsely govern our lives, and it’s time to be set free. <br /><a href="/series/freedom_begins_with_christ/">Explore this series</a></p>
+			</div>
+		</div>
+		
+		<div class="grid_4">
+			<p><span>LAST WEEK'S MESSAGE</span></p>
+			<div class="last-week-box">
+				{exp:channel:entries channel="media" limit="1"}
+					<a href="http://www.northlandchurch.net/media/category/worship_service/"><img src="/_img/uploads/freedom.jpg"></a>
+				{/exp:channel:entries}
+				{exp:channel:entries channel="media" category="48" dynamic="off" limit="1"}		
+					<p><a href="http://www.northlandchurch.net/media/category/worship_service/">{title}</a><br />
+					<span class="home-info">{media-speaker}</span><br></p><br>
+				{/exp:channel:entries}
+			</div>	
+		</div>-->
+		
+		<!--<div id="christmas-schedule">
+			<p><span>CHRISTMAS EVE VIDEO</span></p>
+			<div class="last-week-box">
+					<a href="http://www.northlandchurch.net/media/the_actual_reality/"><img src="{v2-image-asset-url}/home/advent/christmas-schedule.jpg"></a>
+					<p><a href="http://www.northlandchurch.net/media/the_actual_reality/">Click here to watch our Christmas Eve worship service</a><br />
+			</div>	
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+</div>	-->
+
+
+
+
+<div class="container_12">
+
+	
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-worshiponline.png" />
+		<p>We gather for worship Saturdays at 5 p.m., Sundays at 9 a.m., 11 a.m. &amp; 5 p.m. and Mondays at 7 p.m. (EDT). We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a> and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.</p>
+		<p><a href="http://www.northlandchurch.net/locations/category/online/">We also get together for LIVE worship online.</a></p>
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-getconnected.png" />
+		<p>There are countless ways to connect with others at Northland. Here are some great places to start:</p>
+		<p>
+			<a href="http://www.northlandchurch.net/classes/">Take a class</a>.<br />
+			<a href="http://www.northlandchurch.net/serve/northland/">Serve at Northland</a>.<br />
+			<a href="http://www.northlandchurch.net/serve/local/">Serve in the community</a>.
+		</p>
+	</div>
+
+	<div class="grid_4 question">
+		<img src="{v2-image-asset-url}/home/hdr-happeningnow.png" />
+		{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="4"}
+		<p>
+			<a href="{happening-link}" title="{happening-description}">{title}</a><br />
+			{happening-description}
+		</p>
+		{/exp:channel:entries}
+	</div>
+</div>
+<div class="clear"></div>
+{embed="_includes/footer"}
+<div class="clear"></div>
+{embed="_includes/html_close"}

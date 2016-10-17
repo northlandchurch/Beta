@@ -1,0 +1,146 @@
+{embed="_assets/header" htmltitle="Volunteer at Northland, A Church Distributed"}
+{embed="_assets/navbar" active=""}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.js"></script>
+
+<style type="text/css">
+</style>
+<script type="text/javascript">
+$(document).ready( function() {
+
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true,
+	"gutter":20
+  });
+  
+
+});
+</script>
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				<h1 class='heading heading--l'>Volunteer</h1>
+				<p class='mbxl tss'>
+					Every week hundreds of people volunteer to serve their Northland family by meeting the practical needs of our congregation.
+				<br>Below are current needs for service at our locations.
+				</p>
+			</div>
+		</div>
+<!--    </div>
+</div>
+<div class='row--inverted'>
+	<div class='cell well'>	-->
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				
+				<div id="serve-today"></div>
+				<div id="respond-serve-contain">
+					<div class="respond-serve-sites grid">
+						<div class="grid-sizer"></div>
+{exp:channel:entries channel="opportunities|serve_opportunities" orderby="date" sort="desc" limit="1000000" dynamic="off"}
+	{if channel=="Opportunities"}
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} volunteeropportunity grid-item serve" id="serve{entry_id}">
+		{!-- Which Location --}
+		<div class="respond-serve-marker heading--s">
+			{categories}
+				<span>{if category_id == "455"}Longwood{/if}
+				{if category_id == "457"}Mount Dora{/if}
+				{if category_id == "456"}Oviedo{/if}</span>
+			{/categories}
+		</div>
+		
+		<h2 class="heading heading--m">{title}</h2>
+		
+
+		
+		<div class="clear"></div>
+		
+		<p class="tss">{desc}</p>
+		<p class="tss">{commitment}</p>
+		
+		<div class="respond-serve-count">
+			{!-- Display amount of people needed --}
+			{if people}
+				<h3 class="heading heading--s">{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+			{/if}
+		</div>
+		
+		<div class="respond-serve-fave">
+			<a class="btn mbxl" href="#" onclick="openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">Sign Me Up</div></a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	{/if}
+	{if channel=="Serve Opportunities"}
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} serveopportunity grid-item serve" id="serve{entry_id}">
+		<h2 class="heading heading--m">{title}</h2>
+		
+		<div class="clear"></div>
+		
+		<div class="tss">{serve-desc}</div>
+		<div class="tss">{serve-commitment}</div>
+
+		<div class="respond-serve-count">
+			{!-- Display amount of people needed --}
+			{if serve-people}
+				<h3 class="heading heading--s">{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+			{/if}
+			<div class="respond-serve-fave">
+				<a class="btn mbxl" href="#" onclick="openCCBFormServe('{serve-ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">SIGN ME UP</div></a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	{/if}
+{/exp:channel:entries}
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Sidebar -->
+			<div class='g'>
+				<div class="g-b g-b--m--1of3">
+					<div class="serve-side-mid">
+						<p style="font-size:18px;line-height:20px;padding-bottom:0">Need help signing up or have questions about volunteering?<br><br> We'd love to help -  <a href="mailto:volunteer@northlandchurch.net">volunteer@northlandchurch.net</a>.</p>
+					</div>
+
+					<div class="serve-side-mid">
+						<h2>Ways to Serve</h2>
+						<p>There are many opportunities to serve at Northland, in your local community, and around the world. Click through the buttons below to start serving others.</p>
+						{if segment_1 != "volunteer"}
+							<a href="/volunteer"><div class="serve-option"><img src="http://www.northlandchurch.net/_assets/img/v2/icons/compass.png"> <p>Volunteer at Northland</p></div></a>
+						{/if}
+						<a href="http://www.somedayistoday.net/"><div class="serve-option"><img src="http://www.northlandchurch.net/_assets/img/v2/icons/plane.png"> <p>Serve Globally</p></div></a>
+						<a href="http://globalmediaoutreach.com/about/our-team#join"><div class="serve-option"><img src="http://www.northlandchurch.net/_assets/img/v2/icons/computer.png"> <p>Serve Online</p></div></a>
+						<a href="/volunteer/disaster_response"><div class="serve-option"><img src="http://www.northlandchurch.net/_assets/img/v2/icons/cross.png"> <p>Disaster Response</p></div></a>
+
+					</div>
+					<div class="serve-side-mid">
+						<h2>Serve Community</h2>
+						<p>As part of the Central Florida community we want to be more than a few buildings. We want to move out from these walls and into the streets and serve the greater needs of our communities.</p>
+						<a href="/volunteer/community/"><div class="serve-option"><p>Local Service Opportunities</p></div></a>
+						<a href="/partners/local/"><div class="serve-option"><p>Local Service Partners</p></div></a>
+					</div>
+					<div class="serve-side-mid">
+						<h2>Serve Globally</h2>
+						<p>Every year Northland sends hundreds of people around the globe to intersect with God's grand plan, have life-changing experiences and serve our world and the people in it.</p>
+						<a href="http://www.somedayistoday.net/trip"><div class="serve-option"><p>Go on a Distributed Journey</p></div></a>
+						<a href="/partners/global/"><div class="serve-option"><p>Global Church Partners</p></div></a>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	</div>
+</div>
+	
+<div class="clear"></div>
+
+
+
+{embed="_assets/footer"}
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>

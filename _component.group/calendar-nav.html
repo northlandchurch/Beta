@@ -1,0 +1,63 @@
+<table id="calendar-nav">
+<?php
+if (isset($_GET['next'])) {
+	$month = $_GET['month'] + 1 ;
+	$year= $_GET['year'];
+	if($month > 12) {
+		$month = 1;
+		$year++ ;
+	}
+
+	$cur_date = mktime(0,0,0,$month,1,$year);
+
+} elseif (isset($_GET['prev'])) {
+
+	$month = $_GET['month'] - 1;
+	$year= $_GET['year'];
+	if($month < 1 ) {
+		$month = 12;
+		$year-- ;
+	}
+
+	$cur_date=mktime(0,0,0,$month,1,$year);
+
+} else {
+	$cur_date=mktime();
+	$year=date('Y',$cur_date);
+	$month=date('m',$cur_date);
+	$cur_date = mktime(0,0,0,$month,1,$year);
+}
+
+$month_name = date('F', $cur_date);
+$week_days = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+
+echo "<tr class=\"month\"><td colspan=\"7\">$month_name $year</td></tr>";
+echo '<tr class="days">';
+foreach($week_days as $day) {
+	echo "<td>$day</td>";
+}
+
+echo '</tr>';
+
+$num_of_days = date('t',$cur_date);
+$i = 1;
+$first_day = date('D', $cur_date);
+
+while ($i <= $num_of_days) {
+	echo '<tr class="week">';
+	foreach($week_days as $day) {
+		echo '<td>';
+		if ( (($i == 1) && ($day != $first_day)) || $i > $num_of_days) {
+			$val = '';
+		} else
+			$val = $i++;
+			if($val<10) echo "<a href='http://calendar.northlandchurch.net/calendar/day/$year/$month/0$val'>$val</a></td>";
+			else echo "<a href='http://calendar.northlandchurch.net/calendar/day/$year/$month/$val'>$val</a></td>";
+		}
+	echo '</tr>';
+}
+
+?>
+</table>
+
+<p class="meta" style="font-size:11px;">Click on a date above to see<br> what's happening.</p>

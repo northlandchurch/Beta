@@ -1,0 +1,266 @@
+{embed="_includes/html_open-beta"}
+{!-- Google Maps Javascript --}
+<script type="text/javascript" src="http://www.northlandchurch.net/_assets/js/markerclusterer_packed.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://www.northlandchurch.net/_assets/js/infobox_packed.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		LoadMap(); // Load Google Map when page ready
+	});
+	
+	
+	var map;
+	var markerCluster;
+	var usersArray = [];
+	var infobox_options = {
+		disableAutoPan: false,
+		pixelOffset: new google.maps.Size(-130, -175),
+		closeBoxURL: ""
+	};
+	var infoWindow = new InfoBox(infobox_options);
+		
+	function LoadMap() {
+		var mapOptions;
+			mapOptions = {
+			zoom: 3,
+			scrollwheel: true,
+			center: new google.maps.LatLng(18, 0),
+			mapTypeId: google.maps.MapTypeId.SATELLITE,
+			streetViewControl: false,
+			panControl: false,
+			overviewMapControl: false,
+			mapTypeControl: false,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
+			};
+		
+		map = new google.maps.Map(document.getElementById("map-viewer"), mapOptions);
+		markerCluster = new MarkerClusterer(map, [], { zoomOnClick: false, minimumClusterSize: 3, gridSize: 25 });
+		
+		google.maps.event.addListener(map, 'bounds_changed', function() { UpdateViewport(); })
+		//google.maps.event.addListener(map, 'zoom_changed', function() { infoWindow.close(); })
+		//google.maps.event.addListener(markerCluster, 'click', function(markercluster) { ClusterClicked(markercluster) });
+		
+		
+	}
+	
+	// User info container to store latitude, longitude, and UID. Has functions for returning Google Marker and LatLng objects
+	function UserInfo(uid) {
+		this.uid = uid;
+		this.latlng = new google.maps.LatLng();
+		this.location = "";
+		this.fullname = "";
+		this.role = "";
+		this.avatarurl = "";
+		this.marker = new google.maps.Marker();
+		this.groupsize = 1;
+				
+		this.SetLatLng = function(lat, lng) { 
+			this.latlng = new google.maps.LatLng(lat,lng); 
+			this.marker = new google.maps.Marker({position: this.latlng, title: uid.toString()});
+		}
+		this.SetLocation = function (loc) { this.location = loc; }
+		this.SetFullName = function(name) { this.fullname = name; }
+		this.SetGroupSize = function(size) { this.groupsize = size; }
+		this.GetUID = function() { return this.uid; }
+		this.GetMarker = function() { return this.marker; }
+		this.GetLatLng = function() { return this.latlng; }
+		this.GetLocation = function() { return this.location; }
+		this.GetFullName = function() { return this.fullname; }
+		this.GetGroupSize = function() { return this.groupsize; }
+		this.toString = function() { return "UID: " + this.uid + ", Name: " + this.fullname + ", LatLng: " + this.latlng + ", Location: " + this.location; }	
+	}
+	
+	// Returns UserInfo object for uid from userarray, false on fail
+	function GetUserInfo(uid, userarray) {
+		for (var i = 0; i < userarray.length; i++) {
+			if (userarray[i].GetUID().toString() == uid.toString()) {
+				return userarray[i];
+			}
+		}		
+	}
+	
+	// Returns Marker array from a MarkerIn array
+	function GetMarkers(userarray) {
+		var markersarray = [];		
+		for (var i = 0; i < userarray.length; i++) {
+			markersarray.push(userarray[i].GetMarker());
+		}
+		return markersarray;
+	}	
+	
+	// Event handler, run when user pans/zooms Google Map
+	function UpdateViewport(){
+		var i = 0;		
+		var viewportusers_array;
+		var html_content = "";
+		
+		markerCluster.clearMarkers(); // Update MarkerClusterer
+		markerCluster.addMarkers(GetMarkers(usersArray));
+
+		// Code to add all users within current map viewport to #users-list
+		/* 	
+		viewportusers_array = FindUsersBoundingBox(map.getBounds()); // Get users that are in current viewport
+				
+		while(i < viewportusers_array.length) {
+			html_content += ("<div id='" + viewportusers_array[i] + "'>" + viewportusers_array[i] + "</div>");
+			i++;
+		}	
+		
+		$("#users-list").empty();
+		$("#users-list").append(html_content);
+		*/
+	}	
+	
+	$(document).ready(function() {
+		UpdateMap();
+	});
+	
+	function UpdateMap() {
+		/*$.getJSON('/scripts/worshipersjson.txt', function(data) {
+			usersArray = [];
+		
+			for (i = 0; i < data.length; i++) {
+				if (data[i][0] && data[i][1]) {						
+					if (data[i].length <= 2) { // Is this user logged in?
+						AddMarker(data[i][0], data[i][1], "N/A", 0, "anon", 1); 
+					}
+					else { 
+						AddMarker(data[i][0], data[i][1], data[i][5], data[i][3], data[i][4], data[i][2]);
+					}
+				}
+			}
+			
+			UpdateViewport();
+			
+			$('.notupdatedaddress').each(function() { 
+				var uid = this.id.replace("address", "");
+				for (i = 0; i < usersArray.length; i++) {
+					if (uid == usersArray[i].GetUID()) {
+						if (usersArray[i].GetLocation() != "") {
+							$(this).html(usersArray[i].GetLocation());
+							$(this).removeClass('notupdatedaddress');
+						}
+					}
+				}
+			});
+		});*/
+		
+		$.getJSON('/scripts/admin-getviewers.php', function(data) {
+			usersArray = [];
+		
+			for (i = 0; i < data.length; i++) {
+				if (data[i]['lat'] && data[i]['lon']) {						
+					if (data[i].length <= 2) { // Is this user logged in?
+						AddMarker(data[i]['lat'], data[i]['lon'], "N/A", 0, "anon", 1); 
+					}
+					else { 
+						AddMarker(data[i]['lat'], data[i]['lon'], data[i]['loc'], data[i]['chatid'], data[i]['name'], data[i]['groupsize']);
+					}
+				}
+			}
+			
+			UpdateViewport();
+			
+			$('.notupdatedaddress').each(function() { 
+				var uid = this.id.replace("address", "");
+				for (i = 0; i < usersArray.length; i++) {
+					if (uid == usersArray[i].GetUID()) {
+						if (usersArray[i].GetLocation() != "") {
+							$(this).html(usersArray[i].GetLocation());
+							$(this).removeClass('notupdatedaddress');
+						}
+					}
+				}
+			});
+		});
+		
+		setTimeout("UpdateMap()", 5000);
+	}
+		
+	// Adds MarkerInfo object to usersArray and adds marker to map with event handlers
+	function AddMarker(lat, lng, loc, uid, fullname, groupsize) {	
+		var flag = 0;
+		var i = 0;
+		/*while (i < usersArray.length) {
+			if (uid == usersArray[i].uid) {	
+				flag = 1;
+			}			
+			i++;
+		}*/
+		if (flag == 0) {
+			if (lat != 0 && lng != 0) {	
+				var userInfo = new UserInfo(uid);
+				userInfo.SetLatLng(lat, lng);
+				userInfo.SetLocation(loc);
+				userInfo.SetFullName(fullname);
+				//userInfo.SetAvatarURL(avatarURL);
+				userInfo.SetGroupSize(groupsize);
+							
+				//RemoveMarker(uid); // Remove any other instances of current UID		
+				
+				usersArray.push(userInfo);
+			}
+		}
+	}
+	
+	// Removes marker from map when user leaves
+	function RemoveMarker(uid) {
+		var i = 0;
+		temp_array = usersArray; // Temp array for manipulation before updating actual array	
+		while (i < usersArray.length) {
+			if (uid == usersArray[i].uid) {	
+				temp_array.splice(i,1);			
+				console.log("UID: " + uid + " removed from map");
+			}			
+			i++;
+		}
+		usersArray = temp_array; // Update main array with manipulated array
+	
+		/*try { UpdateViewport(); }
+		catch(err) {}*/
+	}
+	
+	// Find users within a radius of x miles of a lat/lng, returns array with UIDs
+	function FindUsersRadius(lat, lng, radius) {
+		var i = 0;
+		var degrees = (radius / 69).toFixed(2) ; // 69 miles per degree for lat (and lng at equator)
+		var currentusersArray = [];
+				
+		while (i < usersArray.length) {
+			if (Math.abs(usersArray[i].latlng.lat() - lat) <= degrees && Math.abs(usersArray[i].latlng.lng() - lng) <= degrees) {
+			// User is within x radius
+			currentusersArray.push(usersArray[i].uid.toString());
+			}
+			i++;
+		}
+		return currentusersArray;
+	}
+	
+	// Find users within a certain latlngbounds (i.e. the current map view)
+	function FindUsersBoundingBox(latlngbounds) {
+		// latlngbounds is a google.maps.LatLngBounds object
+		var i = 0;
+		var currentusersArray = [];				
+		while (i < usersArray.length) {
+			if (latlngbounds.contains(usersArray[i].latlng)) {
+			// User is within bounding box
+				currentusersArray.push(usersArray[i].uid.toString());
+			}
+			i++;
+		}
+		return currentusersArray;
+	}	
+	
+
+	function InfoWindowClose() {
+		infoWindow.close();
+	}
+	
+	
+</script>
+{!-- End Google Maps Javascript --}
+
+<div id="map-viewer" style="width:1920px;height:1080px"></div>

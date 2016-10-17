@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Northland Church</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/_assets/css/css_prpl.css" type="text/css">
+	<!-- Added to Augment PRPL's base CSS -->
+	<link rel="stylesheet" href="/_assets/css/css_billy_added.css" type="text/css">
+	{embed="_assets/calebcss"}
+</head>
+<body class="template-video">
+{embed="_includes/header"}
+<div class="main-wrapper">
+
+	{!-- MANY --}
+	{if segment_2==""}
+
+		{!--
+		CACHE
+		- Featured Section
+		--}
+		<section id="video-featured-section" class="card-section">
+			<div class="section-tab color-green">
+				<a href="#featured" class="tab-title">Featured</a>
+			</div>
+			<div class="container">
+				<?php
+					require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+					$cache			= new KeePHPCache();
+					$exp_interval 	= 20;									// Expiration interval: minutes
+					$request_uri 	= '/_component/new_past_news';			// Template file that you want to cache
+
+					// Check if the cache file is expired
+					if (!$cache->isCacheExpired($request_uri, $exp_interval))
+					{
+						// Return cached contents by getting the location of cache file (/var/www/ee/new_page_caching/$request_uri/index.html)
+						include($cache->getRealCacheFilePath($request_uri));
+						echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+					}
+					else
+					{
+						// Write content into a cache file and display it
+						echo $cache->writeCacheFile($request_uri);
+						echo "<!-- End of Live contents at " . $request_uri . "... -->";
+					}
+				?>
+			</div><!-- /.container -->
+		</section>
+
+		{!--
+		CACHE
+		- Highlights Section
+		- Stories Section
+		- Series Section
+		--}
+		<?php
+			require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+			$cache			= new KeePHPCache();
+			$exp_interval 	= 200;									// Expiration interval: minutes
+			$request_uri 	= '/_component/new_video_multiple';		// Template file that you want to cache
+
+			// Check if the cache file is expired
+			if (!$cache->isCacheExpired($request_uri, $exp_interval))
+			{
+				// Return cached contents by getting the location of cache file (/var/www/ee/new_page_caching/$request_uri/index.html)
+				include($cache->getRealCacheFilePath($request_uri));
+				echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+			}
+			else
+			{
+				// Write content into a cache file and display it
+				echo $cache->writeCacheFile($request_uri);
+				echo "<!-- End of Live contents at " . $request_uri . "... -->";
+			}
+		?>
+	{!-- ONE --}
+	{if:else}
+		{embed="_component/new_video_single"}
+	{/if}
+
+	{embed="_includes/footer"}
+</div><!-- /.main-wrapper -->
+</body>
+</html>

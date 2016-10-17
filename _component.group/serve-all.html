@@ -1,0 +1,66 @@
+{embed="serve/scripts"}
+{exp:channel:entries channel="serve_opportunities" orderby="date" sort="desc" limit="1000000" dynamic="off"}
+
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories}" id="serve{entry_id}">
+		<div class="respond-serve-tinter">
+			<div class="respond-serve-information">			
+				<h2>{title}</h2>
+				
+				<div class="clear"></div>
+				
+				<p>{serve-desc}</p>
+				<p>{serve-commitment}</p>
+
+				<div class="respond-serve-count">
+					{!-- Display amount of people needed --}
+					{if serve-people}
+						<h3>{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+					{/if}
+					
+					{!-- Display how many signed up --}
+					{exp:favorites:entry_count entry_id="{entry_id}"}
+						{exp:favorites:saved entry_id="{entry_id}"}
+							<?php
+								$favorites_count_public = "{favorites_count_public}";
+								# To show accruate results, remove 1 from saved entries if saved
+								$saved_total = $favorites_count_public - 1;
+							?>
+							{if saved}
+								<?php if ($saved_total=="0") { ?>
+									<h4 class="count">You signed up</h4>
+								<?php } else if ($saved_total=="1") { ?>
+									<h4 class="count">You and 1 other signed up</h4>
+								<?php } else { ?>
+									<h4 class="count">You and <?php print ($saved_total);?> others signed up</h4>
+								<?php } ?>
+							{/if}
+							{if not_saved}
+								<?php if ($favorites_count_public=="0") { ?>
+									<h4 class="count"></h4>
+								<?php } else if ($favorites_count_public=="1") { ?>
+									<h4 class="count">1 person signed up</h4>
+								<?php } else { ?>
+									<h4 class="count">{favorites_count_public} people signed up</h4>
+								<?php } ?>
+							{/if}
+							<div class="serve-number"><?php print ($saved_total);?></div>
+						{/exp:favorites:saved}
+					{/exp:favorites:entry_count}
+				</div>
+				
+				<span class="ccb_link">{serve-ccbForm}</span>
+				
+				<div class="respond-serve-fave">
+						{exp:favorites:saved entry_id="{entry_id}"}									
+							{if saved}
+								<div class="respond-serve-button">I SIGNED UP</div>
+							{if:else}		
+								<a href="#ccbform" onclick="openCCBForm_kee_serve('{serve-ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">SIGN ME UP</div></a>
+							{/if}
+						{/exp:favorites:saved}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+{/exp:channel:entries}

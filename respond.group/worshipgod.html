@@ -1,0 +1,408 @@
+{embed="responsive/html_open" htmltitle="Northland, A Church Distributed"}
+<style>
+	.weekly-readnow{
+		font-size: 32px;
+		line-height: 36px;
+	}
+	.weekly-day-content h1{
+		font-size: 24px;
+	}
+	.below_notes{
+		color:white;
+	}
+	.weekly-day-container h2, .container_12 .worship-left-column h3{
+		font-size:12px;margin-top:0px;text-transform:uppercase;color:white;font-weight:100;border:none
+	}
+</style>
+{embed="responsive/respond-header"}
+{embed="responsive/header"}
+{embed="responsive/nav" active=""}
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#weeklystudy").fancybox({
+		'scrolling': 'auto',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+	});
+	
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'	
+	});
+	
+	$(".weekly-day-content").hide();
+
+	$(".weekly-readnow").click(function() {
+		$(this).siblings(".weekly-day-content").slideToggle(500);
+
+	});
+	$(".btn-weekly-readnow").click(function() {
+		$(this).siblings(".weekly-day-content").slideToggle(500);
+	});
+	
+	var currtime = new Date();
+	var theDay = currtime.getDay();
+	if (theDay==1){
+		$(".day-monday .weekly-day-content").slideToggle(500);
+		$(".day-tuesday").hide();
+		$(".day-wednesday").hide();
+		$(".day-thursday").hide();
+		$(".day-weekend").hide();
+		
+	}
+	if (theDay==2){
+		$(".day-tuesday .weekly-day-content").slideToggle(500);
+		$(".day-wednesday").hide();
+		$(".day-thursday").hide();
+		$(".day-weekend").hide();
+	}
+	if (theDay==3){
+		$(".day-wednesday .weekly-day-content").slideToggle(500);
+		$(".day-thursday").hide();
+		$(".day-weekend").hide();
+	}
+	if (theDay==4){
+		$(".day-thursday .weekly-day-content").slideToggle(500);
+		$(".day-weekend").hide();
+	}
+	if (theDay==5 || theDay==6 || theDay==7){
+		$(".day-weekend .weekly-day-content").slideToggle(500);
+	}
+});
+
+</script>
+
+<?php 
+$nextMonday = strtotime('next monday');
+$weekNo = date('W');
+$weekNoNextMonday = date('W', $nextMonday);
+
+if ($weekNoNextMonday == $weekNo) {
+	$theMonday = strtotime('next monday');
+	$theTuesday = strtotime('next tuesday');
+	$theWednesday = strtotime('next wednesday');
+	$theThursday = strtotime('next thursday');
+	$theFriday = strtotime('next friday');
+	$theSunday = strtotime('next sunday');
+}else{
+	$theMonday = strtotime('last monday');
+	$theTuesday = strtotime('this tuesday');
+	$theWednesday = strtotime('this wednesday');
+	$theThursday = strtotime('this thursday');
+	$theFriday = strtotime('this friday');	
+	$theSunday = strtotime('this sunday');
+}
+    $monday = date("F j", $theMonday); 
+    $tuesday = date("F j", $theTuesday); 
+    $wednesday = date("F j", $theWednesday); 
+    $thursday = date("F j", $theThursday); 
+    $friday = date("F j", $theFriday); 
+    $sunday = date("F j", $theSunday); 
+
+    $monday = "December 23"; 
+    $tuesday = "December 24"; 
+    $wednesday = "December 25"; 
+    $thursday = "December 26"; 
+    $friday = "December 27"; 
+    $sunday = "December 29"; 
+
+?>
+
+<div id="respond-worship">
+	<div class="container_12">
+		<div class="grid_12 marg-b-80">
+			<div id="dove" class="default_hidden"></div>
+			<div id="worship-title">
+				<div class="worship-title-left grid_5">
+					Worship God
+				</div>
+				<div class="worship-title-right grid_4">
+					<span>Glorify God for Who He Is and What He Has Done</span><br>
+					A time is coming and has now come when the true worshipers will worship the Father in Spirit and truth.
+					<em>-Jesus Christ (John 4:23, NIV)</em>
+				</div>
+			</div>
+			
+			<a class="modal" href="#latest-worship"><img id="worship-play" class="default_visible" src="{v2-image-asset-url}/respond/worship/play.png" /></a>
+			
+			<div style="display:none">
+				<div id="latest-worship">
+					<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+					<script src="http://www.google-analytics.com/ga.js"></script>
+					<iframe src="http://player.vimeo.com/video/12695897?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+				</div>
+			</div>	
+			<div class="clear"></div>
+		</div>
+		
+		<div class="container_12">
+			<div id="worship-left-column" class="grid_8">
+				<!--<div id="worship-preparetitle">
+					<p>Dig Deeper: Daily Devotional</p>
+				</div>
+				<div class="clear"></div>
+				<h3 style="font-size:12px">For the week of <?php echo $monday ?>-<?php echo $sunday ?> (<a id="weeklystudy" href="#data">Click here to view the entire study</a>)</h3>
+				<h1 style="text-transform:none;font-size:20px;line-height:28px;margin-bottom:10px;">Expand your worship — extend it into the rest of the week with the following devotional thoughts.</h1>
+				<div class="worship-divider marg-b-5"></div>
+				
+				{exp:channel:entries site="planning" channel="worship-weekly" limit="1"}
+					{if weekly5}
+						<div class="weekly-day-container day-weekend">
+							<div class="btn-weekly-readnow"></div>
+							<h1 class="weekly-readnow">Day 5 - Prepare for Worship</h1>
+							<h2 style="">Posted Friday, <?php echo $friday ?></h2>
+							<div class="weekly-day-content">
+								{weekly5}
+								<p>
+								<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+							</div>
+							<div class="worship-divider marg-b-5"></div>
+						</div>
+						<div class="clear"></div>
+					{/if}
+					{if weekly4}
+						<div class="weekly-day-container day-thursday">
+							<div class="btn-weekly-readnow"></div>
+							<h1 class="weekly-readnow">Day 4</h1>
+							<h2 style="">Posted Thursday, <?php echo $thursday ?></h2>
+							<div class="weekly-day-content">
+								{weekly4}
+								<p>
+								<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+							</div>
+							<div class="worship-divider marg-b-5"></div>
+						</div>
+						<div class="clear"></div>
+					{/if}
+					{if weekly3}
+						<div class="weekly-day-container day-wednesday">
+							<div class="btn-weekly-readnow"></div>
+							<h1 class="weekly-readnow">Day 3</h1>
+							<h2 style="">Posted Wednesday, <?php echo $wednesday ?></h2>
+							<div class="weekly-day-content">
+								{weekly3}
+								<p>
+								<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+							</div>
+							<div class="worship-divider marg-b-5"></div>
+						</div>
+						<div class="clear"></div>
+					{/if}
+					{if weekly2}
+						<div class="weekly-day-container day-tuesday">
+							<div class="btn-weekly-readnow"></div>
+							<h1 class="weekly-readnow">Day 2</h1>
+							<h2 style="">Posted Tuesday, <?php echo $tuesday ?></h2>
+							<div class="weekly-day-content">
+								{weekly2}
+								<p>
+								<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+								
+							</div>
+							<div class="worship-divider marg-b-5"></div>
+						</div>
+						<div class="clear"></div>
+					{/if}
+					{if weekly1}
+						<div class="weekly-day-container day-monday">
+							<div class="btn-weekly-readnow"></div>
+							<h1 class="weekly-readnow">Day 1</h1>
+							<h2 style="">Posted Monday, <?php echo $monday ?></h2>
+							<div class="weekly-day-content">
+								{weekly1}
+								<p>
+								<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+								
+							</div>
+							<div class="worship-divider marg-b-5"></div>
+						</div>
+						<div class="clear"></div>
+					{/if}
+
+				{/exp:channel:entries}
+				
+				
+				
+				<div class="clear"></div>
+				
+				<div style="display:none">
+					<div id="data" style="background-color:#8C2A14;width: 452px;padding: 20px 30px 0 30px;color:white">
+						{exp:channel:entries site="planning" channel="worship-weekly" limit="1" cache="yes"}
+									<h1 class="weekly-readnow">Day 1</h1>
+									<h2 style="">Posted Monday, <?php echo $monday ?></h2>
+									<div class="">
+										{weekly1}
+										<p>
+										<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+
+									</div>
+									<div class="worship-divider marg-b-5"></div>
+
+									<h1 class="weekly-readnow">Day 2</h1>
+									<h2 style="">Posted Tuesday, <?php echo $tuesday ?></h2>
+									<div class="">
+										{weekly2}
+										<p>
+										<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+
+									</div>
+									<div class="worship-divider marg-b-5"></div>
+									
+									<h1 class="weekly-readnow">Day 3</h1>
+									<h2 style="">Posted Wednesday, <?php echo $wednesday ?></h2>
+									<div class="">
+										{weekly3}
+										<p>
+										<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+									</div>
+									<div class="worship-divider marg-b-5"></div>
+									
+									<h1 class="weekly-readnow">Day 4</h1>
+									<h2 style="">Posted Thursday, <?php echo $thursday ?></h2>
+									<div class="">
+										{weekly4}
+										<p>
+										<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+									</div>
+									<div class="worship-divider marg-b-5"></div>
+									
+									<h1 class="weekly-readnow">Day 5 - Prepare for Worship</h1>
+									<h2 style="">Posted Friday, <?php echo $friday ?></h2>
+									<div class="">
+										{weekly5}
+										<p>
+										<a href="http://bible.northlandchurch.net">Read today's daily liturgy</a> or <a href="http://pray.northlandchurch.net">offer prayer, petition or praise</a>.</p>
+									</div>
+									<div class="worship-divider marg-b-5"></div>
+
+						{/exp:channel:entries}
+					</div>
+				</div>-->
+
+
+				<h3 style="font-size:18px;font-weight:300;text-transform:uppercase; padding-top:15px">Last Week's Worship Service</h3>
+					<div class="weekly-player">
+						<!--<h3 style="font-size:14px;font-weight:100;" class="select-videos-from-main">Jump to the sermon from <a href="javascript:LoadSermonA();jwplayer().seek(1934);">Joel Hunter</a> or <a href="javascript:LoadSermonB();">Joel Hunter</a></h3>-->
+						
+						
+						{exp:channel:entries channel="media" category="48" limit="1" dynamic="off" refresh="30"}
+							<div class="media_home_player" id='video{entry_id}'>
+								<div class="jwplayervideo" id="vid{entry_id}">Loading the player...</div>
+								<script type="text/javascript"> 
+								jwplayer('vid{entry_id}').setup({
+									'id': 'vid{entry_id}',
+									'skin' : '/jw/jw54/skins/glow/glow.zip',
+									'width' : '620',
+									'height' : '349',
+									'plugins': {
+								    	'gapro-2':{ accountid: 'UA-966214-1', trackstarts: true, trackpercentage: true, tracktime: true},
+								    	'viral-2':{onpause: false, allowmenu: true, oncomplete: false, functions: 'link, embed', email_subject:'Check our this video from Northland Church', email_footer:'northlandchurch.net'},
+								    	},
+								    'repeat' : 'list',
+								    'modes' : [{
+								           type:'flash',
+										   wmode:'opague',
+								    	   src: '/jw/jw54/player.swf',
+									       config: {
+									    		file: '/media/media-main',
+									    		}
+								    		},
+									    	{ type: 'html5',
+									    	  config:  {
+									    	  		file: 'http://video.northlandchurch.net:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format="%Y"}/{entry_date format="%y%m%d"}_service_pc.mp4/playlist.m3u8'
+									    	  	}
+								    	}]
+                			
+								});
+                				
+									</script>
+																			
+								</script>
+							</div>
+							
+						{/exp:channel:entries}
+					</div>
+				
+				
+			</div>
+			
+			<div class="respond-left-column grid_4" style="margin-top:68px;display:none">
+				<div class="worship-side-mid">
+					<h3 style="font-size:18px;font-weight:300;text-transform:uppercase; padding-top:15px">Last Week's Message</h3>
+					<div class="weekly-player">
+						<!--<h3 style="font-size:14px;font-weight:100;" class="select-videos-from-main">Jump to the sermon from <a href="javascript:LoadSermonA();jwplayer().seek(1934);">Joel Hunter</a> or <a href="javascript:LoadSermonB();">Joel Hunter</a></h3>-->
+						
+						
+						{exp:channel:entries channel="media" category="48" limit="1" dynamic="off" refresh="30"}
+							<div class="media_home_player" id='video{entry_id}'>
+								<div class="jwplayervideo" id="vid{entry_id}">Loading the player...</div>
+								<script type="text/javascript"> 
+								jwplayer('vid{entry_id}').setup({
+									'id': 'vid{entry_id}',
+									'skin' : '/jw/jw54/skins/glow/glow.zip',
+									'width' : '620',
+									'height' : '349',
+									'plugins': {
+								    	'gapro-2':{ accountid: 'UA-966214-1', trackstarts: true, trackpercentage: true, tracktime: true},
+								    	'viral-2':{onpause: false, allowmenu: true, oncomplete: false, functions: 'link, embed', email_subject:'Check our this video from Northland Church', email_footer:'northlandchurch.net'},
+								    	},
+								    'repeat' : 'list',
+								    'modes' : [{
+								           type:'flash',
+										   wmode:'opague',
+								    	   src: '/jw/jw54/player.swf',
+									       config: {
+									    		file: '/media/media-main',
+									    		}
+								    		},
+									    	{ type: 'html5',
+									    	  config:  {
+									    	  		file: 'http://video.northlandchurch.net:1935/vods3/_definst_/mp4:amazons3/nacdvideo/{entry_date format="%Y"}/{entry_date format="%y%m%d"}_service_pc.mp4/playlist.m3u8'
+									    	  	}
+								    	}]
+                			
+								});
+                				
+									</script>
+																			
+								</script>
+							</div>
+							
+						{/exp:channel:entries}
+					</div>
+				</div>
+
+				<div class="worship-side-mid">
+					<h3 style="font-size:18px;font-weight:300;text-transform:uppercase; padding-top:15px">Current Series</h3>
+					<p>This weekend's message is part of the 
+					{exp:channel:entries channel="series" dynamic="on" limit="1"}
+						"{title}" series.</p>
+						<p>{series-description}</p>		
+					{/exp:channel:entries}
+					<div id="worship-series-play">
+						<a href="http://northlandchurch.net/series/"><div id="worship-mini_play"></div></a>
+						<p><a href="http://northlandchurch.net/series/"><strong>View Worship Service Archive</strong></a><br><span class="info"><a href="/media">View All Media</a></span></p>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+
+{embed="_includes/html_close"}

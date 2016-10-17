@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:title" content="{exp:channel:entries channel='microsite' dynamic='on'}{title}{/exp:channel:entries}" />
+<meta property="og:type" content="video.other" />
+<meta property="og:description" content="Live online worship services on Saturday at 5pm, Sunday at 9am, 11am, 5pm, and Monday at 7pm." />
+{exp:channel:entries channel="series" limit="1" cache="yes" refresh="120"}
+<meta property="og:image" content="http://www.northlandchurch.net/_assets/img/v2/series/{series-image}" />
+{/exp:channel:entries}
+
+<meta http-equiv="X-UA-Compatible" content="IE=8" /> 
+<link rel="shortcut icon" href="/_img/favicon.png" />
+<title>{exp:channel:entries channel='microsite' dynamic='on'}{title}{/exp:channel:entries}</title>
+<link rel="stylesheet" type="text/css" media="all" href="/_assets/css/960-12.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/_includes/main.css" />
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript" src="/_assets/js/nacd-global.js"></script>
+<script type="text/javascript" src="/_assets/js/nacd-registration.js"></script>
+{if embed:videometa !=''}{embed:videometa}{/if}
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-966214-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+
+<style type="text/css">
+	body {background:none;}
+	a, a:link, a:visited, a:active, a:hover {color:{embed:colors};}
+	h2 {border-bottom:none;text-transform:uppercase}
+	#header-bar-small {background:{embed:colors};position:fixed;top:0;width:100%;z-index:1000}
+	#header-bar-small h1 span {color:#fff}
+	.nav-shadow {margin-top:4px}
+	#subpage_container {margin-top:40px;margin-bottom:50px}
+	#subpage_container h1, #subpage_container h2, #subpage_container h3 {padding-top:10px}
+	.subpage_header {margin-bottom:20px}
+	ul.mininav {padding-top:20px;float:right;}
+	ul.mininav li {float:left;padding:0 10px;font-size:16px;text-transform:uppercase;}
+	ul.mininav li.active, ul.mininav li:hover {border-bottom:2px solid {embed:colors};padding-bottom:5px}
+	ul.mininav li a {color:#000;text-decoration:none;}
+</style>
+</head>
+
+<body>

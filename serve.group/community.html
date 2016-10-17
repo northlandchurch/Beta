@@ -1,0 +1,216 @@
+{if group_id == '1' OR group_id == '14'}
+
+	{embed="responsive/html_open" htmltitle="Serve Others at Northland, A Church Distributed"}
+	{embed="responsive/respond-header"}
+	{embed="responsive/header"}
+	{embed="responsive/nav" active="getinvolved"}
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		// Finds featured posts and prepends to top
+		$('.452').prependTo('#respond-serve-contain');
+		// Modal
+		$("a.modal").fancybox({
+			'hideOnContentClick': true,
+			'scrolling': 'no',
+			'overlayOpacity': 0.7,
+			'overlayColor': '#303339',
+			'transitionIn': 'fade',
+			'transitionOut': 'fade'
+			
+		});
+		// Favorites module
+		$('.favorite').live("click", function() {		
+			var whichID = "serve" + $(this).attr('id');
+			var targetURL = $("#"+whichID+" .favorite").attr('href');
+			var count = $("#"+whichID+" .count .number").text();
+			var ccbURL = $("#"+whichID+" .ccb_link").text();		
+			
+			// Opens CCB form	
+			window.open(ccbURL,'_blank');
+			
+			// Changes ppl count in real time
+			$.ajax({
+				success: function(data){					
+					$("#" + whichID + " .count").fadeOut('fast', function() {						
+						if (count == "0") {
+							$("#" + whichID + " .count").html("You have signed up");
+						} else if (count == "1") {
+							$("#" + whichID + " .count").html("You and 1 other person have signed up");
+						} else {
+							$("#" + whichID + " .count").html("You and " + parseInt(count) + " other people have signed up");
+						}
+						$("#" + whichID + " .count").fadeIn('fast');
+					});
+					$("#" + whichID + " .respond-serve-button").html("I SIGNED UP TO SERVE");
+					//$("#" + whichID + " .respond-serve-button").fadeOut('fast');			
+				},
+				url: targetURL
+			});		
+			return false;
+		});
+
+		$(".permalink").click(function(e){
+			e.stopPropagation();
+			document.location.href=$(this).attr('href');
+		});
+		
+		$(".liturgy-verse").hide();
+		//toggle the componenet with class msg_body
+		$(".btn-readnow").click(function() {
+			$(this).next(".liturgy-verse").slideToggle(500);
+		});
+		
+		var currtime = new Date();
+		var theHour = currtime.getHours();
+		if (theHour<11){
+			$(".morning").slideToggle(500);
+		}
+		if ((theHour>=11) && (theHour<17)){
+			$(".midday").slideToggle(500);
+		}
+		if (theHour>=17){
+			$(".evening").slideToggle(500);
+		}
+		totalCount = 0;
+		$(".count").each ( function() {
+			totalCount += parseInt ( $(this).val());
+		});
+		$('select[name=ministries]').change(function(){
+			if ($(this).val() != "all") {
+				$(".respond-serve-opp").hide();
+				$("." + $(this).val()).show();
+			}
+			else {
+				$(".respond-serve-opp").show();
+			}
+		});	
+	});
+	</script>
+	
+	
+	<div id="respond-serve">
+		<div class="container_12">
+			<div class="grid_12 marg-b-60">
+				<div id="serve-title">
+					<div class="serve-title-left grid_4">
+						SERVE<br>OTHERS
+					</div>	
+					<div class="serve-title-right grid_5">
+						<span>Meet the needs of the people around you</span><br>
+						Just as the Son of Man did not come to be served, but to serve, and to give his life as a ransom for many. <br><em>-(Matthew 20:28, NIV)</em>
+					</div>
+				</div>
+				<a class="modal" href="#latest-worship"><div id="serve-play" class="default_visible marg-b-60"></div></a>
+				<div style="display:none">
+					<div id="latest-worship">
+						<iframe src="http://player.vimeo.com/video/12696364?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="respond-serve-left" class="grid_8">
+				<div class="respond-serve-select">
+					<select name="ministries">
+							<option value="all">All Ministries</option>
+							{exp:channel:categories channel="community" style="linear"}
+								{if category_name != "Featured"}<option value="{category_id}">{category_name}</option>{/if}
+							{/exp:channel:categories}
+					</select>
+				</div>
+				<div id="ministry_results"></div>
+				
+				<div id="serve-today"></div>
+				<div id="respond-serve-contain">
+					{exp:channel:entries channel="community" orderby="date" sort="desc"}
+						<div class="respond-serve-opp {categories}{category_id} {/categories}" id="serve{entry_id}">
+							<div class="respond-serve-tinter">
+								<h2>{title}</h2>
+								<div class="clear"></div>
+								
+								<p>{desc}</p>
+								<p>{commitment}</p>
+								
+								<div class="respond-serve-count">
+							   		{exp:favorites:entry_count entry_id="{entry_id}"}
+										{if people}<h3>{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>{/if}
+										{if logged_in && (screen_name!="Anonymous Member")}
+											{exp:favorites:saved entry_id="{entry_id}"}
+												{if saved}
+													{if favorites_count_public > "1"}<h4 class="count">I and <span class="number">{favorites_count_public}</span> others have signed up</h4>{/if}
+												{if:else}
+													{if favorites_count_public == "1"}<h4 class="count">1 person has signed up</h4>{/if}
+													{if favorites_count_public > "1"}<h4 class="count"><span class="number">{favorites_count_public}</span> people have signed up</h4>{/if}
+												{/if}
+											{/exp:favorites:saved}
+										{/if}
+							   			<script type="text/javascript">
+							   				$(document).ready(function() {
+							   					var favorites_count_public = "{favorites_count_public}"
+							   				});
+							   			</script>
+							   		{/exp:favorites:entry_count}
+								</div>
+								
+								<span class="ccb_link" style="display:none">{ccbForm}</span>
+								
+								<div class="respond-serve-fave">
+									{if logged_in && (screen_name!="Anonymous Member")}
+										{exp:favorites:saved entry_id="{entry_id}"}
+											{if saved}
+												<div class="respond-serve-button"><a class="favorite favorited" id="{entry_id}">I SIGNED UP TO SERVE</a></div>
+											{if:else}
+												<div class="respond-serve-button"><a class="favorite" id="{entry_id}" href="/_component/favorite-add/{entry_id}/">I WANT TO SERVE</a></div>						
+											{/if}
+										{/exp:favorites:saved}
+									{if:else}
+										<li id="pray-for-li"><a href="/_component/favorite-add/{entry_id}/">Pray for This Person</a></li>
+									{/if}
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					{/exp:channel:entries}	
+				</div>					
+				<div class="clear marg-b-20"></div>
+			</div>
+			
+			<div id="respond-serve-right" class="grid_4">			
+				<div class="serve-side-mid">
+					<div id="ways-to-serve"></div>
+					<p>There are many opportunities to serve at Northland, in your local community, and around the world. Click through the buttons below to start serving others.</p>
+					<a href="/serve/northland/"><div id="serve-btn-northland"></div></a>
+					<a href="/serve/local/"><div id="serve-btn-locally"></div></a>
+					<a href="http://www.somedayistoday.net/trip/"><div id="serve-btn-globally"></div></a>
+					<a href="/ministries/global_media_outreach/"><div id="serve-btn-virtually"></div></a>
+					<a href="/ministries/disaster_response/"><div id="serve-btn-needs"></div></a>
+					
+				</div>
+				{!--}
+				<div class="serve-side-mid">
+					<div id="local-serve"></div>
+					<p>Looking for a way to serve in the next few weeks? Check out the local service events below and start serving.</p>
+					
+					<ul>
+						{embed="_component/events_group" the_id="13001"}
+					</ul>	
+				</div>	
+				{--}
+			</div>	
+			<div class="clear"></div>	
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	
+		
+	<div class="clear"></div>
+	
+	
+	{embed="_includes/footer"}
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	{embed="_includes/html_close"}
+
+{if:else}
+	{redirect="main/index"}
+{/if}

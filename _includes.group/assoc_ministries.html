@@ -1,0 +1,7 @@
+{exp:calendar:events date_range_start="today" date_range_end="2011-12-01" calendar_id="{embed:relatedministries}" dynamic="off"}
+	<li>
+		<a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" id="{event_image}" title="{title}">{exp:trunchtml char="45"}{event_title}{/exp:trunchtml}</a><br />
+		<span class="info"><strong>Date:</strong> {event_start_date format='%l, %F %j, %Y'}</span>
+	</li>
+	
+{/exp:calendar:events}

@@ -1,0 +1,114 @@
+<?php
+	$urlstr = 'http://calendar.northlandchurch.net/api/2/groups?sort=name&pp=100';
+
+	$ch = curl_init($urlstr);
+	curl_setopt( $ch, CURLOPT_HEADER, 0);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+	$localist_groups = curl_exec($ch);
+	curl_close($ch);
+
+	$data = json_decode($localist_groups);
+
+	//Hardcoding a Ministry object for True North Academy, since it is not hosted on Localist
+	$truenorth = (object) array('name' => 'True North Academy', 'localist_url' => 'http://truenorthinternship.net/');
+	$truenorth = (object) array('group' => $truenorth);
+	echo ("<!-- ");
+	var_dump($truenorth);
+	echo (" -->");
+	
+	$added = false;
+	for ($x = 0; $x < count($data->groups); $x++) {
+		if($added == false && strcasecmp ($truenorth->group->name, $data->groups[$x]->group->name) < 0) {
+			$offset = $x;
+			$length = 0;
+			$replacement = "True North Academy";
+			array_splice ($data->groups, $offset, $length, array($truenorth));
+			$added = true;
+		}
+		echo "<!-- " . $x . " " . $data->groups[$x]->group->name . " -->";
+
+		if($x > count($data->groups)) {
+			echo ("uh oh");
+			break;
+		}
+	}
+
+	$TOTAL = count($data->groups);
+	echo "<!-- " . $TOTAL . " -->";
+
+	// Event ID array to check duplicate events.
+	$COLLIMIT = 4; // we want dropdown to be only four columns wide
+	$OFFSET = ceil ($TOTAL / $COLLIMIT); // calculate the offset needed to have *each column* in alphabetical order
+	echo "<!-- " . "OFFSET = " . $OFFSET . " -->";
+	$REMAINDER = ($COLLIMIT*$OFFSET) - $TOTAL;
+	for ($i=$TOTAL; $i<$TOTAL+$REMAINDER;$i++){
+		$data->groups[$i]->group->name = " ";
+	}
+	echo "<!-- ";
+	echo "<table style='width:100%'>";
+	$printed = 0;
+	for ($row = 0; $row < $OFFSET; $row++) {
+		echo "<tr>";
+		for($column = 0; $column < $COLLIMIT; $column++) {
+			$groupname = 'blank';
+			$computed = '';
+			if ($column == 0) {
+				$groupname = $data->groups[$row + ($OFFSET * $column)]->group->name; 
+			}
+			elseif($column == 1) {
+				$groupname = $data->groups[$row + ($OFFSET * $column)]->group->name;
+				$computed = $row + ($OFFSET * $column);
+			}
+			elseif($column == 2) {
+				$groupname = $data->groups[$row + (($OFFSET - 1) * $column) + 1]->group->name;
+				$computed = $row + (($OFFSET - 1) * $column) + 1;
+			}
+			else {
+				$groupname = $data->groups[$row + (($OFFSET - 1) * $column) + 1]->group->name;
+				$computed = $row + (($OFFSET - 1) * $column) + 1;
+			}
+			
+			if($printed >= $TOTAL) {
+				$groupname = 'blank';
+			}
+			echo "<td>";
+			echo " $row $column $computed " . $groupname;
+			echo "</td>";
+			$printed++;
+		}
+			
+		echo "</tr>";
+	}
+	echo "</table>";
+	echo " -->";
+	
+	for($row = 0; $row < $OFFSET; $row++) {
+		echo ("<!-- row $row  -->");
+		for($column = 0; ($row + ($OFFSET * $column)) < ($TOTAL+$REMAINDER); $column++) {
+			$group = '';
+			$computed = '';
+			
+			$group = $data->groups[$row + ($OFFSET * $column)]->group;
+
+			echo "<!-- $row + ($OFFSET * $column)";
+			var_dump($group);
+			echo " -->";
+
+			echo "<li class='minli' data-swiftype-index='false'>";
+			echo ("<!-- i is $row, j is $column, pulled $computed -->");
+
+			if (!isset($group->localist_url)){
+				echo("<a class='minnavlink' href='" . "'>" . $group->name . "</a></li>");
+			}
+			else {
+				echo "<a class='minnavlink' href='" . $group->localist_url . "'>" . $group->name . "</a></li>";
+			}
+			
+
+		}
+	}
+	
+?>
+
+

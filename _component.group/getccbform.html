@@ -1,0 +1,34 @@
+<?php
+	$reg_link = "http://northland.ccbchurch.com/w_form_response.php?form_id=239";
+	$reg_len = strlen($reg_link)-7; 
+?>	
+<?php $show_register=1; ?>{categories}<?php if ('{category_id}'=='41'){ $show_register="{category_id}"; } ?>{/categories}
+<?php
+	$strpos_p = strpos($reg_link,"<p>");
+	if ($show_register==41) {
+		if ($strpos_p===FALSE) {}
+		else { $form_link = substr($reg_link, 3, $reg_len); }
+	} else {
+		if ($strpos_p===FALSE) {}
+		else { 
+			$form_link = htmlentities(substr($reg_link, 3, $reg_len)); 
+		}
+//							$strpos_form_id = strpos($reg_link, "form_id");
+//							$form_link = substr($reg_link, $strpos_form_id+8, 3); 
+	}
+?>			
+<?php if ($show_register==41){ ?>
+	<h5>Purchase Information:</h5>
+	 
+	<a href="<?php if ($strpos_p===FALSE){}else{ echo substr($reg_link, 3, $reg_len); } ?>" target="_blank"><img src="{v2-image-asset-url}/buttons/ticket-purchase.png" border="0" /></a>
+<br>
+<?php } else { ?>
+	<h5>Registration:</h5>
+
+	{if logged_in}
+		<a class="favorite" href="#" onclick="openCCBForm('<?php echo $form_link; ?>')"><img src="{v2-image-asset-url}/buttons/ticket-register.png" border="0" /></a>
+	{if:else}
+		<a class="user-login" href="#login-register-box"><img src="{v2-image-asset-url}/buttons/ticket-register.png" border="0"></a>
+	{/if}
+
+<?php }?>

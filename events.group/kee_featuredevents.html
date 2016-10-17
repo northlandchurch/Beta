@@ -1,0 +1,97 @@
+<?php
+$file = '/var/www/ee/kee_page_caching/events.group/kee_featuredevents.html'; //location of cache file
+
+$need_cache = false;
+
+// Check if cache file exists
+if (file_exists($file))
+{
+	$current_time 	= time();
+	$cache_last_mod	= filemtime($file); 	// Time when the cache file was last modified
+
+	// Check if cache file hasn't expired yet
+	if($current_time < strtotime('+2 days', $cache_last_mod))
+	{
+		$need_cache = false;
+	}
+	else
+	{
+		$need_cache = true;
+	}
+}
+else
+{
+	$need_cache = true;
+}
+
+
+if (!$need_cache)
+{
+	include($file); 		// include cache file
+}
+else
+{
+	ob_start(); 			// start output buffering
+?>
+<div class="card-row">
+<?php 
+	$featured_event_limit = 4;
+	$urlstr = 'http://calendar.northlandchurch.net/api/2/events?days=90&distinct=true&featured=true';
+	$ch = curl_init($urlstr);
+
+	curl_setopt( $ch, CURLOPT_HEADER, 0);
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+
+	$localist_groups = curl_exec($ch);
+	curl_close($ch);
+
+	$data = json_decode($localist_groups);
+	$length = count($data->events);
+
+	for ($i = 0; $i < $featured_event_limit && $i < $length; $i++) { 
+		$objWrapper = $data->events[$i];
+		$dateTimeObj = date_create($objWrapper->event->event_instances[0]->event_instance->start);
+
+		$outputHTML = '';
+		$outputHTML .= '<article class="card card-event">' . 
+							'<p class="date tablet-show">' . 
+								date_format($dateTimeObj, "M") . 
+								'<span>' . date_format($dateTimeObj, "d") . '</span>' .
+							'</p>' .
+							'<div class="featured-image" style="background-image: url(' . $objWrapper->event->photo_url . ');">' .
+								'<img src="' . $objWrapper->event->photo_url . '" class="visually-hidden">' .
+								'<a href="' . $objWrapper->event->localist_url . '"></a>' .
+							'</div>';
+		$outputHTML .=		'<div class="copy-container">' .
+								'<div class="details">' .
+									'<div class="detail-left tablet-hide">' .
+										'<p class="date">' . 
+											date_format($dateTimeObj, "M") . 
+											'<span>' . date_format($dateTimeObj, "d") . '</span>' .
+										'</p>' .
+									'</div>' .
+									'<div class="detail-right">' .
+										'<h3 class="title">' .
+											'<a href="' . $objWrapper->event->url . '">' . $objWrapper->event->title . '</a>' . 
+										'</h3>' .
+									'</div>' .
+								'</div>' .
+								'<p class="body-copy">' .
+									$objWrapper->event->description_text .
+								'</p>' .
+							'</div>';
+		$outputHTML .=	'</article>';
+
+		echo ($outputHTML);
+	}
+?>
+</div><!-- /.card-row -->
+<a href="http://calendar.northlandchurch.net" class="main-link view-link">View All Events <span class="icon-arrow-filled"></span></a>
+<?php
+	$fp = fopen($file, 'w'); 				// open cache file
+	fwrite($fp, ob_get_contents()); 		// write new cache file
+	fclose($fp); 							// close cache file
+	ob_end_flush(); 						// flush output buffered
+}
+?>

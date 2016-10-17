@@ -1,0 +1,57 @@
+{embed="responsive/html_open" htmltitle="Northland: Serving Globally"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Global Partners</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_8">
+		<p class="large marg-b-20">"Partners" are churches with whom Northland has ever-deepening relationships for mutual support and increased effectiveness for the Kingdom of God. We are not complete without each other. They further our understanding and appreciation of God. We connect with them on a personally fulfilling heart level and we work well together to bless others. Like all relationships, these partnerships are dynamic. They need to be renewed on a regular basis, or they will lose their vitality. We need to continue to work together to serve others in eternally significant ways. That is why we want you to get to know them. Be encouraged. Be challenged. Be international. Be distributed! See the available opportunities <a href="http://www.somedayistoday.net">here</a>.</p>
+		{exp:channel:entries channel="partners" show_future_entries="yes" category="28" orderby="date" sort="desc"}
+			<div class="grid_8">
+				<h3><a href="/partners/{url_title}">{title}</a></h3>
+				<a href="/partners/{url_title}"><img src="{image-asset-url}/uploads/{mishpart-image}" alt="Partners" class="left" /></a>
+				{mishpart-bio}
+			</div>
+			<div class="clear marg-b-40">&nbsp;</div>
+		{/exp:channel:entries}
+		<div class="marg-b-60"></div>
+	</div>
+	
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Other Ways to Serve</h5>
+			<ul>
+				<li><a href="http://www.northlandchurch.net/serve/local/">Local Partners</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/missionaries">Missionaries</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/northland">Serve at Northland</a></li>
+			</ul>
+			
+			{embed="_component/bloglist-small" header="Global Partnership Blog" quantity="4" categorypass="75"}
+
+			<h5>Serve Team</h5>
+			<ul>
+				{exp:channel:entries channel="staff" dynamic="on" category="176"}
+				<li>
+					<a href="{exp:low_replace find='index.php/'}{url_title_path='staff'}{/exp:low_replace}">{title}</a><br />
+					<em>{staff-title}</em>
+				</li>
+				{/exp:channel:entries}
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

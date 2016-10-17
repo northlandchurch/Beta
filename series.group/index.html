@@ -1,0 +1,18 @@
+{embed="_assets/header" htmltitle="Northland Series{if segment_2 != ''}: {exp:channel:entries channel="series" limit="1" dynamic="on"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/navbar" active="resources"}
+
+{!-- if segment_2 is blank, we do not know which series entry to retrieve. --}
+{if segment_2 != ''}
+
+	<!-- Series -->
+	{exp:channel:entries channel="series" limit="1" dynamic="on"}
+		{if series-type=="Podcast" }
+			{embed="series/podcasts"}
+		{if:elseif series-type=="Video" OR series-type=="Document"}
+			{embed="series/videos"}
+		{/if}
+	{/exp:channel:entries}
+	
+{/if}
+
+{embed="_assets/footer"}

@@ -1,0 +1,47 @@
+<?php
+	//include($_SERVER['DOCUMENT_ROOT'] . "/scripts/Mobile_Detect.php");
+	//$detect = new Mobile_Detect();
+	//if ($detect->isAndroid() || $detect->isIphone() || $detect->isBlackberry()) {
+		//header('Location: http://northlandchurch.net/worship/'); exit();	
+	//}
+?>
+
+{embed="_includes/html_open" videometa='
+<meta property="og:type" content="movie" /> 
+<meta property="og:url" content="http://www.northlandchurch.net/video-only" />
+<meta property="og:video:height" contdent="420" /> 
+<meta property="og:video:width" content="640" /> 
+<meta property="og:title" content="Northland Church Live" /> 
+<meta property="og:description" content="<p>Live Video</p>" />
+<meta property="og:image" content="http://www.northlandchurch.net/_img/uploads/choosing_god.jpg" />
+<meta property="og:video" content="http://www.northlandchurch.net/jw/jw54/player.swf?file=http%3A%2F%2Fwww.northlandchurch.net%2Ftest%2Fdynamic_pc&skin=http%3A%2F%2Fwww.northlandchurch.net%2Fjw%2Fjw54%2Fskins%2Ffacebook%2Ffacebook.zip&autostart=true&provider=rtmp&gapro.accountid=UA-966214-1&gapro.height=349&gapro.pluginmode=FLASH&gapro.trackpercentage=true&gapro.trackstarts=true&gapro.tracktime=true&gapro.visible=true&gapro.width=620&gapro.x=0&gapro.y=0" /> 
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+
+'}
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12" style="padding-bottom:15px">
+		<!--<div style="margin:0 170px 15px"><h1>Merry Christmas!</h1>
+		<p style="color:white">You can join us for Christmas Day worship at 11 a.m. (There will be no other Sunday services tomorrow. There will be no Monday night service this week either.)</p>
+		</div>-->
+		<div class="vid_box" style="margin-left:170px">
+    	
+    	
+		<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+    		<div id="onlineworshipvid">			
+				<iframe src='http://www.streammonkey.com/iframe/2056' width='640px' height='360px' frameborder='0' allowfullscreen webkitAllowFullScreen mozAllowFullscreen></iframe>
+			</div> 
+			 
+			
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

@@ -1,0 +1,488 @@
+{if group_id == '1' OR group_id == '14'}
+
+	{embed="responsive/html_open" htmltitle="Serve Others in Longwood at Northland, A Church Distributed"}
+	{embed="responsive/respond-header"}
+	{embed="responsive/header"}
+	{embed="responsive/nav" active="bethechurch"}
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		// Finds featured posts and prepends to top
+		$('.452').prependTo('#respond-serve-contain');
+		// Modal
+		$("a.modal").fancybox({
+			'hideOnContentClick': true,
+			'scrolling': 'no',
+			'overlayOpacity': 0.7,
+			'overlayColor': '#303339',
+			'transitionIn': 'fade',
+			'transitionOut': 'fade'
+			
+		});
+		// Favorites module
+		$('.favorite').live("click", function() {		
+			var whichID = "serve" + $(this).attr('id');
+			var targetURL = $("#"+whichID+" .favorite").attr('href');
+			var count = $("#"+whichID+" .count .number").text();
+			var ccbURL = $("#"+whichID+" .ccb_link").text();		
+			
+			// Opens CCB form	
+			window.open(ccbURL,'_blank');
+			
+			// Changes ppl count in real time
+			$.ajax({
+				success: function(data){					
+					$("#" + whichID + " .count").fadeOut('fast', function() {						
+						if (count == "0") {
+							$("#" + whichID + " .count").html("");
+						} else if (count == "1") {
+							$("#" + whichID + " .count").html("1 other also signed up");
+						} else {
+							$("#" + whichID + " .count").html(parseInt(count) + " others have also signed up");
+						}
+						$("#" + whichID + " .count").fadeIn('fast');
+					});
+					$("#" + whichID + " .respond-serve-button").html("I SIGNED UP TO SERVE");
+					//$("#" + whichID + " .respond-serve-button").fadeOut('fast');			
+				},
+				url: targetURL
+			});		
+			return false;
+		});
+
+		$(".permalink").click(function(e){
+			e.stopPropagation();
+			document.location.href=$(this).attr('href');
+		});
+		
+		$(".liturgy-verse").hide();
+		//toggle the componenet with class msg_body
+		$(".btn-readnow").click(function() {
+			$(this).next(".liturgy-verse").slideToggle(500);
+		});
+		
+		var currtime = new Date();
+		var theHour = currtime.getHours();
+		if (theHour<11){
+			$(".morning").slideToggle(500);
+		}
+		if ((theHour>=11) && (theHour<17)){
+			$(".midday").slideToggle(500);
+		}
+		if (theHour>=17){
+			$(".evening").slideToggle(500);
+		}
+		totalCount = 0;
+		$(".count").each ( function() {
+			totalCount += parseInt ( $(this).val());
+		});
+		$('select[name=ministries]').change(function(){
+			if ($(this).val() != "all") {
+				$(".respond-serve-opp").hide();
+				$("." + $(this).val()).show();
+			}
+			else {
+				$(".respond-serve-opp").show();
+			}
+		});	
+		$('select[name=interests]').change(function(){
+			if ($(this).val() != "all") {
+				$(".respond-serve-opp").hide();
+				$("." + $(this).val()).show();
+			}
+			else {
+				$(".respond-serve-opp").show();
+			}
+		});
+	});
+	</script>
+	
+	
+	<div id="respond-serve">
+		<div class="container_12">
+			<div class="grid_12 marg-b-60">
+				<div id="serve-title">
+					<div class="serve-title-left grid_4">
+						SERVE<br>OTHERS
+					</div>	
+					<div class="serve-title-right grid_5">
+						<span>Meet the needs of the people around you</span><br>
+						Just as the Son of Man did not come to be served, but to serve, and to give his life as a ransom for many. <br><em>-(Matthew 20:28, NIV)</em>
+					</div>
+				</div>
+				<a class="modal" href="#latest-worship"><div id="serve-play" class="default_visible marg-b-60"></div></a>
+				<div style="display:none">
+					<div id="latest-worship">
+						<iframe src="http://player.vimeo.com/video/12696364?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="respond-serve-left" class="grid_8">
+				<div class="respond-serve-select" style="margin-right:10px;">
+					<select name="ministries">
+							<option value="all">All Ministries</option>
+							{exp:channel:categories channel="opportunities" style="linear" sort="asc"}
+								{if parent_id == "459"}
+									<option value="{category_id}">{category_name}</option>
+								{/if}
+							{/exp:channel:categories}
+					</select>
+				</div>
+				<div class="respond-serve-select">
+					<select name="interests">
+							<option value="all">All Interests</option>
+							{exp:channel:categories channel="opportunities" style="linear" sort="asc"}
+								{if parent_id == "460"}
+									<option value="{category_id}">{category_name}</option>
+								{/if}
+							{/exp:channel:categories}
+					</select>
+				</div>
+				{clear}
+				<div id="ministry_results"></div>
+				
+				<div id="serve-today"></div>
+				<div id="respond-serve-contain">
+					{exp:channel:entries channel="opportunities" orderby="date" sort="desc" category="455"}
+						<div class="respond-serve-opp {categories}{category_id} {/categories}" id="serve{entry_id}">
+							<div class="respond-serve-tinter">
+								<h2>{title}</h2>
+								<div class="clear"></div>
+								
+								<p>{desc}</p>
+								<p>{commitment}</p>
+								
+								<div class="respond-serve-count">
+							   		{exp:favorites:entry_count entry_id="{entry_id}"}
+										{if people}<h3>{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>{/if}
+										{if logged_in && (screen_name!="Anonymous Member")}
+											{exp:favorites:saved entry_id="{entry_id}"}
+												{if saved}
+													{if favorites_count_public >= "1"}<h4 class="count"><span class="number">{favorites_count_public}</span> {if favorites_count_public > 1}others have{if:else}other{/if} also signed up</h4>{/if}
+												{if:else}
+													{if favorites_count_public == "1"}<h4 class="count">1 person has signed up</h4>{/if}
+													{if favorites_count_public > "1"}<h4 class="count"><span class="number">{favorites_count_public}</span> people have signed up</h4>{/if}
+												{/if}
+											{/exp:favorites:saved}
+										{/if}
+							   			<script type="text/javascript">
+							   				$(document).ready(function() {
+							   					var favorites_count_public = "{favorites_count_public}"
+							   				});
+							   			</script>
+							   		{/exp:favorites:entry_count}
+								</div>
+								
+								<span class="ccb_link" style="display:none">{ccbForm}</span>
+								
+								<div class="respond-serve-fave">
+									{if logged_in && (screen_name!="Anonymous Member")}
+										{exp:favorites:saved entry_id="{entry_id}"}
+											{if saved}
+												<div class="respond-serve-button"><a class="favorite favorited" id="{entry_id}">I SIGNED UP TO SERVE</a></div>
+											{if:else}
+												<div class="respond-serve-button"><a class="favorite" id="{entry_id}" href="/_component/favorite-add/{entry_id}/">I WANT TO SERVE</a></div>						
+											{/if}
+										{/exp:favorites:saved}
+									{if:else}
+										<li id="pray-for-li"><a href="/_component/favorite-add/{entry_id}/">Pray for This Person</a></li>
+									{/if}
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					{/exp:channel:entries}	
+				</div>					
+				<div class="clear marg-b-20"></div>
+			</div>
+			
+			<div id="respond-serve-right" class="grid_4">			
+				{embed="_component/serve-side"}
+			</div>	
+			<div class="clear"></div>	
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	
+		
+	<div class="clear"></div>
+	
+	
+	{embed="_includes/footer"}
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	{embed="_includes/html_close"}
+
+{if:else}
+
+	{embed="_includes/html_open" htmltitle="Serve Others at Northland, A Church Distributed"}
+	{embed="_includes/header"}
+	{embed="_includes/nav" active=""}
+    
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("a.modal").fancybox({
+			'hideOnContentClick': true,
+			'scrolling': 'no',
+			'overlayOpacity': 0.7,
+			'overlayColor': '#303339',
+			'transitionIn': 'fade',
+			'transitionOut': 'fade'
+    
+		});	
+    
+		$('.serve-today-options-mid').click (function() {
+			var whichID = $(this).attr('id');
+			var targetURL = $("#"+whichID+" .favorite").attr('href');
+			var count = $("#"+whichID+" .count").html();
+			$.ajax({
+				success: function(data){
+					$("#"+whichID+" .favorite").css("background-position","-432px -1313px");
+					if (parseInt(count)==1){
+						$("#"+whichID+" .people-served").html("People served");
+					}
+					$("#"+whichID+" .count").html(parseInt(count)+1);
+				},
+				url: targetURL
+			});		
+			return false;
+		});
+    
+		$(".liturgy-verse").hide();
+		//toggle the componenet with class msg_body
+		$(".btn-readnow").click(function() {
+			$(this).next(".liturgy-verse").slideToggle(500);
+		});
+    
+		var currtime = new Date();
+		var theHour = currtime.getHours();
+		if (theHour<11){
+			$(".morning").slideToggle(500);
+		}
+		if ((theHour>=11) && (theHour<17)){
+			$(".midday").slideToggle(500);
+		}
+		if (theHour>=17){
+			$(".evening").slideToggle(500);
+		}
+    
+	});
+	</script>
+    
+    
+	<div id="respond-serve">
+		<div class="container_12">
+			<div class="grid_12 marg-b-80">
+				<div id="serve-title"></div>
+				<a class="modal" href="#latest-worship"><div id="serve-play"></div></a>
+				<div style="display:none">
+					<div id="latest-worship">
+						<iframe src="http://player.vimeo.com/video/12696364?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+					</div>
+				</div>	
+				<div class="clear"></div>
+			</div>
+    
+			<div id="respond-serve-left">
+				<div id="serve-today"></div>
+				<p>Everyday is a new opportunity to love your neighbor as yourself. A new way to serve those around you will be posted below every day to help you serve others. </p>
+    
+				<div class="clear marg-b-20"></div>
+    
+				{!-- Site in the section on serves --}
+				<div class="serve-today-entry marg-b-80">
+					<p class="serve-today-date"><?php echo date("M j, Y") ?></p>
+					<div class="serve-tweet-box">
+						<a href="http://twitter.com/share" class="twitter-share-button" data-text="Buy Someone Lunch Today" data-count="horizontal">Tweet</a>
+					</div>
+					<div class="clear"></div>
+					<div class="serve-horizon-divider"></div>
+					{exp:channel:entries channel="serves" orderby="date" sort="asc" show_future_entries="no" orderby="random" limit="1"}
+						<h1>{body}</h1>
+    
+						<div class="serve-today-options-top"></div>
+						{exp:favorites:entry_count entry_id="{entry_id}"}
+    
+							<div class="serve-today-options-mid" id="prayer{entry_id}" >
+    
+							<ul id="mark-served">
+								<li id="mark-served-li">
+								{exp:favorites:saved entry_id="{entry_id}"}
+									{if saved}
+										<a class="favorite" href="{path='_component/favorite-add/'}{entry_id}">You served!</a></li>
+									{/if}
+									{if not_saved}							
+										<a class="favorite" href="{path='_component/favorite-add/'}{entry_id}">Mark as Served </a></li>
+									{/if}
+								{/exp:favorites:saved} 
+    
+							</ul>
+							<div class="serve-arrow"></div>
+								{if favorites_count_public}
+									<div class="people-served-box">
+										<p class="count">{favorites_count_public}</p>
+									</div>
+									<p class="people-served">{if favorites_count_public>1}People {if:else}Person{/if} served</p>
+								{/if}
+							{/exp:favorites:entry_count}
+    
+							<div class="clear"></div>
+						</div>
+					{/exp:channel:entries}	
+    
+					<div class="serve-horizon-divider" ></div>
+    
+												<div class="serve-today-options-btm marg-b-80"></div>
+    
+				</div>
+    
+				<div id="serve-this-week"></div>
+				<p>Northland has partnered with many local organizations in the central Florida area who serve our local community in a variety of ways. Each week one of these organizations will be featured with ways for you to organize a group and go serve locally.</p>
+    
+				<div class="clear marg-b-20"></div>
+				{exp:channel:entries orderby="date" url_title="partner_with_young_life_in_central_florida" limit="1"}
+    
+					<h1 class="serve-org-title">{title}</h1>
+					<div class="serve-horizon-divider"></div>
+					<p>{mishpart-bio}</p>
+    
+					<div class="serve-today-options-top"></div>
+					<div class="serve-today-options-mid">
+						<ul class="serve-org-options">
+							{if mishpart-contact}<li><span>Contact: </span>{mishpart-contact}</li>{/if}
+							{if mishpart-location}<li><span>Location: </span>{mishpart-location}</li>{/if}
+							{if mishpart-websites}<li><span>Website: </span>{mishpart-websites}</li>{/if}
+						</ul>
+					</div>
+					<div class="serve-today-options-btm marg-b-40"></div>
+				{/exp:channel:entries}
+				<div class="serve-horizon-divider marg-b-40"></div>
+    
+				<div class="clear"></div>
+    
+				<!--
+				<div id="serve-stories">
+    
+					<div id="serve-stories-title"></div>
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-readmore.png" />
+						<div class="serve-horizon-divider"></div>
+					</div>
+    
+					<div class="clear"></div>
+    
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-readmore.png" />
+						<div class="serve-horizon-divider"></div>
+					</div>
+    
+					<div class="clear"></div>
+    
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-readmore.png" />
+						<div class="serve-horizon-divider"></div>
+					</div>
+    
+				</div>
+    
+				<div id="serve-ways">
+					<div id="serve-ways-title"></div>
+    
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider way-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-signup.png" />
+					</div>
+    
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider way-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-signup.png" />
+					</div>
+    
+					<div class="serve-story-block">
+						<h1>Nathan Clark</h1>
+						<p>Shepherd's Hope is a faith-based organization of volunteers that exists to provide access to...</p>
+						<div class="serve-horizon-divider way-divider"></div>
+						<img src="{v2-image-asset-url}/respond/serve/btn-signup.png" />
+					</div>
+				</div>
+				-->
+    
+			</div>
+    
+    
+			<div id="respond-pray-right">
+				<div class="serve-side-top"></div>
+				<div class="serve-side-mid">
+					<div id="ways-to-serve"></div>
+					<p>There are many opportunities to serve at Northland, in your local community, and around the world. Click through the buttons below to start serving others.</p>
+					<a href="/serve/northland/"><div id="serve-btn-northland"></div></a>
+					<a href="/serve/local/"><div id="serve-btn-locally"></div></a>
+					<a href="http://www.somedayistoday.net/trip/"><div id="serve-btn-globally"></div></a>
+					<a href="/ministries/global_media_outreach/"><div id="serve-btn-virtually"></div></a>
+					<a href="/ministries/disaster_response/"><div id="serve-btn-needs"></div></a>
+    
+				</div>
+				<div class="serve-side-btm"></div>
+    
+    
+				<div class="serve-side-top"></div>
+				<div class="serve-side-mid">
+					<div id="local-serve"></div>
+					<p>Looking for a way to serve in the next few weeks? Check out the local service events below and start serving.</p>
+    
+					<ul>
+						{embed="_component/events_group" the_id="13001"}
+					</ul>	
+    
+				</div>
+				<div class="serve-side-btm"></div>
+    
+				<!--<div class="serve-side-top"></div>
+				<div class="serve-side-mid">
+					<div id="local-serve-day"></div>
+					<p>One of the best ways to respond by serving others is to join a Serve Day! Serve Days happen once a month at different locations in the central Florida area. </p>
+					<a href=""><img src="{v2-image-asset-url}/respond/serve/btn-join-serve-day.png" /></a>
+    
+				</div>
+				<div class="serve-side-btm"></div>-->
+    
+				<!-- <div class="serve-side-top"></div>
+				<div class="serve-side-mid">
+					<div id="find-purpose"></div>
+					<p>Knowing and recognizing the spiritual gifts God has given to you can help equip you to serve Him better. Take the Spiritual Gifts Test to discover and learn about how you have been gifted. </p>
+					<a href=""><img src="{v2-image-asset-url}/respond/serve/btn-take-test.png" /></a>
+    
+				</div>
+				<div class="serve-side-btm"></div> -->
+    
+    
+    
+			</div>	
+			<div class="clear"></div>	
+		</div>
+		<div class="clear"></div>
+	</div>
+    
+    
+    
+	<div class="clear"></div>
+    
+    
+	{embed="_includes/footer"}
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	{embed="_includes/html_close"}
+{/if}

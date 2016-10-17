@@ -1,0 +1,44 @@
+<script type="text/javascript">
+$(document).ready(function() {	
+	// Modal
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+	});
+	
+	// Featured posts
+	$('.cat491').prependTo('.respond-serve-sites');
+	$('.cat491 .respond-serve-tinter').addClass('respond-serve-highlight');
+	$('<h2 class="respond-serve-highlight-header">Featured Opportunities:</h2>').insertBefore('.cat491:first');
+	$('<div class="respond-serve-highlight-btm"></div>').insertAfter($('.cat491:last'));
+
+	$(".permalink").click(function(e){
+		e.stopPropagation();
+		document.location.href=$(this).attr('href');
+	});
+	
+	// Filter drop-down results
+	$('select[name=ministries]').change(function(){
+		if ($(this).val() != "all") {
+			$("#no_results").hide()
+			$(".respond-serve-opp").hide();
+			$("." + $(this).val()).show();
+			if ($(".respond-serve-opp:visible").length == 0) {
+				$("#no_results").show();
+			}
+		}
+		else {
+			$(".respond-serve-opp").show();
+			$(".cat460").removeClass('hidden');
+			$("#no_results").hide()
+			if ($(".respond-serve-opp:visible").length == 0) {
+				$("#no_results").show();
+			}
+		}
+	});
+});
+</script>

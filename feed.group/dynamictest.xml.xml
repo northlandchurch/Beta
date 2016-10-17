@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:jwplayer="http://developer.longtailvideo.com/trac/wiki/FlashFormats" version="2.0">
+  <channel>
+    <title>Example playlist</title>
+
+    <item>
+      <media:content url="mp4:/1.mp4" duration="3" />
+      <jwplayer:streamer>rtmp://video.northlandchurch.net:1935/vod/</jwplayer:streamer>
+    </item>
+    <item>
+     <jwplayer:autostart>true</jwplayer:autostart>
+     <media:content url="mp4:/2.mp4" duration="7" />
+     <jwplayer:streamer>rtmp://video.northlandchurch.net:1935/vod/</jwplayer:streamer>
+   </item>
+   </channel>
+</rss>

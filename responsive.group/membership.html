@@ -1,0 +1,77 @@
+{!-- LIVE!!!!}
+     ***
+          THIS IS LIVE AT NORTHLANDCHURCH.NET/MAIN/MEMBERSHIP
+         
+         
+          MEANING: THIS IS NOW AN OUTDATED VERSION!! DON'T USE ME!!
+     ***
+{--}
+
+
+
+{embed="responsive/html_open" htmltitle="Northland Membership"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="about"}
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Belong &amp; Membership Covenant</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+<div class="container_12">
+	<div class="grid_12">	
+		<h3>How do I become a member at Northland?</h3>
+        
+		<p>Receive God’s gift of salvation, made possible through Jesus Christ.
+		<p>Complete the Belong study in one of the following ways:</p>
+		<ul><li>• Take the <a href="http://www.northlandchurch.net/series/belong_study/">online study</a>, also available at Northland's bookstore</li>
+			{exp:calendar:events orderby="title" sort="asc" date_range_start="today" date_range_end="+6 months" enable="categories|category_fields" calendar_name="belong_study"}
+				<li>• 
+				<a href="/calendar/details/{url_title}">{title}</a>
+				{rules}
+					{if event_has_rules}
+						{if event_never_ends}
+							{event_first_date format="%l"}s			
+						{if:else}
+							{event_first_date format="%l"}, {event_first_date format="%F %j"}-{event_last_date format="%l"}, {event_last_date format="%F %j, %Y"}
+						{/if} 
+					{if:else}
+						{event_first_date format="%l"}, {event_first_date format="%F %j, %Y"}
+					{/if}
+					 from {event_start_date format="%g:%i%a"} to {event_end_date format="%g:%i%a"}
+        
+				{/rules}
+			</li>
+			{/exp:calendar:events}
+			
+			<li>• Take the Belong 6-week class, offered at Longwood approximately 3 times each year. The next Belong 6-week class will be offered on Sundays, February 26 to April 1, 11 a.m., room 4209. Hear Pastor Kevin Urichko and other Northland leaders describe what it means to belong to Christ and to Northland. Child care is available. For information contact Jamila Millette at {encode="jamila.millette@northlandchurch.net" title="jamila.millette@northlandchurch.net"} or 407-937-1832. No advance registration required. </li>
+		</ul>	
+		<br>
+		<p>Those who complete the online membership process will be contacted by a membership coach, by phone, to share the story of how they came to Christ. Online membership does require current personal contact information.</p>
+		<p>If you have questions, please contact <a href="mailto:ruth.sapp@northlandchurch.net">Ruth Sapp</a> at 407-949-4039 or <a href="mailto:barbara.olsen@northlandchurch.net">Barbara Olsen</a> at 407-949-7183. </p>
+        
+		<h3>Do I Belong at Northland?</h3>
+        
+		<blockquote>The New Testament knows nothing of freelance Christianity. It is the corporate witness of the redeemed fellowship that is used by the Spirit of God.
+											- Geoffrey King</blockquote>
+        
+		<p>All of us have a need to believe in and be a part of something bigger than ourselves. Ultimately, our need for belonging will never be satisfied until we belong to Christ. Belonging to the body of Christ is a natural result of belonging to Jesus Christ Himself. But belonging to a local church is a decision. It is like joining a family through marriage.</p> 
+		<p>Historically, Northland has not been a church that has promoted membership - mostly because membership has been a part of an institutional church mindset, while Northland is a more organic sort of place. But though membership has not been stressed, participating in a local believing community is vital. We need each other. We need a local community with whom to identify, worship and serve. We need a place to contribute as we are transformed together into the image of Christ.</p>
+		<p>Belonging at Northland can take many different forms. If you are not someone who needs to make your commitments formal, then you belong at Northland whenever you decide that God has brought you to this community.</p>
+		<p>If you prefer to formally join with the Northland leadership and congregation to achieve our mission and purpose as a member, you can do that by completing this study. The study will help you know more fully the family that you are joining. The process will be completed with an opportunity to share your story and sign a personal membership covenant.</p>
+        
+		
+	</div> <!-- END PAGE DIV -->
+</div>
+
+<div class="container_btm"></div>
+
+<div class="clear"></div>
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

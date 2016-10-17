@@ -1,0 +1,61 @@
+<div id="readbible-top"></div>
+{if {current_time format="%H%i"} < 1300}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="2014-{current_time format='%m-%d'} 00:00" stop_before="2014-{current_time format='%m-%d'} 23:59" search:liturgy-sequence="=Morning" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+				Morning Bible Reading <span style="font-weight:100;font-size: 14px;text-transform: uppercase;">{current_time format="%M %d"}</span>
+			</div>
+			
+			<div class="clear"></div>
+			<div class="readbible_verse">
+				<p class="readbible_verse-txt">{title}</p>
+			</div>
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{if:elseif {current_time format="%H%i"} < 1800}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="2014-{current_time format='%m-%d'} 00:00" stop_before="2014-{current_time format='%m-%d'} 23:59" search:liturgy-sequence="=Midday" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+				{if liturgy-translation !="N/A"}Midday Bible Reading <span style="font-weight:100;font-size: 14px;text-transform: uppercase;">{current_time format="%M %d"}</span>{/if}
+				{if liturgy-translation == "N/A"}Midday Prayer <span style="font-weight:100;font-size: 14px;text-transform: uppercase;">{current_time format="%M %d"}</span>{/if}
+			</div>
+			
+			<div class="clear"></div>
+			{if liturgy-translation !="N/A"}
+				<div class="readbible_verse">
+					<p class="readbible_verse-txt">{title}</p>
+				</div>
+			{/if}
+			{if liturgy-translation =="N/A"}<br>{/if}
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{if:else}
+	{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" start_on="2014-{current_time format='%m-%d'} 00:00" stop_before="2014-{current_time format='%m-%d'} 23:59" search:liturgy-sequence="=Evening" limit="1" cache="yes" refresh="120"}
+		<div id="readbible-mid">
+			<div class="readbible_time">
+				Evening Bible Reading <span style="font-weight:100;font-size: 14px;text-transform: uppercase;">{current_time format="%M %d"}</span>
+			</div>
+			
+			<div class="clear"></div>
+			<div class="readbible_verse">
+				<p class="readbible_verse-txt">{title}</p>
+			</div>
+			<div class="readbible_liturgy">
+					<p class="readbible_liturgy-txt">{exp:word_limit total="40"}{liturgy-scripture}{/exp:word_limit}</p>
+			</div>
+		</div>
+	{/exp:channel:entries}
+{/if}
+
+<div id="readbible-bottom">
+	<div class="readbible-finish"><a href="/respond/readthebible" target="_blank">
+		<div class="readbible_more">Read More</div></a>
+	</div>
+	<div class="readbible-corner"></div>
+</div>

@@ -1,0 +1,56 @@
+<!-- Google AJAX to get user Geolocation -->
+<!-- Must have {exp:user:edit}{/exp:user:edit} on page using this to work properly -->
+<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAIILyjVAI1tf8POwtambTYRSrhd49IjyTncQTt5mp_wERoj6E2RRePDdUZACzqp48gxLC9hARewqqRg"></script>
+
+<script type="text/javascript">
+var client_latitude;
+var client_longitude;
+
+ 	function initiate_geolocation() {  
+ 		UpdateLocationByGoogleAjax();
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+		}    	
+    } 
+  
+	function handle_geolocation_query(position){  
+	    client_latitude = position.coords.latitude;
+	    client_longitude = position.coords.longitude;
+	    UpdateLocationEE(); // Update current location in EE.
+	    if (map) {
+  			map.panTo(new google.maps.LatLng(client_latitude, client_longitude));
+  		}
+    }  
+    
+    function UpdateLocationByGoogleAjax() {
+    	if(google.loader.ClientLocation) {
+	    	client_latitude = google.loader.ClientLocation.latitude;
+	    	client_longitude = google.loader.ClientLocation.longitude;
+	    	UpdateLocationEE(); // Update current location in EE.
+	    	if (map) {
+	    		map.panTo(new google.maps.LatLng(client_latitude, client_longitude));
+	    	}
+    	}
+    }
+    
+    function UpdateLocationEE() {
+    	//console.log("UPDATE EE: " + $('input[name$="params_id"]').val()); 	
+		var dataString = "ACT=97&params_id=" + $('#member_form input[name$="params_id"]').val() + "&site_id=1&current_latitude=" + client_latitude + "&current_longitude=" + client_longitude;
+		console.log("Data String: " + dataString);
+		$.ajax({
+			type: "POST",
+			url: "/index.php",
+			data: dataString
+		});	
+		/*.success(function() { console.log("UpdateLocationEE Success") })
+		.error(function() { console.log("UpdateLocationEE Fail") })
+		.complete(function() { console.log("UpdateLocationEE Complete") });*/
+    }
+   
+$(document).ready(function() {
+	initiate_geolocation();
+}); 
+ 
+</script>
+
+<!-- End Google AJAX Code -->

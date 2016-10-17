@@ -1,0 +1,124 @@
+{embed="_assets/header" htmltitle="Profile at Northland, A Church Distributed"}
+{embed="_assets/login"}
+{embed="_assets/navbar" active=""}
+
+<div class='row row--inverted row--page'>
+	<div class='cell well'>
+
+		<div id="title-bar">
+			<input type="hidden" id="ee_member_id" name="ee_member_id" value="{member_id}" />
+			<input type="hidden" id="current_email" name="current_email" value="{email}" />
+			<div class="top"></div>
+			<h1 class="heading heading--l">{if logged_in}Update Your Password{if:else}Login to Edit Your Profile{/if}</h1>
+			<div class="btm"></div>
+		</div>
+
+		<div class="container_12">
+			{if logged_in}
+			<h2 class="heading heading--m">Change Your Password</h2>		
+			<script type="text/javascript">
+			var email = "{email}";
+			$(document).ready(function() {
+				{if last_segment != "reset"}
+				$("#editnewpassword").select();
+				{/if}
+
+				$('#editconfirmpassword').keyup(function() {
+					if ($('#editconfirmpassword').val() != $('#editnewpassword').val()){
+						$("#editmismatched_passwords").show();
+					}
+					else {
+						$("#editmismatched_passwords").hide();					
+					}
+					
+					if ($('#editnewpassword').val().length < 6) {
+						$('#edittooshort_password').show();
+					}
+					else {
+						$('#edittooshort_password').hide();
+					}
+				});	
+
+				$("#member_form").submit(function() {
+					if ($('#editconfirmpassword').val() == $('#editnewpassword').val() && $('#editnewpassword').val().length >= 6) 
+					{
+						ShowTextModal("Please wait while your password is updated.");
+						
+						$.ajax({
+							url: '/_component/update_password/' + email + '/' + $("#editnewpassword").val(),
+							success: function(data) 
+							{
+								if (data.indexOf("Your password has been successfully updated") != -1) {
+									window.location = "http://www.northlandchurch.net/profile";
+								}
+								else {
+									ShowTextModal(data);
+								}
+							}
+						});
+					}
+					return false;				
+				});
+
+				$("#editcurpassword").keyup(function() { $("#editincorrect_password").hide(); });
+				
+			});
+			</script>
+					
+			<form id="member_form">				
+				<div class='clear'></div>
+				<div class="editprofile_subtitle">New Password:</div><input type="password" name="editnewpassword"	id="editnewpassword" />
+				<div class='clear'></div>	
+				<div class="editprofile_subtitle">Confirm New Password:</div><input type="password" name="editconfirmpassword"	id="editconfirmpassword" />
+				<div class='clear'></div>
+				<div id="editincorrect_password" class="editprofile-errormsg" style="display:none">Incorrect password entered.</div> 
+				<div id="editmismatched_passwords" class="editprofile-errormsg" style="display:none">Your passwords don't match.</div> 
+				<div id="edittooshort_password" class="editprofile-errormsg" style="display:none">Your password must be at least 6 characters long.</div> 
+<!--						<input type="submit" name="submit" value="Submit" style="float:left; width: 61px; cursor: pointer" />	-->
+				<input type="submit" name="submit" value="Submit" class="btn" />
+			</form>
+			{if:else}
+				{if segment_2 != "" && segment_3 != ""}
+					{exp:member:login_form form_class="insite_ee_login_form"}
+						<input type="hidden" id="username" name="username" />
+						<input type="hidden" name="password" id="password" />
+						<input type="hidden" name="auto_login" id="auto_login" value="true"/>
+					{/exp:member:login_form}
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$(".insite_ee_login_form #username").val("{segment_2}");
+							$(".insite_ee_login_form #password").val("{segment_3}");
+							var values = $(".insite_ee_login_form").serialize();
+							$.ajax({
+								url: '/index.php',
+								type: 'POST',
+								data: values,
+								success: function(data) {	
+									if (data.indexOf("<p>You are now logged in.</p>") != -1) {		
+										location.reload();
+									}
+									else {
+										$(".user-login").click();
+									}
+								}
+							});
+									
+						});
+					</script>
+				{if:else}
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$(".user-login").click();	
+					});
+					</script>
+				{/if}
+				<div style="text-align: center; margin-bottom: 20px">Please login to access your profile.</div>	
+			{/if}
+		</div>
+		
+	</div>
+</div>
+
+					
+{embed="_assets/footer"}

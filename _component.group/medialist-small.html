@@ -1,0 +1,16 @@
+			<h5>Recent Videos</h5>
+			<ul class="medialist-small">
+				{if embed:quantity == ''}{preload_replace:quantity="6"}{/if}
+				{if embed:quantity != ''}{preload_replace:quantity="{embed:quantity}"}{/if}
+				{exp:channel:entries channel="media" dynamic="off" category="not 217|58|226" sort="desc" limit="{quantity}"}
+				<li>
+					{if media-image}
+					<a href="{exp:low_replace find='index.php/'}{parents:url_title_path='media'}{/exp:low_replace}">
+						<img src="{image-asset-url}/uploads/{media-image}" class="preview" />
+					</a>
+					{/if}
+					<a href="{exp:low_replace find='index.php/'}{parents:url_title_path='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+					<em>{media-date}</em>
+				</li>
+				{/exp:channel:entries}
+			</ul>

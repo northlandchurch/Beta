@@ -1,0 +1,76 @@
+{embed="_includes/html_open"}
+{embed="_includes/header-beta"}
+{embed="_includes/nav"}
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+$("#run_sync_server").click(function() {
+    // Call Hub sync script
+    $.ajax({
+        type: "GET",
+        url: '/scripts/exec_hub_sync.php',
+        async: false,
+        success: function(data) { 
+            alert("Re-syncing has been successfully done.");
+        }, 
+        error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the error: " + textStatus); }
+    });
+});
+
+});
+</script>
+<style>
+h1 {
+	padding-bottom: 0px;
+	vertical-align: middle;
+}
+h2 {
+	margin-bottom: 0px;
+	padding-bottom: 1px;
+}
+</style>
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>{if logged_in}Run Sync Server Manually{if:else}Login to Run Sync Server{/if}</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+{if logged_in}
+<div class="container_12">
+    <p style="margin-left:10px">This gives you the ability to run the sync server to sync CCB and northlandchurch.net. Use this precariously. <br> <a href='#' id='run_sync_server'><input type="submit" name="submit" title="Run" /></a></p>
+	<img src="/_img/easyup.png"><img src="/_img/easydown.png">
+</div>
+{if:elseif logged_out}
+<div class="container_12">
+	<div>
+
+        {exp:member:login_form form_class="login_form" return="<?php echo $_SERVER['HTTP_REFERER']; ?>"}
+			<p><label>Username</label>
+			<input type="text" name="username" value=""  maxlength="32" class="input" size="25" /></p>
+
+			<p><label>Password</label>
+			<input type="password" name="password" value="" maxlength="32" class="input" size="25" /></p>
+
+			{if auto_login}
+			<p><input class='checkbox' type='checkbox' name='auto_login' value='1'  /> Auto-login on future visits</p>
+			{/if}
+
+			<p><input type="submit" name="submit" value="Submit" /></p>
+        {/exp:member:login_form}
+
+	</div>
+		<div class="clear"></div>
+		<br><br>
+{/if}
+
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

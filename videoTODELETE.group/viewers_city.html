@@ -1,0 +1,283 @@
+{embed="_includes/html_open_worship" htmltitle="Northland, A Church Distributed"}
+<script type="text/javascript" src="/_assets/js/jquery.autosize-min.js"></script>
+
+<style type="text/css">
+body {
+	font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+	overflow: hidden;
+	background-color: #000;
+	background-image: none;
+}
+
+textarea {
+	line-height: 140%;
+}
+
+.bg {
+	position: absolute;
+	background-color: #000;
+	width: 100%;
+	-webkit-transition: opacity 0.5s ease-in-out;
+	opacity: 1;
+	z-index: 10;
+}
+
+.hidden { opacity: 0; z-index: 0; }
+
+#num_visitors, #distributed_sites {
+	position: absolute;
+	top: 11.7%;
+	left: 9%;
+	font-size: 5em;
+	font-weight: 300;
+	color: #ebe5e4;
+}
+
+#visitors {
+	position: absolute;
+	top: 11.6%;
+	left: 50%;
+	font-size: 3em;
+	font-weight: 300;
+	color: #ebe5e4;
+}
+
+#visitor_names, #site_names {
+	overflow: hidden;
+	position: absolute;
+	width: 84.1%;
+	height: 10%;
+	top: 19.3%;
+	left: 7.4%;	
+	border: 0;
+	color: #FFFFFF;
+	font-size: 3.4em;
+	font-weight: 500;
+	padding: 1.5% 4% 0% 4%;
+	line-height: 140%;
+}
+
+#site_names {
+	background-color: #444;
+}
+
+#visitor_names {
+	background-color: #000;
+	height: 58%;
+}
+
+#web_minister {
+	position: absolute;
+	width: 56%;
+	height: 10%;
+	top: 83%;
+	left: 33%;
+	background: 0;
+	border: 0;	color: #FFFFFF;
+	font-size: 3.5em;
+	font-weight: 300;
+	padding: 2% 1%;
+	background-color: #444;
+}
+
+textarea {
+	resize: none;
+	overflow: hidden;
+}
+
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	ScaleBackground();
+	ScaleFontSize();
+	
+	$('#site_names').autosize();
+	//$('#visitor_names').autosize();
+	
+	$("#visitor_names").click(function() {
+		$("#visitor_names").css('background-color','transparent');
+	});
+	
+	$("#web_minister").click(function() {
+		$("#web_minister").css('background-color','transparent');
+	});
+	
+	$("#web_minister").keyup(function() { $("#web_minister").click(); });
+	
+	$("#site_names").click(function() {
+		$("#site_names").css('background-color','transparent');
+	});
+	
+	$("#site_names").keyup(function() { $("site_names").click(); });
+	
+	$("#visitor_names").keyup(function() {	
+		var divheight = $('.bg').css('height').replace("px", "");
+		var textareaheight = $('#visitor_names').css('height').replace("px", "");
+		$('#visitor_names').css('top', (divheight * 0.14) + ((divheight * 0.7) - textareaheight) / 2 + "px");
+	});
+	
+	$("#site_names").keyup(function() {	
+		var divheight = $('.bg').css('height').replace("px", "");
+		var textareaheight = $('#site_names').css('height').replace("px", "");
+		$('#site_names').css('top', (divheight * 0.1) + ((divheight * 0.9) - textareaheight) / 2 + "px");
+	});
+	
+	ChangeSites();
+	
+	$(document).keypress(function(e) {
+		if (e.keyCode == 61) {
+			ChangeView();
+		}
+		if (e.keyCode == 93) {
+			ChangeSites();
+		}
+		if (e.keyCode == 92) {
+			CreateCityArray();
+		}
+	});		
+});
+
+
+
+$(window).resize(function() {
+	ScaleBackground();
+	ScaleFontSize();
+});
+
+function ScaleBackground() {
+	$('.bg').width($(window).width());
+	$('.bg').height(($(window).width() * 9) / 16);
+}
+
+function ScaleFontSize() {
+	fontsize = $(window).width() / 90;
+	$('body').css('font-size', fontsize);
+	//$('#visitor_names').css('line-height', fontsize / 10);
+}
+
+var citiesarray;
+var cities_counter = 0;
+var scrolling_started = 0; // Flag for if scrolling has started
+
+$(document).ready(function() {
+	GetFeaturedCities();
+});
+
+function GetFeaturedCities() {
+	$.getJSON("/scripts/admin-getfeaturedcities.php", function(json) {
+		citiesarray = json;		
+		if (scrolling_started == 0) {
+			StartCityCycle();
+			scrolling_started = 1;
+		}
+		setTimeout("GetFeaturedCities()", 5000);
+	});
+	
+}
+
+/*function CreateCityArray() {
+	citiesarray = $("#visitor_names").val().split(";");
+	StartCityCycle();	
+}*/
+
+function StartCityCycle() {
+	var cities_over = 0;
+	if (cities_counter + 6 >= citiesarray.length) {
+		cities_over = cities_counter + 6 - citiesarray.length;	
+		
+	}
+		
+	var temparray = new Array();
+	
+	for (i = 0; i < 6 - cities_over; i++) {
+		temparray.push(citiesarray[cities_counter + i]);
+	}
+	
+	for (i = 0; i < cities_over; i++) {
+		temparray.push(citiesarray[i]);
+	}
+	
+	
+	$("#visitor_names").val(temparray[0] + "\n" + temparray[1] + "\n" + temparray[2] + "\n" + temparray[3] + "\n" + temparray[4] + "\n" + temparray[5]);
+	
+	if ((cities_counter) < citiesarray.length - 1) {
+		cities_counter++;
+	}
+	else {
+		cities_counter = 0;
+	}
+	setTimeout("StartCityCycle()", 1500);
+	
+}
+
+function ChangeView() {
+	$('.bg').toggleClass('hidden');
+}
+
+var sites = 0;
+function ChangeSites() {
+	$("#site_names").css('background-color','transparent');
+
+	switch(sites) {
+		case 0:
+			$("#site_names").val("");
+			$("#site_names").css('background-color','#444');
+			break;
+		case 1:
+			$("#site_names").val("Home Church in West Oaks, FL\n\nOrange County Correctional Facility\n\nSeminole County Correctional");
+			break;
+		case 2:
+			$("#site_names").val("Northland @ Oviedo, FL\nNorthland @ Mt. Dora, FL\nHome Church in Ponce Inlet, FL\nHome Church in Bridgewater, NJ\nHome Church in Austin, TX\nSeminole Co. Correctional Facility");
+			break;
+		case 3:
+			$("#site_names").val("Northland @ Oviedo, FL\nNorthland @ Mt. Dora, FL\nHome Church in Deland, FL\nHome Church in Tyngsboro, MA\nHome Church in Salisbury, NC");
+			break;			
+		case 4:
+			$("#site_names").val("Home Church in Venice, FL\n\nHome Church in Utica, NY");
+			break;
+		case 5: 
+			$("#site_names").val("Home Church in Cape Canaveral, FL\nHome Church in Marco Island, FL\nBreaking Free Groups in GA & TX\nSeminole County\nCorrectional Facility\n");
+			break;
+	}	
+	
+	$("#site_names").resize();
+	$("#site_names").keyup();
+	
+	if (sites < 5) { sites++; }
+	else { sites = 0; }
+}
+
+</script>
+
+<div class="bg">
+	<img src="{v2-image-asset-url}/video/OnlineViewersBlack.jpg" id="bg_image" width="100%" style="margin-top: 4%" alt="">
+	<div id="num_visitors">ONLINE NOW - </div><div id="visitors"></div>
+	<textarea id="visitor_names"></textarea>
+	<textarea id="web_minister"></textarea>
+</div>
+<div class="bg hidden">
+		<div id="distributed_sites">DISTRIBUTED SITES</div>
+		<textarea id="site_names"></textarea>
+</div>
+<div class='clear'></div>
+<div>
+<script type="text/javascript">
+function UpdateCount(updatetime) {
+	$.getJSON('/scripts/admin-getviewercount.php', function(data) {
+		$("#visitors").html(data.viewers + " worshipers at " + data.sites + " sites");
+	});
+	
+	if (updatetime) {
+		setTimeout ( "UpdateCount(" + updatetime + ")", updatetime );
+	}
+}
+		
+
+$(document).ready(function() {
+	UpdateCount(1000);
+});
+</script>
+</div>
+</body>
+</html>

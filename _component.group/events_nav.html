@@ -1,0 +1,45 @@
+{exp:calendar:events limit="3" orderby="occurrence_start_date" category="414" date_range_start="today" show_months="3" dynamic="off"}
+
+
+	<p>
+		<a href="/calendar/details/{url_title}" title="{title}"><strong>{title}</strong></a><br />
+		<span class="info" style="color:#8596A1;">
+
+	{rules}
+		{if event_has_rules}
+			{if event_never_ends}
+				{event_first_date format="%l"}s			
+			{if:else}
+				{event_first_date format="%D"}, {event_first_date format="%F %j"}-{event_last_date format="%D"}, {event_last_date format="%F %j"}
+			{/if} 
+		{if:else}
+			{event_first_date format="%D"}, {event_first_date format="%F %j"}
+		{/if} from 
+		{if {event_start_date format="%i"}=="00"}{event_start_date format="%g"} 
+			{!-- If the start time and end time have same %a then don't display %a on start time --} 
+			{if '{event_start_date format="%a"}' != '{event_end_date format="%a"}'}
+				{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+				{if '{event_start_date format="%a"}' == "am"}a.m.{/if}{if '{event_start_date format="%a"}' == "pm"}p.m.{/if}
+			{/if}
+		{if:else}{event_start_date format="%g:%i"} 
+			{!-- If the start time and end time have same %a then don't display %a on start time --} 
+			{if '{event_start_date format="%a"}' != '{event_end_date format="%a"}'}
+				{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+				{if '{event_start_date format="%a"}' == "am"}a.m.{/if}{if '{event_start_date format="%a"}' == "pm"}p.m.{/if}
+			{/if}
+		{/if} to 
+		{if {event_end_date format="%i"}=="00"}{event_end_date format="%g"} 
+			{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+			{if '{event_end_date format="%a"}' == "am"}a.m.{/if}{if '{event_end_date format="%a"}' == "pm"}p.m.{/if}
+		{if:else}
+			{event_end_date format="%g:%i"} 
+			{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+			{if '{event_end_date format="%a"}' == "am"}a.m.{/if}{if '{event_end_date format="%a"}' == "pm"}p.m.{/if}
+		{/if}
+    
+	{/rules}
+    
+</span>
+</p>
+
+{/exp:calendar:events}

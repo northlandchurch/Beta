@@ -1,0 +1,24 @@
+<div id="generous-top"></div>
+<div id="generous-mid">
+	<div class="generous_head">
+		Needs for Generosity
+	</div>
+	<div class="clear"></div>
+	{exp:channel:entries channel="live_generously_lifehope" status="open" cat_limit="20" limit="1" orderby="random"}
+		<?php $total_needamount = (int){need_1_amount_needed} + (int){need_2_amount_needed} + (int){need_3_amount_needed} + (int){need_4_amount_needed} + (int){need_5_amount_needed};?>
+		<div class="generous_title">
+			<a href="/respond/livegenerously#entry_{entry_id}" target="_blank"><p class="generous-txt">$<?php echo $total_needamount; ?> need in {persons_location}</p></a>
+		</div>
+		<div class="clear"></div>
+		<div class="generous_descriptor">
+				<p class="generous_descriptor-txt">{description}</p>
+		</div>
+		<div class="clear"></div>
+	{/exp:channel:entries}
+</div>
+<div id="generous-bottom" style="margin-bottom:0;">
+	<div class="generous-finish"><a href="/respond/livegenerously" target="_blank">
+		<div class="generous_more">Read More</div></a>
+	</div>
+	<div class="generous-corner"></div>
+</div>

@@ -1,0 +1,72 @@
+{exp:channel:entries site="default_site|planning" url_title="{embed:sequenced}" dynamic="off"}
+	{if channel == 'Blogs'}
+	
+		<div class="grid_2 previous_thumbs">
+			<div class="blog_mini">
+					<a href="/blogs/{url_title}">
+						<?php
+						ob_start();
+						?>{blog-post}<?php
+						$test = ob_get_contents();
+						ob_end_clean();
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$test, $blog_img)){ ?>
+							<img src="<?php echo $blog_img[1]; ?>" class="blog_mini-img">
+						<?php } ?>
+					</a>
+							<a href="/blogs/{url_title}">
+								<h4>{exp:trunchtml chars="45" inline="..." exact="no"}{title}{/exp:trunchtml}</h4>
+							</a>
+					<div class="border-mini"></div>
+					<p>{exp:strip_html keep='a'}{exp:trunchtml exact="no" chars="100" inline="..."}{blog-post}{/exp:trunchtml}{/exp:strip_html}</p>
+			</div>
+			<div class="blog_mini-btm"></div>
+		</div>
+	{/if}
+	{if channel == 'Media' OR channel == 'Worship Planning'}
+		<div class="grid_2 previous_thumbs">
+			<div class="media_mini">
+				<?php $flag = "planning_mini"; ?>
+				
+				{categories}
+					<?php if (("{category_id}"=="57") OR ("{category_id}"=="356") OR ("{category_id}"=="45")){
+						$flag = "vimeo_mini";
+					}?>
+					<?php if ("{category_id}"=="48"){
+						$flag = "live_mini"; 
+						
+					}?>
+				{/categories}
+				 <?php 
+			 	 if ($flag=="vimeo_mini"){ ?>
+				 	<a href="/media/{url_title}"><img src="/_img/uploads/{media-image}"></a>
+				 	<a href="/media/{url_title}">
+				 		{exp:trunchtml chars="120" inline="..." exact="no"}{title}{/exp:trunchtml}
+				 	</a>
+				<?php
+				}elseif($flag=="live_mini") { ?>
+					<a href="/media/{url_title}"><img src="/_assets/img/v2/series/{media-unit}{media-unit:series-image}{/media-unit}"></a>
+					<a href="/media/{url_title}">
+						<h4>{exp:trunchtml chars="120" inline="..." exact="no"}{title}{/exp:trunchtml}</h4>
+					</a>
+					<div class="border-mini"></div>
+					{media-unit}
+					<p><strong>About this series:</strong><br>{exp:trunchtml exact="no" chars="90" inline="..."}{media-unit:series-description}{/exp:trunchtml}</p>
+					{/media-unit}
+				<?php }else{ ?>
+					<a href="/respond/worshipgod/{url_title}"><img src="/_img/uploads/worshipgod/week{planning-week_number}.jpg"></a>
+						<a href="/respond/worshipgod/{url_title}">
+							<h4>Prepare for Worship</h4>
+						</a>
+					<div class="border-mini"></div>
+					{exp:trunchtml chars="120" inline="..." exact="no"}
+						{exp:playa:children site="planning" field="Planning-components" limit="1"}
+							{planning-text}
+						{/exp:playa:children}
+					{/exp:trunchtml}
+				<?php } ?>		
+			</div>
+			<a href="/media/{url_title}"><div class="media_mini-btm"></div></a>
+		</div>
+	{/if}
+{/exp:channel:entries}

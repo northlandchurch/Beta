@@ -1,0 +1,192 @@
+{!--{embed="_includes/html_open"}
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+	<!-- BEGIN CONTAINER -->
+	<div id="container">
+		<!-- BEGIN CONTAINER INNER -->
+		<div id="container_inner">
+
+			<div id="page_secondary_equipping" class="secondary">
+			<!-- BEGIN PAGE DIV -->
+				
+				
+				<div class="">
+					<div class="" style="text-align:center;padding-top:20px;">
+						
+						<div class="vid_box">
+
+						{exp:channel:entries dynamic="off" channel="media" show_future_entries="yes" orderby="date" category="58" sort="desc" limit="1"}
+
+						<script type='text/javascript' src='http://northlandchurch.net/fb/mediaplayer/swfobject.js'></script>
+
+						<div id='mediaspace'>.</div>
+
+						<script type='text/javascript'>
+						  var so = new SWFObject('http://northlandchurch.net/_flash/player.swf','mpl','640','380','9');
+						var counter = 0
+						so.addParam('allowFullscreen','true');
+						so.addParam('allowscriptaccess','always');
+						so.addParam('wmode','opaque');
+						so.addVariable('file','backup');
+						so.addVariable('type','rtmp');
+						so.addVariable('streamer','rtmp://video.northlandchurch.net:1935/live');
+						so.addVariable('image','{media-primary}');
+						so.addVariable('autostart','true');
+						so.addVariable('stretching','exactfit');
+						so.addVariable("plugins",'gapro-1');
+						so.addVariable("gapro.accountid","UA-966214-1");
+						so.addVariable("gapro.trackstarts","true"); 
+						so.addVariable("gapro.trackpercentage","true"); 
+						so.addVariable("gapro.tracktime","true");
+						window.onload=function(){
+							if (counter==0){
+								so.write('mediaspace');
+								counter = counter + 1;
+							}
+						}
+						</script>
+
+						{/exp:channel:entries}
+						</div>
+					</div>
+				</div>	
+				
+				
+
+
+				</div> <!-- END PAGE DIV -->
+
+			</div>
+
+	</div> <!-- END CONTAINER INNER -->
+	<div class="container_btm"></div>
+<!-- END CONTAINER -->
+
+{embed="_includes/footer"}--}
+{embed="_includes/html_open" videometa='
+<meta property="og:type" content="movie" /> 
+<meta property="og:url" content="http://www.northlandchurch.net/video-only" />
+<meta property="og:video:height" contdent="420" /> 
+<meta property="og:video:width" content="640" /> 
+<meta property="og:title" content="Northland Church Live" /> 
+<meta property="og:description" content="<p>Live Video</p>" />
+<meta property="og:image" content="http://www.northlandchurch.net/_img/uploads/choosing_god.jpg" />
+<meta property="og:video" content="http://www.northlandchurch.net/jw/jw54/player.swf?file=http%3A%2F%2Fwww.northlandchurch.net%2Ftest%2Fdynamic_pc&skin=http%3A%2F%2Fwww.northlandchurch.net%2Fjw%2Fjw54%2Fskins%2Ffacebook%2Ffacebook.zip&autostart=true&provider=rtmp&gapro.accountid=UA-966214-1&gapro.height=349&gapro.pluginmode=FLASH&gapro.trackpercentage=true&gapro.trackstarts=true&gapro.tracktime=true&gapro.visible=true&gapro.width=620&gapro.x=0&gapro.y=0" /> 
+<meta property="og:video:type" content="application/x-shockwave-flash" />
+
+'}
+{embed="_includes/header"}
+{embed="_includes/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12" style="padding-bottom:15px">
+		<!--<div style="margin:0 170px 15px"><h1>Merry Christmas!</h1>
+		<p style="color:white">You can join us for Christmas Day worship at 11 a.m. (There will be no other Sunday services tomorrow. There will be no Monday night service this week either.)</p>
+		</div>-->
+		<div class="vid_box" style="margin-left:170px">
+    	
+    	
+		<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+    	
+		
+			<div id="onlineworshipvid" >Loading the player ...</div> 
+			 
+			<script type="text/javascript"> 
+			var spanish_on = 0;
+			var audio_only = 0;
+			
+			function LoadEnglish() {
+				$("#onlineworshipvid").html("");
+				jwplayer("onlineworshipvid").setup({
+					autostart: "true",	   
+				    height: 349,
+				    width: 620,
+				    image: "/_img/series/choosinggod.png",
+				    plugins: {
+				    	"gapro-2":{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true},
+				    	"qualitymonitor":{}
+				    	},
+				    modes: [
+				         
+				         
+				         {  type:"flash",
+				    	    src: "/_assets/jwplayer/5_7/player.swf",
+				    	    config: {
+						   		provider: "rtmp",
+						   		skin: "/jw/jw54/skins/live/live.zip",
+						    	playlistfile: "/test/dynamic_pc"
+					    	}
+				    	},
+				    	{ type: "html5",
+				    	  config:  {
+				    	  	provider: "video",
+				    	  	skin: "/jw/jw54/skins/glow/glow.xml",						   		
+				    	  	file: "http://video.northlandchurch.net:1935/live/smil:iphone.smil/playlist.m3u8"
+				    	  }
+				    	}
+				    					    ]
+				});
+			}
+			
+			$(document).ready(function() {					
+				LoadEnglish();					
+			});
+			
+			
+			function LoadSpanish() {
+				if (spanish_on == 0) {			
+					jwplayer().load({
+						autoplay: "true",
+						provider:"rtmp",
+						streamer: "rtmp://107.21.118.65:1935/live",
+						file:"spanish"
+					});
+					//$('#language_select').hide();
+					$('#jwplayer_language_select').html("English");
+					spanish_on = 1;
+				}
+				else {			
+					//jwplayer().load("/test/dynamic_pc");
+					LoadEnglish();
+					$('#jwplayer_language_select').html("Spanish Translation");
+					spanish_on = 0;
+				}
+			}
+			
+			function LoadAudioOnly() {
+				if (audio_only == 0) {
+					jwplayer().load({
+						autoplay: "true",
+						provider:"rtmp",
+						streamer: "rtmp://107.21.118.65:1935/live",
+						file:"audio"
+					});
+					$('#jwplayer_audio_only').html("Full Video");
+					audio_only = 1;
+				}
+				else {
+					LoadEnglish();
+					$('#jwplayer_audio_only').html("Audio Only");
+					audio_only = 0;
+				}
+			}
+			
+			</script> 
+			
+			<div class="clear"></div>
+			<div id="below_video">
+				<div id="livevid-quality" class="below_videotab">
+				<p>Player Options: <a id="jwplayer_audio_only" href="javascript:LoadAudioOnly()">Audio Only</a><!-- | <a id="jwplayer_language_select" href="javascript:LoadSpanish()">Spanish Translation</a>--></p>
+				</div>    	
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

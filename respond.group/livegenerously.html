@@ -1,0 +1,1558 @@
+{embed="_assets/header" htmltitle="Live Generously through Northland, A Church Distributed"}
+{embed="_assets/login"}
+{embed="_assets/navbar" active=""}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+		
+	});	
+	
+	
+	// Load more entries when user scrolls to bottom of entries
+	var currently_lazyloading = 0; // Is window already attempting to load more entries?
+	var position = $("#lazyload_moreentries").offset().top;
+	var entries_offset = 10; // Current number of entries shown to skip over when loading new entries
+	
+	$(window).scroll(function() {
+		var scrolldepth = $(window).scrollTop() + $(window).height();
+		
+		if (scrolldepth > position) {
+			if (currently_lazyloading == 0) {
+				$.get("/_component/lazyload_livegenerously/" + entries_offset,function(data) {				
+					$("#entries").append(data);
+					position = $("#lazyload_moreentries").offset().top;
+					entries_offset += 10;
+					
+					// Reset so can load more later, but if data length < 10 reached end of entries and stop trying to load new ones
+					if (data.length > 10) {
+						currently_lazyloading = 0;
+					}
+				});			
+				currently_lazyloading = 1;
+			}
+		}
+	});
+});
+
+{if logged_in}
+var resourcepoint_id = "";
+var ee_entryid = "";
+
+function ShowProceedToConfirmation() {
+	var paymentindex = $("#paymenttype").val();
+
+	if ($("#select_amount").val() != "Select..." && paymentindex != null && paymentindex != '' && paymentindex != 'ADD_CC' && paymentindex != 'ADD_BA' && $("#locationstreet").val().length > 2 && $("#locationcity").val().length > 2) {
+		$("#proceed_to_confirmation").fadeIn("fast");
+	}
+	else {
+		$("#proceed_to_confirmation").fadeOut("fast");
+	}
+}
+
+$(document).ready(function() {
+    $("#proceed_to_confirmation").click(function() {   
+    	$(".update_billing").slideUp("fast"); 	
+       	$(this).parent().slideUp("fast", function() {
+    		var amount = 0;
+    		if ($("#select_amount").val() == "other") { amount = $("#select_amount_text").val(); }
+    		else { amount = $("#select_amount").val(); }    		
+    		
+    		var card = $("#paymenttype").val();    		
+    		var cardtext = $("#paymenttype option[value='" + card + "']").text();
+    		
+    		$("#confirm_gift").children(".description").html("You have selected to donate $" + amount + " from " + cardtext + ". Would you like to continue?");
+			$("#confirm_gift").slideDown("fast");			
+		});
+    });
+    
+    $("#cancel_donation").click(function() {
+    	$(this).parent().slideUp("fast", function() {
+    		$("#select_gift").slideDown("fast");
+    		$(".update_billing").slideDown("fast");
+    	});
+    	
+    });
+    
+    $("#select_amount").change(function() {
+    	if ($(this).val() == "other") {
+    		$(this).hide();
+    		$("#select_amount_text").show();
+    	}
+    	    	    	
+    	ShowProceedToConfirmation()
+    });
+    
+    $('#select_amount_text').keyup(function() {
+    	this.value = this.value.replace(/[^0-9.]/g, '');
+    });
+    
+    $("#confirm_donation").click(function() {
+    	var givingamount = 0;
+	
+		if (isNaN($("#paymenttype").val())) {
+			alert("Invalid Payment Type Selected");
+			return;
+		}
+		
+		var paymentindex = $("#paymenttype").val();
+		var paymentid = payment_arr[paymentindex].PK_pmtmethod;
+//		console.log ("Sending $" + givingamount + " request with payment id: " + paymentid);
+		
+		if ($("#select_amount").val() == "other") { givingamount = $("#select_amount_text").val(); }
+	    else { givingamount = $("#select_amount").val(); }
+		console.log ("Sending $" + givingamount + " request with payment id: " + paymentid);
+	
+		$.ajax({
+			type: "POST",
+			url: site_url+'/scripts/ws/webservice.php',
+			data: "srv=onetime_online_giving&format=json&email={email}" + "&paymentid="+paymentid+"&firstname="+$("#hiddenfirstname").val()+"&lastname="+$("#hiddenlastname").val()+"&amount="+givingamount+"&fundcount=1"+"&fundtype0=SHA"+"&fundamount0="+givingamount+"&locationstreet="+$("#locationstreet").val()+"&locationcity="+$("#locationcity").val()+"&locationstate="+$("#locationstate").val()+"&locationzip="+$("#locationzip").val()+"&worshipplace="+$("#place_of_worship").val()+"&comments=Resource Point ID "+resourcepoint_id+", ExpressionEngine Entry "+ee_entryid,
+	//						async: false,
+			dataType: "json",
+			success: parseOnetimeOnlineGiving,             
+			error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+		});
+})
+    
+    
+});
+
+function HelpMeetNeed(need_1, need_2, need_3, need_4, need_5, total_need, resourcepointid, entry_div) {
+	var select_html = "<option>Select...</option>";
+	
+	resourcepoint_id = resourcepointid;
+	ee_entryid = entry_div;
+	
+	if (!isNaN(need_1) && need_1 > 0) {
+		select_html += "<option value='" + need_1 + "'>$" + need_1 + "</option>";
+	}
+	if (!isNaN(need_2) && need_2 > 0) {
+		select_html += "<option value='" + need_2 + "'>$" + need_2 + "</option>";
+	}
+	if (!isNaN(need_3) && need_3 > 0) {
+		select_html += "<option value='" + need_3 + "'>$" + need_3 + "</option>";
+	}
+	if (!isNaN(need_4) && need_4 > 0) {
+		select_html += "<option value='" + need_4 + "'>$" + need_4 + "</option>";
+	}
+	if (!isNaN(need_5) && need_5 > 0) {
+		select_html += "<option value='" + need_5 + "'>$" + need_5 + "</option>";
+	}
+	if (!isNaN(total_need) && total_need > 0 && total_need != need_1) {
+		select_html += "<option value='" + total_need + "'>$" + total_need + "</option>";
+	}
+	
+	select_html +="<option value='other'>Other</option>";
+	
+		$(".help_meet_need").fadeIn("fast");
+	$("#update_billing_info").slideUp("fast", function() {
+		$("#select_amount").html(select_html);
+		$("#select_amount").show();
+		$("#select_amount_text").val("").hide();
+		$("#update_billing_info").appendTo("#" + entry_div +" .need_tinter");
+		$("#update_billing_info").slideDown("fast");
+	});
+	
+	$("#" + entry_div + " .help_meet_need").fadeOut("fast");
+
+	$("#confirm_gift").slideUp("fast");		
+	$("#select_gift").slideDown("fast");		
+}
+
+function parseOnetimeOnlineGiving(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+	console.log (data);
+
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var transaction = jsonObj.northland_api[2].response.transactions;
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			if (transaction[0].statuscode == 'G') {
+				// Animate showing that contribution has been made
+				$("#update_billing_info").slideUp("fast");
+				$("#" + ee_entryid + " .help_meet_need").remove();
+				$("#" + ee_entryid + " .need_tinter").append("<div class='thank_you_for_giving'>THANK YOU FOR GIVING</div><div class='clear'></div>");
+				
+				// Add to Favorites Module
+				$.get("/_component/favorite-add/" + ee_entryid.substr(6), function() { });
+				// Update EE entry with amount contributed to value
+				$.get("/_component/livegenerously_incrementamount/" + ee_entryid.replace("entry_", "") + "/" + transaction[0].amount + "/", function() { });
+				
+				// Calculate new percent bar width
+				var pixelwidth_current = parseFloat($("#" + ee_entryid + " .need_info .progress_bar .progress_bar_percent").css("width"));
+				var containerpixelwidth_current = parseFloat($("#" + ee_entryid + " .need_info .progress_bar").css("width"));
+				
+				var percent_current = pixelwidth_current / containerpixelwidth_current;
+				
+				var amount_contributed = parseFloat(transaction[0].amount);
+				var amount_total = parseFloat($("#" + ee_entryid + " .need_info h1").text().replace(/[^0-9.]/g, ''));
+				
+				var percent_contributed = amount_contributed / amount_total;
+				
+				var percent_now = percent_contributed + percent_current;
+				if (percent_now > 1) { percent_now = 1; }
+				
+				$("#" + ee_entryid + " .need_info").fadeOut("fast", function() {				
+					$("#" + ee_entryid + " .need_info .progress_bar .progress_bar_percent").css("width", percent_now * containerpixelwidth_current);
+					
+					var numcontributors_current = parseInt($("#" + ee_entryid + " .contributors").text());
+					if (numcontributors_current == 1) {
+						$("#" + ee_entryid + " .contributors").text("YOU AND 1 OTHER HELPED");
+					}
+					else if (numcontributors_current > 1) { 
+						$("#" + ee_entryid + " .contributors").text("YOU AND " + numcontributors_current + " OTHERS HELPED");
+					}
+					else {
+						$("#" + ee_entryid + " .contributors").text("YOU HAVE HELPED");
+					}
+					
+					$("#" + ee_entryid + " .need_info").fadeIn("fast");
+				});
+				
+				
+				//alert(parseFloat(transaction[0].amount));							
+				
+			
+				console.log ("Complete Giving with the amount of " + transaction[0].amount);
+				console.log ("Reference Number:  " + transaction[0].reference);
+				
+				
+			} else {
+				alert("There was a problem completing this transaction with the error code:" + transaction[0].response);
+				console.log ("There is a problem in Giving with this error code: " + transaction[0].response);
+			}
+			//////////////////////////////////////////////////////////////////
+			// 							Send Email?							//
+			//////////////////////////////////////////////////////////////////
+		}
+	}
+
+}
+{/if}
+</script>
+
+{if logged_in}
+<script type="text/javascript" src="/_assets/js/nacd-validation.js"></script>
+<script type="text/javascript">
+var payment_arr 	= new Array();
+//var error_arr		= new Array();
+//var insiteuserid = 3;
+
+$(document).ready(function() {
+	$(".hideme").hide();
+	//toggle the componenet with class msg_body
+	$(".showme").click(function() {
+		$(this).next(".hideme").slideToggle(500);
+	});
+	$("#mailing_state_suggestion").change(function() {
+		$("#locationstate").val($("#mailing_state_suggestion").val());	
+		$("#mailing_state_suggestion").prop('selectedIndex', 0);
+	});
+	$("#mailing_country_suggestion option[value='"+ $("#locationcountrycode").val()+"']").prop('selected', 'selected');
+
+	$("#paymenttype").change(function() {
+		var paymentindex = $("#paymenttype").val();
+		console.log ("Selected Index: " + paymentindex);
+
+		clearCCSectionFields();
+		clearBASectionFields();
+
+		if (paymentindex == null || paymentindex == '') {
+			$("#billingsection").slideUp("fast", function() {
+				$("#basection").hide();
+				$("#ccsection").hide();
+			});
+			$(".update_billing").slideUp("fast");			
+			return false;
+		}
+
+		if (paymentindex == "ADD_CC" || paymentindex == "ADD_BA") {
+			$("#billingsection").show();
+			$(".update_billing").slideDown("fast");
+			
+			// Adding a payment
+			if (paymentindex == "ADD_CC") {
+				$("#basection").slideUp("fast", function() {
+					$("#ccsection").slideDown("fast");
+				});
+				$(".checkbox").hide();
+
+			} else {
+				$("#ccsection").slideUp("fast", function() {
+					$("#basection").slideDown("fast");
+				});
+				$(".checkbox").hide();
+			}
+		} else {
+			$("#billingsection").slideUp("fast");
+			$("#ccsection").slideUp("fast");
+			$("#basection").slideUp("fast");
+			//$(".update_billing").slideUp("fast");
+		
+
+			// Editing a payment
+//			var paymenttype = payment_arr[paymentid].paymenttype;
+			if (payment_arr[paymentindex].paymenttype == "bankaccount") {
+				$("#bankname").val(payment_arr[paymentindex].bankname);
+				$("#bankrtnumber").val(payment_arr[paymentindex].routingnumber);
+				$("#bankaccttype").val(payment_arr[paymentindex].bankaccounttype);
+				$("#bankacctnumber").val("************"+payment_arr[paymentindex].acctnumlast4);
+//				$("#bastatus option[value='"+ payment_arr[paymentindex].status +"']").prop('selected', 'selected');
+
+				/*$("#ccsection").hide();
+				$("#basection").show();
+				$(".checkbox").show();*/
+			} else {
+				$("#cardname").val(payment_arr[paymentindex].nameoncard);
+				$("#cardtype").val(payment_arr[paymentindex].creditcardtype);
+				$("#cardexpmonth").val(payment_arr[paymentindex].expirationmonth);
+				$("#cardexpyear").val(payment_arr[paymentindex].expirationyear);
+				$("#cardnumber").val("************"+payment_arr[paymentindex].creditcardlast4);
+//				$("#ccstatus option[value='"+ payment_arr[paymentindex].status +"']").prop('selected', 'selected');
+				
+				/*$("#basection").hide();
+				$("#ccsection").show();
+				$(".checkbox").show();*/
+			}
+
+		}
+		
+		ShowProceedToConfirmation();
+		
+		return false;
+	});
+		
+	$("#billingAddressClick").click(function() {
+		var billingline1 	= $("#locationstreet").val();
+		var billingcity 	= $("#locationcity").val();
+		var billingstate 	= $("#locationstate").val();
+		var billingzip 		= $("#locationzip").val();
+
+		console.log ("Sending address update request with email: {email}");
+
+		$.ajax({
+			type: "POST",
+			url: site_url+'/scripts/ws/webservice.php',
+			data: "srv=update_address_by_email&format=json&email={email}" + "&billingline1="+billingline1+"&billingcity="+billingcity+"&billingstate="+billingstate+"&billingzip="+billingzip,
+//						async: false,
+			dataType: "json",
+			success: parseUpdateAddress,             
+			error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+		});
+		
+	});
+
+	$("#paymentMgmtClick").click(function() {
+		var paymentindex = $("#paymenttype").val();
+
+		if (paymentindex == null || paymentindex == '') {
+			alert ("Select a Payment that you want to change");
+			return false;
+		}
+		
+		// Adding a Payment
+		if (paymentindex == "ADD_CC" || paymentindex == "ADD_BA")  {
+			console.log ("Adding Payment: " + paymentindex);
+
+			var errors = checkPaymentValidation();
+
+			if (errors == null || errors == '') {
+				console.log ("Passed Validation");
+				if (paymentindex == "ADD_CC") {
+					console.log ("Sending ADD_CC request");
+					// Add a Credit Card 
+					$.ajax({
+						type: "POST",
+						url: site_url+'/scripts/ws/webservice.php',
+						data: "srv=add_payment&format=json&email={email}&paymenttype=creditcard"+"&cardtype="+$("#cardtype").val()+"&cardname="+$("#cardname").val()+"&cardnumber="+$("#cardnumber").val()+"&cardexpmonth="+$("#cardexpmonth").val()+"&cardexpyear="+$("#cardexpyear").val(),
+//						async: false,
+						dataType: "json",
+						success: parseAddPayment,             
+						error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+					});
+					
+				} else {
+					console.log ("Sending ADD_BA request");
+					// Add a Bank Account
+					$.ajax({
+						type: "POST",
+						url: site_url+'/scripts/ws/webservice.php',
+						data: "srv=add_payment&format=json&email={email}&paymenttype=bankaccount"+"&bankname="+$("#bankname").val()+"&bankrtnumber="+$("#bankrtnumber").val()+"&bankacctnumber="+$("#bankacctnumber").val()+"&bankaccttype="+$("#bankaccttype").val(),
+//						async: false,
+						dataType: "json",
+						success: parseAddPayment,             
+						error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+					});
+					
+				}
+			}
+			else 
+				// Display errors for Payment Validation
+				alert (errors.join("\r\n"));
+
+			return false;
+		}
+
+		var paymentid = payment_arr[paymentindex].PK_pmtmethod;
+		
+		if ($("#bastatus").is(":checked") || $("#ccstatus").is(":checked")) {
+			// Deleting the Payment
+			alert ("You chose to make this payment inactive.");
+			// Send payment inactive request to the Server
+			$.ajax({
+				type: "POST",
+				url: site_url+'/scripts/ws/webservice.php',
+				data: "srv=delete_payment&format=json&paymentid=" + paymentid + "&status=deleted",
+//				async: false,
+				dataType: "json",
+				success: parseDeletePayment,             
+				error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+			});
+			
+		} else {
+			// Updating the Payment 
+			console.log ("Updating " + paymentid);
+			// Needs to validate each field
+			var errors = checkPaymentValidation();
+
+			if (errors == null || errors == '') {
+				console.log ("Passed Validation");
+
+				if (payment_arr[paymentindex].paymenttype == "bankaccount") {
+					console.log ("Sending Bank Account updating request...");
+					// Updating Bank Account 
+					$.ajax({
+						type: "POST",
+						url: site_url+'/scripts/ws/webservice.php',
+						data: "srv=update_payment&format=json&paymentid="+paymentid+"&paymenttype=bankaccount"+"&bankname="+$("#bankname").val()+"&bankrtnumber="+$("#bankrtnumber").val()+"&bankacctnumber="+$("#bankacctnumber").val()+"&bankaccttype="+$("#bankaccttype").val(),
+//						async: false,
+						dataType: "json",
+						success: parseUpdatePayment,             
+						error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+					});
+					
+				} else {
+					console.log ("Sending Credit Card updating request...");
+					// Updating Credit Card 
+					$.ajax({
+						type: "POST",
+						url: site_url+'/scripts/ws/webservice.php',
+						data: "srv=update_payment&format=json&paymentid="+paymentid+"&paymenttype=creditcard"+"&cardtype="+$("#cardtype").val()+"&cardname="+$("#cardname").val()+"&cardnumber="+$("#cardnumber").val()+"&cardexpmonth="+$("#cardexpmonth").val()+"&cardexpyear="+$("#cardexpyear").val(),
+//						async: false,
+						dataType: "json",
+						success: parseUpdatePayment,             
+						error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+					});
+					
+				}
+			}
+			else 
+				alert (errors.join("\r\n"));
+
+		}
+		
+	});	
+
+
+	$.ajax({
+		type: "POST",
+		url: site_url+'/scripts/ws/webservice.php',
+		data: "srv=get_payments_by_email"+"&format=json"+"&email={email}",
+		async: false,
+		dataType: "json",
+		success: parseGetPayments,             // name of the function to call upon success
+		error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+	});
+
+	$.ajax({
+		type: "POST",
+		url: site_url+'/scripts/ws/webservice.php',
+		data: "srv=get_user_by_email"+"&format=json"+"&email={email}",
+		async: false,
+		dataType: "json",
+		success: parseGetUser,             // name of the function to call upon success
+		error: function(jqXHR, textStatus, errorThrown) { alert("Oops, something seems to have gone wrong. Please contact the web minister with the following info: " + textStatus); }
+	});
+	
+})
+
+
+function parseGetUser(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+	
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var user = jsonObj.northland_api[2].response.users;
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			$("#locationstreet").val(user[0].billingline1);
+			$("#locationcity").val(user[0].billingcity);
+			$("#locationstate").val(user[0].billingstate);
+			$("#locationzip").val(user[0].billingzip);
+		}
+	}
+}
+
+function parseUpdateAddress(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+//	console.log (data);
+
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var address = jsonObj.northland_api[2].response.addresses;
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			console.log("Street: " + address[0].billingline1);
+			console.log("City: " + address[0].billingcity);
+			console.log("State: " + address[0].billingstate);
+			console.log("Zip: " + address[0].billingzip);
+			alert ("Your billing address has been updated");
+			ShowProceedToConfirmation();
+
+//			$("#locationstreet").val(user[0].billingaddrline1);
+//			$("#locationcity").val(user[0].billingcity);
+//			$("#locationstate").val(user[0].billingstate);
+//			$("#locationzip").val(user[0].billingzipcode);
+
+		}
+	}
+
+}
+
+
+function parseGetPayments(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+	
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+
+	} else {
+		payment_arr = jsonObj.northland_api[2].response.payments;
+//		var error_arr = jsonObj.northland_api[2].response.error;
+//		console.log ("Error: " + error_arr.message);
+		var htmlEntity	= $("#paymenttype").html();
+		var htmlEntity1	= $(".pickpaymenttype").html();
+//		console.log(": " + payment_arr.0.paymenttype);
+
+		for(var i=0; i<payment_arr.length; i++) {
+			htmlEntity +=  '<option value="' + i+ '">';
+			htmlEntity1 +=  '<option value="' + i + '">';
+
+			if (payment_arr[i].paymenttype == 'bankaccount') {
+				htmlEntity += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+				htmlEntity1 += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+			} else {
+				htmlEntity += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+				htmlEntity1 += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+			}
+		}
+
+//					htmlEntity += '</p>';
+//		console.log("htmlEntity: " + htmlEntity);
+		$("#paymenttype").html(htmlEntity);
+		$(".pickpaymenttype").html(htmlEntity1);
+	}
+
+//	alert(jsonObj.northland_api[0].request.parameters.srv);
+}
+
+function parseUpdatePayment(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+	console.log (data);
+//	alert ("Need to implement more");
+
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var updated_payment = jsonObj.northland_api[2].response.payments;
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			console.log ("Success to update payment with ID: " + updated_payment[0].PK_pmtmethod);
+
+			var htmlEntity	= "";
+			var htmlEntity1	= "";
+			htmlEntity += '<option value="">Select...</option>';
+			htmlEntity += '<option value="ADD_CC">Add a Credit Card</option>';
+			htmlEntity += '<option value="ADD_BA">Add a Bank Account</option>';
+			htmlEntity1 += '<option value="">Select...</option>';
+			
+			for(var i=0; i<payment_arr.length; i++) 
+			{
+				if (payment_arr[i].PK_pmtmethod == updated_payment[0].PK_pmtmethod) {
+					payment_arr[i] = updated_payment[0];
+				} 
+				htmlEntity +=  '<option value="' + i+ '">';
+				htmlEntity1 +=  '<option value="' + i + '">';
+	
+				if (payment_arr[i].paymenttype == 'bankaccount') {
+					htmlEntity += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+					htmlEntity1 += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+				} else {
+					htmlEntity += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+					htmlEntity1 += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+				}
+			}
+	
+			console.log("htmlEntity: " + htmlEntity);
+			$("#paymenttype").html(htmlEntity);
+			$(".pickpaymenttype").html(htmlEntity1);
+	
+		}
+	}
+
+}
+
+function parseDeletePayment(data) 
+{ 
+	var jsonObj = $.parseJSON(data);
+
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var deleted_payment = jsonObj.northland_api[2].response.payments;
+//		console.log ("Deleted Payment ID: " + deleted_payment[0].PK_pmtmethod);
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			console.log ("Success to delete payment with ID: " + deleted_payment[0].PK_pmtmethod);
+			
+			$("#ccsection").hide('fast');
+			$("#basection").hide('fast');
+
+			var htmlEntity	= "";
+			var htmlEntity1	= "";
+			htmlEntity += '<option value="">Select...</option>';
+			htmlEntity += '<option value="ADD_CC">Add a Credit Card</option>';
+			htmlEntity += '<option value="ADD_BA">Add a Bank Account</option>';
+			htmlEntity1 += '<option value="">Select...</option>';
+			
+			for(var i=0; i<payment_arr.length; i++) {
+				if (payment_arr[i].PK_pmtmethod == deleted_payment[0].PK_pmtmethod) {
+					payment_arr.splice (i, 1);		// At position i, remove 1 item. 
+				} else {
+					htmlEntity +=  '<option value="' + i+ '">';
+					htmlEntity1 +=  '<option value="' + i + '">';
+		
+					if (payment_arr[i].paymenttype == 'bankaccount') {
+						htmlEntity += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+						htmlEntity1 += payment_arr[i].bankname + " ending with " + payment_arr[i].acctnumlast4 + "</option>";
+					} else {
+						htmlEntity += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+						htmlEntity1 += payment_arr[i].creditcardtype + " ending with " + payment_arr[i].creditcardlast4 + "</option>";
+					}
+				}
+			}
+	
+			console.log("htmlEntity: " + htmlEntity);
+			$("#paymenttype").html(htmlEntity);
+			$(".pickpaymenttype").html(htmlEntity1);
+	
+		}
+	}
+
+}
+
+function parseAddPayment(data) 
+{ 
+//	console.log ("Success");
+
+	var jsonObj = $.parseJSON(data);
+	console.log (data);
+	
+	error_len = jsonObj.northland_api[1].errors.length;
+	if (error_len > 0) {
+		var error_arr = jsonObj.northland_api[1].errors;
+		var error_message = '';
+		for (var i=0; i<error_len; i++)
+			error_message += error_arr[i].number + ": " + error_arr[i].type + " - " + error_arr[i].message + "\n";
+		alert (error_message);
+	} else {
+		var added_payment = jsonObj.northland_api[2].response.payments;
+
+		if (jsonObj.northland_api[2].response.error != null) {
+			var error_arr = jsonObj.northland_api[2].response.error;
+			var error_message = error_arr.number + ": " + error_arr.type + " - " + error_arr.message ;
+			alert (error_message);
+		} else {
+			console.log ("Success to add payment with ID: " + added_payment[0].PK_pmtmethod);
+			
+			$("#billingsection").slideUp('fast');
+			$(".update_billing").slideUp("fast");
+			//$("#ccsection").hide('fast');
+			//$("#basection").hide('fast');
+
+			var htmlEntity	= $("#paymenttype").html();;
+			var htmlEntity1	= $(".pickpaymenttype").html();
+//			htmlEntity += '<option value="">Select...</option>';
+//			htmlEntity += '<option value="ADD_CC">Add a Credit Card</option>';
+//			htmlEntity += '<option value="ADD_BA">Add a Bank Account</option>';
+//			htmlEntity1 += '<option value="">Select...</option>';
+			
+//			payment_arr[arr_len] = new Array();
+			payment_arr.push (added_payment[0]);
+			var arr_len = payment_arr.length - 1;
+			console.log ("Array Len: " + arr_len);
+
+				htmlEntity +=  '<option value="' + arr_len+ '">';
+				htmlEntity1 +=  '<option value="' + arr_len + '">';
+				
+				if (added_payment[0].paymenttype == 'bankaccount') {
+					alert("New bank account successfully added.");
+					htmlEntity += added_payment[0].bankname + " ending with " + added_payment[0].acctnumlast4 + "</option>";
+					htmlEntity1 += added_payment[0].bankname + " ending with " + added_payment[0].acctnumlast4 + "</option>";
+				} else {
+					alert("New credit card successfully added.");
+					htmlEntity += added_payment[0].creditcardtype + " ending with " + added_payment[0].creditcardlast4 + "</option>";
+					htmlEntity1 += added_payment[0].creditcardtype + " ending with " + added_payment[0].creditcardlast4 + "</option>";
+				}
+
+			console.log("htmlEntity: " + htmlEntity);
+			$("#paymenttype").html(htmlEntity);
+			$(".pickpaymenttype").html(htmlEntity1);
+	
+		}
+	}
+}
+
+function checkPaymentValidation()
+{
+	var errors = new Array();
+	var paymentid = $("#paymenttype").val();
+
+	if (paymentid == "ADD_CC" || paymentid == "ADD_BA")  
+	{
+		if (paymentid == "ADD_CC") {
+			console.log ("Check Credit Card Validation");
+			if ($("#cardtype").val() == null || $("#cardtype").val() == '') {
+				errors.push ("Select Credit Card Type");
+			}
+			if ($("#cardnumber").val() == null || $("#cardnumber").val() == '') {
+				errors.push ("Enter Credit Card Number");
+			} 
+			console.log ("Card #: " + $("#cardnumber").val());
+			if ($("#cardtype").val() != null && $("#cardtype").val() != '' && $("#cardnumber").val() != null && $("#cardnumber").val() != '') {
+				if (!isValidCreditCardNumber($("#cardnumber").val(), $("#cardtype").val())) 
+					errors.push (ccErrors[ccErrorNo]);
+			}
+			if ($("#cardname").val() == null || $("#cardname").val() == '') {
+				errors.push ("Enter Credit Card Holder Name");
+			}
+			if ($("#cardexpmonth").val() == null || $("#cardexpmonth").val() == '') {
+				errors.push ("Select Expiration Month");
+			}
+			if ($("#cardexpyear").val() == null || $("#cardexpyear").val() == '') {
+				errors.push ("Select Expiration Year");
+			}
+		} else {
+			console.log ("Check Bank Account Validation");
+			if ($("#bankname").val() == null || $("#bankname").val() == '') {
+				errors.push ("Enter Bank Name");
+			}
+			if ($("#bankrtnumber").val() == null || $("#bankrtnumber").val() == '') {
+				errors.push ("Enter Routing Number");
+			}
+			if ($("#bankacctnumber").val() == null || $("#bankacctnumber").val() == '') {
+				errors.push ("Enter Account Number");
+			} else {
+				if (!checkBankAccount($("#bankacctnumber").val())) 
+					errors.push (ccErrors[ccErrorNo]);
+			}
+			if ($("#bankaccttype").val() == null || $("#bankaccttype").val() == '') {
+				errors.push ("Select Account Type");
+			}
+		}
+	} 
+	else {
+		if (payment_arr[paymentid].paymenttype == "creditcard") {
+			console.log ("Check Credit Card Validation");
+			if ($("#cardtype").val() == null || $("#cardtype").val() == '') {
+				errors.push ("Select Credit Card Type");
+			}
+			if ($("#cardnumber").val() == null || $("#cardnumber").val() == '') {
+				errors.push ("Enter Credit Card Number");
+			} 
+			if ($("#cardtype").val() != null && $("#cardtype").val() != '' && $("#cardnumber").val() != null && $("#cardnumber").val() != '') {
+				if (!isValidCreditCardNumber($("#cardnumber").val(), $("#cardtype").val())) 
+					errors.push (ccErrors[ccErrorNo]);
+			}
+			if ($("#cardname").val() == null || $("#cardname").val() == '') {
+				errors.push ("Enter Credit Card Holder Name");
+			}
+			if ($("#cardexpmonth").val() == null || $("#cardexpmonth").val() == '') {
+				errors.push ("Select Expiration Month");
+			}
+			if ($("#cardexpyear").val() == null || $("#cardexpyear").val() == '') {
+				errors.push ("Select Expiration Year");
+			}
+		} else {	// payment_arr[paymentid].paymenttype == "bankaccount"
+			console.log ("Check Bank Account Validation");
+			if ($("#bankname").val() == null || $("#bankname").val() == '') {
+				errors.push ("Enter Bank Name");
+			}
+			if ($("#bankrtnumber").val() == null || $("#bankrtnumber").val() == '') {
+				errors.push ("Enter Routing Number");
+			}
+			if ($("#bankacctnumber").val() == null || $("#bankacctnumber").val() == '') {
+				errors.push ("Enter Account Number");
+			} else {
+				if (!checkBankAccount($("#bankacctnumber").val())) 
+					errors.push (ccErrors[ccErrorNo]);
+			}
+			if ($("#bankaccttype").val() == null || $("#bankaccttype").val() == '') {
+				errors.push ("Select Account Type");
+			}
+		}
+	}
+	
+	return errors;	
+}
+
+function clearCCSectionFields()
+{
+	$("#cardname").val("");
+	$("#cardtype").prop('selectedIndex', 0);
+	$("#cardexpmonth").prop('selectedIndex', 0);
+	$("#cardexpyear").prop('selectedIndex', 0);
+	$("#cardnumber").val("");
+//	$("#ccstatus").prop('selectedIndex', 0);
+	$("#ccstatus").attr('checked', false);
+}
+
+function clearBASectionFields()
+{
+	$("#bankname").val("");
+	$("#bankrtnumber").val("");
+	$("#bankaccttype").prop('selectedIndex', 0);
+	$("#bankacctnumber").val("");
+//	$("#bastatus").prop('selectedIndex', 0);
+	$("#bastatus").attr('checked', false);
+}
+
+</script>
+{/if}
+
+
+<style type="text/css">
+	.need_tinter { 	
+		background-color:rgba(255,255,255, 0.2);
+		padding:10px;
+	}
+	.need_entry {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		background-color: rgba(255, 255, 0, 0.2);	
+		box-shadow: 1px 5px 15px rgb(124, 84, 0);	
+		box-shadow: 1px 5px 15px rgba(124, 84, 0, 0.66);
+		position: relative;
+		font-size: 14px;
+		font-weight: 300;
+		color: #794800;
+		margin-top: 25px;
+		background-image:url(http://www.northlandchurch.net/_assets/img/v2/respond/generous/bg.jpg);
+		background-position:-300px 0;
+	}
+	
+	.need_completed_header {	
+    	padding: 8px;
+    	background-color: rgb(153, 92, 1);
+    	background-color: rgba(153, 92, 1, 0.7);
+    	color: #FFF;
+	}
+	
+	.need_completed_header .completed_contributors {
+		font-weight: 300;
+		position: absolute;
+		right: 8px;
+		top: 10px;
+		font-size: 12px;		
+	}
+	
+	.need_entry .title {
+		font-size: 22px;
+		font-weight: 100;
+		line-height: 22px;
+		color: #794800;
+		width: 70%;
+		float: left;
+		margin-bottom: 45px
+	}
+	
+	.need_entry select, .need_entry input, need {
+		font-family: "museo-sans-1","museo-sans-2",Helvetica, sans-serif;
+		background-color: rgba(255, 255, 0, 0.2);
+		border-radius: 5px;
+		border: 1px #A60 solid;
+		font-size:13px;
+		color: #794800;
+		margin-bottom:5px;
+		padding: 3px;
+	}
+	
+	.need_info {
+		float: right;
+		width: 25%
+	}
+	
+	.need_info h1 { text-align: center; }
+	
+	.need_info .progress_bar { 
+		height: 8px;
+		border-radius: 2px;
+		box-shadow: 0 0 2px #5E3900;
+		border: 1px #8D5700 solid
+	}
+	
+	.need_info .progress_bar_percent {
+		height: 8px;
+		background-color: #A60
+	}
+	
+	.need_info .contributors {
+		text-transform:uppercase;
+		font-size: 10px;
+		color: #593C0E;
+		text-align:center;
+		line-height: 1.2em;
+		margin-top: 3px;
+	}
+	
+	.need_info ul {
+		color: #593C0E;
+		font-size: 14px;
+		text-transform: uppercase;
+		font-weight: 300;
+		line-height: 22px;
+	}
+	
+	.need_entry .button {	
+		float: left;
+		padding: 5px 7px;
+		background-image: -webkit-linear-gradient(bottom, #e6c028, #edd72c);
+		background-color: #e6c028;
+		border: 1px #B16A00 solid;
+		border-radius: 4px;
+		box-shadow: 0 0 6px rgb(131, 84, 0);
+		box-shadow: 0 0 6px rgba(131, 84, 0, 0.78);
+		font-weight: 500;
+		font-size: 14px;		
+		text-transform: uppercase;
+		color: #794800;		
+		cursor: pointer
+	}
+	
+	.thank_you_for_giving {
+		font-size: 16px;
+		text-align: center;
+		font-weight: 500;
+		padding: 10px;
+	}
+	
+	.button a { color: #794800; }
+	
+	.help_meet_need {
+		position: absolute;
+		bottom: 10px;
+	}
+	
+	#cancel_donation { margin-right: 10px; }
+	
+	#select_gift .header, #confirm_gift .header, .update_billing .header {
+		font-size:11px;
+		font-weight: 700;
+		line-height: 12px
+	}
+	
+	#select_gift .description { 
+		font-size: 15px; 
+	}
+	#confirm_gift .description { 
+		font-size: 15px; 
+	}
+	.update_billing .description { 
+		font-size: 15px; 
+	}
+	.update_billing .description select { 
+		font-size: 12px; width: 142px; 
+	}
+	.update_billing .description input { 
+		width: 134px 
+	}	
+	
+	.editprofile_subtitle { 
+		width: 100px; 
+		margin: 4px 5px 0 0; 
+	}
+	
+	#respond-generous { padding-bottom: 20px }
+	
+</style>
+
+
+ <div class='hero hero--resource'>
+      <div class='hero-media' style='background-image: url(../assets/images/resource-ocean.jpg)'></div>
+      <div class='hero-content'>
+        <div class='cell'>
+          <ul class='breadcrumbs breadcrumbs--transparent'>
+            <li><a href="../">Home</a></li>
+            <li><a href="../resources/">Resources</a></li>
+            <li><a href="#">Category</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class='hero-extend'>
+        <div class='cell'>
+          <h1 class='heading heading--l'>Live Generously</h1>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='cell'>
+        <div class='card'>
+          <div class='g'>
+            <div class='g-b g-b--l--1of3'>
+              <h2 class='heading heading--italic heading--m'>About this need</h2>
+              <hr class='rule mtm'>
+              <p>Single mother awaiting child support to aid in care for her children.</p>
+              <dl class='dictionary mbm'>
+                <dt class='dictionary-term'>Rent:</dt>
+                <dd class='dictionary-definition'>$900</dd>
+                <dt class='dictionary-term'>Utilities:</dt>
+                <dd class='dictionary-definition'>$150</dd>
+                <dt class='dictionary-term'>Tuition:</dt>
+                <dd class='dictionary-definition'>$250</dd>
+              </dl>
+              <a class="dib mbl tsxs" href="#">View all opportunities</a>
+            </div>
+            <div class='g-b g-b--m--1of2 g-b--l--1of3'>
+              <h2 class='heading heading--italic heading--m'>Totals</h2>
+              <hr class='rule mbm mtm'>
+              <p class='fl tsxs'>Needed</p>
+              <p class='fr tsxl'>$906</p>
+              <hr class='rule mbm'>
+              <p class='fl tsxs'>Received</p>
+              <p class='fr tsxl'>$569</p>
+              <hr class='rule mbm'>
+              <p class='fl tsxs'>Difference</p>
+              <p class='fr tcr tsxl'>$337</p>
+            </div>
+            <div class='g-b g-b--m--1of2 g-b--l--1of3'>
+              <div class='card card--deck pal mbl'>
+                <a class="btn btn--full btn--serif mbm" href="#">Help fulfill this need</a>
+                <dl class='dictionary'>
+                  <dt class='dictionary-term'>Date:</dt>
+                  <dd class='dictionary-definition'>June 10, 2015</dd>
+                  <dt class='dictionary-term'>Time of Day:</dt>
+                  <dd class='dictionary-definition'>Morning</dd>
+                  <dt class='dictionary-term'>Total Read:</dt>
+                  <dd class='dictionary-definition'>235 people</dd>
+                </dl>
+              </div>
+            </div>
+            <div class='g-b g-b--l--1of3 fr'>
+              <hr class='rule mbl'>
+              <a class="btn btn--outline btn--small fl" href="#">Previous</a>
+              <a class="btn btn--outline btn--small fr" href="#">Next </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='cell well'>
+        <div class='g'>
+          <div class='g-b g-b--m--1of2'>
+            <div class='card'>
+              <h2 class='heading heading--italic heading--m mbm'>Next Steps in Living Generously</h2>
+              <hr class='rule mbm'>
+              <p class='tss'>Fermentum massa justo sit amet risus. Etiam porta sem malesuada.</p>
+              <ul class='columns mbf tsxs'>
+                <li><a href="#">Give your Tithes &amp; Offerings</a></li>
+                <li><a href="#">Serve at a Northland site</a></li>
+                <li><a href="#">Go on a Distributed Journey</a></li>
+                <li><a href="#">Serve in the local community</a></li>
+                <li><a href="#">Join the children's ministry team</a></li>
+                <li><a href="#">Start a community small group</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class='g-b g-b--m--1of2'>
+            <div class='card'>
+              <h2 class='heading heading--italic heading--m mbm'>Tithes &amp; Offerings</h2>
+              <hr class='rule mbm'>
+              <p class='tss'>When you give your tithes and offerings to Northland, you are bringing them to Almighty God as an act of worship for who He is and what He has done. This act of obedience is God's invitation into a deeper understanding of what it means to live generously.</p>
+              <a href="#">Give my Tithes &amp; Offerings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<div id="respond-generous">
+	<div class="container_12">		
+		<div class="grid_12 marg-b-40"></div>	
+		<div class="grid_12">
+			<div id="generous-title">
+				<div class="generous-title-left grid_7">
+					LIVE GENEROUSLY
+				</div>	
+				<div class="generous-title-right grid_3">
+					<span>Give what God's given you</span><br>
+				For you know the grace of our Lord Jesus Christ, that though he was rich, yet for your sakes he became poor, so that you through his poverty might become rich.<br><em>-Paul (2 Corinthians 8:9)</em>
+				</div>
+			</div>
+			<a class="modal" href="#latest-worship"><div id="generous-play" class="default_visible"></div></a>
+			<div style="display:none">
+				<div id="latest-worship">
+					<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+					<iframe src="http://player.vimeo.com/video/12696347?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+				</div>
+			</div>	
+
+			<div class="clear"></div>
+		</div>		
+		
+		<div id="respond-generous-left" class="grid_8">
+			<h1 class="marg-t-40"><span></span></h1>	
+			
+			<h1 style="font-size: 14px; font-weight: 300">This Christmas season, we are reminded how God so loved the world that He gave his Son. We have the opportunity to bring not only our tithes (10 percent of our income) back to God through His church, but to also provide offerings to help others in need. Here, you'll find a list of offering opportunities for families helping families in need this Christmas season.<br><br>
+
+			Every week, dozens of local families come to Northland looking for help. <a href="http://www.northlandchurch.net/ministry/lifehope/" style="color: #593C0E; text-decoration: underline">LifeHope, our benevolence ministry</a>, helps to meet their practical needs such as rent or medical bills, while working to connect them to Christ. LifeHope staff assess needs and eligibility for assistance and then come alongside families to help guide them in next steps. <br><br>
+
+			Would you like to come alongside these families this Christmas season? By clicking below, you can help directly meet these and similar needs in the community.
+			</h1>
+			
+			<div class="clear"></div>
+			
+<div id="update_billing_info" style="display:none">
+		<div class="clear"></div>
+		
+		<div id="select_gift">
+			<div class="header">STEP 1 OF 2: SELECT GIFT</div>
+			<div class="description">Give 
+				<select id="select_amount"></select>
+				<input type='textbox' id='select_amount_text' style='display:none; width: 50px'>
+				
+				from 
+				
+				<select id="paymenttype" name="paymenttype">
+                    <option value="">Select...</option>
+                    <option value="ADD_CC">Add a Credit Card</option>
+                    <option value="ADD_BA">Add a Bank Account</option>
+                </select>	
+			</div>	
+			
+			<div id="billingsection" style="display:none">
+				<div class="description">				
+					<div class="grid_5 nomarg">
+	                         
+	                <div class="clear"></div>
+						<!-- Credit Card Section -->
+	                <div id="ccsection" style="display:none">
+	                    <div class="editprofile_subtitle">Card Type: </div>
+	                    <p><select id="cardtype" name="cardtype">
+	                    <option value="">Select...</option>
+	                    <option value="VISA">Visa</option>
+	                    <option value="MC">Master Card</option>
+	                    <option value="AMEX">American Express</option>
+	                    <option value="DISCOVER">Discover</option>
+	                    </select></p>                                    
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Name:</div><p><input id="cardname" name="cardname" ></p>
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Card Number:</div><p><input id="cardnumber" name="cardnumber" ></p>
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Expiration:</div>
+	                    <p><select id="cardexpmonth" name="cardexpmonth" style="width:63px">
+	                    <option value="">Select...</option>
+	                    <option value="01">1</option>
+	                    <option value="02">2</option>
+	                    <option value="03">3</option>
+	                    <option value="04">4</option>
+	                    <option value="05">5</option>
+	                    <option value="06">6</option>
+	                    <option value="07">7</option>
+	                    <option value="08">8</option>
+	                    <option value="09">9</option>
+	                    <option value="10">10</option>
+	                    <option value="11">11</option>
+	                    <option value="12">12</option>
+	                    </select> / <select id="cardexpyear" name="cardexpyear" style="width: 63px">
+	                    <option value="">Select...</option>
+	                    <option value="2014">2014</option>
+	                    <option value="2015">2015</option>
+	                    <option value="2016">2016</option>
+	                    <option value="2017">2017</option>
+	                    <option value="2018">2018</option>
+	                    <option value="2019">2019</option>
+	                    <option value="2020">2020</option>
+	                    <option value="2021">2021</option>
+	                    <option value="2022">2022</option>
+	                    <option value="2023">2023</option>
+	                    <option value="2024">2024</option>
+	                    </select></p>                                    
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle checkbox" style="display:none">Delete Card?</div><input type="checkbox" class="checkbox" id="ccstatus" name="ccstatus" value="inactive" /> 
+	                    <div class="clear"></div>  
+	
+	                </div>
+	                    
+	                    <!-- ACH (eCheck) Section -->
+	                <div id="basection" style="display:none">
+	                    <div class="editprofile_subtitle">Bank Name:</div><p><input id="bankname" name="bankname" ></p>
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Routing #:</div><p><input id="bankrtnumber" name="bankrtnumber" ></p>
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Account #:</div><p><input id="bankacctnumber" name="bankacctnumber" ></p>
+	                    <div class="clear"></div>
+	                    <div class="editprofile_subtitle">Account Type: </div>
+	                    <p><select id="bankaccttype" name="bankaccttype">
+	                    <option value="">Select...</option>
+	                    <option value="CHECKING">Checking</option>
+	                    <option value="SAVINGS">Savings</option>
+	                    </select></p>                                    
+	                    <div class="clear"></div>                    
+	                    <div class="editprofile_subtitle checkbox" style="display:none">Delete Account?</div><input type="checkbox" class="checkbox" id="bastatus" name="bastatus" value="inactive" /> 
+	                    <div class="clear"></div>  
+	                </div>
+	                
+						<div id='paymentMgmtClick' class="button" onclick="$(this).submit()" style="width: 126px; text-align: center; margin-left: 105px">Submit</div>	
+					</div>						
+				</div>	
+				<div class="clear"></div>			
+			</div>
+			
+					
+			<div id="proceed_to_confirmation" class="button" style="display:none">Proceed to Confirmation</div>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div id="confirm_gift" style="display:none; margin-top:10px">
+			<div class="header">STEP 2 OF 2: CONFIRMATION</div>
+			<div class="description"></div>
+			<div id="cancel_donation" class="button">Back</div>
+			<div id="confirm_donation" class="button">Confirm Donation</div>
+		</div>
+		
+		<div class="clear"></div>
+
+
+	<div class="nomarg update_billing" style="border-width: 0 1px 1px 1px; padding-top: 12px">
+		<div>
+			<div class="header">UPDATE BILLING ADDRESS</div>
+			<div class="description">
+				<div class="grid_5 nomarg">
+					<script type="text/javascript">
+						var flag_edit_firstname = 1;
+					 	var flag_edit_lastname = 1;
+							
+						$(document).ready(function() {	
+						//Parses name into first and last name. Finds last space to keep double names in the first name field together.
+						//Unhyphenated double last names effectively disallowed
+										
+							var wName = "{screen_name}";
+							var spacePos = wName.lastIndexOf(" ");	
+							var fName = wName.substring(0,spacePos);	
+							var lName = wName.substring(spacePos+1,wName.length);		
+
+							$("#hiddenfirstname").val(fName);
+							$("#hiddenlastname").val(lName);
+						});
+					</script>
+                    <div class="clear"></div>
+                    
+					<input type="hidden" id="hiddenfirstname" name="hiddenfirstname" />
+                    <input type="hidden" id="hiddenlastname" name="hiddenlastname" />
+                    <div class="clear"></div>									
+<!--                    <div class="editprofile_subtitle">Name:</div><p><span id="billingname" name="billingname"></span></p> -->
+                    <div class="editprofile_subtitle">Street:</div><p><input id="locationstreet" name="locationstreet" value="" ></p>
+                    <div class="editprofile_subtitle">City:</div><p><input id="locationcity" name="locationcity" value="" ></p>
+                    <div class="editprofile_subtitle">State: </div><p><select id="locationstate" name="locationstate">
+                    <option value="">Select...</option>
+                    <optgroup label="United States"><option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="DC">DC</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                    </optgroup></select></p>                                    
+                    <div class="clear"></div>
+                    <div class="editprofile_subtitle">Zip Code:</div><p><input id="locationzip" name="locationzip" value=""></p>
+
+					<div class="clear"></div>
+					<div id='billingAddressClick' class="button" style="width: 126px; text-align: center; margin-left: 105px">Update Address</div>									
+				</div>
+	
+			
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>	
+	<div class="clear"></div>
+</div>
+
+{!-- SHOW IF ALL ENTRIES ARE CLOSED}
+<div class="need_entry" id="general_lifehope_contribute">		
+	<div class="need_tinter">
+		<div class="title" style="text-align:center; width: 100%; margin-bottom:10px; font-weight: 300">Contribute to LifeHope</div>
+		<div style="margin-bottom:10px">Have all this week's needs been met? You can still {if logged_in}<a onclick="javascript:HelpMeetNeed(5, 10, 50, 100, 250, 500, 'LifeHope Generic Contribution', 'general_lifehope_contribute')" style="color: #794800; text-decoration: underline;">{if:else}<a class='user-login' href='#login-register-box' style="color: #794800; text-decoration: underline;">{/if} support the community's ongoing needs for benevolence</a> to help even more people!</div>
+		<div class="clear"></div>
+	</div>
+</div>
+{--}
+
+<div id="entries">
+	<?php
+		$this->EE->load->library('api');
+		$this->EE->api->instantiate('session');
+		$member_id =  $this->EE->session->userdata('member_id');
+	?>
+				
+	{exp:channel:entries channel="live_generously_lifehope" status="open"}		
+		
+	<?php
+		require_once("scripts/includes/initialize.php");
+	
+		$con = mysql_connect(DB_SERVER, DB_USER, DB_PASS);
+		if (!$con) { die('Could not connect: ' . mysql_error()); }
+		
+		$total_needamount = (int){need_1_amount_needed} + (int){need_2_amount_needed} + (int){need_3_amount_needed} + (int){need_4_amount_needed} + (int){need_5_amount_needed};
+	   
+	    $total_needreceived = (int){total_amount_received};
+	    
+	    if ($total_needamount > 0) { $total_percentmet = number_format(($total_needreceived / $total_needamount) * 100, 1); }
+	    else { $total_percentmet = 0; }
+	    
+	    if ($total_percentmet > 100) { $total_percentmet = 100; }
+	        
+	    // Generate text for contributors    		
+		if ($member_id == 0) { $contributed = 0; }
+		else {						
+			mysql_select_db(EE_DB_NAME, $con);
+		
+			$sql = "SELECT * FROM exp_favorites WHERE entry_id={entry_id} AND member_id=" . $member_id;
+			$result = mysql_query($sql) or die(mysql_error());
+	
+			if (mysql_num_rows($result) > 0) { $contributed = 1; }
+			else { $contributed = 0; }
+		}
+		
+		{exp:favorites:entry_count entry_id="{entry_id}"}
+			$number_of_contributors = {favorites_count_public};
+		{/exp:favorites:entry_count}
+		
+		$contributors_text = "";
+			
+		if ($contributed == 1) { 
+			if ($number_of_contributors == 1) { $contributors_text = "YOU HELPED"; }
+			else { 
+				if ($number_of_contributors > 2) { $contributors_text = "YOU AND " . ((int)$number_of_contributors - 1) . " OTHERS HELPED"; }
+				if ($number_of_contributors == 2) { $contributors_text = "YOU AND 1 OTHER HELPED"; }
+			}
+		}
+		
+		else {
+			if ($number_of_contributors > 1) { $contributors_text = $number_of_contributors . " PEOPLE HELPED"; }
+			if ($number_of_contributors == 1) { $contributors_text = "1 PERSON HELPED"; }
+		}									
+	?>	
+		
+	<div class="need_entry" id="entry_{entry_id}" style="">		
+		<div class="need_tinter">						
+			<div class="title">{if persons_location}<div style="display:inline; font-weight: 300">{persons_location}</div> - {/if}{description}</div>										
+			<div class="need_info">
+				<h1>$<?php echo $total_needamount; ?> need</h1>
+				<div class="progress_bar">
+					<div class="progress_bar_percent" style="width: <?php echo $total_percentmet; ?>%"></div>
+				</div>
+				
+				<div class="contributors">
+				$<?php echo $total_needreceived; ?> RECEIVED SO FAR<br>
+				<?php echo $contributors_text; ?></div>			
+				<ul>
+					{if need_1_description}<li>${need_1_amount_needed} - {need_1_description}</li>{/if}
+					{if need_2_description}<li>${need_2_amount_needed} - {need_2_description}</li>{/if}
+					{if need_3_description}<li>${need_3_amount_needed} - {need_3_description}</li>{/if}
+					{if need_4_description}<li>${need_4_amount_needed} - {need_4_description}</li>{/if}
+					{if need_5_description}<li>${need_5_amount_needed} - {need_5_description}</li>{/if}
+				</ul>
+			</div>
+					
+			{if logged_in}
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<div class="clear"></div><div class='thank_you_for_giving'>THANK YOU FOR GIVING</div><div class='clear'></div>
+					{if:else}					
+						<div class="help_meet_need button" onclick="javascript:HelpMeetNeed({need_1_amount_needed}, {need_2_amount_needed}, {need_3_amount_needed}, {need_4_amount_needed}, {need_5_amount_needed}, <?php echo $total_needamount; ?>, '{resourcepoint_id}', 'entry_{entry_id}')">Help Meet This Need</div>
+					{/if}
+				{/exp:favorites:saved}			
+			{if:else}
+				<a class='user-login' href='#login-register-box'><div class='help_meet_need button'>Help Meet This Need</div></a>
+			{/if}
+			<div class="clear"></div>
+		</div>
+			<div class="clear"></div>
+	</div>	
+	
+	<div class="clear"></div>
+	{/exp:channel:entries}	
+
+	{embed="/_component/lazyload_livegenerously"}
+</div>		
+	
+	</div>
+			
+		<div id="respond-pray-right" class="grid_4">
+			<div class="clear"></div>
+			<div id="generous-offerings" style="color: #593C0E; margin-top: 40px">
+				Tithes & Offerings
+			</div>
+			<p style="font-family: 'museo-sans-1','museo-sans-2',Helvetica, sans-serif; font-weight: 300; font-size: 13px; color: #593C0E"> When you give your tithes and offerings to Northland, you are bringing them to Almighty God as an act of worship for who He is and what He has done. This act of obedience is God's invitation into a deeper understanding of what it means to live generously.</p>
+			<div class="default_visible"><a href="http://secure.northlandchurch.net/insitegiving/giving.do"><div id="btn-tithes"></div></a></div>
+			<div class="shinethelight"><a href="https://secure.northlandchurch.net/givingweb/mobilegiving.jsp"><div id="btn-tithes"></div></a></div>
+			
+			<div style="padding: 15px">
+				<h2 style="color: #593C0E; border: none"><span style="font-weight: 300; font-size: 18px">Next Steps in Generosity:</span></h1>
+				<h2 style="line-height:26px; border: none; font-weight: 300" class="default_visible">
+					- <a href="https://secure.northlandchurch.net/insitegiving/giving.do">Give your tithes and offerings.</a><br> 
+					- <a href="http://www.northlandchurch.net/serve/northland/">Serve at a Northland site.</a><br>
+					- <a href="http://www.somedayistoday.net/">Go on a Distributed Journey.</a><br>
+					- <a href="http://www.northlandchurch.net/serve/local">Serve in the local community.</a><br>
+					- <a href="http://www.northlandchurch.net/ministries/childrens_church/">Join the Children's Ministries team.</a><br>
+					- <a href="http://www.northlandchurch.net/respond/beincommunity/">Start a community (small) group.</a><br>
+				</h2>
+				<h2 style="line-height:26px; border: none; font-weight: 300" class="shinethelight">
+					- <a href="https://secure.northlandchurch.net/givingweb/mobilegiving.jsp">Give your tithes and offerings.</a><br>
+					- <a href="http://www.northlandchurch.net/serve/northland/">Serve at a Northland site.</a><br>
+					- <a href="http://www.somedayistoday.net/">Go on a Distributed Journey.</a><br>
+					- <a href="http://www.northlandchurch.net/serve/local">Serve in the local community.</a><br>
+					- <a href="http://www.northlandchurch.net/ministries/childrens_church/">Join the Children's Ministries team.</a><br>
+					- <a href="http://www.northlandchurch.net/respond/beincommunity/">Start a community (small) group.</a><br>
+				</h2>
+			</div>
+			
+			<div class="clear"></div>
+			</div>
+			</div>
+		<div class="clear"></div>
+
+	<div class="clear"></div>
+</div>
+
+<div id="lazyload_moreentries"></div>
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+
+{embed="_includes/html_close"}

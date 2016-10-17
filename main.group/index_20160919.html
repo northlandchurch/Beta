@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Northland Church</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link href="//cloud.typography.com/6046374/767068/css/fonts.css" rel="stylesheet" type="text/css">
+	<link rel="shorcut icon" href="/_img/favicon.png">
+    <link rel="stylesheet" href="/_assets/css/css_prpl.css" type="text/css">
+	<!-- Added to Augment PRPL's base CSS -->
+	<link rel="stylesheet" href="/_assets/css/css_billy_added.css" type="text/css">
+</head>
+<body class="template-homepage">
+	{embed="_includes/header"}
+	
+	<div class="main-wrapper">
+	
+		<div class="container">	
+			{!-- Hero Element --}
+			{exp:channel:entries channel="controller" url_title="hero_controller"}
+			{exp:playa:children offset="0" limit="1" disable="categories|member_data|pagination"}
+				<section id="hero-section" style="background-image: url('{hero-element-image}');" {if hero-element-color-overlay == "Overlay"}class="color-overlay"{/if}>
+					<div class="copy-container">
+						<p class="date">{hero-element-start-date format="%F %j"}{if hero-element-end-date} - {hero-element-end-date format="%F %j, %Y"}{/if}</p>
+						<h1>{hero-element-h1-title}</h1>
+						<p class="body-copy">{hero-element-body-copy}</p>
+						<a href="//{hero-element-link}" class="button button-main">Learn More</a>
+					</div>
+				</section>
+			{/exp:playa:children}
+			{/exp:channel:entries}
+		</div>
+	
+		<section id="featured-section" class="card-section">
+			<div class="container">
+				<div class="card-row flex-tablet-min">
+					{!-- Main Featured Blog Entry --}
+					{exp:channel:entries channel="controller" url_title="featured_blogs_controller"}
+					{exp:playa:children offset="0" limit="1" disable="categories|member_data|pagination"}
+					{if channel=="Blogs"}
+					<article class="card card-half">
+						<div class="copy-container">
+							 {!-- featured image --}
+							<?php
+							$img = "";
+							ob_start();
+							?>{blog-post}<?php
+							$obcontents = ob_get_contents();
+							ob_end_clean();
+							$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+							if(preg_match($pattern,	$obcontents, $match)){
+								$img = $match[1];
+							}
+							?>
+							<div class="featured-image" style="background-image: url(<?php echo $img ?>);">
+								<!-- this here image will be in the DOM, but hidden via CSS so that screen readers/page crawlers can still access it. The "src" attribute of this image should be dynamically inserted as the background image of its parent. -->
+								<img src="<?php echo $img ?>" class="visually-hidden">
+								<a href="/blogs/{url_title}"></a>
+							</div>
+
+							<h2>
+								<a href="/blogs/{url_title}">{title}</a>
+							</h2>
+
+							{if blog-author}
+							<p class="author">
+								by <strong>{blog-author}</strong>
+							</p>
+							{/if}
+
+							<p class="body-copy">
+								{exp:trunchtml chars="150" inline="..."}{exp:strip_html}{blog-post}{/exp:strip_html}{/exp:trunchtml}
+							</p>
+
+							<a href="/blogs/{url_title}" class="main-link">Read More <span class="icon-arrow-filled"></span></a>
+						</div><!-- /.copy-container -->
+					</article>
+					{/if}
+					{/exp:playa:children}
+					{/exp:channel:entries}
+
+					
+					{!--					--}
+					{!-- Liturgy Reading 	--}
+					{!--					--}
+					<article class="card daily-liturgy" style="background-image: url('/_img/img_prpl/reading-bible-grayscale.jpg');">
+						{!-- Morning Liturgy Reading --}
+						<div class="copy-container" id="morning-liturgy" style="display:none">
+						{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+									  start_on="2014-{current_time format='%m-%d'} 00:00" 
+									  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+									  search:liturgy-sequence="=Morning"}	
+							<div class="details">
+								<div class="detail-left">
+									<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+								</div>
+								<div class="detail-right">
+									<p class="date">{entry_date format="%F %j"}</p>
+								</div>
+							</div>
+
+							<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+							<p class="body-copy">
+							{liturgy-scripture}
+							</p>
+
+							<!--	Link to morning liturgy at Liturgy page if it's long -->
+							<a href="/resources/liturgy/#morning" class="button button-secondary">Read Now</a>	
+
+							<!--	Implementation for Favorite function for reading -->
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+								{/if}
+							{/exp:favorites:saved}
+
+							<p class="body-copy" style="display:none">
+							{exp:favorites:entry_count entry_id="{entry_id}"}						
+								{if favorites_count_public == 0}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								{if:else}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									{if favorites_count_public>1} people have
+									{if:else} person has
+									{/if}
+									<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								{/if}	  
+							{/exp:favorites:entry_count}
+							</p>
+
+						{/exp:channel:entries}
+						</div>
+						
+						
+						{!-- Midday Liturgy Reading --}
+						<div class="copy-container" id="midday-liturgy" style="display:none">
+						{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+									  start_on="2014-{current_time format='%m-%d'} 00:00" 
+									  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+									  search:liturgy-sequence="=Midday"}	
+							<div class="details">
+								<div class="detail-left">
+									<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+								</div>
+								<div class="detail-right">
+									<p class="date">{entry_date format="%F %j"}</p>
+								</div>
+							</div>
+
+							<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+							<p class="body-copy">
+							{liturgy-scripture}
+							</p>
+
+							<!--	Link to midday liturgy at Liturgy page if it's long -->
+							<a href="/resources/liturgy/#midday" class="button button-secondary">Read Now</a>	
+
+							<!--	Implementation for Favorite function for reading -->
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+								{/if}
+							{/exp:favorites:saved}
+
+							<p class="body-copy" style="display:none">
+							{exp:favorites:entry_count entry_id="{entry_id}"}						
+								{if favorites_count_public == 0}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								{if:else}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									{if favorites_count_public>1} people have
+									{if:else} person has
+									{/if}
+									<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								{/if}	  
+							{/exp:favorites:entry_count}
+							</p>
+
+						{/exp:channel:entries}
+						</div>
+
+						
+						{!-- Evening Liturgy Reading --}
+						<div class="copy-container" id="evening-liturgy" style="display:none">
+						{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+									  start_on="2014-{current_time format='%m-%d'} 00:00" 
+									  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+									  search:liturgy-sequence="=Evening"}	
+							<div class="details">
+								<div class="detail-left">
+									<p class="card-title"><span class="icon-book-open"></span> Daily Liturgy</p>
+								</div>
+								<div class="detail-right">
+									<p class="date">{entry_date format="%F %j"}</p>
+								</div>
+							</div>
+
+
+							<h2>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</h2>
+
+							<p class="body-copy">
+							{liturgy-scripture}
+							</p>
+
+							<!--	Link to evening liturgy at Liturgy page if it's long -->
+							<a href="/resources/liturgy/#evening" class="button button-secondary">Read Now</a>	
+
+							<!--	Implementation for Favorite function for reading -->
+							{exp:favorites:saved entry_id="{entry_id}"}
+								{if saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add-loggedin/{entry_id}/" id="entry{entry_id}">Marked as read</a>					
+								{/if}
+
+								{if not_saved}
+									<a class="button button-secondary favorite" href="/_component/favorite-add/{entry_id}/" id="entry{entry_id}">Mark as read</a>					
+								{/if}
+							{/exp:favorites:saved}
+
+							<p class="body-copy" style="display:none">
+							{exp:favorites:entry_count entry_id="{entry_id}"}						
+								{if favorites_count_public == 0}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									<span class="people-read">people have read {if total_results == 1}this{if:else}these{/if}</span>
+								{if:else}
+									<span class="count entry{entry_id}">{favorites_count_public}</span>
+									{if favorites_count_public>1} people have
+									{if:else} person has
+									{/if}
+									<span class="people-read">read {if total_results == 1}this{if:else}these{/if}</span>
+								{/if}	  
+							{/exp:favorites:entry_count}
+							</p>
+
+						{/exp:channel:entries}
+						</div>
+					</article>
+				</div><!-- /.card-row -->
+				<div class="card-row flex-tablet-min">
+					{!-- Three More Featured Blog Entries --}
+					{exp:channel:entries channel="controller" url_title="featured_blogs_controller"}
+					{exp:playa:children offset="1" limit="3" disable="categories|member_data|pagination"}
+					{if channel=="Blogs"}
+						<article class="card card-third">
+							<div class="copy-container">
+								<p class="date">{entry_date format="%F %j, %Y"}</p>
+
+								<h3><a href="/blogs/{url_title}">{title}</a></h3>
+
+								{if blog-author}
+								<p class="author">by <strong>{blog-author}</strong></p>
+								{/if}		
+							</div>
+							<a href="/blogs/{url_title}" class="main-link">Read More <span class="icon-arrow-filled"></span></a>
+						</article>
+					{/if}
+					{/exp:playa:children}
+					{/exp:channel:entries}
+				</div><!-- /.card-row -->
+			</div><!-- /.container -->
+		</section>
+		
+		<section id="past-news-section" class="card-section">
+
+			<div class="section-tab color-green">
+				<a href="/resources/videos/" class="tab-title">A Look to Last Week</a>
+			</div>
+
+			<div class="container">
+				<div class="card-row flex-tablet-min">
+					<article class="card card-half">
+						{!-- Most Recent Worship Service --}
+						{!-- 
+						  Media Categories
+						  +----+-----------------------------
+						  | ID | NAME
+						  +----+-----------------------------
+						  | 48 | "Recent Worship Services"
+						  +----+-----------------------------
+						  | 58 | "Live Service"
+						  +----+-----------------------------
+						--}
+						{exp:channel:entries channel="media" orderby="date" sort="desc" category="not 58" category="48" limit="1" cache="yes" refresh="60" disable="member_data|pagination"}
+							<div class="featured-image" style="background-image: url('/_img/uploads/{media-primary}');">
+								<div class="details">
+									<div class="detail-left">
+										<p class="card-title">Latest Service</p>
+									</div>
+									<div class="detail-right">
+										<p class="date">{entry_date format="%F %j, %Y"}</p>
+									</div>
+								</div>
+
+								<img src="/_img/uploads/{media-primary}" class="visually-hidden">
+
+								<a href="/video/{url_title}"></a>
+							</div>
+
+							<div class="copy-container">
+								<h2><a href="/video/{url_title}">{title}</a></h2>
+								<p class="author">by <strong>{media-speaker}</strong></p>
+								<p class="body-copy">{media-description}</p>
+								<a href="/video/{url_title}" class="main-link">View Sermon <span class="icon-arrow-filled"></span></a>
+							</div>
+						{/exp:channel:entries}
+					</article>
+					<article class="card card-video">
+						{!-- One Featured Media Entry --}
+						{exp:channel:entries channel="controller" url_title="featured_video_controller"}
+						{exp:playa:children offset="0" limit="1" disable="categories|member_data|pagination"}						
+						<a href="/videos/{url_title}">
+							<div class="featured-video" style="background-image: url('/_img/uploads/{media-primary}');">
+								<div class="details">
+									<div class="detail-left">
+										<p class="card-title">{title}</p>
+									</div>
+									<div class="detail-right">
+										<p class="date">{entry_date format="%F %j, %Y"}</p>
+									</div>
+								</div>
+							</div>
+						</a>
+						{/exp:playa:children}
+						{/exp:channel:entries}
+
+						{!-- Two More Featured Media Entries --}
+						<div class="copy-container">
+						{exp:channel:entries channel="controller" url_title="featured_video_controller"}
+						{exp:playa:children offset="1" limit="2" disable="categories|member_data|pagination"}
+							<div class="thumbnail">
+								<a href="/videos/{url_title}">
+									<img src="/_img/uploads/{media-primary}">
+								</a>
+							</div>
+						{/exp:playa:children}
+						{/exp:channel:entries}
+						</div>
+					</article>
+				</div><!-- /.card-row -->
+			</div><!-- /.container -->
+		</section>
+
+		
+		{!--					--}
+		{!-- Prayer Section 	--}
+		{!--					--}
+		<section id="prayer-section">
+			
+			<div class="section-tab color-red">
+				<a href="/respond/pray/" class="tab-title">Prayers</a>
+			</div>
+			
+			<!-- This is the start of the mobile slider. It uses Slick.js,
+				which is initalized by adding "js-slick" onto the parent container.
+				That's about it! -->
+			
+			<div class="container">
+				<div class="card-row js-slick-tablet-max flex-desktop-min">
+					{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" limit="4" dynamic="off"}
+
+					<article class="card card-fourth">
+						<div class="copy-container">
+							<p class="date">{entry_date format="%F %j"}</p>
+							<h3><?php echo ucwords(strtolower("{prayer-name}"));?></h3>
+							<p class="body-copy">
+								{exp:trunchtml chars="300" inline="..."}{exp:strip_html}{prayer-need}{/exp:strip_html}{/exp:trunchtml}
+								<a class="main-link" href="/respond/pray/{entry_id}/">Read More <span class="icon-arrow-filled"></span></a>
+							</p>
+						</div>
+
+						<div class="details prayer-details-favorite" id="pray{entry_id}">
+							<div class="detail-left">
+								{exp:favorites:entry_count entry_id="{entry_id}"}
+								{if favorites_count_public}
+								<p><span class="icon-heart active"></span><span class="pray-count">{favorites_count_public}</span> <span class="extra-content">Prayed</span></p>
+								{/if}
+								{/exp:favorites:entry_count}
+							</div>
+							<div class="detail-right">
+								{if logged_in && (screen_name!="Anonymous Member")}
+									<!-- logged in -->
+									{exp:favorites:saved entry_id="{entry_id}"}
+										{if saved}
+											<!-- saved -->
+											<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">You Prayed <span class="icon-arrow-filled"></span></a>
+										{if:else}
+											<!-- not saved -->
+											<a class="main-link favorite-pray" href="/_component/favorite-add-loggedin/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>				
+										{/if}
+									{/exp:favorites:saved}
+								{if:else}
+									<!-- not logged in -->
+									<a class="main-link favorite-pray" href="/_component/favorite-add/{entry_id}/">Pray Now <span class="icon-arrow-filled"></span></a>
+								{/if}
+							</div>
+						</div>
+					</article>
+
+					{/exp:channel:entries}
+				</div><!-- /.card-row -->
+				<a href="/respond/pray/" class="main-link view-link">View All Prayers <span class="icon-arrow-filled"></span></a>
+			</div><!-- /.container -->
+		</section>
+		
+		<section id="events-section">
+			<div class="section-tab color-green">
+				<a href="http://calendar.northlandchurch.net" class="tab-title">Featured Events</a>
+			</div>
+			<div class="container">
+				{!--
+					This content is loaded via an ajax call (on document ready) to a separate EE template, '/events/featuredevents'
+				--}
+			</div><!-- /.container -->
+		</section>
+		
+		<section id="serve-section">
+			<div class="section-tab color-orange">
+				<a href="/respond/serve/" class="tab-title">Serve</a>
+			</div>
+			<div class="container">
+				<div class="card-row js-slick-tablet-max flex-desktop-min">
+					{exp:channel:entries 
+						channel="opportunities" 
+						orderby="date" 
+						sort="desc"
+						limit="2"
+						disable="categories|member_data|pagination"
+						dynamic="off"
+					}
+					<article class="card card-fourth">
+						<div class="copy-container">
+							<p class="date">December 31, 2015</p>
+							<h3>{title}</h3>
+							<p class="body-copy">{exp:strip_html}{desc}{/exp:strip_html}</p>
+						</div>
+
+						<div class="details">
+							<div class="detail-left">
+								<span class="icon-plus"></span>
+							</div>
+							<div class="detail-right">
+								<a href="{ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+							</div>
+						</div>
+					</article>
+					{/exp:channel:entries}
+					
+					{exp:channel:entries 
+						channel="serve_opportunities" 
+						orderby="date" 
+						sort="desc"
+						limit="2"
+						disable="categories|member_data|pagination"
+						dynamic="off"
+					}
+					<article class="card card-fourth">
+						<div class="copy-container">
+							<p class="date">December 31, 2015</p>
+							<h3>{title}</h3>
+							<p class="body-copy">{exp:strip_html}{serve-desc}{/exp:strip_html}</p>
+						</div>
+
+						<div class="details">
+							<div class="detail-left">
+								<span class="icon-plus"></span>
+							</div>
+							<div class="detail-right">
+								<a href="{serve-ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+							</div>
+						</div>
+					</article>
+					{/exp:channel:entries}
+				</div>
+				<a href="/respond/serve/" class="main-link view-link">View All Opportunities <span class="icon-arrow-filled"></span></a>
+			</div><!-- /.container -->
+		</section>
+		
+		<section id="social-section">
+			<div class="section-tab color-blue">
+				<a href="#" class="tab-title">Social</a>
+			</div>
+
+			<div class="container">
+				<div class="card-row">
+					<div id="social-feed-twitter" class="card card-social">
+					{!--
+						This content is loaded via an ajax call (on document ready) to a separate EE template, '/social/twitter'
+					--}
+					</div><!-- /.card -->
+
+					<div id="social-feed-instagram" class="card card-social">
+						<div class="copy-container">
+
+							<div class="social-feed">
+								<div class="details">
+									<div class="detail-left">
+										<h4 class="card-title">Instagram</h4>
+									</div>
+									<div class="detail-right">
+										<a href="https://instagram.com/northlandchurch/" class="main-link social-handle">@northlandchurch</a>
+									</div>
+								</div>
+
+								<ul class="instagram-photos clearfix js-slick-tablet-max card-row">
+									<li class="instagram-single">
+										<a href="#">
+											<img src="img/worship-singer.jpg">
+										</a>
+									</li>
+									<li class="instagram-single">
+										<a href="#">
+											<img src="img/craft-room.jpg">
+										</a>
+									</li>
+									<li class="instagram-single">
+										<a href="#">
+											<img src="img/worship-guitar-player.jpg">
+										</a>
+									</li>
+									<li class="instagram-single">
+										<a href="#">
+											<img src="img/worship-singers-backup.jpg">
+										</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div><!-- /.card -->
+
+				</div>
+			</div>
+		</section>
+		
+		{embed="_includes/footer"}
+		
+	</div><!-- /.main-wrapper -->
+
+	<span class="result" style="display:none;"></span>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#events-section > .container").load("/events/featuredevents", function() {
+			//console.log("featuredevents template loaded.");
+		})
+		$("#social-feed-twitter").load("/social/twitter", function() {
+			// console.log("twitter template loaded.");
+		});
+	});
+	</script>
+
+	<script type="text/javascript">
+		
+	$(document).ready(function() {
+		var now		= new Date();
+		var nowHour	= now.getHours();
+		
+		// Dynamic Bible reading display according to local time
+		if (nowHour >= 0 && nowHour < 12)
+			$("#morning-liturgy").show();
+		else if (nowHour >= 12 && nowHour < 18)
+			$("#midday-liturgy").show();
+		else
+			$("#evening-liturgy").show();
+		
+
+		// Handling favorite function for Bible reading
+		$('.favorite').click(function() {		
+			var whichID 	= $(this).attr('id');
+			var count 		= $("span." + whichID).html();
+			var link 		= $(this).attr('href');
+			
+			if ($(this).text() != "Marked as read")
+			{
+				// Call favorite link
+				$('.result').load(link, function() {
+				});
+				$("span." + whichID).html(parseInt(count)+1);
+				$(this).text("Marked as read");
+			} else {
+				console.log("Nothing happens");
+			}
+
+			return false;
+		});
+
+		
+		// Handling favorite function when clicked 'Pray' button
+		$('.prayer-details-favorite').on("click", function() {
+			var whichID 	= $(this).attr('id');
+			var targetURL 	= $("#"+whichID+" .favorite-pray").attr('href');
+			var count 		= $("#"+whichID+" .pray-count").html();
+			var text 		= $("#"+whichID+" .favorite-pray").text();
+			
+			if (text != "You Prayed ")
+			{
+				// Call favorite link
+				$.ajax({
+					success: function(data){
+						$("#"+whichID+" .pray-count").html(parseInt(count)+1);
+						$("#"+whichID+" .favorite-pray").html("You Prayed <span class='icon-arrow-filled'></span>");
+					},
+					url: targetURL
+				});		
+			} else {
+				console.log("Nothing happens");
+			}
+
+			return false;
+		});	
+		
+	});
+
+	</script>
+	
+</body>
+</html>

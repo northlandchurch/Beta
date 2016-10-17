@@ -1,0 +1,181 @@
+<style>
+#submit-prayer-box {
+color: #8cc5ed;
+padding-bottom: 25px;
+}
+#request {
+background: url('/_img/request-prayer.png') no-repeat;
+width: 100%;
+height: 25px;
+border-bottom: solid 1px #215880;
+}
+#request-border {
+border-bottom: solid 1px #4a7fa9;
+}					
+#submit-area {
+margin-top: 15px;
+}
+#screen-name {
+font-family: museo-sans-1, museo-sans-2, Helvetica, sans-serif;
+color: #8cc5ed;
+font-size: 15px;
+}	
+input#title {
+background: url('/_assets/img/v2/login/field.png') no-repeat;
+border: 0;
+width: 301px;
+height: 48px;
+font-size: 20px;
+color: #eee;
+padding: 0px 0px 5px 15px;
+}	
+
+.right-input {
+float: right;
+font-size: 15px;
+margin-right: 22px;
+}
+#prayertextarea {
+background: url('/_img/pray-box-big.png') no-repeat center center ;
+width: 100%;
+height: 180px; 
+border: 0;
+color: #ffffff;
+font-size: 15px;
+margin: 10px 0px 0px -3px;
+padding: 10px 10px 10px 10px;
+resize: none;
+}	
+#prayer-info {
+color: #eee;
+margin-bottom: 15px;
+}
+#allow-comments-check {
+margin-left: 5px;
+}
+#submit-prayer {
+margin-right: -6px;
+}
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+ 	firstName = $("#posting_name").val();
+	if (firstName != undefined){
+		//var firstName ="";
+		firstName = firstName.split(" ");
+		firstName = firstName[0];	
+	}else{
+		firstName = "Signup";
+	}
+	$("#first_name").text(firstName);
+	$("#first_name").val(firstName);
+	
+	$(".user-login, .login").fancybox({
+		'hideOnContentClick': true,
+		'width': 492,
+		'autoDimensions': true,
+		'padding': 0,
+		'scrolling': 'no',
+		'hideOnOverlayClick': true,
+		'hideOnContentClick': false,
+		'overlayOpacity': 0.9,
+		'overlayColor': '#10202b',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade',
+		'padding': 5
+	});
+	
+	$("#screen-name select").blur(function(){
+		$("#posting_name").val($("#screen-name select").val());
+	});
+	
+	$("#publishForm").submit(function(){
+		$('#submit-prayer').hide();
+		console.log($("#prayertextarea").val());
+		var message = $("#prayertextarea").val();
+		if (message.length>40){
+			var EOM = message.substring(41,100);
+			var spacePos = EOM.indexOf(" ")+41;
+		}else{
+			spacePos = message.length;
+		}
+		var title = message.substring(0,spacePos);
+		$("#title").val(title);
+		$("#url_title").val("prayer-"+title);
+		if ((message!="") && (message!="Share your prayer here")){
+			ShowTextModal("Please wait while your prayer is being submitted.");
+			$('#submit-prayer').show();
+			return true;
+		}
+		else {
+			$('#submit-prayer').show();
+			return false;
+		}
+	});
+	
+	$("#screen-name").change(function() { 		
+		if ($("#screen-name-select").val() == "Anonymous") {			
+			$("#categories").val("413");
+		}
+	});
+});
+
+
+</script>
+
+	{exp:channel:form id="publishForm" channel="prayers" site="default_site" return="/resources/prayers" include_jquery="no" include_assets="no"}
+			
+			<input type="hidden" name="url_title" id="url_title" value="{title}"  />
+			<input type="hidden" name="prayer-name" id="posting_name" value="{screen_name}" />
+			<input type="hidden" name="prayer-email" value="{email}" />
+			<input type="hidden" name="category[]" id="categories" value="" />
+			<input name="status" type="hidden" value="Open"/>
+	
+	<div id="submit-prayer-box">		
+		<div id="request-border">
+			<div id="request"></div>
+		</div>	
+			
+			<div id="submit-area">
+				<div id="prayer-info">
+					All prayer requests shared here will be publicly posted. Requests may be moderated or edited to protect third parties' privacy.
+				</div>
+				<h2 id="screen-name" style="float:left;border:none;">
+					Posted as: <select id="screen-name-select">
+						<option value='{screen_name}'>{screen_name}</option>
+						<option value='' id="first_name"></option>
+						<option value='Anonymous'>Anonymous</option>						
+					</select></h2>
+				{!--}<h2 id="screen-name" style="float:right;border:none;padding-bottom:0px"><a href="#" style="width:200px;line-height:100%;margin-top:0px" onclick="javascript:$('#open_prayers').show(); $.fancybox.resize(); $(this).hide();">Updating a previous prayer?</a></h2>{--}
+				
+			
+				<input id="title" type="hidden" name="title" value="{title}" />
+			
+				<div class="clear"></div>			
+				
+			{custom_fields}
+				{if textarea}
+					{if field_name=="prayer-need"}
+						<textarea id="prayertextarea" name="{field_name}" onfocus="if(this.value=='Share your prayer here'){this.value='';}">Share your prayer here{field_data}</textarea>
+					{/if}
+				{/if}
+				{!--}
+				{if field_name=="prayer-thread"}
+					<div id="open_prayers" style="display:none">
+						<p style="float:left">Update prayer: </p>
+						<select id="prayerthread" name="{field_name}" style="float:right; width: 340px">
+							{embed="respond/person_prayers"}
+						</select>
+					</div>
+				{/if}
+				{--}
+			{/custom_fields}
+				<div class="clear"></div>
+				<!--<span>Allow people to message you prayers</span><input id="allow-comments-check" type="checkbox" name="allow_comments" value="y" {allow_comments} />-->
+				
+				<input type="submit" id="submit-prayer" name="submit" value="Submit" style="float:right; cursor: pointer"/>
+			</div>
+	</div>
+	{/exp:channel:form}

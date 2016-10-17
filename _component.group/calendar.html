@@ -1,0 +1,84 @@
+{exp:calendar:cal pad_short_weeks="n"
+		date_range_start=
+			{if segment_4!=''}"{segment_2}-{segment_3}-{segment_4}"{/if}
+			{if segment_2=="thisweek"}"today"{/if}
+			{if segment_2=="thismonth"}"today"{/if}
+			{if segment_2==""}"today"{/if}
+		date_range_end=
+			{if segment_2=="today"}"today"{/if}
+			{if segment_2=="thisweek"}"+6 days"{/if}
+			{if segment_2=="thismonth"}"+30 days"{/if}
+			{if segment_2=="thisyear"}"12 months"{/if}
+			{if segment_2==""}"today"{/if}
+			{if segment_4!=""}"{segment_2}-{segment_3}-{segment_4}"{/if}
+		category="383"
+}
+
+{display_each_day}
+{if day_event_total>0}
+	{if segment_4==''}
+		<h3 class="marg-t-80">
+			{date format="%l,"}
+    	
+			{if "{date format="%m"}" == "001"}January{/if}
+			{if "{date format="%m"}" == "002"}February{/if}
+			{if "{date format="%m"}" == "003"}March{/if}
+			{if "{date format="%m"}" == "004"}April{/if}
+			{if "{date format="%m"}" == "005"}May{/if}
+			{if "{date format="%m"}" == "006"}June{/if}
+			{if "{date format="%m"}" == "007"}July{/if}
+			{if "{date format="%m"}" == "008"}August{/if}
+			{if "{date format="%m"}" == "009"}September{/if}
+			{if "{date format="%m"}" == "10"}October{/if}
+			{if "{date format="%m"}" == "11"}November{/if}
+			{if "{date format="%m"}" == "12"}December{/if}
+			
+			{date format="%j, %Y"}
+		</h3>
+	{if:else}
+		<h3 class="marg-t-80"></h3>
+	{/if}
+{/if}
+
+{events}
+	<div class="day-block">
+		<h4><a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{event_title}</strong></a></h4>
+		<p>
+			{!-- Only display times IF there is a start time --}
+			{if event_start_date}<strong>Time:</strong> 
+				{!-- Displays start time "hour:minute" --}
+					{!-- Only display the start time's minutes (%i) if it isn't 00 --}
+					{if '{event_start_date format="%i"}' != "00"}
+						{event_start_date format="%g:%i"}
+					{if:else}
+						{event_start_date format="%g"}
+					{/if}
+				{!-- If the start time and end time have same %a then don't display %a on start time --} 
+				{if '{event_start_date format="%a"}' != '{event_end_date format="%a"}'}
+					{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+					{if '{event_start_date format="%a"}' == "am"}a.m.{/if}{if '{event_start_date format="%a"}' == "pm"}p.m.{/if}
+				{/if}
+				{!-- Only display an end time if there is one --}
+				{if event_end_date}
+				{!-- Displays end time "hour:minute" --}
+					{!-- Only display the start time's minutes (%i) if it isn't 00 --}
+					- {if '{event_end_date format="%i"}' != "00"}
+						{event_end_date format="%g:%i"}
+					{if:else}
+						{event_end_date format="%g"}
+					{/if}
+					{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+					{if '{event_end_date format="%a"}' == "am"}a.m.{/if}{if '{event_end_date format="%a"}' == "pm"}p.m.{/if}
+				{/if}
+			{/if}
+			<br>
+			{!-- Only display "Details" if there's a summary --}
+			{if event_summary}
+				<strong>Details:</strong> {event_summary}
+			{/if}
+		</p>
+	</div>
+	{/events}
+   {/display_each_day}
+
+{/exp:calendar:cal}

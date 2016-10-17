@@ -1,0 +1,54 @@
+{embed="responsive/html_open" htmltitle="Northland: Missionaries"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Missionaries</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">	
+	<div class="grid_8">
+	
+		<p class="large">Northland is involved with distributing ministry to people outside of our own local, cultural and linguistic sphere of ministry, in accordance with the promise God gave to Abraham (<a href="http://read.ly/Gen12.3.NASB">Genesis 12:3</a>) and the command and expectation of Jesus for the church to make disciples and be His witnesses ... in all the world (<a href="http://read.ly/Acts1.8.NASB">Acts 1:8</a>). The missionaries listed here provide opportunities for Northland to connect with other organizations for the development of new partnerships, and also provide direct ministry opportunities for Northlanders through short-term missions trips and distributed journeys. </p>
+		
+		{exp:channel:entries channel="staff" category="249" orderby="date" sort="asc"}
+			<h3>{title}</h3>
+			{staff-bio}
+			<div class="marg-b-20"></div>
+		{/exp:channel:entries}		
+		<div class="marg-b-60"></div>
+	</div>
+
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Other Partners</h5>
+			<ul>
+				<li><a href="/serve/local">Local Partners</a></li>
+				<li><a href="/serve/global">Global Partners</a></li>
+				<li><a href="/serve/northland">Serve at Northland</a></li>
+			</ul>
+			
+			<h5>Serve Team</h5>
+			<ul>
+				{exp:channel:entries channel="staff" dynamic="on" category="176"}
+				<li>
+					<a href="{exp:low_replace find='index.php/'}{url_title_path='staff'}{/exp:low_replace}">{title}</a><br />
+					<em>{staff-title}</em>
+				</li>
+				{/exp:channel:entries}
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

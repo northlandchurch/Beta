@@ -1,0 +1,161 @@
+{embed="responsive/html_open" htmltitle="Share Your Story"}
+{embed="responsive/respond-header"}
+{embed="responsive/header"}
+{embed="responsive/nav" active=""}
+
+<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.modal").fancybox({
+		'hideOnContentClick': true,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+	});	
+	$("a.modalFlash").fancybox({
+		'hideOnContentClick': false,
+		'scrolling': 'no',
+		'overlayOpacity': 0.7,
+		'overlayColor': '#303339',
+		'transitionIn': 'fade',
+		'transitionOut': 'fade'
+	});
+});
+</script>
+
+
+
+<div id="respond-story">
+	<div class="container_12">
+		<div class="grid_12 marg-b-60">
+			<div id="story-title">
+				<div class="story-title-left">
+					SHARE YOUR STORY
+				</div>	
+				<div class="story-title-right grid_4">
+					<span>Tell others what God is doing in your life</span><br><br>
+					Always be ready to give an answer to anyone who asks you about the Hope you have. <em>-Peter, an eyewitness (1 Peter 3:16 NIV)</em>
+				</div>
+			</div>
+			<a class="modal" href="#latest-worship"><div id="story-play" class="default_visible"></div></a>
+			<div style="display:none">
+				<div id="latest-worship">
+					<script type="text/javascript" src="/jw/flowplayer-3.2.4.min.js"></script>
+					<script src="http://www.google-analytics.com/ga.js"></script>
+					<iframe src="http://player.vimeo.com/video/12696371?title=0&amp;byline=0&amp;portrait=0" width="630" height="354" frameborder="0"></iframe>
+				</div>
+			</div>	
+			<div class="clear"></div>
+		</div>		
+		
+		<div id="respond-generous-left" class="grid_8">
+			<h1><span>Stories</span></h1>
+			<p>The last command Jesus gave was to be his witnesses. Sharing our stories of God's work in our live is a huge part of how we go about being witnesses of Jesus.</p>
+			<p>Below are some of the stories of Northland shared by different members of our church family. You can add your story of God's work in your life too (look in the right column) and join the chorus.</p>
+
+			<div class="divider-horizon"></div>
+			{exp:channel:entries channel="media|blogs" category="356|367"}
+				<div class="story-thumb">
+					{if channel=="Media"}
+						<a href="/media/{url_title}"><img src="/_img/uploads/{media-image}" class="story-preview" /></a>
+						<div class="clear"></div>
+						<a href="/media/{url_title}"><strong>{title}</strong></a><br />
+					{if:else}
+						<a href="/blogs/{url_title}"><span class="excerpt" style="font-size:14px;color:white">&ldquo;{blog-excerpt}&rdquo;</span></a>
+						<div class="clear"></div>
+						
+					{/if}
+					<span class="info">Date: {entry_date format="%F %j, %Y"}</span>
+				</div>
+				
+				<?php if (intval("{count}") % 3 == 0){
+					echo "<div class='clear'></div>";
+				}?>
+			{/exp:channel:entries}
+			<div class="clear"></div>
+		</div>
+		
+		<div id="respond-pray-right" class="grid_4">
+			
+			<div class="story-side-mid">
+				<div id="story-upload"></div>
+				
+				<p>As you share your stories, we'd love to hear them. What an encouragement to hear the many ways that God is working through our community.</p>
+				<a class="modal" href="#story-submit-video"><img src="{v2-image-asset-url}/respond/story/btn-video.png" /></a>
+				<a class="modal" href="#story-submit-text"><img src="{v2-image-asset-url}/respond/story/btn-text.png" /></a>
+								<div style="display:none">
+					<div id="story-submit-video">
+						<iframe height="400" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none"  src="https://northlandchurch.wufoo.com/embed/z7p2z5/"></iframe>
+					</div>
+				</div>
+				
+				<div style="display:none">
+					<div id="story-submit-text">
+						<iframe height="514" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none"  src="https://northlandchurch.wufoo.com/embed/z7p2a3/"></iframe>
+					</div>
+				</div>		
+				
+				<div style="display:none">
+					<div id="story-submit-webcam">
+						<object width="350" height="300">
+						<param name="movie" value="somefilename.swf">
+						<embed src="/_flash/share_test.swf" width="350" height="300">
+						</embed>
+						</object>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="story-side-mid">
+				<div id="story-how"></div>
+				
+				<p>Wondering how to tell a good story? It's a good question and fortunately there are lots of ways to find out how. Here are three short videos along with brief exercises to help train anyone in how to tell a good story.</p>
+
+				<p><a href="http://resourcewell.s3.amazonaws.com/home/basics_of_storytelling.pdf" target="_blank">Download Alice's storytelling exercise.</a></p>
+				
+				<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+
+						<div id="player">Loading the player...</div>
+
+						<script type="text/javascript"> 
+						jwplayer("player").setup({
+							'flashplayer': '/jw/jw54/player.swf',
+						    'skin': '/jw/jw54/skins/glow/glow.zip',
+							'height': '153',
+						    'width': '250',
+						    'image': '/_img/uploads/red_letters.jpg',
+						    'file': '/media/shareyourstory.xml',
+							'repeat': 'list',
+
+							plugins: {
+								'gapro-2':{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true},
+							}
+
+						});
+						</script>
+				
+								
+			</div>
+
+			
+									
+		</div>	
+		
+		<div class="clear"></div>
+			
+	</div>
+	
+	<div class="clear"></div>
+</div>
+
+
+	
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+
+{embed="_includes/html_close"}

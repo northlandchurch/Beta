@@ -1,0 +1,45 @@
+<?php $count = 0 ?>	
+
+{exp:calendar:events orderby="occurrence_start_date" sort="asc" date_range_start="today" date_range_end="+6 months" enable="categories|category_fields" category="423" calendar_id="{embed:the_id}" start_on="{embed:start_settings}" dynamic="off"}
+	<?php
+		$count = "$count" + 1;
+		if ($count == 1){ ?>
+			<h3 style="margin-bottom:5px;">Events:</h3>
+
+		<?php }
+	?>
+	
+{/exp:calendar:events}
+{exp:calendar:events orderby="occurrence_start_date" sort="asc" date_range_start="today" date_range_end="+6 months" enable="categories|category_fields" category="423" calendar_id="{embed:the_id}" start_on="{embed:start_settings}" dynamic="off"}
+	<li style="list-style: none;">
+                <img src="{event_image}" width="100%" align="left" style="padding: 0 10px 5px 0">
+				<br>
+		<a href="/calendar/details/{url_title}" title="{title}"><strong>{title}</strong></a><br />
+		<span class="info">
+
+	{rules}
+		{if event_has_rules}
+			{if event_never_ends}
+				{event_first_date format="%l"}s			
+			{if:else}
+				{event_first_date format="%l"}, {event_first_date format="%F %j"}-{event_last_date format="%l"}, {event_last_date format="%F %j"}
+			{/if} 
+		{if:else}
+			{event_first_date format="%l"}, {event_first_date format="%F %j"}
+		{/if}
+		 from {if {event_start_date format="%i"}=="00"}{event_start_date format="%g%a"}{if:else}{event_start_date format="%g:%i%a"}{/if} to {if {event_end_date format="%i"}=="00"}{event_end_date format="%g%a"}{if:else}{event_end_date format="%g:%i%a"}{/if}
+    
+	{/rules}
+		<style type="text/css">
+			span.info {
+				color: #555656;
+				font-family: Helvetica, Arial, Geneva, sans-serif;
+				font-style: normal;
+				font-size: 100%;
+			}
+		</style>
+        {exp:word_limit total="100" inline="..."}{exp:strip_html keep='a'}{event_summary}{/exp:strip_html}{/exp:word_limit}
+</span>
+</li>
+
+{/exp:calendar:events}

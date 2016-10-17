@@ -1,0 +1,17 @@
+<!-- Code to update login/logout to stats -->
+<script type="text/javascript">
+function UpdateStats(action_login, groupsize) {
+	// Store that user logged in
+	if (action_login == 1) {
+		$.post("/scripts/update-stats.php", { member_id: {member_id}, action_login: '1', group_size: groupsize});
+	}
+	// Store that user logged out
+	else if (action_login == 0) {
+		$.post("/scripts/update-stats.php", { member_id: {member_id}, action_login: '0', group_size: '0'});
+	}
+	else {
+		$.post("/scripts/update-stats.php", { member_id: {member_id}, action_login: action_login, group_size: '0'}, function() { location.reload(); });
+	}
+}
+</script>
+<!-- End code to update login/logout to stats -->

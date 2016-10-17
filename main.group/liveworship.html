@@ -1,0 +1,52 @@
+{embed="v92801_includes/html_open"}
+{embed="v92801_includes/header"}
+{embed="v92801_includes/nav"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">{if segment_3}{segment_3}{if:else}Northland Live{/if}</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_12">
+		<div class="vid_box">								
+			{exp:channel:entries dynamic="off" channel="media" show_future_entries="yes" orderby="date" category="58" sort="desc" limit="1"}
+			<script type="text/javascript" src="http://northlandchurch.net/fb/mediaplayer/swfobject.js"></script>
+
+			<div id="mediaspace">.</div>
+
+			<script type="text/javascript">
+			var so = new SWFObject('http://northlandchurch.net/_flash/player.swf','mpl','940','525','9');
+			var counter = 0
+			so.addParam('allowFullscreen','false');
+			so.addParam('allowscriptaccess','always');
+			so.addParam('wmode','opaque');
+			so.addVariable('captions','{media-speaker}');
+			so.addVariable('file','http://hwcdn.net/r3c3x6t9/fls/308344-nacd_basic2.smil);
+			so.addVariable('type','highwinds');
+			so.addVariable('image','{media-primary}');
+			so.addVariable('autostart','true');
+			so.addVariable('stretching','fill');
+			window.onload=function(){
+				if (counter==0){
+					so.write('mediaspace');
+					counter = counter + 1;
+				}
+			}
+			</script>
+
+			{/exp:channel:entries}
+		</div>
+		<div class="clear marg-b-60">&nbsp;</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+
+{embed="v92801_includes/footer"}
+{embed="v92801_includes/html_close"}

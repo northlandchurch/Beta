@@ -1,0 +1,2161 @@
+body {
+	background: url(/_assets/img/v2/onlineworship/bg.jpg);
+}
+
+a {
+	-webkit-transition: color 0.3s ease-in-out;
+	-moz-transition: color 0.3s ease-in-out;
+	-ms-transition: color 0.3s ease-in-out;
+	-o-transition: color 0.3s ease-in-out;
+	transition: color 0.3s ease-in-out;
+}
+
+ul { list-style-type: none }
+
+
+#header-small-right b {
+	font-size: 0.6rem;
+	float: right;	
+}
+
+#header-small-right a {
+	
+}
+
+#header-small-right a:hover{
+}
+
+#online-worship-bg
+{
+
+}
+	
+	#online-worship-bg h1
+	{
+		font-size: 36px;
+/*		text-shadow: #000 3px 3px 3px;*/
+		float: left;
+	}
+
+#header-small-right {
+	color: #FFF;
+}
+
+#push-bar
+{
+	float: right;
+}
+
+	.push-bar-top
+	{
+		background: url(/_assets/img/v2/onlineworship/push-bar-top.png);
+		background-repeat: no-repeat;		
+		height: 9px;
+	}
+	
+	.push-bar-mid
+	{
+		background: url(/_assets/img/v2/onlineworship/push-bar-mid.png);
+		background-repeat: repeat-y;		
+		padding: 0 10px;
+	}
+	
+		#push-bar-icon
+		{
+			background: url(/_assets/img/v2/onlineworship/push-bar-icon.png);
+			width: 22px;
+			height: 20px;
+			float: left;
+			margin-right: 10px;
+		}
+		
+		.push-bar-mid p,
+		{
+			color: #fff;
+			font-weight: bold;
+			padding-bottom: 0px;
+			margin-bottom: 0px;
+			font-size:.8rem;
+		}
+		
+		.push-bar-mid a {
+			color: #fff;
+		}
+		
+		#push-bar-link {
+			color: #fff;
+			font-weight: bold;
+		}
+			
+		.push-bar-mid img
+		{
+			float: right;
+			margin-top: 5px;
+		}
+		
+		.push-bar-close
+		{
+			background-image: url(/_assets/img/v2/onlineworship/push-bar-close.png);
+			background-repeat: no-repeat;
+			width: 12px;
+			height: 12px;
+			background-position: 0 0;
+			float: right;
+		}
+			.push-bar-close:hover
+			{
+				background-position: 0 -12px;
+			}
+		
+	.push-bar-btm
+	{
+		background: url(/_assets/img/v2/onlineworship/push-bar-btm.png);	
+		background-repeat: no-repeat;	
+		height: 8px;
+	}	
+
+#series-box
+{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+	#series-box h1
+	{
+		
+		font-size: 16px;
+		line-height: 16px;
+		float: left;
+		margin-bottom: 5px;
+		font-weight: 300;
+	}	
+	
+	.series-box-top
+	{
+		background: url(/_assets/img/v2/onlineworship/series-box-top.png);
+		height: 11px;
+	}	
+	
+	.series-box-mid
+	{
+		background: url(/_assets/img/v2/onlineworship/series-box-mid.png);
+	}	
+	
+	.series-box-btm
+	{
+		background: url(/_assets/img/v2/onlineworship/series-box-btm.png);
+		height: 14px;
+	}		
+
+.infoBox {
+	width: 270px;
+	height: 150px;
+	background-color: #FFF;
+	overflow: hidden;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+#infowindow {
+	width: 260px;
+	height: 150px;
+	padding: 0 5px;
+	position: absolute;
+	top: 0px;
+	overflow-x: hidden;	
+	overflow-y: auto;
+	z-index: 1;
+}
+
+.infowindow_close {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background-color: #DDD;
+	border-style: solid;
+	border-width: 0 0 1px 1px;
+	border-color: black;
+	z-index: 2;
+}
+
+.infowindow_close a {
+	padding: 2px 5px;
+	text-decoration: none;
+	color: #222;
+}
+
+.infowindow_profile_avatar {
+	float: left;
+	border-style: solid;
+	border-color: #777;
+	border-width: 1px;
+	height: 30px;
+	width: 30px;
+	margin-right: 5px;
+}
+
+.infowindow_name {
+	margin: 5px 0;
+	width: 100%;
+
+}
+
+.infowindow_text {
+
+	margin: 6px 5px;
+	font-size: 13px;
+}
+
+.infowindow_text a {
+	text-decoration: none;
+	color: #555;
+}
+
+.infowindow_text a:hover {
+	color: #000;
+}
+
+.infowindow_profile_show {
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+	margin-top: 5px;
+	background-color: #E9E9E9;
+}
+
+.infowindow_prayer_header {
+	font-weight: 700;
+	margin-top: 5px;
+}
+
+.infowindow_anon_users {
+	font-size: 13px;
+	margin-top: 5px;
+}
+
+#current-series
+{
+	font-weight: 400;
+	color: #888;
+}
+
+	.series-divider
+	{
+		background: url(/_assets/img/v2/onlineworship/series-box-divider.png);
+		height: 2px;
+		margin-bottom: 10px;
+	}
+		
+	#current-series img
+	{
+		width: 140px;
+		float: left;
+		margin-right: 15px;
+	}	
+	
+#important-links
+{
+
+}
+	
+	#important-links a
+	{			
+		color: #699132;
+		font-size: 12px;
+		font-weight: bold;
+		text-decoration: none;
+	}
+	
+	#important-links a:hover {
+		color: #9C6;
+	}
+	
+	#important-links p {
+		padding: 0px;
+	}
+
+#share-links
+{
+
+}
+
+
+#people-column
+{
+	background: url(/_assets/img/v2/onlineworship/noise.png);
+	background-repeat: repeat;
+	background-color: #75787c;
+	float: left;
+	width: 305px;
+	margin-left: 10px;
+	border: 1px solid #23262b;
+	margin-bottom: 40px;
+}
+
+#onlineworship-vid
+{
+	float: right;
+	width: 305px;
+	margin-bottom: 20px;
+}	
+
+#profile-box
+{
+	width: 305px;
+	height: 57px;
+}
+
+
+#profile-avatar {
+	width: 60px;
+	float: left;
+}
+
+
+
+.profile-header {
+	font-weight: 300;
+	margin: 4px 0 0 0;	
+	font-size: 16px;
+	text-align: left;
+	color: #fff;
+	float: left;
+	line-height: 120%;
+}
+
+#profile-name {
+	width: 100%;
+}
+
+#profile-location {
+	color: #323232;
+	font-style: italic;
+	font-size: 11px;
+	line-height: 140%;	
+}
+
+#profile-notsignedin-welcome {
+	width: 100%;
+	text-align: center;
+}
+
+#profile-notsignedin-signin {
+	width: 100%;
+	text-align: center;
+	font-weight: 300;
+	color: #444;
+}
+
+#profile-notsignedin-signin a {
+	text-decoration: none;
+	font-weight: 500;
+	color: #444;
+}
+
+#profile-notsignedin-signin a:hover {
+	color: #DDD;
+}
+
+#profile-user {
+	width: 145px;
+	float:left;
+}
+
+#profile-spacer {
+	float: left;
+	width: 1px;
+	height: 100%;
+	background-color: #707070;
+	border-width: 0 1px 0 0;
+	border-style: solid;
+	border-color: #B0B0B0;
+}
+
+#profile-update {
+	float: right;
+	margin-top: 1px;	
+	background-color: #888;
+	text-align: center;
+	height: 100%;
+	width: 95px;
+	line-height: 60%;
+}
+
+#profile-update a {
+	font-size: 11px;
+	color: #FFF;
+	text-decoration: none;	
+	padding: 4px;	
+}
+
+#profile-update a:hover {
+	color: #000;
+	text-shadow: none;
+}
+
+
+#profile-status {
+	float: left;
+	margin: 3px 0 0 9px;
+}
+
+	#profile-status-img {
+		width: 93px;
+		height: 20px;
+		background-image: url("/_assets/img/v2/onlineworship/chat-status.png");
+		float: left;
+	}
+	
+	#profile-status-text {
+		margin: 5px 0 0 3px;
+		line-height: 0;
+		float: left;
+	}
+
+#profile-links {
+	width: 92px;
+	float: right;
+	margin: 7px 10px 0 0;
+}
+
+#profile-avatar-img
+{
+	width: 40px;
+	height: 40px;
+	margin: 8px;
+	float: left;
+	border: 1px solid #555;
+	-moz-box-shadow: 0px 0px 4px #444;
+	-webkit-box-shadow: 0px 0px 4px #444;
+	box-shadow: 0px 0px 4px #444;	
+}
+
+#profile-avatar img {
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+#profile-avatar a:hover img {
+	border: 1px solid #CCC;
+	-moz-box-shadow: 0 0 6px #FFF;
+	-webkit-box-shadow: 0 0 6px #FFF;
+	box-shadow: 0 0 6px #FFF;
+}
+
+#search-divider
+{
+	background: url(/_assets/img/v2/onlineworship/profile_divider.png);
+	height: 2px;
+	margin-bottom: 0px;
+}
+
+#search-bg
+{
+	background-color: #949494;
+	width: 305px;
+}
+
+#search-box {
+	width: 305px;
+	height: 40px;
+}
+
+#search-box h7
+{
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 12px;
+	color: #494949;
+	float: left;
+	margin: 13px 10px 0 8px; 
+}
+	
+#search-box-input input
+{
+	margin-top: 6px;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0px;
+}	
+	
+#filter-search
+{
+	padding: 0 0 0 8px;
+	background: none;
+	background-image: url(/_assets/img/v2/onlineworship/search-bar.png);
+	width: 160px;
+	height: 27px;
+	border: none;
+	float: left;
+	color: #fff;
+	font-size: 11px;
+}
+
+#filter-search-button
+{
+	background: none;
+	background-image: url(/_assets/img/v2/onlineworship/search-btn.png);
+	width: 31px;
+	height: 27px;
+	border: none;
+	float: left;
+	cursor: pointer;
+}
+
+#filter-shadow
+{
+	background-image: url(/_assets/img/v2/onlineworship/filter-shadow.png);
+	width: 303px;
+	height: 14px;
+	position: absolute;
+	z-index: 1;
+}
+
+.rostermessage {
+	opacity: 1;
+	z-index: 10;
+	color: #CCC;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 15px;
+	margin: 15px 0 10px 0;
+	position: relative;
+}
+
+.rostermessage a {
+	color: #CCC;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 13px;
+}
+
+.rostermessage a:hover {
+	color: #FFF;
+}
+
+#chatroster {
+	-webkit-transition: all 0.7s ease-in-out 0.3s;
+	-moz-transition: all 0.7s ease-in-out 0.3s;
+	-ms-transition: all 0.7s ease-in-out 0.3s;
+	-o-transition: all 0.7s ease-in-out 0.3s;
+	transition: all 0.7s ease-in-out 0.3s;
+}
+
+.chatrosterdisconnected {
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.person
+{
+	border-top: 1px solid #84878a;
+	border-bottom: 1px solid #636668;
+	padding: 10px;
+}
+
+	.person:hover
+	{
+		background-color: #86888e;
+		background-image: url(/_assets/img/v2/onlineworship/noise.png);
+		border-top: 1px solid #8c8e94;
+	}
+
+	.online-minister
+	{
+		background-color: #909a7f;
+		background-image: url(/_assets/img/v2/onlineworship/noise.png);
+		border-top: 1px solid #adb99a;
+	}
+	
+		.online-minister:hover
+		{
+			background-color: #959f84;
+			background-image: url(/_assets/img/v2/onlineworship/noise.png);
+			border-top: 1px solid #adb99a;
+		}
+
+#tech-support {
+	background-color: #84878A;
+	background-image: url(http://www.northlandchurch.net/_assets/img/v2/onlineworship/noise.png);
+}
+	
+.avatar-bg
+{
+	width: 50px;
+	height: 50px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #444;
+	float: left;
+	margin-right: 10px;
+	background-image: url('/images/avatar.png');
+}
+
+	.avatar-bg img
+	{
+		float: left;
+		margin-right: 20px;
+		width: 50px;
+		height: 50px;
+	}
+	
+	#online-worship-bg .person h1
+	{
+		font-size: 14px;
+		line-height: 14px;
+		color: #fff;
+		font-weight: 700;
+		float: none;
+	}
+
+.person-info
+{
+	float: left;
+	width: 195px;
+}
+
+	.person-info p
+	{
+		color: #323232;
+		font-style: italic;
+		font-size: 11px;
+		padding-bottom: 0px;
+	}
+	
+	.person-info span {
+		font-weight: 400;
+	}
+
+
+.online-minister
+{
+	
+}
+
+
+#onlineworship-right
+{
+	float: right;
+	padding-bottom: 30px;
+}
+
+#interact-tabs-shadow
+{
+	background: url(/_assets/img/v2/onlineworship/interact-tabs-shadow.png);
+	width: 620px;
+	height: 20px;
+	position: absolute;
+	z-index: 99;
+	margin-top: 40px;
+}
+
+.person-info {
+	font-size: 12px;
+	font-weight: 400;
+	color: #DDD;
+}
+
+.person-info p {
+	text-shadow: none;
+}
+
+.fullname {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 300;
+	font-size: 14px;
+	float: left;
+	text-transform: capitalize;
+}
+
+.fullname_title {
+	float: left;
+	margin-left: 5px;
+}
+
+#chat-bar
+{
+	background: url(/_assets/img/v2/onlineworship/chat-bar.png);
+	height: 37px;
+	bottom: 0px;
+	position: absolute;
+	z-index: 99999;
+	width: 100%;
+	position: fixed;
+	padding-top: 5px;
+}
+
+#chat-left
+{
+	float:left;
+	padding:10px;
+}
+
+	#chat-left img
+	{
+		float:left;
+		margin: 6px 5px 0 0 ;
+	}
+
+#chat-right
+{
+	float:right;
+	padding:10px
+}
+
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**** Filter Sprite *****/
+
+#filter-nav {
+width: 305px;
+height: 28px;
+background: url(/_assets/img/v2/onlineworship/filter-sprite-membership.jpg);
+margin: 0;
+padding: 0;
+position: relative;
+float: left;
+}
+
+#filter-nav div {
+float: left;
+}
+
+#filter-nav div a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 28px;
+background: url(/_assets/img/v2/onlineworship/filter-sprite-membership.jpg);
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+}
+
+/*up state*/
+div#filter-friends a {
+left: 0;
+width: 95px;
+background-position: 0 0;
+}
+
+div#filter-friends span 
+{
+	margin: -1px 0 0 55px;
+	width: 25px;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px;
+	display: block;
+}
+	
+div#filter-signedin a {
+left: 95px;
+width: 103px;
+background-position: -95px 0;
+}
+
+div#filter-signedin span 
+{
+	margin: -1px 0 0 65px;
+	width: 25px;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px;
+	display: block;
+}
+
+div#filter-all a {
+left: 198px;
+width: 107px;
+background-position: -198px 0;
+}
+
+
+div#filter-all span 
+{
+	margin: -1px 0 0 65px;
+	width: 25px;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px;
+	display: block;
+}
+	
+div#filter-groups a {
+left: 195px;
+width: 110px;
+background-position: -195px 0;
+}
+
+	div#filter-groups span 
+	{
+		margin: 5px 0 0 58px;
+		width: 25px;
+		font-size: 10px;
+		font-weight: bold;
+		text-align: center;
+		padding: 0px;
+		display: block;
+	}
+
+
+/*hover state*/
+div#filter-friends a:hover {
+background-position: 0 -28px;
+}
+
+div#filter-signedin a:hover {
+background-position: -95px -28px;
+}
+
+div#filter-all a:hover {
+background-position: -198px -28px;
+}
+
+div#filter-groups a:hover {
+background-position: -195px -28px;
+}
+
+/*current state*/
+.current-friends div#filter-friends a {
+background-position: 0 -56px;
+}
+
+.current-signedin div#filter-signedin a {
+background-position: -95px -56px;
+}
+
+.current-all div#filter-all a {
+background-position: -198px -56px;
+}
+
+.current-groups div#filter-groups a {
+background-position: -195px -56px;
+}
+
+
+
+/**** People Options Sprite *****/
+
+.people-options
+{
+	float: left;
+	width: 128px;
+}
+
+#person-nav {
+width: 128px;
+height: 22px;
+/*background: url(/_assets/img/v2/onlineworship/people-options-sprite.png);*/
+margin: 0;
+padding: 0;
+position: relative;
+}
+
+#person-nav li {
+float: left;
+}
+
+#person-nav li a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 22px;
+/*background: url(/_assets/img/v2/onlineworship/people-options-sprite.png);*/
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+text-indent: -99999px;
+}
+
+/*up state*/
+li#person-chat a {
+left: 0;
+width: 39px;
+background: url(/_assets/img/v2/onlineworship/people-options-sprite.png);
+background-position: 0 0;
+}
+
+li#person-email a {
+left: 39px;
+width: 41px;
+background: url(/_assets/img/v2/onlineworship/people-options-sprite.png);
+background-position: -39px 0;
+}
+
+li#person-profile a {
+left: 39px;
+width: 48px;
+background: url(/_assets/img/v2/onlineworship/people-options-sprite.png);
+background-position: -80px 0;
+}
+
+	/*hover state*/
+li#person-chat a:hover {
+background-position: 0 -22px;
+}
+
+li#person-email a:hover {
+background-position: -39px -22px;
+}
+
+li#person-profile a:hover {
+background-position: -80px -22px;
+}
+
+/*current state*/
+.current-chat li#person-chat a {
+background-position: 0 -22px;
+}
+
+.current-email li#person-email a {
+background-position: -39px -22px;
+}
+
+.current-profile li#filter-profile a {
+background-position: -80px -22px;
+}
+
+	
+/**** Friend Star Sprite *****/	
+
+.star-container
+{
+	float: right;
+	width: 23px;
+	margin-top: -30px;
+}
+
+.friend-star {
+width: 23px;
+height: 23px;
+background: url(/_assets/img/v2/onlineworship/friend-sprite.png);
+margin: 0;
+padding: 0;
+position: relative;
+}
+
+li.star a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 23px;
+width: 23px;
+background: url(/_assets/img/v2/onlineworship/friend-sprite.png);
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+text-indent: -99999px;
+}
+
+li.star a:hover	
+{
+	opacity:0.7;
+	filter:alpha(opacity=70); /* for <IE8 */
+	background-position: 0 -23px;
+}	
+
+li.star-selected a
+{
+	background-position: 0 -23px;
+}	
+
+li.star-selected a:hover
+{
+	opacity:1;
+	filter:alpha(opacity=100); /* for <IE8 */
+	background-position: 0 -23px;
+}	
+
+li.star-loading a {
+	background-repeat: no-repeat;
+	background-position: center;
+	background: url(/_assets/img/v2/onlineworship/loading.gif);
+}
+
+.minister-badge {
+	float: right;
+	border-width: 1px;
+	border-color: black;
+	border-style: solid;
+	font-size: 9px;
+}
+
+/**** Map/Notes/Chat/Guide/Share Options Sprite *****/
+
+#interact-tabs
+{
+	float: left;
+	width: 620px;
+}
+
+#interact-options {
+width: 620px;
+height: 40px;
+background: url(/_assets/img/v2/onlineworship/tabs-sprite.png);
+margin: 0;
+padding: 0;
+position: relative;
+}
+
+#interact-tabs .ui-state-active a {
+background-position-y: 40px;
+}
+
+#interact-tabs .ui-state-active a:hover {
+background-position-y: 40px;
+}
+
+#interact-options li {
+float: left;
+}
+
+#interact-options li a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 40px;
+background: url(/_assets/img/v2/onlineworship/tabs-sprite.png);
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+text-indent: -99999px;
+}
+
+/*up state*/
+li#interact-map a {
+left: 0;
+width: 125px;
+background-position: 0 0;
+}
+
+li#interact-notes a {
+left: 125px;
+width: 125px;
+background-position: -125px 0;
+}
+
+
+li#interact-chat a {
+left: 250px;
+width: 125px;
+background-position: -250px 0;
+}
+
+li#interact-guide a {
+left: 375px;
+width: 125px;
+background-position: -375px 0;
+}
+
+li#interact-share a {
+left: 500px;
+width: 120px;
+background-position: -500px 0;
+}
+
+	/*hover state*/
+li#interact-map a:hover {
+background-position: 0 -40px;
+}
+
+li#interact-notes a:hover {
+background-position: -125px -40px;
+}
+
+li#interact-chat a:hover {
+background-position: -250px -40px;
+}
+
+li#interact-guide a:hover {
+background-position: -375px -40px;
+}
+
+li#interact-share a:hover {
+background-position: -500px -40px;
+}
+
+/*current state*/
+.current-map li#interact-map a {
+background-position: 0 -80px;
+}
+
+.current-notes li#interact-notes a {
+background-position: -125px -80px;
+}
+
+.current-groupchat li#interact-chat a {
+background-position: -250px -80px;
+}
+
+.current-guide li#interact-guide a {
+background-position: -375px -80px;
+}
+
+.current-share li#interact-share a {
+background-position: -500px -80px;
+}
+
+.ui-tabs-panel {
+	width: 618px;
+	margin-left: 1px;
+}
+
+#map-viewer {
+	height: 390px; 
+	width: 618px;
+	float: left;
+}
+
+#notes-tab textarea
+{
+	width: 586px;
+	height: 340px;
+	padding: 15px;
+	resize: none;
+}
+
+#notes-lastsaved {
+	float: right;
+	padding: 3px 10px;
+	color: #000;
+	background-color: #949494;
+	font-size: 11px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#share-tab
+{
+	width: 598px;
+	height: 342px;
+	background-color: #fff;
+	padding: 10px;
+}
+
+
+/**** Chat Bar Friends Sprite *****/	
+
+.chat-bar-friends {
+width: 169px;
+height: 37px;
+background: url(/_assets/img/v2/onlineworship/friends-sprite.png);
+margin: 0;
+padding: 0;
+position: relative;
+float: right;
+}
+
+li.chat-friends a {
+position: absolute;
+top: 0;
+margin: 0;
+padding: 0;
+display: block;
+height: 37px;
+width: 169px;
+background: url(/_assets/img/v2/onlineworship/friends-sprite.png);
+overflow: hidden;
+color: #fff;
+text-decoration: none;
+text-indent: -99999px;
+}
+
+li.chat-friends a:hover	
+{
+	background-position: 0 -37px;
+}	
+
+
+/**** Chat Bar Profile Sprite *****/	
+
+.chat-bar-profile {
+width: 119px;
+height: 37px;
+background: url(/_assets/img/v2/onlineworship/friends-sprite.png);
+margin: 0;
+padding: 0;
+position: relative;
+float: right;
+}
+
+.chat-profile-top {
+width: 92px;
+height: 36px;
+background: url(/_assets/img/v2/onlineworship/friends-sprite.png);
+margin: 0;
+padding: 0;
+position: relative;
+float: right;
+}
+
+	li.chat-profile a {
+	position: absolute;
+	top: 0;
+	margin: 0;
+	padding: 0;
+	display: block;
+	height: 36px;
+	width: 92px;
+	background: url(/_assets/img/v2/onlineworship/profile-sprite.png);
+	overflow: hidden;
+	color: #fff;
+	text-decoration: none;
+	text-indent: -99999px;
+	}
+	
+	li.chat-profile a:hover	
+	{
+		background-position: 0 -37px;
+	}	
+
+#chat-slider-container
+{
+	
+}
+
+
+.bx-prev, .bx-next
+{
+	margin-top: -11px;
+}
+
+
+
+.chat-tab {
+	color: white;
+	padding-top: 9px;
+	text-align: center;
+	-moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    height: 37px;
+    cursor: pointer;
+}
+
+.tab-selected {
+	background-color: #939393;
+}
+
+.new-message {
+	background-color: #547727;
+}
+
+
+.single-chat-window
+{
+	width: 250px;
+	background-color: #949494;
+	border-right: 1px solid #282a30;
+	border-left: 1px solid #282a30;
+	border-top: 1px solid #282a30;
+	bottom: 65px;
+	left: 0px;
+	position: absolute;
+	z-index: 1000;	
+}
+
+	.single-chat-window textarea
+	{
+		width: 202px;
+		margin: 10px 0 8px 10px;
+		height: 25px;
+		border: 0 none;
+		display: block;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		padding: 4px 4px 4px 24px;
+		background-image: url(/_assets/img/v2/onlineworship/chat-bubble.png);
+		background-repeat: no-repeat;
+		background-position: 6px 9px;
+		resize: none;
+	}
+
+#chat-windows {
+	width: 960px;
+	position: fixed;
+	bottom: 35px;
+	left: 50%;
+	margin-left: -480px;
+	z-index: 1000;
+}
+
+.single-chat-header
+{
+	cursor: pointer;
+	background-color: #484c53;
+	height: 30px;
+}
+
+	.single-chat-header h1
+	{
+		padding: 7px;
+		font-size: 13px;
+		letter-spacing:0;
+		line-height: 15px;
+		color: #fff;
+		-moz-user-select: none;
+    	-khtml-user-select: none;
+    	user-select: none;
+    	float: left;
+		max-width: 80%;
+		overflow: hidden;
+		height: 80%
+	}
+	
+	.chat-close {
+	height: 30px;
+	width: 30px;
+	float: right;
+	background: url(/_assets/img/v2/onlineworship/chatclose.png);
+	cursor: pointer;
+	}
+	
+	.chat-close:hover {
+		background-position: 0 30px;
+	}
+	
+#pchatbox
+{
+	background: #fff;
+	width: 230px;
+	height: 250px;
+	margin: 10px 0 0 10px;
+}
+
+.chatbox {
+    width:230px;
+    height: 250px;
+    overflow-y: scroll;
+    background-color: white;
+    line-height: 1em;
+}
+
+.chatbox-text
+{
+	float: left;
+	width: 100px;	
+}
+
+.pchatmsgbox {
+	overflow: hidden;
+
+}
+
+.pmsg {
+	padding: 5px;	
+	background-repeat:no-repeat;
+	display: inline-block;
+}
+
+.pmsg_notification {
+	padding: 0 5px;
+	font-size: 10px;
+}
+
+.pmsg_body {
+	overflow: hidden;	
+	color: black;
+	width: 180px;
+	line-height: 1.4em;
+	padding: 0 0 0.5em 0;
+	word-wrap: break-word;
+}
+
+.pmsg_me_bg .pmsg_body {
+	float: left;	
+}
+
+.pmsg_you_bg .pmsg_body {
+	float: right;
+}
+
+.pmsg_avatar {
+	width: 35px;
+	font-size: 8px;
+	line-height: 1em;
+}
+
+.pmsg_avatar img {
+	width: 25px;
+}
+
+.pmsg_right_avatar {
+	float: right;
+	padding-bottom: 2px;
+}
+.pmsg_left_avatar p {
+	text-align: left;
+}
+
+.left_avatar
+{
+	float: left;
+	margin-right: 1px;
+	text-align: left;
+}
+
+.right_avatar
+{
+	float: right;
+	text-align: right;
+}
+
+.pmsg_me_bg {
+	background-color: #EEEEEE;
+	border-style: solid;
+	border-color: #AAA;
+	border-width: 1px 0;
+	width: 220px;
+}
+
+.user-said
+{
+	
+}
+
+
+
+.clips a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #699132;
+    
+}
+
+
+#notes-logged-out
+{
+	background-image: url(/_assets/img/v2/onlineworship/btn-login-email.png);
+	width: 165px;
+	height: 32px;
+	cursor: pointer;
+}
+
+#notes-logged-in
+{
+	background-image: url(/_assets/img/v2/onlineworship/btn-email-notes.png);
+	width: 165px;
+	height: 32px;
+	cursor: pointer;
+}
+
+
+
+/**** Group Chat ****/
+
+#chat-field-box
+{
+	background-color: #c2c2c2;
+	padding: 7px;
+	border-bottom: 1px solid #b4b4b4;
+}
+
+	#chat-field-box input
+	{
+		width: 512px;
+		margin-bottom: 0px;
+		margin-top: 10px;
+		padding: 8px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-moz-box-shadow: inset 1px 1px 1px #888;
+		box-shadow: inset 1px 1px 1px #888;
+		border: none;
+		
+	}
+	
+	#chat-field-box a
+	{
+		margin-top: 10px;
+	}
+	
+	#chat-field-box #chat-field-box-submit
+	{
+		background: none;
+		background-image: url(/_assets/img/v2/onlineworship/btn-send.png);
+		width: 65px;
+		height: 32px;
+		float: right;
+		border: none;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		cursor: pointer;
+	}
+
+#chat-field-box-signup
+{
+	width: 100%;
+	text-align: center;
+	margin-top: 8px;
+	font-size: 13px;
+}
+
+#chat-field-box-signup a
+{
+	text-decoration: none;
+	color: #000;
+	font-weight: 700;
+}
+	
+
+#chat-box-list
+{
+	background-color: #fff;
+	height: 313px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+	#chat-box-list img
+	{
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+	
+	#chat-box-list h1
+	{
+		font-size: 13px;
+		line-height: 12px;
+		color: #6c9231;
+		font-weight: 700;
+		text-shadow: none;
+		letter-spacing: 0.02rem;
+    margin-bottom:5px;
+	}
+	
+	#chat-box-list p,
+	.pmsg_body,
+	.fullname,
+	.fullname_title
+	{
+		padding-bottom: 0px;
+		font-size:.8rem;
+		line-height:1rem;
+	}
+	
+	.chat-time-stamp
+	{
+		color: #7e7e7e;
+		font-size: 10px;
+		padding: 0px;
+		font-weight: normal;
+	}
+	
+	#chat-box-list .group-chat-text
+	{
+		float: left;
+		color: black;
+		font-size: 12px;
+		line-height: 16px;
+		width: 550px;
+	}
+	.group-chat-text div{
+		float:left;
+		margin-right:10px;
+	}
+	#chat-box-list li
+	{
+		border-bottom: 1px solid #e2e2e2;
+		padding: 7px;	
+	}
+	
+	.groupchat_link {
+		line-height: 12px;
+		float: left;
+		margin-left: 10px;
+	}
+	
+	.groupchat_link a {
+		text-decoration: none;
+		color: #6C9231;
+	}
+	
+	.groupchat_link a:hover {
+		color: #472;
+	}
+	
+	.minister-highlight
+	{
+		background-color: #edf3e4;
+	}
+
+#onlineworshipvid {
+	color: #FFF;
+	text-align: center;
+	font-size: 15px;
+}	
+	
+#onlineworshipvid_wrapper {
+	border-style: solid;
+	border-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #393e44;
+}
+
+#below_video {
+	/* For IE, otherwise right tab floats outside of area */
+	width: 622px;
+}
+
+.below_videotab {
+	border-style: solid;
+	border-width: 1px;
+	border-top-width: 0px;
+	border-color: #393e44;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-bottom: 10px;
+	padding: 3px 10px;
+	color:white;
+}
+
+#livevid-quality {
+	float: left;
+	line-height: 0.7rem;
+}
+
+#livevid-quality p {
+	display: inline;
+	margin-top: 1px;
+	font-size: 11px;
+	padding: 0;
+}
+
+#livevid-quality a
+{
+	text-decoration: none;
+	color: #717171;
+}
+
+#livevid-quality a:hover
+{
+	color: #7aab34;
+}
+
+#livevid-quality a:selected
+{
+	color: #7aab34;
+}
+
+#livevid-quality span {
+	font-weight: 600;
+}
+
+.offline {
+	display: none;
+}
+
+#current-viewers {
+	float: right;	
+	padding: 3px 10px;
+	color: white;
+	font-size: 11px;
+}
+
+#current-viewers p {
+	padding: 0;
+	margin-top: 1px;
+}
+
+#onlineworship-twitter
+{
+	float: right;
+	margin-top: 7px;
+	margin-right: -15px;
+	margin-bottom: 7px;
+}
+
+#onlineworship-facebook
+{
+	float: right;
+	margin-top: 7px;
+}
+
+#invite-friend
+{
+	float: right;
+	margin: 7px 15px 0 0;
+}
+
+#online-invite
+{
+	float: left;
+	width: 616px;
+	height: 390px;
+}
+
+	.share_form {
+		float: left;
+		width: 170px;
+	}
+	
+	.share_facebook {
+		float: left;
+		
+	}
+	
+	.share_twitter {
+		float: left;
+	}
+	
+#online-invite h1
+{
+	color: #484848;
+	font-size: 16px;
+	line-height: 18px;
+	font-weight: 500;
+	margin-bottom: 15px;
+	margin: 15px 0;
+	text-shadow: none;
+}
+
+#online-invite label {
+	width: 110px;
+	padding: 7px 0;
+}
+
+	.wufoo .info
+	{
+		display:none
+	}
+	
+	.wufoo input.text, .wufoo textarea.textarea
+	{
+		background-image: none;
+		background-color: efefef;
+		border: 1px solid #dcdcdc;
+		-moz-border-radius: 2px;
+		width: 150px;
+		padding: 4px;
+		max-height: none;
+		max-width: none;
+		min-width: 0px;
+		
+	}
+	
+	.wufoo label.desc
+	{
+		color: #868686;
+		font-size: 10px;
+	}
+	
+	.wufoo li.focused
+	{
+		background: none;
+	}
+	
+	.wufoo li.focused label.desc
+	{
+		color: #628d2c ;
+	}
+
+#online-facebook
+{
+	width: 400;
+	float: right;
+}
+
+#online-worship-bg .person .mini-profile h4
+{
+	color: #282828;
+	font-size: 11px;
+	border-bottom: 1px solid #6a6e73;
+	padding-bottom: 3px;
+	margin-bottom: 5px;
+	line-height: 11px;
+}
+
+.mini-profile
+{
+	margin-top: 10px;
+	color: #ffffff;
+	font-size: 10px;
+	list-style-type: disc;
+	line-height: 14px;
+	text-decoration: none;
+}
+
+.mini-profile p
+{
+	color: #ffffff;
+	font-weight: 500;
+}
+
+.mini-profile ul
+{
+	margin-bottom: 10px;
+	padding-left: 12px;
+	
+}
+
+.mini-profile li span
+{
+	font-style: italic;
+}
+
+
+.mini-profile-shadow
+{
+	background-image: url(/_assets/img/v2/onlineworship/mini-profile-shadow.png);
+	width: 290px;
+	height: 10px;
+	margin: 0 0 -11px -16px;
+}
+
+.mini-profile h4 {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: "Verlag A", "Verlag B", Futura, "Trebuchet MS", Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+.mini-profile ul {
+     font-size: 12px;
+     font-weight: 600;
+     font-family: 'Archer A', 'Archer B', Georgia, 'Times New Roman', serif;
+}
+
+#chat-slider-container li
+{
+	background-color: #3d424a;
+	width: 100px;
+	border-left: 1px solid #282a30;
+	border-right: 1px solid #4f535a;
+	height: 37px;
+	padding-left: 1px;
+	padding-right: 1px;
+	float: left;
+	overflow:hidden;
+}
+
+#chat-slider-container li a
+{
+	color: #000;
+	font-weight: bold;
+}
+
+
+
+#chat-slider-container li:hover
+{
+	background-color: #4b515a;
+}
+
+#chat-slider-container li:active
+{
+	background-color: #939393;
+}
+
+#chat-tab-bar {
+ 	position: relative;
+	float: left;
+}
+
+#chat-slider-ul {
+	overflow: hidden;
+	width: 900px;
+}
+
+
+/***** KEE'S STYLES *****/
+
+.dynamicDiv {
+    width:300px;
+    height:390px;
+	overflow:auto;
+	float:right;
+    border:dotted 1px #c0c0c0;
+    font-size:11px;
+    font-family:verdana;
+    color:#000;
+    padding:5px;
+}
+
+.chatboxhead {
+	background-color: #f99d39;
+	padding:7px;
+	color: #ffffff;
+
+	border-right:1px solid #f99d39;
+	border-left:1px solid #f99d39;
+}
+
+.chatboxblink {
+	background-color: #176689;
+	border-right:1px solid #176689;
+	border-left:1px solid #176689;
+}
+
+.chatboxcontent {
+	font-family: arial,sans-serif;
+	font-size: 13px;
+	color: #333333;
+	height:200px;
+	width:209px;
+	overflow-y:auto;
+	overflow-x:auto;
+	padding:7px;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+	border-bottom:1px solid #eeeeee;
+	background-color: #ffffff;
+	line-height: 1.3em;
+}
+
+.chatboxinput {
+	padding: 5px;
+	background-color: #ffffff;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+	border-bottom:1px solid #cccccc;
+}
+
+.chatboxtextarea {
+	width: 206px;
+	height:44px;
+	padding:3px 0pt 3px 3px;
+	border: 1px solid #eeeeee;
+	margin: 1px;
+	overflow:hidden;
+}
+
+.chatboxtextareaselected {
+	border: 2px solid #f99d39;
+	margin:0;
+}
+
+.chatboxmessage {
+	margin-left:1em;
+}
+
+.chatboxinfo {
+	margin-left:-1em;
+	color:#666666;
+
+}
+
+.chatboxmessagefrom {
+	margin-left:-1em;
+	font-weight: bold;
+}
+
+.chatboxmessagecontent {
+}
+
+.chatboxoptions {
+	float: right;
+}
+
+.chatboxoptions a {
+	text-decoration: none;
+	color: white;
+	font-weight:bold;
+	font-family:Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+}
+
+.chatboxtitle {
+	float: left;
+}
+
+#modal-box {
+
+	width: 535px;
+	padding: 30px;	
+}
+
+
+
+#modal-box p {
+	float: left;
+	margin-top: 7px;
+	margin-left: 0px;
+	font-size: 0.675rem;
+}
+
+input,textarea{
+	font-size: 15px;
+	
+}
+.modal-field {
+	font-size: 15px;
+	/*background-color: #265776;
+	border-color: #154666;*/
+	width: 30px;
+	text-align: center;
+	margin-left: 15px;
+	margin-top: 12px;
+}
+
+.modal-submit {
+	margin: 0 auto 0 auto;
+	width: 100px;
+	height: 30px;
+	cursor: pointer;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 200;
+	background-color: #265776;	
+	padding-top: 10px;
+	border: 1px #265776 solid;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.modal-submit:hover {
+	background-color: #37A;
+}
+
+#filter-buttons {
+	background-color: #949494;
+	height: 30px;
+}
+
+#bug_report_form {	
+	padding: 15px;
+}
+
+#bug_report_form h2 {
+	text-decoration: none;
+}
+
+#bug_report_text {
+	width: 400px;
+	margin-bottom: 10px;
+}
+
+#bible_passages {
+	margin-left: 10px;
+}
+
+.bible_passage {
+	float: left;	
+	height: 19px;
+	color: #999;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #393e44;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin: 0 3px;
+	padding: 3px 10px 0px;
+	font-size: 11px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.bible_passage_active {
+	background-color: #888;
+	color: #000;
+	border-color: #000;
+}
+
+#bible_verses {
+	background-color: #888;
+	color: #000;
+	border-color: #000;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom-width: 0px;
+	border-radius: 5px;
+	margin: 0 3px 10px 0px;
+	padding: 5px 10px;
+	font-size: 11px;
+	width: 598px;
+}
+
+.bible_verse {
+	
+}
+
+#modal_invalidnumber {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.worship_mbl {
+    margin-bottom: 56px;
+}
+
+.worship_clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0px;
+    height: 10px;
+}
+#login-register-box,
+#modal-box{
+	background-color:white;
+	color:black;
+}
+.slimScrollDiv{
+	width:100%
+}
+#filter-buttons{
+	display:none;
+}
+
+
+#login-register-box .tss{
+	color:black;
+}
+p.pmsg_body,
+.single-chat-window textarea,
+#chat-field-box input{
+	font-family: "Archer A", "Archer B", Georgia, "Times New Roman", serif;
+	font-weight:600;
+}
+.fullname{
+	font-weight:700;
+}
+.person-info span{
+	font-weight: 500;
+	text-transform: uppercase;
+	font-family: "verlag A", "verlag B", Georgia, "Times New Roman", serif;
+	font-style:normal;
+	color:white;
+}

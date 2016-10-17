@@ -1,0 +1,15 @@
+			{if embed:header == ''}{preload_replace:header="Recent Blogs"}{/if}
+			{if embed:header != ''}{preload_replace:header="{embed:header}"}{/if}
+			<h5>{header}</h5>
+			<ul class="medialist-small">
+				{if embed:quantity == ''}{preload_replace:quantity="6"}{/if}
+				{if embed:quantity != ''}{preload_replace:quantity="{embed:quantity}"}{/if}
+				{if embed:categorypass == ''}{preload_replace:categorypass=""}{/if}
+				{if embed:categorypass != ''}{preload_replace:categorypass="{embed:categorypass}"}{/if}
+				{exp:channel:entries channel="blogs" dynamic="off" sort="desc" limit="{quantity}" category="{categorypass}"}
+				<li>
+					<a href="/blogs/{url_title}">{title}</a><br />
+					{entry_date format="%F %j, %Y"}
+				</li>
+				{/exp:channel:entries}
+			</ul>

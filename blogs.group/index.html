@@ -1,0 +1,169 @@
+<?php 
+{if segment_2==""}
+	header('Location: http://www.northlandchurch.net/resources/blogs');
+	exit;
+{/if}
+
+?>
+{embed="_assets/header" htmltitle="Northland Blogs{if segment_2 != "" AND segment_3 == ""}: {exp:channel:entries channel="blogs" dynamic="on" limit="1"}{title}{/exp:channel:entries}{/if}"}
+{embed="_assets/login"}
+{embed="_assets/navbar" active="resources"}
+
+<script>
+$(document).ready(function() {
+	$(".article p iframe").parent().css({
+    "width":"100%",
+    "height":"0",
+    "padding-Bottom":"56.25%",
+	"position":"relative",
+	"float":"none",
+	"clear":"both",
+	"padding-top":"25px"
+	});
+	/*$(".article p br").css("padding-top","56.25%");*/
+});
+</script>
+{if segment_2 != "" AND segment_3 == ""}
+
+	<?php
+	$qstring = '{segment_2}';
+	$show_archive = preg_match("#category#", $qstring) ? 'y' : 'n';
+	$show_pagination = preg_match("#(^|\/)P(\d+)#", $qstring) ? 'y' : 'n';
+	if ($show_archive == 'y') { ?>
+
+	<?php }
+	elseif($show_pagination=="y"){ ?>
+
+	<?php }
+	else { ?>
+	<!-- individual article page -->
+
+		{exp:channel:entries channel="blogs" limit="1" dynamic="on"	require_entry="yes"}
+		{if no_results}
+			{redirect="/resources/blogs/"}
+		{/if}
+		
+		<?php $hero=FALSE; ?>
+		  	{categories}
+				<?php 
+				$category = ""; 
+				$category_name = htmlspecialchars("{category_name}"); 
+				$category_id = "{category_id}";
+				if ("{category_name}"=="Featured"){
+					$hero=TRUE;
+				}
+				?>
+			{/categories}
+			<?php if ($hero){ ?>
+			<div class='hero hero--resource' style="background-color: #05253a; -webkit-filter: opacity(100%);">
+				<div class='hero-media' style="background-image: url('<?php
+						ob_start();
+						?>{blog-post}<?php
+						$obcontents = ob_get_contents();
+						ob_end_clean();
+                    	
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$obcontents, $match)){
+							echo $match[1];
+						}
+						?>');-webkit-filter: opacity(10%);"></div>
+				<!--<div class='hero-content'>
+				  <div class='cell'>
+					<ul class='breadcrumbs breadcrumbs--transparent'>
+					  <li><a href="../">Home</a></li>
+					  <li><a href="../resources/">Resources</a></li>
+					  	
+					  <li><a href="/blogs/category/{category_url_title}"><?php echo $category_name ?></a></li>
+					  
+					</ul>
+				  </div>
+				</div>-->
+				<div class='hero-extend' style="background:none;">
+				  <div class='cell'>
+				  	<h1 class='heading heading--l title'>{title}</h1>
+					<h4 class='meta-author'>
+						<span>{if blog-author}{blog-author}{if:else}{author}{/if}</span> <span>{entry_date format="%F %j, %Y"}</span>
+					</h4>
+					{if blog-excerpt}<p class='mbl tss'>{blog-excerpt}</p>{/if}
+					{embed="_assets/social" contentchannel="blogs"}
+				  </div>
+				</div>
+			</div>
+			<?php }else{ ?>
+				<div class='row--inverted'>
+					<div class='cell well'>
+						<div class="card">
+							<!--<ul class='breadcrumbs'>
+								<li><a href="../">Home</a></li>
+								<li><a href="../resources/">Resources</a></li>
+								<li><a href="/blogs/category/{category_url_title}"><?php echo $category_name ?></a></li>
+							</ul>-->
+							<h1 class='heading heading--l title'>{title}</h1>							
+							<h4 class='meta-author'>
+								<span>{if blog-author}{blog-author}{if:else}{author}{/if}</span> <span>{entry_date format="%F %j, %Y"}</span>
+							</h4>
+							{if blog-excerpt}<p class='mbl tss'>{blog-excerpt}</p>{/if}
+							{embed="_assets/social" contentchannel="blogs"}
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+		{/exp:channel:entries}
+
+		<div class='row--inverted entry'>
+			<div class='cell well'>
+				<div class='g'>
+					<!-- article content -->
+					<div class='g-b g-b--m--3of4'>
+				    	<div class='card'>
+							{exp:channel:entries channel="blogs" limit="1" dynamic="on"}
+								<article class='article' data-swiftype-index='true'>
+								{!-- <article class='article' data-swiftype-name="body" data-swiftype-type="text"> --}
+									{blog-post}
+										<?php
+										ob_start();
+									?>
+									{blog-post}
+									<?php
+										$obcontents = ob_get_contents();
+										ob_end_clean();
+										$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+									?>	
+									{exp:tag:tags
+										entry_id="{entry_id}"
+										orderby="tag_name"
+										sort="desc"
+									}
+										<a class='tag' href="/resources/tag/{tag}">
+											{tag}
+										</a>
+									{/exp:tag:tags}
+								</article>
+								
+								{embed="_assets/social" contentchannel="blogs" anchorbottom="true"}
+
+								{if allow_comments}
+								  {embed="_assets/comment_add"}
+								{/if}
+							{/exp:channel:entries}
+				      		
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							
+							<div class="clear"></div>
+							<hr class="rule rule--transparent mbl">
+
+				    	</div><!-- ./card -->
+				  	</div><!-- ./g-b--m--3of4 end article content -->
+				  
+					<!-- sidebar -->
+					<div class='g-b g-b--m--1of4' data-swiftype-index='false'>
+					  {embed="_assets/sidebar" whichCategory="<?php echo $category ?>"}
+					</div><!-- end sidebar -->
+				</div><!-- g -->
+			</div><!-- cell -->
+    	</div><!-- row -->
+	<?php } ?>
+{/if} <!-- end of individual article page -->
+
+
+{embed="_assets/footer"}

@@ -1,0 +1,70 @@
+{if segment_4}
+
+	{exp:calendar:cal pad_short_weeks="n" 
+		calendar_name="{embed:the_id}"
+			date_range_start="{segment_2}-{segment_3}-{segment_4}"
+			date_range_end="{segment_2}-{segment_3}-{segment_4}"
+	
+	}
+	{display_each_day}
+	{if day_event_total>0}<h3 class="marg-t-80"> </h3>{/if}
+	
+	{events}
+		<div class="day-block">
+			<h4><a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{event_title}</strong></a></h4>
+			<p>{if event_start_date}<strong>Time:</strong> {event_start_date format="%g:%i%a"}{if event_end_date} - {event_end_date format="%g:%i%a"}{/if}{/if}
+			{if event_summary}<br />
+			<strong>Details:</strong> {event_summary}
+			{/if}</p>
+		</div>
+		{/events}
+	   {/display_each_day}
+	
+	{/exp:calendar:cal}
+
+
+{if:else}
+	{exp:calendar:cal pad_short_weeks="n" 
+		calendar_name="{embed:the_id}"
+			date_range_start="today" 
+			date_range_end=
+				{if segment_2=="today"}"today"{/if}
+				{if segment_2=="thisweek"}"+6 days"{/if}
+				{if segment_2=="thismonth"}"+30 days"{/if}
+				{if segment_2=="thisyear"}"12 months"{/if}
+				{if segment_2==""}"+6 days"{/if}
+	}
+	{display_each_day}
+	{if day_event_total>0}<h3 class="marg-t-80">{day format="%l, %F %j, %Y"}</h3>{/if}
+	
+	{events}
+		<div class="day-block">
+			<h4><a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" title="{title}"><strong>{event_title}</strong></a></h4>
+			<p>{if event_start_date}<strong>Time:</strong> {event_start_date format="%g:%i%a"}{if event_end_date} - {event_end_date format="%g:%i%a"}{/if}{/if}
+			{if event_summary}<br />
+			<strong>Details:</strong> {event_summary}
+			{/if}</p>
+		</div>
+		{/events}
+	   {/display_each_day}
+	{/exp:calendar:cal}
+
+{/if}
+
+	{if logged_in}
+		<br><br>
+		<h5>Favorite This Media</h5>
+		<p class="marg-b-20">
+				{exp:favorites:saved entry_id="{entry_id}"}
+					{if saved}
+						<span class="readed">You've saved this media to <a href="http://northlandchurch.net/profile" target="_blank">your profile</a></span></a><br>
+					{/if}
+
+					{if not_saved}
+						<a id="entry{entry_id}" class="favorite" href="/_component/favorite-add/{entry_id}">Save media to profile</a><br>
+						<span class="result" style="display:none;"></span>				
+					{/if}
+				{/exp:favorites:saved} 
+		</p>
+	{if:else}
+	{/if}

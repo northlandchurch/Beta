@@ -1,0 +1,632 @@
+{embed="responsive/html_open" htmltitle="Northland: Connecting with neighbors"}
+<style type="text/css">
+	body { height: 100%; }
+</style>
+
+
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing" type="text/javascript"></script>
+<script type="text/javascript">
+// Globals
+//var drawingManager;
+var map = null;
+var geocoder;
+var parties_markers = [];
+var connectors_markers = [];
+var firsts_markers = [];
+//var party_lists = [];
+
+//var all_overlays = [];		// holding all overlay information
+var openedInfoWindow = null;
+
+function showParties(){
+	for (var i=0; i<parties_markers.length; i++) {
+		parties_markers[i].setVisible(true);
+	}
+}
+function showFirsts(){
+	for (var i=0; i<firsts_markers.length; i++) {
+		firsts_markers[i].setVisible(true);
+	}
+}
+function hideLegend(){
+	$("#legend").hide();
+}
+function showConnectors(){
+	for (var i=0; i<connectors_markers.length; i++) {
+		connectors_markers[i].setVisible(true);
+	}
+}
+function hideParties(){
+	for (var i=0; i<parties_markers.length; i++) {
+		parties_markers[i].setVisible(false);
+	}
+}
+function hideFirsts(){
+	for (var i=0; i<firsts_markers.length; i++) {
+		firsts_markers[i].setVisible(false);
+	}
+}
+function hideConnectors(){
+	for (var i=0; i<connectors_markers.length; i++) {
+		connectors_markers[i].setVisible(false);
+	}
+}
+
+function showForm() {
+	$("#wuform").show();
+}
+
+function showFormKee(fullname) {
+//	console.log(fullname);
+	var r1gxecbb1wpmswo;(function(d, t) {
+		var s = d.createElement(t), options = {
+		'userName':'northlandchurch', 
+		'formHash':'r1gxecbb1wpmswo', 
+		'autoResize':true,
+		'height':'1011',
+		'async':true,
+		'host':'wufoo.com',
+		'header':'hide', 
+		// NOTE: This is the line we are adding to the default snippet.
+		'defaultValues':'Field125='+fullname,
+		'ssl':true};
+		s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+		s.onload = s.onreadystatechange = function() {
+		var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+		try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+		var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+	})(document, 'script');
+
+	$("#wuform").show();
+}
+
+function hideForm() {
+	$("#wuform").hide();
+}
+
+// Initialization
+function initialize() {
+	geocoder = new google.maps.Geocoder();
+	
+	var myOptions = {
+		center: new google.maps.LatLng(28.68492,-81.33649),
+		zoom: 13,
+		// Add controls
+		mapTypeControl: true,
+		scaleControl: true
+	};
+
+	var icon_connector = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-connector.png';
+	var icon_study = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-study.png';
+	var icon_party = 'http://northlandchurch.net/_assets/img/v2/icons/nacd-map-party.png';
+
+	
+	
+	$(window).resize(function() {
+		$("#map").height($(window).height());
+	}).resize();
+	
+	
+	
+	map = new google.maps.Map(document.getElementById('map'), myOptions);
+	
+	google.maps.event.addListener(map, 'click', function() {
+		if (openedInfoWindow) { openedInfoWindow.close(); }
+	});
+
+
+	// Studies Host list
+	$.ajax({
+		type: "GET",
+		url: "/scripts/Highrise/get_tags.php?tags=3332541,3332452",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('party').each(function() {
+				var hid = $(this).find('id').filter(":first").text();
+				var firstname = $(this).find('first-name').text();
+				var lastname = $(this).find('last-name').text() ;
+				var image = "";
+				$(this).find('instant-messengers').each(function(index) {
+					if ($(this).find('address').text())
+						image = $(this).find('address').text();	
+//					console.log("Image " + image);				
+				});
+				
+				var latitude, longitude, date;
+				//console.log(hid + ": " + fullname);
+				$(this).find('subject_data').each(function(index) {
+					var field_label = $(this).find('subject_field_label').text();
+					if(field_label == "Latitude") 
+						latitude = $(this).find('value').text()
+					if(field_label == "Longitude") 
+						longitude = $(this).find('value').text()
+					if(field_label == "Spouse's Name") {
+						spousename = $(this).find('value').text() ;
+						firstname = firstname + " and " + spousename;
+					}
+					if (field_label == "Cloudinary Image Name") {
+						image = '<img src="http://res.cloudinary.com/northland/image/upload/t_340_240_lfill/' + $(this).find('value').text().trim() + '.jpg">';
+					}
+				});		
+				var fullname = firstname + ' ' + lastname;
+						
+				var phone = $(this).find('phone-number').find('number').filter(":first").text();
+				var email = $(this).find('email-address').find('address').filter(":first").text();
+				var contact = phone;
+				var infowindow = new google.maps.InfoWindow({ content: '<div>' + image + '<h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}Connect with '+firstname+':<br><a href="#" onclick="javascript:showFormKee('+"'"+fullname+"'"+')" style="color:black">Via online form</a> or '+contact+'{/exp:low_replace}</div></div>' });
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_study,
+					lastname: lastname,
+					infowindow: infowindow,
+					map: map
+				});
+				google.maps.event.addListener(marker, 'click', function() { 
+					
+				
+					var r1gxecbb1wpmswo;(function(d, t) {
+						var s = d.createElement(t), options = {
+						'userName':'northlandchurch', 
+						'formHash':'r1gxecbb1wpmswo', 
+						'autoResize':true,
+						'height':'1011',
+						'async':true,
+						'host':'wufoo.com',
+						'header':'hide', 
+						// NOTE: This is the line we are adding to the default snippet.
+						'defaultValues':'Field125='+fullname,
+						'ssl':true};
+						s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+						s.onload = s.onreadystatechange = function() {
+							var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+							try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } 
+							catch (e) {}
+						};
+						var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');
+				
+				
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+			      	google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+						
+					});	
+				});	
+				// Store Host info into host array
+				firsts_markers.push(marker);
+				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+					
+			});
+			output += '<ul>';
+			//$('#party_list').html(output);
+			hideFirsts();
+		}
+	});
+	// End of Studis Host list
+
+
+	// Connectors Host list
+	$.ajax({
+		type: "GET",
+		url: "/scripts/Highrise/get_tags.php?tags=3332457,3332452",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('party').each(function() {
+				var hid = $(this).find('id').filter(":first").text();
+				var firstname = $(this).find('first-name').text();
+				var lastname = $(this).find('last-name').text() ;
+				var fullname = firstname + ' ' + lastname;
+				var image = "";
+				/*$(this).find('instant-messengers').each(function(index) {
+					if ($(this).find('address').text())
+						image = $(this).find('address').text();	
+//					console.log("Image " + image);				
+				});			*/	
+				
+				var latitude, longitude, date;
+				//console.log(hid + ": " + fullname);
+				$(this).find('subject_data').each(function(index) {
+//					console.log( index + ": " + $(this).find('subject_field_label').text() );
+					var field_label = $(this).find('subject_field_label').text();
+					if(field_label == "Latitude") 
+						latitude = $(this).find('value').text()
+					if(field_label == "Longitude") 
+						longitude = $(this).find('value').text()
+					if(field_label == "Spouse's Name") {
+						spousename = $(this).find('value').text() ;
+						firstname = firstname + " and " + spousename;
+					}
+					if (field_label == "Cloudinary Image Name") {
+						image = '<img src="http://res.cloudinary.com/northland/image/upload/t_340_240_lfill/' + $(this).find('value').text().trim() + '.jpg">';
+					}
+				});
+				//console.log(latitude + ", " + longitude);
+				var fullname = firstname + ' ' + lastname;
+				
+				var phone = $(this).find('phone-number').find('number').filter(":first").text();
+				var email = $(this).find('email-address').find('address').filter(":first").text();
+				var contact = phone;
+				//console.log(contact);
+
+				var infowindow = new google.maps.InfoWindow({ content: '<div>' + image + '<h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}Connect with '+firstname+':<br><a href="#" onclick="javascript:showFormKee('+"'"+fullname+"'"+')" style="color:black">Via online form</a> or '+contact+'{/exp:low_replace}</div></div>' });
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_connector,
+					lastname: lastname,
+					infowindow: infowindow,
+					map: map
+				});
+				google.maps.event.addListener(marker, 'click', function() { 
+				
+					var r1gxecbb1wpmswo;(function(d, t) {
+						var s = d.createElement(t), options = {
+						'userName':'northlandchurch', 
+						'formHash':'r1gxecbb1wpmswo', 
+						'autoResize':true,
+						'height':'1011',
+						'async':true,
+						'host':'wufoo.com',
+						'header':'hide', 
+						// NOTE: This is the line we are adding to the default snippet.
+						'defaultValues':'Field125='+fullname,
+						'ssl':true};
+						s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+						s.onload = s.onreadystatechange = function() {
+						var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+						try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+						var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');
+				
+				
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+
+			      	google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+					});	
+				});	
+				// Store Host info into host array
+				connectors_markers.push(marker);
+//				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+					
+			});
+
+//			output += '<ul>';
+//			$('#hosts').html(output);
+			hideConnectors();
+		}
+	});
+	// End of Connectors Host list
+
+	// Parties Host list
+	$.ajax({
+		type: "GET",
+		url: "/scripts/Highrise/get_tags.php?tags=3238742,3332452",
+		dataType: "xml",
+		success: function(xml) {
+			var output = '<ul>';
+			$(xml).find('party').each(function() {
+				var hid = $(this).find('id').filter(":first").text();
+				var firstname = $(this).find('first-name').text();
+				var lastname = $(this).find('last-name').text() ;
+	//			console.log(firstname);				
+
+				var image = "";
+				$(this).find('instant-messengers').each(function(index) {
+					if ($(this).find('address').text())
+						image = $(this).find('address').text();	
+				});
+				
+				var latitude, longitude, date, spousename;
+				//console.log(hid + ": " + fullname);
+				$(this).find('subject_data').each(function(index) {
+	//					console.log( index + ": " + $(this).find('subject_field_label').text() );
+					var field_label = $(this).find('subject_field_label').text();
+					//console.log(field_label);
+					if(field_label == "Latitude") 
+						latitude = $(this).find('value').text()
+					if(field_label == "Longitude") 
+						longitude = $(this).find('value').text()
+					if(field_label == "Spouse's Name") {
+						spousename = $(this).find('value').text() ;
+						firstname = firstname + " and " + spousename;
+					}
+					if (field_label == "Cloudinary Image Name") {
+						image = '<img src="http://res.cloudinary.com/northland/image/upload/t_340_240_lfill/' + $(this).find('value').text().trim() + '.jpg">';
+					}
+					if(field_label == "Date of Party") 
+						if ($(this).find('value').text())
+							date = $(this).find('value').text()
+				});			
+				//console.log(latitude + ", " + longitude);
+				var fullname = firstname + ' ' + lastname;
+				
+				var phone = $(this).find('phone-number').find('number').filter(":first").text();
+				var email = $(this).find('email-address').find('address').filter(":first").text();
+				var contact = phone;
+				//console.log(contact);
+
+				var infowindow = new google.maps.InfoWindow({ content: '<div>' + image + '<h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}'+date+'<br>RSVP to '+firstname+':<br><a href="#" onclick="javascript:showFormKee('+"'"+fullname+"'"+')" style="color:black">Via online form</a> or '+contact+'{/exp:low_replace}</div></div>' });
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude), 
+					title: fullname, 
+					icon: icon_party,
+					lastname: lastname,
+					infowindow: infowindow,
+					map: map
+				});
+
+				$("#field125").val(fullname);
+//				var infowindow = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:350px"><img src='+image+' style="max-height:240px;max-width:340px"><h2 style="font-size:22px;border:none;margin-top:8px">'+fullname+'</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}'+date+'<br>RSVP to '+firstname+':<br><a href="#" onclick="javascript:showFormKee('+"'"+fullname+"'"+')" style="color:black">Via online form</a> or '+contact+'{/exp:low_replace}</div></div>' });
+				google.maps.event.addListener(marker, 'click', function() { 
+						
+					var r1gxecbb1wpmswo;(function(d, t) {
+						var s = d.createElement(t), options = {
+						'userName':'northlandchurch', 
+						'formHash':'r1gxecbb1wpmswo', 
+						'autoResize':true,
+						'height':'1011',
+						'async':true,
+						'host':'wufoo.com',
+						'header':'hide', 
+						// NOTE: This is the line we are adding to the default snippet.
+						'defaultValues':'Field125='+fullname,
+						'ssl':true};
+						s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+						s.onload = s.onreadystatechange = function() {
+						var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+						try { r1gxecbb1wpmswo = new WufooForm();r1gxecbb1wpmswo.initialize(options);r1gxecbb1wpmswo.display(); } catch (e) {}};
+						var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+					})(document, 'script');
+					
+					
+					if (openedInfoWindow != null) openedInfoWindow.close();
+					infowindow.open(map, marker) 
+					openedInfoWindow = infowindow;
+
+					google.maps.event.addListener(infowindow, 'closeclick', function() {
+						openedInfoWindow = null;
+						$("#wuform").hide();
+					});	
+				});	
+				// Store Host info into host array
+				parties_markers.push(marker);
+//				output += '<li>' + firstname + ' ' + lastname + ' - ' + latitude + ':' + longitude + '</li>';
+						
+			});
+//			output += '<ul>';
+//			$('#party_list').html(output);
+//hideParties();
+		}
+	});
+	// End of Party Hosts list
+
+  	
+
+//	console.log(connectors_markers);
+	
+}
+
+function codeAddress() {
+	location_input = document.getElementById("location_input").value.trim().toLowerCase(); 
+	hideForm();
+
+	if (location_input != "") { 
+
+		// Geocode new location 
+		geocoder.geocode( { 'address': location_input}, function(results, status) {
+			map.setCenter(results[0].geometry.location); 
+			map.setZoom(15);
+		})
+	}	
+}
+
+</script>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	hideFirsts();
+
+	hideConnectors();
+	//showConnectors();
+	
+	hideParties();
+	showParties();
+	
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+	
+});
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+		<div id="map" style="width: 100%;"></div>
+		<div id="wuform" style="z-index: 0; position: absolute; bottom: 13px; left:0px;background:white;width:220px;max-height:400px;padding:15px;display:none;overflow-y:visible">
+			<div style="float:right;padding 10px;"><a href="#" onclick="javascript:hideForm();" style="color:black">[ x ]</a></div>
+			<div id="wufoo-r1gxecbb1wpmswo">
+			</div>
+			<script type="text/javascript"></script>
+		</div>
+		<div id="legend" style="z-index: 0; position: absolute; bottom: 13px; right: 0px;background:white;width:200px;padding:15px">
+			<div style="float:right;padding 10px;"><a href="#" onclick="javascript:hideLegend();" style="color:black">[ x ]</a></div>
+			<h3>Legend (<a href="/articles/mapsfaq/" target="new">Questions?</a>)</h3>
+<!--			<input id="location_input" value="Zip code or address" onblur="javascript:codeAddress()" onclick="javascript:this.value=''" onfocus="javascript:this.value=''"><input type="button" value="Go" onclick="javascript:codeAddress()"><br> -->
+			<input id="location_input" value="Zip code or address" onfocus="javascript:this.value=''"><input type="button" value="Go" onclick="javascript:codeAddress()"><br>
+			<div>
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-party.png" style="float:left;margin:5px 5px 29px"> <b>Christmas Parties</b><br>
+				Come to a Christmas Party and bring a friends!<br>
+				(<a href="#" onclick="javascript:showParties()" style="color:black">show</a> / <a href="#" onclick="javascript:hideParties()" style="color:black">hide</a>)
+			</div>
+			<!--<div style="clear:both">
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-connector.png" style="float:left;margin:5px 5px 29px"> <b>Connectors</b><br>
+				Meet a leader who will help you find connections close to home. <br>
+				(<a href="#" onclick="javascript:showConnectors()" style="color:black">show</a> / <a href="#" onclick="javascript:hideConnectors()" style="color:black">hide</a>)
+			</div>
+			<div style="clear:both">
+				<img src="http://northlandchurch.net/_assets/img/v2/icons/nacd-map-study.png" style="float:left;margin:5px 5px 29px"> <b>First Principle Groups</b><br>
+				Find out how to become a disciple of Jesus in this 6-week study. <br>
+				(<a href="#" onclick="javascript:showFirsts()" style="color:black">show</a> / <a href="#" onclick="javascript:hideFirsts()" style="color:black">hide</a>)
+			</div>-->
+
+		</div>
+<div class="clear"></div>
+<!--<div id="party_list">
+</div>-->
+
+{if segment_3!=""}
+<script type="text/javascript">
+
+var url_split = document.URL.split("/");
+var host_lastname = decodeURI(url_split[5]);
+
+/*
+// IE does not support below style...
+setTimeout(function() {
+	loadHost(host_lastname.trim());
+}, 3000);
+*/
+setTimeout(function() {
+//	console.log("loadHost() with " + host_lastname);
+//	alert("Finding " + host_lastname);
+	var found = false;
+	
+	for (var i=0; i<parties_markers.length; i++) {
+		var person_marker = parties_markers[i];
+		
+		if (person_marker.lastname.toLowerCase() == host_lastname) {
+//			console.log("Found: " + person_marker.lastname);
+			if (openedInfoWindow != null) openedInfoWindow.close();
+			person_marker.infowindow.open(map, person_marker);
+			openedInfoWindow = person_marker.infowindow;
+			map.setCenter(person_marker.position); 
+			map.setZoom(14);
+			found = true;
+
+			break;
+		}
+	}
+
+	if(!found) {
+		for (var i=0; i<connectors_markers.length; i++) {
+			var person_marker = connectors_markers[i];
+			
+			if (person_marker.lastname.toLowerCase() == host_lastname) {
+//				console.log("Found: " + person_marker.lastname);
+				if (openedInfoWindow != null) openedInfoWindow.close();
+				person_marker.infowindow.open(map, person_marker);
+				openedInfoWindow = person_marker.infowindow;
+				map.setCenter(person_marker.position); 
+				map.setZoom(14);
+				found = true;
+				showConnectors();
+				hideConnectors();
+				break;
+			}
+		}
+	}
+	
+	if(!found) {
+		for (var i=0; i<firsts_markers.length; i++) {
+			var person_marker = firsts_markers[i];
+			
+			if (person_marker.lastname.toLowerCase() == host_lastname) {
+//				console.log("Found: " + person_marker.lastname);
+				if (openedInfoWindow != null) openedInfoWindow.close();
+				person_marker.infowindow.open(map, person_marker);
+				openedInfoWindow = person_marker.infowindow;
+				map.setCenter(person_marker.position); 
+				map.setZoom(14);
+				found = true;
+				showFirsts();
+
+				break;
+			}
+		}
+	}
+
+	if(!found) {
+		alert("Not found this person. Please check the name again!");
+	}
+}, 3000)
+
+function loadHost(host_lastname) {
+	console.log("loadHost() with " + host_lastname);
+	var found = false;
+	
+	for (var i=0; i<parties_markers.length; i++) {
+		var person_marker = parties_markers[i];
+		
+		if (person_marker.lastname.toLowerCase() == host_lastname) {
+//			console.log("Found: " + person_marker.lastname);
+			if (openedInfoWindow != null) openedInfoWindow.close();
+			person_marker.infowindow.open(map, person_marker);
+			openedInfoWindow = person_marker.infowindow;
+			map.setCenter(person_marker.position); 
+			map.setZoom(14);
+			found = true;
+
+			break;
+		}
+	}
+
+	if(!found) {
+		for (var i=0; i<connectors_markers.length; i++) {
+			var person_marker = connectors_markers[i];
+			
+			if (person_marker.lastname.toLowerCase() == host_lastname) {
+//				console.log("Found: " + person_marker.lastname);
+				if (openedInfoWindow != null) openedInfoWindow.close();
+				person_marker.infowindow.open(map, person_marker);
+				openedInfoWindow = person_marker.infowindow;
+				map.setCenter(person_marker.position); 
+				map.setZoom(14);
+				found = true;
+				showConnectors();
+				hideConnectors();
+				break;
+			}
+		}
+	}
+	
+	if(!found) {
+		for (var i=0; i<firsts_markers.length; i++) {
+			var person_marker = firsts_markers[i];
+			
+			if (person_marker.lastname.toLowerCase() == host_lastname) {
+//				console.log("Found: " + person_marker.lastname);
+				if (openedInfoWindow != null) openedInfoWindow.close();
+				person_marker.infowindow.open(map, person_marker);
+				openedInfoWindow = person_marker.infowindow;
+				map.setCenter(person_marker.position); 
+				map.setZoom(14);
+				found = true;
+				showFirsts();
+
+				break;
+			}
+		}
+	}
+
+	if(!found) {
+		alert("Not found this person. Please check the name again!");
+	}
+}
+
+</script>
+{/if}
+{embed="_includes/html_close"}

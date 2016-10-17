@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed>
+	<resultLength>20</resultLength>
+	<endIndex>20</endIndex>
+
+	{exp:channel:entries weblog="media" category="376" dynamic="on"}
+	<!--  {categories}{category_id} {/categories}  -->
+	
+	
+	<item sdImg="http://www.northlandchurch.net/_img/uploads/{media-video}_roku.jpg" hdImg="http://www.northlandchurch.net/_img/uploads/{media-video}_roku.jpg">
+		<title>{title}</title>
+		<contentId>{entry_id}</contentId>
+		<contentType>episode</contentType>
+		<contentQuality>{if media-hd}HD{if:else}SD{/if}</contentQuality>
+		<streamFormat>mp4</streamFormat>
+		<synopsis>{exp:strip_html}{media-description}{/exp:strip_html}</synopsis>
+		<isHd>{if media-hd}True{if:else}False{/if}</isHd>
+		<hdBranded>{if media-hd}True{if:else}False{/if}</hdBranded>
+		
+		
+		{if media-hd}
+		<media>
+			<streamQuality>HD</streamQuality>
+			<streamBitrate>2500</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_hd.mp4</streamUrl>
+		</media>
+		{/if}
+		<media>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>1500</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_high.mp4</streamUrl>
+		</media>
+		<media>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>750</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_med.mp4</streamUrl>
+		</media>
+		<media>
+			<streamQuality>SD</streamQuality>
+			<streamBitrate>400</streamBitrate>
+			<streamUrl>http://nacdvideo.s3.amazonaws.com/misc/{media-video}_low.mp4</streamUrl>
+		</media>
+		
+		
+	</item>	
+	{/exp:channel:entries}
+
+</feed>

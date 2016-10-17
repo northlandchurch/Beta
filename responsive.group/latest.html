@@ -1,0 +1,91 @@
+{embed="responsive/html_open" htmltitle="What's Being Posted"}
+{embed="responsive/header"}
+{embed="responsive/nav" {if segment_2 == 'mvb'}active="about"{if:else}active="resources"{/if}}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>What's Being Posted</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_4">
+		<h5>{segment_4} Blogs</h5>
+		<ul id="blog-list">
+		{exp:channel:entries channel="blogs" limit="5" dynamic="on"}
+			<li>
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+				<span class="info">{entry_date format="%F %d, %Y"}</span>
+			</li>
+		{/exp:channel:entries}
+	</div>
+	
+	<div class="grid_4">
+		<h5>{segment_4} Media</h5>
+		<ul id="media-list">
+		{exp:channel:entries channel="media" category="not 58" limit="5" dynamic="on"}
+			<li>
+				{if media-image}<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><img src="/_img/uploads/{media-image}" /></a>{/if}
+				<a href="{exp:low_replace find='index.php/'}{title_permalink='media'}{/exp:low_replace}"><strong>{title}</strong></a><br />
+				<span class="info">{entry_date format="%F %d, %Y"}</span>
+				<div class="clear"></div>
+			</li>
+		{/exp:channel:entries}
+		</ul>
+		<br>
+		{exp:channel:entries channel="Worship Planning" category="not 58" limit="5" dynamic="on" site="default_site|planning"}
+			<a href="/respond/worshipgod/{url_title}"><img src="/_img/uploads/worshipgod/week{planning-week_number}.jpg"></a>
+				<a href="/respond/worshipgod/{url_title}">
+					<h4>Prepare for Worship</h4>
+				</a>
+			<div class="border-mini"></div>
+			{exp:trunchtml chars="120" inline="..." exact="no"}
+				{exp:playa:children site="planning" field="Planning-components" limit="1"}
+					{planning-text}
+				{/exp:playa:children}
+			{/exp:trunchtml}
+		{/exp:channel:entries}
+	</div>
+	
+	<div class="grid_4">
+		<h5>{segment_4} Events</h5>
+		<ul id="calendar-list">
+	
+			{exp:calendar:events date_range_start="today" date_range_end="+8 months" category="414" event_limit="5"}
+
+
+				<li>
+					<a href="/calendar/details/{url_title}" title="{title}"><strong>{title}</strong></a><br>
+					<span class="info">
+
+				{rules}
+					{if event_has_rules}
+						{if event_never_ends}
+							{event_first_date format="%l"}s			
+						{if:else}
+							{event_first_date format="%l"}, {event_first_date format="%F %j"}-{event_last_date format="%l"}, {event_last_date format="%F %j"}
+						{/if} 
+					{if:else}
+						{event_first_date format="%l"}, {event_first_date format="%F %j"}
+					{/if}
+					 from {if {event_start_date format="%i"}=="00"}{event_start_date format="%g%a"}{if:else}{event_start_date format="%g:%i%a"}{/if} to {if {event_end_date format="%i"}=="00"}{event_end_date format="%g%a"}{if:else}{event_end_date format="%g:%i%a"}{/if}
+
+				{/rules}
+
+			</span>
+			</li>
+
+			{/exp:calendar:events}
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<div class="clear marg-b-60">&nbsp;</div>
+
+{embed="responsive/footer"}
+{embed="responsive/html_close"}

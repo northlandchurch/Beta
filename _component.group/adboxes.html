@@ -1,0 +1,38 @@
+<div id="light-divider" class="container_12"></div>
+	<script>
+	  $(document).ready(function() {
+	   $('#lessismore_ad').click(function () {
+	   	window.location = "http://northlandchurch.net/respond/livegenerously"
+	   });
+	  });	
+	</script>
+	<div class="container_12">
+	<div id="adboxes">
+		<ul id="adboxes-controller" style="display: none;">
+			{exp:channel:entries channel="boxes" orderby="date|boxes-position" show_expired="no" limit="4" sort="asc|desc" dynamic="off"}
+				{switch='<li class="adboxes-control">item</li>||'}
+			{/exp:channel:entries}
+		</ul>
+		
+		<!--<div class="adboxes-arrow-left"><img src="{v2-image-asset-url}/buttons/arrow-blue-left.png" class="adboxes-prev" /></div>
+		<div class="adboxes-arrow-right"><img src="{v2-image-asset-url}/buttons/arrow-blue-right.png" class="adboxes-next" /></div>-->
+		
+		<div class="clear"></div>
+		
+		
+			{exp:channel:entries channel="boxes" category="300" orderby="date" show_expired="no" limit="4" sort="desc" dynamic="off"}
+			{switch='<div class="slide">|||'}
+				<div class="grid_3">
+				<a href="{boxes-link}" title="{boxes-alt}"><img src="{image-asset-url}/{boxes-image}" height="120px" width="220px" alt="{boxes-alt}" /></a>
+				</div>
+			{switch='|||</div>'}
+			{/exp:channel:entries}
+			{!--{embed="/_component/lessismore"}--}
+			<div class="clear"></div>
+	</div>
+	</div>
+</div>
+<br>
+
+
+

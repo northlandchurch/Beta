@@ -1,0 +1,214 @@
+<script type="text/javascript">
+	<?php		
+		$whichDay = date("w");
+		$whichHour = date("H");
+		$whichMinute = date("i");
+		$whichSecond = date("s");
+		
+		$daysLeft = 0;
+		switch ($whichDay){
+			case 0:	
+				//Sunday!
+				$hoursLeft=0;$daysLeft=0;
+				if (($whichHour<12) || ($whichHour==12 && $whichMinute<=20)){
+					$hoursLeft = 9-$whichHour;
+					$nextService = "Sunday at 9a (EST)";
+				}
+				if (($whichHour==12 && $whichMinute>20) || ($whichHour>12 && $whichHour<=17)){
+					$hoursLeft = 17-$whichHour;
+					$nextService = "Sunday at 5p (EST)";
+				}elseif ($whichHour>=18) {
+					$hoursLeft = 43-$whichHour;
+					$nextService = "Monday at 7p (EST).";
+				}
+				$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+					//If it's on the hour, great this all works. 
+					//But if not, bump down the hour count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				$secondsLeft = 60-$whichSecond;
+				if ($secondsLeft>0){
+					$minutesLeft--;
+					//If it's on the minutes, great this all works. 
+					//But if not, bump down the minutes count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				break;
+			case 1: 
+				//monday
+				if ($whichHour<=19){
+					$daysLeft = 0;
+					$hoursLeft = 19-$whichHour;
+					$nextService = "Monday at 7p (EST).";
+				} else {
+					$hoursLeft = 118-$whichHour;
+					$daysLeft = $hoursLeft / 24;
+					$hoursLeft = $hoursLeft % 24;
+					//two ways to approach - net count on hours & days above. More natural count below
+					$daysLeft = 6-$whichDay;
+					$hoursLeft = 17-$whichHour;
+					if ($hoursLeft<0){
+						$hoursLeft = $hoursLeft+24;
+					}
+					$nextService = "Saturday at 5p (EST).";
+				}
+				$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+					//If it's on the hour, great this all works. 
+					//But if not, bump down the hour count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				$secondsLeft = 60-$whichSecond;
+				if ($secondsLeft>0){
+					$minutesLeft--;
+					//If it's on the minutes, great this all works. 
+					//But if not, bump down the minutes count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				if ($minutesLeft==0){
+					$minutesLeft = "00";
+				}
+				break;
+		
+			
+			
+			case 2; case 3; case 4:
+				$daysLeft = 6-$whichDay;
+				$hoursLeft = 17-$whichHour;
+				$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+				}
+				$secondsLeft = 60-$whichSecond;
+				if ($secondsLeft>0){
+					$minutesLeft--;
+				}
+				if ($minutesLeft==0){
+					$minutesLeft = "00";
+				}
+				if ($hoursLeft<0){
+					$hoursLeft = $hoursLeft+24;
+				}
+				$nextService = "Saturday at 5p (EST).";
+				
+				break;
+			case 5:
+				$daysLeft = 6-$whichDay;
+				$hoursLeft = 17-$whichHour; //+ 24*(5-$whichDay)
+				if ($whichHour<17){
+					$hoursLeft = 17-$whichHour;
+		    	}else{			
+					$hoursLeft = 41-$whichHour;	
+					$daysLeft = 0;
+				}
+				$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+				}
+				$secondsLeft = 60-$whichSecond;
+				if ($secondsLeft>0){
+					$minutesLeft--;
+				}
+				if ($minutesLeft==0){
+					$minutesLeft = "00";
+				}
+				$nextService = "Saturday at 5p (EST)";
+				break;
+			case 6:
+				if ($whichHour<17){
+					$hoursLeft = 18-$whichHour;
+			    }else{			
+					$hoursLeft = 32-$whichHour;	
+					$daysLeft = 0;
+				}
+				$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+				}
+		    	$minutesLeft = 60-$whichMinute;
+				if ($minutesLeft>0){
+					$hoursLeft--;
+					//If it's on the hour, great this all works. 
+					//But if not, bump down the hour count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				$secondsLeft = 60-$whichSecond;
+				if ($secondsLeft>0){
+					$minutesLeft--;
+					//If it's on the minutes, great this all works. 
+					//But if not, bump down the minutes count so that the fraction of an hour represented in minutes doesn't also show in hours
+				}
+				if ($whichHour<18){
+					$nextService = "Saturday at 5p (EST).";
+				} elseif ($whichHour==18 & $whichMinute<20)	{
+					$nextService = "Saturday at 5p (EST).";
+				} else {
+					$nextService = "Sunday at 9a (EST).";
+				}
+				break;
+		}
+			echo "var days = ". $daysLeft . ";\n";
+			echo "var hours = " . $hoursLeft . ";\n";
+			echo "var minutes = " . $minutesLeft . ";\n";
+			echo "var seconds = " . $secondsLeft. ";\n";
+			//
+		?>
+	
+	$(document).ready(function(){
+		//every second the function tick() will decrement the time by 1 second
+		setInterval ( "tick()", 1000 );
+	});	
+	
+	function tick(){
+		seconds = seconds - 1;
+		minutes = minutes * 1;
+		hours = hours * 1;
+		days = days * 1;
+
+		if (seconds<0){
+			seconds = 59;
+			minutes = minutes - 1;
+		}		
+		if (minutes<0){
+			minutes = 59;
+			hours = hours - 1;
+		}
+		if (hours<0){
+			hours = 23;
+			days = days;// - 1;
+		}
+		if (seconds==0){
+			$("#cd-seconds").html("0");
+		}else{
+			$("#cd-seconds").html(seconds);
+		}
+		if (minutes==0){
+			$("#cd-minutes").html("0");
+		}else{
+			$("#cd-minutes").html(minutes);
+		}
+		if (hours==0){
+			$("#cd-hours").html("0");
+		}else{			
+			$("#cd-hours").html(hours);
+		}
+		if (days==0){
+			$("#cd-days").html("0");
+		}else{
+			$("#cd-days").html(days);
+		}
+	}
+</script>
+
+		{if service_live=="true"}
+		<div class="clear"></div>
+			<a href="/worship" class="liveworship-goto">
+				<div id="liveworship-btn">
+					JOIN <span>LIVE</span> WORSHIP
+				</div>
+			</a>
+		{if:else}
+				<div id="countdown" style="display:none">
+				
+<?php echo "<span id='cd-days'>" . $daysLeft ."</span><span id='cd-hours'>" . $hoursLeft ."</span><span id='cd-minutes'>" . $minutesLeft . "</span><span id='cd-seconds'>" . $secondsLeft . "</span> "; ?>
+
+</div>
+		{/if}

@@ -1,0 +1,155 @@
+{embed="_assets/html_open" htmltitle="Northland, A Church Distributed"}
+{embed="_assets/header"}
+{embed="_assets/navbar" active="resources"}
+
+<style type="text/css">
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+  }
+
+  .video-container iframe,
+  .video-container object,
+  .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 95%;
+  }
+</style>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<script type="text/javascript">
+	var map;
+		
+	function LoadMap() {
+		var mapOptions;
+			mapOptions = {
+			zoom: 4,
+			scrollwheel: false,
+			center: new google.maps.LatLng(35.406961,-76.838379),			
+			mapTypeId: google.maps.MapTypeId.HYBRID,
+			streetViewControl: false,
+			panControl: false,
+			overviewMapControl: false,
+			mapTypeControl: false
+			};
+			
+		var iconH = '{v2-image-asset-url}/icons/map-house.png';
+		
+		map = new google.maps.Map(document.getElementById("map"), mapOptions);			
+		
+		{exp:channel:entries channel="locations"  category="318"}
+			var marker{entry_id} = new google.maps.Marker({position: new google.maps.LatLng({location-lat}, {location-long}), icon: iconH});
+			var infowindow{entry_id} = new google.maps.InfoWindow({ content: '<div class="infoContainer" style="width:350px"><h2>{title}</h2><div>{exp:low_replace find="\n" multiple="yes" regex="yes"}{if location-descrip}<p>{location-descrip}</p>{/if}<b>Service Time(s): </b>{location-servicetimes}<br><b>Address: </b>{location-address}<br><b>Contact: </b>{location-contact}{/exp:low_replace}</div></div>' });
+			marker{entry_id}.setMap(map);		
+			google.maps.event.addListener(marker{entry_id}, 'click', function() { infowindow{entry_id}.open(map, marker{entry_id}) } );	
+		{/exp:channel:entries}
+				
+		}
+</script>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	LoadMap();
+	jQuery(".faq-collapse").hide();
+	//toggle the componenet with class msg_body
+	jQuery(".faq-activate").click(function() {
+		jQuery(this).next(".faq-collapse").slideToggle(500);
+	});
+});
+</script>
+
+<div class='hero hero--resource'>
+  <div class='hero-media' style='background-image: url(http://s169923.gridserver.com/images/massivedoor.jpg)'></div>
+  <div class='hero-content'>
+    <div class='cell'>
+      <ul class='breadcrumbs breadcrumbs--transparent'>
+        <li><a href="../">Home</a></li>
+        <li><a href="../resources/">Resources</a></li>
+        <li><a href="#">Category</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class='hero-extend'>
+      <div class="g">
+        <div class="cell">
+
+        <div class="g-b g-b--m--1of2 tml">          
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/74J6Rzw2zD0" frameborder="0" width="560" height="315"></iframe>
+          </div>
+        </div>
+        <div class="g-b g-b--m--1of2">
+          <p class='mbl tci tss'>
+            At Northland there are many ways we gather. One of the ways we gather is in house churches. Whether in a home or in any place we gather we're always striving to live as <em>distributed</em> churches.</p>
+
+            <p class='mbl tci tss'>A distributed church is most simply understood as a group of people following Jesus together and living out the mission of Jesus in their everyday lives. When people do this together they form the church right in the context of where they are now.</p>
+
+            <p class='mbl tci tss'>To learn more about the distributed church visit <a href="http://www.distributedchurch.com" style="color:#ccc">www.distributedchurch.com</a>.</p>
+        </div>
+        
+      </div>
+      </div>
+  </div>
+</div>
+<div class='row row--inverted'>
+  <div class='cell'>
+    <div class='g'>
+      
+      <div class='g-b g-b--m--2of3'>
+        <div class='card'>
+          <article class='article'>      
+            <h1 id="header-1" class="heading heading--xl">House Churches</h1>
+        		{exp:channel:entries category="318" channel="locations" orderby="title" sort="asc"}
+              <div class="location" name="{entry_id}">
+                <h2 class="heading heading--l">{title}</h2>
+                <div>
+                  {if location-descrip}
+                    {location-descrip}<br />
+                  {/if}				
+                  {if location-servicetimes}
+                      <strong>Service Times: </strong>
+                      {location-servicetimes}<br />
+                  {/if}
+                  <strong>Where We Worship: </strong>
+                  {location-address}<br />
+                  
+                  <strong>Contact Us - </strong>
+                  {location-contact}
+                </div>
+              </div>
+            {/exp:channel:entries}
+          </article>
+        </div>
+      </div>
+      
+      <div class='g-b g-b--m--1of3'>
+        <div class="card">
+          
+
+    		<div id="map" class="marg-b-20" style="width: 100%; height: 400px"></div>
+    		  <h2 class="heading heading--l">Frequently Asked Questions</h2>
+    		    <p class="tss">Have a question that is not answered in the list below? Please <a href="https://northlandchurch.wufoo.com/forms/m7x1w3/">send us a note</a> for further assistance.</p>
+    		      {exp:channel:entries channel="faq" sort="asc" category="322"}
+
+    				<h3 class="heading heading--m">{title}</h3>
+    				<div class="tss">
+    					{faq-answer}
+    			  </div>		
+    		    {/exp:channel:entries}
+        </div>	
+    	</div>
+
+      
+    </div> {!-- g div --}
+    
+  </div> {!-- g cell --}
+</div>
+
+
+{embed="_assets/footer"}
+{embed="_assets/html_close"}

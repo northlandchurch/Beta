@@ -1,0 +1,117 @@
+{exp:channel:entries channel="prayers" orderby="date" sort="desc" sticky="no" category="{if segment_3 == "jail"}420{/if}" offset="{segment_4}" limit="10" paginate="both" dynamic="off"}
+
+{if {exp:playa:total_children} > 0}
+{if:else}
+
+<div class="card" id="prayer{entry_id}" >
+
+	<!-- Top Half of Prayer Card -->
+	<div class='g'>
+
+		<!-- Requester's Info -->
+		<div class='g-b g-b--m--1of4'>
+			<h2 class='heading heading--m requestername'>
+				{if member_id==logged_in_member_id AND category == "not 412" AND member_group != "1"}
+					Your prayer
+				{if:else}
+					<?php echo ucwords(strtolower("{prayer-name}"));?>
+				{/if}
+			</h2>
+			<p class="pray-card-date">
+				Shared
+				{categories}
+					{if category_id == "420"}
+						from Seminole County Jail
+					{/if}
+					{if category_id == "437"}
+						from Bridges of America
+					{/if}
+					{if category_id == "428"}
+						from Northland at Oviedo
+					{/if}
+					{if category_id == "429"}
+						from Northland at Mount Dora
+					{/if}
+				{/categories}
+				on {entry_date format="%F %j, %Y"}
+			</p>
+		</div>
+
+		<div class='g-b g-b--m--2of4'>
+			<p></p>
+		</div>
+
+		<!-- Actions -->
+		<div class='g-b g-b--m--1of4'>
+
+			<div class="pray-card-options default_visible" id="link{entry_id}">
+				{if logged_in && (screen_name!="Anonymous Member")}
+					{exp:favorites:saved entry_id="{entry_id}"}
+						{if saved}
+							<a class="favorite faved" style="background-position: 0 -65px;" href="/_component/favorite-add/{entry_id}/">You Prayed</a>
+						{if:else}
+							<a class="favorite" href="/_component/favorite-add-loggedin/{entry_id}/">Pray for This Person</a>					
+						{/if}
+					{/exp:favorites:saved}
+				{if:else}
+					<li id="pray-for-li"><a class="favorite" href="/_component/favorite-add/{entry_id}/">Pray for This Person</a></li>
+				{/if}
+
+				{exp:favorites:entry_count entry_id="{entry_id}"}
+					{if favorites_count_public}
+						<div class="prayer-number">
+							<span class="count">{favorites_count_public}</span> <span class="people-prayed">{if favorites_count_public>1}People have{if:else}Person has{/if} prayed</span>
+						</div>
+					{/if}
+				{/exp:favorites:entry_count}
+			</div>
+
+		</div>
+	</div>
+
+	<hr class='rule mbs'>
+
+	<!-- Bottom Half of Prayer Card -->
+	<div class = 'g'>
+		<div class='g-b g-b--m--1of1'>
+			<article class='article--scripture'>
+				{if member_group == "1"}
+					<strong><a class="user-login" href="#moreinfopray{entry_id}" style="color:#555656;">{author}</a> posted this on {entry_date format="%M %j, %Y"} at {entry_date format="%g:%i"} {if '{entry_date format="%a"}' == "am"}a.m.{/if}{if '{entry_date format="%a"}' == "pm"}p.m.{/if}</strong> (*only super admins see this*)
+					<br><br>
+				
+					<div style="display:none">
+						<div id="moreinfopray{entry_id}" class="modaling">
+							<p style="color:#fff;">
+								<strong>A little about {screen_name}</strong>
+									{if group_id == "1"}- Super Admin{/if}
+									{if group_id == "9"}- Intern{/if}
+									{if group_id == "11"}- Resource Point team{/if}
+									{if group_id == "12"}- Someday is Today team{/if}
+									{if group_id == "13" OR group_id == "14" OR group_id == "15" OR group_id == "16" OR group_id == "17" OR group_id == "18" OR group_id == "19" OR group_id == "20" OR group_id == "21"}- Staff{/if}
+									{if group_id == "22"}- Online Minister{/if}<strong>:</strong><br>
+								{if email}Email: {email}<br>{/if}
+								{if phone}Phone Number: {phone}<br>{/if}
+								{if location}Location: {location}<br>{/if}
+								{if bday_m}Birthday: {bday_m}/{bday_d}/{bday_y}<br>{/if}
+								{if bio}Bio: {bio}{/if}
+							</p>
+						</div>
+					</div>
+				{/if}
+
+				{prayer-need}
+
+				{parents status="open" sort="desc" orderby="date" }
+					<h3 style="font-size:10px;text-transform:uppercase;margin:10px 0 0 10px;padding-bottom:0;border:0;color:#D6CBD5">Update on {entry_date format="%F %d, %Y"}</h3>
+					<p style="margin:0 0 0 10px;{if count>1}border-bottom:1px solid ##E6E6E6;{/if}">{parents:prayer-need}</p>
+				{/parents}<br>
+			</article>
+		</div>
+	</div>
+
+</div>
+
+<hr class='rule mbl'>
+
+{/if}
+{/exp:channel:entries}

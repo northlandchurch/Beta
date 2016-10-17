@@ -1,0 +1,167 @@
+{embed="_assets/header"}
+{embed="_assets/navbar"}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js"></script>
+<script src="https://rawgit.com/metafizzy/isotope-packery/master/packery-mode.pkgd.js"></script>
+
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});
+
+	// Random order	
+//	$container.isotope({ sortBy : 'random' });
+	$('.grid').isotope({ filter: "*" });
+
+	
+	// Filter functions
+	var filterFns = {
+		// show if number is greater than 50
+		numberGreaterThan50: function() {
+			var number = $(this).find('.number').text();
+			return parseInt( number, 10 ) > 50;
+		},
+		// show if name ends with -ium
+		ium: function() {
+			var name = $(this).find('.name').text();
+			return name.match( /ium$/ );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', '.filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+		
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$container.isotope({ filter: filterValue });
+	});
+	
+	// change is-checked class on buttons
+	$('.filters-button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', '.filter-item', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+});
+</script>
+
+
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+			<h1 class="heading heading--xl">Tags: {exp:tag:tag_name}{segment_4}{/exp:tag:tag_name}</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='g g--flush callouts'>
+	<div class='filter'>
+		<div class="filters-button-group">
+			<a class="filter-item is-checked" href="#" onclick="return false;" data-filter="*">Show all</a>
+			<a class="filter-item" href="#" onclick="return false;" data-filter=".blog">Blog</a>
+			<a class="filter-item" href="#" onclick="return false;" data-filter=".video">Video</a>
+		</div>
+	</div>
+</div>
+
+<div class="grid resources" style="padding-left:0;padding-right:0">
+{exp:tag:entries inclusive="yes" orderby="entry_date" sort="desc" limit="100" paginate="bottom"}
+	{if channel=="Blogs"}
+	<div class="grid-item blog">
+		<div class='has-editorials'>
+			<?php
+			ob_start();
+			?>{blog-post}<?php
+			$obcontents = ob_get_contents();
+			ob_end_clean();
+
+			$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+			if(preg_match($pattern,	$obcontents, $match)){
+				$img = $match[1];
+			}
+			?>
+			
+			<a class="editorial editorial--sidebar {categories}{if category_name=='Spotlight'}editorial--spotlight{/if}{/categories}" style="background-image: url(<?php echo $img ?>);" href="/blogs/{url_title}">
+				<div class='editorial-text'>
+					{categories}
+						{if category_name=='Spotlight'}
+							<img src="<?php echo $img ?>">
+						{/if}
+					{/categories}
+					<h2 class='editorial-title'>{exp:trunchtml chars="45" inline="..."}{title}{/exp:trunchtml}</h2>
+					<p class='meta-excerpt'>
+						{blog-excerpt}
+					</p>
+					<div class='meta'>
+						<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+						<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+					</div>
+					{!-- {exp:tag:tags
+						entry_id="{entry_id}"
+						orderby="tag_name"
+						sort="desc"
+						limit="2"
+					}
+						<div class='tag'>{tag}</div>
+					{/exp:tag:tags} --}
+				</div>
+			</a>
+			
+		</div>
+	</div>
+	{/if}
+
+	{if channel=="Media"}
+	<div class="grid-item video">
+		<div class='has-editorials'>
+			<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+				<div class='editorial-text'>
+					<h2 class='editorial-title'>{title}</h2>
+					<div class='editoral-video'>
+						<i class='material-icons'>play_arrow</i>
+					</div>
+					<div class='meta'>
+						<h4 class='meta-author'>{media-speaker}</h4>
+						<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+					</div>
+					{!-->{exp:tag:tags entry_id="{entry_id}"}<div class='tag'>{tag}</div>{/exp:tag:tags}--}
+				</div>
+			</a>
+		</div>
+	</div>
+	{/if}
+	
+	{if channel=="Articles"}
+	<div class="grid-item serve">
+		<h2 class="heading heading--m">{title}</h2>
+	</div>
+	{/if}
+
+{tag_paginate}
+    <p class='tss mxl'>Page {tag_current_page} of {tag_total_pages}. {tag_pagination_links}</p>
+{/tag_paginate}
+ 
+{/exp:tag:entries}
+</div>
+<div class="clear"></div>
+
+{embed="_assets/footer"}
+
+
+
+
+
+

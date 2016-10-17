@@ -1,0 +1,69 @@
+{embed="volunteer/scripts"}
+
+{exp:channel:entries channel="opportunities|serve_opportunities" orderby="date" sort="desc" limit="1000000" dynamic="off"}
+
+	{if channel=="Opportunities"}
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} volunteeropportunity" id="serve{entry_id}">
+		<div class="respond-serve-tinter">
+			<div class="respond-serve-information">			
+				<h2>{title}</h2>
+				
+				{!-- Which Location --}
+				<div class="respond-serve-marker">
+					{categories}
+						{if category_id == "455"}Longwood{/if}
+						{if category_id == "457"}Mount Dora{/if}
+						{if category_id == "456"}Oviedo{/if}
+					{/categories}
+				</div>
+				
+				<div class="clear"></div>
+				
+				<p>{desc}</p>
+				<p>{commitment}</p>
+				
+				<div class="respond-serve-count">
+					{!-- Display amount of people needed --}
+					{if people}
+						<h3>{if people == "1"}1 person{if:else}{people} people{/if} still needed</h3>
+					{/if}
+				</div>
+				
+				<div class="respond-serve-fave">
+					<a class="btn mbxl" href="#" onclick="openWufooFormVolunteer('{ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">Sign Me Up</div></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	{/if}
+
+	{if channel=="Serve Opportunities"}
+	<div class="respond-serve-opp serve-beautiful {categories}cat{category_id} {/categories} serveopportunity" id="serve{entry_id}">
+		<div class="respond-serve-tinter">
+			<div class="respond-serve-information">			
+				<h2>{title}</h2>
+				
+				<div class="clear"></div>
+				
+				<p>{serve-desc}</p>
+				<p>{serve-commitment}</p>
+
+				<div class="respond-serve-count">
+					{!-- Display amount of people needed --}
+					{if serve-people}
+						<h3>{if serve-people == "1"}1 person{if:else}{serve-people} people{/if} still needed</h3>
+					{/if}
+					<div class="respond-serve-fave">
+						<a class="btn mbxl" href="#" onclick="openCCBFormServe('{serve-ccbForm}','{title}','{entry_id}')"><div class="respond-serve-button">SIGN ME UP</div></a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+
+	<hr class="rule mbl">
+
+{/exp:channel:entries}

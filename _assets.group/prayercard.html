@@ -1,0 +1,16 @@
+<a class="editorial" href="/pray"  style="background-image: url(http://www.northlandchurch.net/_assets/img/v2/respond/pray/bg.jpg)">
+	<div class='editorial-text'>
+		{exp:channel:entries channel="prayers" limit="1" dynamic="off" sticky="no" }
+			<h2 class='editorial-title'><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+			<p>{exp:trunchtml chars="75"}{prayer-need}{/exp:trunchtml}</p>
+
+	</div>
+	<div class='meta meta--inverted'>
+		<h4 class='meta-author'>{prayer-name}</h4>
+		<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+	</div>
+	<div class='tag'>Prayer</div>
+	
+	{/exp:channel:entries}
+	
+</a>

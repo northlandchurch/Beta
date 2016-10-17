@@ -1,0 +1,111 @@
+	{embed="_includes/html_open"}
+
+	<?php 
+		$isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+		$isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+		if (isset($_SERVER['HTTP_REFERER'])){
+			$fromMobile = (bool) strpos($_SERVER['HTTP_REFERER'],'iphone');
+		}else{
+			$fromMobile = FALSE;
+		}
+		if ($isiPhone==TRUE && $fromMobile==FALSE){
+			header('Location: http://video.northlandchurch.net:1935/live/smil:iphone.smil/playlist.m3u8'); exit();	
+		}
+	?>
+
+	{embed="_includes/header"}
+	{embed="_includes/nav"}
+
+	<script type="text/javascript">
+	var liveService = "FALSE";
+
+	$(document).ready(function(){
+		$("#home-worship-vid, #live-stream").click(function(){
+			swfobject.embedSWF(player, "home-vid", "620","367", "9.0.45.0", "expressInstall.swf", flashvars_home, params_home, attributes_home);		
+		});
+
+	});
+	</script>
+	
+	<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12" style="padding-bottom:15px">
+		<!--<div style="margin:0 170px 15px"><h1>Merry Christmas!</h1>
+		<p style="color:white">You can join us for Christmas Day worship at 11 a.m. (There will be no other Sunday services tomorrow. There will be no Monday night service this week either.)</p>
+		</div>-->
+		<div class="vid_box" style="margin-left:170px">
+    	
+    	
+		<script type="text/javascript" src="/_assets/js/jwplayer.js"></script>
+    	
+		
+			<div id="video_player" >Loading the player...</div>
+		
+		<script type="text/javascript"> 
+		jwplayer("video_player").setup({
+		    autostart: "true",
+		    height: 349,
+		    skin: "/jw/jw54/skins/live/live.zip",
+		    width: 620,
+		    plugins: {
+		    	"gapro-2":{ accountid: "UA-966214-1", trackstarts: true, trackpercentage: true, tracktime: true}
+			    	},
+		    modes: [
+		         { type:"flash",
+		    	   src: "/jw/jw54/player.swf",
+			       config: {
+			    	provider: "rtmp",
+			    	playlistfile: "/test/dynamic_pc"
+			    		}
+		    	},
+		    	{ type: "html5",
+		    	  config: {
+		    	  		file:"http://video.northlandchurch.net:1935/live/smil:iphone.smil/playlist.m3u8"
+		    	  		}
+		    	}
+		    ]
+		});
+		</script>    
+    	
+		</div>
+	</div>
+</div>
+
+		<div class="clear"></div>	
+
+	</div>
+
+	</div>
+
+	<div class="container_12">
+
+		<div class="grid_4 question">
+			<img src="{v2-image-asset-url}/home/hdr-worshiponline.png" />
+			<p>We gather for worship Saturdays at 5 p.m., Sundays at 9 a.m., 11 a.m. &amp; 5 p.m. and Mondays at 7 p.m. (EDT). We assemble for worship and service in <a href="http://www.northlandchurch.net/locations/category/longwood/">Longwood</a>, <a href="http://www.northlandchurch.net/locations/category/oviedo/">Oviedo</a> and at <a href="http://www.northlandchurch.net/locations/">sites around the world</a>.</p>
+			<p><a href="http://www.northlandchurch.net/locations/category/online/">We also get together for LIVE worship online.</a></p>
+		</div>
+
+		<div class="grid_4 question">
+			<img src="{v2-image-asset-url}/home/hdr-getconnected.png" />
+			<p>There are countless ways to connect with others at Northland. Here are some great places to start:</p>
+			<p>
+				<a href="http://www.northlandchurch.net/classes/">Take a class</a>.<br />
+				<a href="http://www.northlandchurch.net/serve/northland/">Serve at Northland</a>.<br />
+				<a href="http://www.northlandchurch.net/serve/local/">Serve in the community</a>.
+			</p>
+		</div>
+
+		<div class="grid_4 question">
+			<img src="{v2-image-asset-url}/home/hdr-happeningnow.png" />
+			{exp:channel:entries channel="happening" dynamic="off" orderby="date" sort="desc" limit="3"}
+			<p>
+				<a href="{happening-link}" title="{happening-description}">{title}</a><br />
+				{happening-description}
+			</p>
+			{/exp:channel:entries}
+		</div>
+	</div>
+	<div class="clear"></div>
+	{embed="_includes/footer"}
+	<div class="clear"></div>
+	{embed="_includes/html_close"}

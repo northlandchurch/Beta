@@ -1,0 +1,89 @@
+<?php
+require_once ('/var/www/ee/scripts/keephpcache/KeePHPCache.php');
+
+$cache			= new KeePHPCache();
+$exp_interval 	= '{embed:expired_at}';					// Expiration interval: minutes
+$request_uri 	= '{embed:file_name}';					// Retrieve a file name as a parameter e.g) /_component/cache_serve
+// when this page is accessed directly e.g) http://www.northlandchurch.net/_component/cache_serve
+if ($request_uri == '')
+{
+	$request_uri = $_SERVER['REQUEST_URI'];				// e.g) /_component/cache_serve
+}
+
+// Get location of cache file (/var/www/ee/new_page_caching/$request_uri/index.html)
+$file = $cache->getRealCacheFilePath($request_uri); 	
+
+// Check if the cache file is expired
+if (!$cache->isCacheExpired($request_uri, $exp_interval))
+{
+	include($file); 		// include cache file
+	echo "<!-- End of Cached contents at " . $request_uri . "... -->";
+}
+else
+{
+	ob_start(); 			// start output buffering
+?>
+<div class="card-row js-slick-tablet-max flex-desktop-min">
+	{exp:channel:entries 
+		channel="opportunities" 
+		orderby="date" 
+		sort="desc"
+		limit="2"
+		disable="categories|member_data|pagination"
+		dynamic="no"
+	}
+	<article class="card card-fourth">
+		<div class="copy-container">
+			<p class="date">December 31, 2015</p>
+			<p class="date">{entry_date format="%F %j %Y"}</p>
+			<h3>{title}</h3>
+			<p class="body-copy">{exp:strip_html}{desc}{/exp:strip_html}</p>
+		</div>
+
+		<div class="details">
+			<div class="detail-left">
+				<span class="icon-plus"></span>
+			</div>
+			<div class="detail-right">
+				<a href="{ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+			</div>
+		</div>
+	</article>
+	{/exp:channel:entries}
+	
+	{exp:channel:entries 
+		channel="serve_opportunities" 
+		orderby="date" 
+		sort="desc"
+		limit="2"
+		disable="categories|member_data|pagination"
+		dynamic="no"
+	}
+	<article class="card card-fourth">
+		<div class="copy-container">
+			<p class="date">December 31, 2015</p>
+			<p class="date">{entry_date format="%F %j %Y"}</p>
+			<h3>{title}</h3>
+			<p class="body-copy">{exp:strip_html}{serve-desc}{/exp:strip_html}</p>
+		</div>
+
+		<div class="details">
+			<div class="detail-left">
+				<span class="icon-plus"></span>
+			</div>
+			<div class="detail-right">
+				<a href="{serve-ccbForm}" target="_blank" class="main-link">Volunteer <span class="icon-arrow-filled"></span></a>
+			</div>
+		</div>
+	</article>
+	{/exp:channel:entries}
+</div>
+<a href="/respond/serve/" class="main-link view-link">View All Opportunities <span class="icon-arrow-filled"></span></a>
+<?php
+	$fp = fopen($file, 'w'); 			// open cache file
+	fwrite($fp, ob_get_contents()); 	// create new cache file
+	fclose($fp); 						// close cache file
+	ob_end_flush(); 					// flush output buffered
+	echo "<!-- End of Live contents at " . $request_uri . "... -->";
+}
+?>

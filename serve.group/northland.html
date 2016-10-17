@@ -1,0 +1,72 @@
+{redirect="volunteer/index"}
+{!--}{embed="responsive/html_open" htmltitle="Northland: Serve at Northland"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<h1 class="grid_12">Serve at Northland</h1>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+<div class="container_12">
+	<div class="grid_8">	
+		{exp:channel:entries channel="localservice" category="246" orderby="date" sort="desc" limit="1"}
+		{mishpart-bio}
+		{/exp:channel:entries}	
+		<div class="marg-b-40"></div>
+	
+		<h3>Current Ongoing Needs for Serving at Northland</h3>
+<p><strong>Be part of the media team</strong> during weekend worship services. <a href="mailto:sean.borowski@northlandchurch.net">sean.borowski@northlandchurch.net</a></p>		
+<p><strong>Be a teacher or helper during children's church</strong>. Needed to accommodate a jump in attendance this time of year! No experience is necessary.  All lessons and materials are prepared for you, and training and hugs are provided. <a href="mailto:debbie.blahnik@northlandchurch.net">debbie.blahnik@northlandchurch.net</a></p>
+		<p><strong>Direct traffic</strong> as a parking lot attendant needed for all services. <a href="mailto:jeff.hess@northlandchurch.net">jeff.hess@northlandchurch.net</a></p>
+		<p><strong>Run a TV camera</strong> during worship and special events. <a href="mailto:sean.borowski@northlandchurch.net">sean.borowski@northlandchurch.net</a></p>
+		<p><strong>Greet and assist families</strong> in both children's wings. Help them to find classrooms and welcome our first-time guests. <a href="mailto:debbie.blahnik@northlandchurch.net">debbie.blahnik@northlandchurch.net</a></p>
+		<p><strong>Connect with guests</strong> before the weekend worship services as a welcome host. There are five services to choose from and no experience is necessary. <a href="mailto:tjmazenko@gmail.com">tjmazenko@gmail.com</a></p>
+		<p><strong>Be part of the welcome host team</strong> before the weekend worship services.  <a href="mailto:tjmazenko@gmail.com">tjmazenko@gmail.com</a></p>
+		<p><strong>Help children with special needs</strong>, giving them one-on-one attention and a little extra TLC. Training provided. <a href="mailto:debbie.blahnik@northlandchurch.net">debbie.blahnik@northlandchurch.net</a></p>
+		<p><strong>Help out on the phones</strong> during the weekdays or nights here at Northland. <a href="mailto:lori.holton@northlandchurch.net">lori.holton@northlandchurch.net</a></p>	
+		<p><strong>Help parents of special needs kids</strong> one time a month while caregivers get a break. <a href="mailto:heather.subbert@northlandchurch.net">heather.subbert@northlandchurch.net</a></p>
+		<p><strong>Help troubleshoot computer issues</strong> during the week by serving with Northland's IT department. <a href="mailto:Dennis.Bode@northlandchurch.net">dennis.bode@northlandchurch.net</a></p>
+		<p><strong>Join the bookstore team</strong> stocking and organizing shelves and assist guests with resources that will aid in their spiritual growth. Weekdays and weekends. No experience necessary. <a href="mailto:Donna.Duckhorn@northlandchurch.net">donna.duckhorn@northlandchurch.net</a></p>
+		
+		<p><strong>Provide snacks</strong> for those who volunteer in Children’s Ministries. <a href="mailto:michelle.filippelli@northlandchurch.net">michelle.filippelli@northlandchurch.net</a></p>		
+		<p><strong>Serve communion</strong>, once a month, at Longwood. <a href="mailto:lori.holton@northlandchurch.net">lori.holton@northlandchurch.net</a></p>
+		<p><strong>Serve as an usher or greeter</strong> in Longwood, during any service. <a href="mailto:lori.holton@northlandchurch.net">lori.holton@northlandchurch.net</a></p>
+		<p><strong>Setup classrooms</strong> on Saturday morning, Saturday afternoon or Sunday morning. <a href="mailto:gary.moss@northlandchurch.net">gary.moss@northlandchurch.net</a></p>
+        <p><strong>Volunteer your skills in life coaching or social work</strong> to Northland's LifeHope benevolence program. <a href="mailto:info@northlandchurch.net?subject=I want to volunteer with LifeHope">info@northlandchurch.net</a></p>	
+		
+		<div class="marg-b-60"></div>
+	</div>
+
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Other Partners</h5>
+			<ul>
+				<li><a href="http://www.northlandchurch.net/serve/local/">Local Partners</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/global/">Global Partners</a></li>
+				<li><a href="http://www.northlandchurch.net/serve/missionaries">Missionaries</a></li>
+			</ul>
+			
+			<h5>Serve Team</h5>
+			<ul>
+				{exp:channel:entries channel="staff" dynamic="on" category="176"}
+				<li>
+					<a href="{exp:low_replace find='index.php/'}{url_title_path='staff'}{/exp:low_replace}">{title}</a><br />
+					<em>{staff-title}</em>
+				</li>
+				{/exp:channel:entries}
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}{--}

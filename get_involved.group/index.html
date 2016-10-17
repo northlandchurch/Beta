@@ -1,0 +1,73 @@
+{embed="responsive/html_open"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+
+<div id="title-bar">
+	<div class="top"></div>
+	<div class="container_12">
+		<div class="grid_12">
+			<h1>Get Involved</h1>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="btm"></div>
+</div>
+
+
+<div class="container_12">
+
+	<div class="grid_8">
+		{exp:channel:entries channel="get_involved"}
+			{getinvolved_body}
+		{/exp:channel:entries}
+	</div>
+
+	<div id="aside" class="grid_4">
+		<div class="rnd">
+			<h5>Upcoming Classes and Events</h5>
+				{exp:calendar:events date_range_start="today" date_range_end="+6 days" category="382|423|405" sort="asc" event_limit="5" show_future_entries="yes"}
+					<li style="list-style:none;">
+						<a href="{exp:low_replace find='index.php/'}{title_permalink='calendar/details'}{/exp:low_replace}" id="{event_image}" title="{title}">{exp:trunchtml char="45"}{event_title}{/exp:trunchtml}</a><br />									
+						<span class="info"><strong>Next Meeting:</strong>  {occurrences}
+						{!-- Show start date and time --}
+						{if '{occurrence_start_date format="%F %j"}' == '{current_time format="%F %j"}'}
+							Today 
+						{if:else}
+							{occurrence_start_date format="%l, %F %j"} 
+						{/if}
+						from 
+							{!-- Only display the start time's minutes (%i) if it isn't 00 --}
+							{if '{occurrence_start_date format="%i"}' != "00"}
+								{occurrence_start_date format="%g:%i"}
+							{if:else}
+								{occurrence_start_date format="%g"}
+							{/if}
+							{!-- Only display %a if time isn't the same %a --}
+							{if '{occurrence_start_date format="%a"}' != '{occurrence_end_date format="%a"}'}
+								{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+								{if '{occurrence_start_date format="%a"}' == "am"}a.m.{/if}{if '{occurrence_start_date format="%a"}' == "pm"}p.m.{/if} 
+							{/if}
+						{!-- Show end time --}
+						to 
+							{!-- Only display the end time's minutes (%i) if it isn't 00 --}
+							{if '{occurrence_end_date format="%i"}' != "00"}
+								{occurrence_end_date format="%g:%i"}
+							{if:else}
+								{occurrence_end_date format="%g"}
+							{/if}
+								{!-- We use a.m. and p.m. at Northland, NOT am and pm (which is what %a displays) --}
+								{if '{occurrence_end_date format="%a"}' == "am"}a.m.{/if}{if '{occurrence_end_date format="%a"}' == "pm"}p.m.{/if}<br>	
+						{/occurrences} </span>
+					</li>
+				{/exp:calendar:events}
+			
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+</div>
+<div class="clear"></div>
+
+{embed="_includes/footer"}
+{embed="responsive/html_close"}

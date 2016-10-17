@@ -1,0 +1,55 @@
+{embed="_assets/header" htmltitle="Newspaper at Northland, A Church Distributed"}
+{embed="_assets/navbar" active="resources"}
+
+<div class='row row--inverted row--page'>
+    <div class='cell well'>
+		<div class='g'>
+			<div class="g-b g-b--m--2of3">
+				<h1 class='heading heading--l'>Northland Newspaper</h1>
+		        <p class='mbxl tss'>
+		        	It isn't the physical structure or ministry programs that make up the church... it's people like you!
+		        	You are the church. And it’s our goal to help you to <em>be the church</em> ... <strong>responding to God</strong> — everywhere, every day.
+		        	<br>
+					To that end, we offer <strong>Respond.</strong>, a monthly resource for inspiration and opportunities to grow in God and connect with others.
+					Pick up a copy at any of our locations or read a fully interactive version online!
+				</p>				
+			</div>
+			<div class="g-b g-b--m--1of3">
+				<h5>Select a Previous Week</h5>
+				<form id="aform" action="./" method="GET">
+				<select id="newspaper-week" class="marg-b-20" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+					<option value="">Choose an issue...</option>
+					{exp:channel:entries channel="newspaper" dynamic="off" orderby="date" sort="desc" track_views="one"}
+					<option value="//northlandchurch.net/newspaper/{url_title}">{title}</option>
+					{/exp:channel:entries}
+				</select>
+				</form>
+				<p>Questions: <a href="mailto:newspaper@northlandchurch.net">newspaper@northlandchurch.net</a></p>
+			</div>
+		</div>
+
+		<hr class="rule mbl">
+
+		<div class='g'>
+			<div class="g-b g-b--m--1of1">
+				{exp:channel:entries channel="newspaper" dynamic="on" orderby="date" sort="desc" limit="1"}
+				<h3>{title}</h3>
+				<p class="marg-b-20">Download a searchable PDF to read later: <a href="//www.nacdweb.org/files/pressroom/{newspaper-pdf}" title="{title}">Download {title}&rsquo;s PDF.</a></p>
+				{!--<iframe src="{newspaper-embed}&layout=https://www.northlandchurch.net/northland_theme/issuu/themes/white/layout.xml" width="100%" height="650" frameborder=0></iframe>--}
+				{!-- <iframe src="{newspaper-embed}" width="100%" height="650" frameborder=0></iframe> --}
+					{!-- Entries after JULY 6, 2016 no longer include layout parameter in the url --}
+					{if entry_date > 1467810120}
+						<!-- new way -->
+						<iframe src="{newspaper-embed}" width="100%" height="650" frameborder=0></iframe>
+					{if:else}
+						<!-- old way -->
+						<iframe src="{newspaper-embed}&layout=//www.northlandchurch.net/northland_theme/issuu/themes/white/layout.xml" width="100%" height="650" frameborder=0></iframe>
+					{/if}
+				
+				{/exp:channel:entries}
+			</div>
+		</div>
+	</div>
+</div>
+
+{embed="_assets/footer"}

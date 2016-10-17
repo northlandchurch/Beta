@@ -1,0 +1,540 @@
+{embed="_assets/header" htmltitle="Resources for Your Life"}
+{embed="_assets/navbar" active=""}
+
+{if segment_2 == ""}
+	{exp:static_page_caching:automatic_cache}
+{/if}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
+	
+<script type="text/javascript">
+$(document).ready( function() {
+
+	// Init Isotope
+	var $feature_container = $('.grid').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+			sort:'.sort parseInt'
+		}
+	});
+	var $second_container = $('.grid-section').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+			sort:'.sort parseInt'
+		}
+	});
+	var $last_container = $('.grid-last').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.grid-item',
+		getSortData: {
+			title: '.isotitle',
+			sort:'.sort parseInt'
+		}
+	});
+	var $response_container = $('.grid-responses').isotope({
+		layoutMode: 'packery',
+		itemSelector: '.response',
+		getSortData: {
+			title: '.isotitle',
+		}
+	});	
+	$feature_container.isotope({ sortBy : 'sort' });
+	$second_container.isotope({ sortBy : 'sort' });
+	
+	// Action when 'Pray Now' button clicked
+	$('.pray-card-options').live("click", function() {
+		var whichID = $(this).attr('id');
+		var targetURL = $("#"+whichID+" .favorite").attr('href');
+		var count = $("#"+whichID+" .count").html();
+
+		$.ajax({
+			success: function(data){
+				var madeFave = $("#"+whichID+" .favorite").html();
+				if (madeFave!="You Prayed"){
+					$("#"+whichID+" .count").html(parseInt(count)+1);
+				}
+				$("#"+whichID+" .favorite").html("You Prayed");
+			},
+			url: targetURL
+		});		
+
+		return false;
+	});	
+	$('.liturgy-card-options').live("click", function() {
+		var whichID = $(this).attr('id');
+		var targetURL = $("#"+whichID+" .favorite").attr('href');
+		var count = $("#"+whichID+" .count").html();
+
+		$.ajax({
+			success: function(data){
+				var madeFave = $("#"+whichID+" .favorite").html();
+				if (madeFave!="Marked as read"){
+					$("#"+whichID+" .count").html(parseInt(count)+1);
+				}
+				$("#"+whichID+" .favorite").html("Marked as read");
+			},
+			url: targetURL
+		});		
+
+		return false;
+	});	
+	
+
+	// change is-checked class on buttons
+	$('.filters-button-group').each( function( i, buttonGroup ) {
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on( 'click', '.filter-item', function() {
+			$buttonGroup.find('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+		});
+	});
+
+	// Filter functions
+	var filterFns = {
+		// show if number is greater than 50
+		numberGreaterThan50: function() {
+			var number = $(this).find('.number').text();
+			return parseInt( number, 10 ) > 50;
+		},
+		// show if name ends with -ium
+		ium: function() {
+			var name = $(this).find('.name').text();
+			return name.match( /ium$/ );
+		}
+	};
+
+	// Bind Filter button click
+	$('.filters-button-group').on( 'click', '.filter-item', function() {
+		var filterValue = $( this ).attr('data-filter');
+		
+		// Use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$second_container.isotope({ filter: filterValue });
+	});
+
+	// Bind Sort button click
+	$('.sort-by-button-group').on( 'click', 'button', function() {
+		var sortValue = $(this).attr('data-sort-value');
+		$second_container.isotope({ sortBy: sortValue });
+	});
+		// Load more entries when user scrolls to bottom of entries
+		var currently_lazyloading 	= 0; 			// Is window already attempting to load more entries?
+		var entries_offset 			= 5; 			// Current number of Serve and Prayer entries shown to skip over when loading new entries
+		var blog_offset 			= 0;			// Current number of Blogs and Media entries shown to skip over when loading new entries
+		var position = $("#lazyload_moreentries").offset().top;
+//		console.log("Position: " + position);
+
+		$(window).scroll(function() 
+		{
+			var scrolldepth = $(window).scrollTop() + $(window).height();
+
+			if (scrolldepth > position) 
+			{
+				if (currently_lazyloading == 0) 
+				{
+//					console.log("lazyload triggered");
+					$.get("/_component/lazyload_resources/" + entries_offset + "/" + blog_offset, function(data) 
+					{		
+						var $elems = $(data);
+						$last_container.append($elems).isotope('appended', $elems);
+
+						// trigger layout
+						$last_container.isotope('layout');
+
+						position = $("#lazyload_moreentries").offset().top;
+						entries_offset 	+= 5;
+						blog_offset 	+= 2;
+
+						// Reset so can load more later, but if data length < 1300 reached end of entries and stop trying to load new ones
+						if (data.length > 1300) {
+							currently_lazyloading = 0;
+						}
+	//					UpdateVisibility();
+						$('.grid-item').imagesLoaded({ background: true }, function() {
+							$(".grid-last").isotope({ sortBy : 'sort' });
+						});
+					});			
+					currently_lazyloading = 1;
+				}
+			}
+		});
+		$('.grid-item').imagesLoaded({ background: true }, function() {
+			$(".grid").isotope({ sortBy : 'sort' });
+			$(".grid-section").isotope({ sortBy : 'sort' });
+		});
+	});
+	</script>
+
+	<div class='row row--inverted'>
+	    <div class='cell well'>
+			<div class="grid-hero resources" style="padding-left:0;padding-right:0">
+				<?php $count = 0; ?>
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				<!-- /////									Hero	 							// -->
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				{exp:channel:entries channel="controller" url_title="resources_controller"}
+				{exp:playa:children offset="0" limit="1" disable="member_data|pagination"}
+					{if channel=="Blogs"}
+					<div class="grid-item blog hero">
+						<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+						<div class='has-editorials'>
+							<?php
+							ob_start();
+							?>{blog-post}<?php
+							$obcontents = ob_get_contents();
+							ob_end_clean();
+							$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+							if(preg_match($pattern,	$obcontents, $match)){
+								$img = $match[1];
+							}
+							?>
+							<a class="editorial" style="background-image: url(<?php echo $img ?>)" href="/blogs/{url_title}">
+								<div class='editorial-text'>
+									<h2 class='editorial-title'>{title}</h2>
+									<p class='meta-excerpt'>
+										{blog-excerpt}
+									</p>
+									<div class='meta'>
+										<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+										<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					{/if}
+					{if channel=="Media"}
+					<div class="grid-item video hero">
+						<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+						<div class='has-editorials'>
+							<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+								<div class='editorial-text'>
+									<h4 class='meta-author'>{if media-speaker=="Worship Team"}Worship Video{if:else}{media-speaker}{/if}</h4>
+									<h2 class='editorial-title'>{title}</h2>
+									<div class='editoral-video'>
+										<i class='material-icons'>play_arrow</i>
+									</div>
+									<div class='meta'>
+										<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					{/if}
+				{/exp:playa:children}
+				{/exp:channel:entries}
+				</div>
+		</div>
+	</div>
+
+{embed="_assets/resource_nav" context="resources"}
+
+<div class='row row--inverted'>
+    <div class='cell well'>
+			<div class="grid resources" style="padding-left:0;padding-right:0">
+			<?php $count = 0; ?>
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			<!-- /////			First Three Contents from Controller						// -->
+			<!-- ///////////////////////////////////////////////////////////////////////////// -->
+			{exp:channel:entries channel="controller" url_title="resources_controller"}
+			{exp:playa:children offset="1" limit="3" disable="member_data|pagination"}
+				{if channel=="Blogs"}
+				<div class="grid-item blog 
+					<?php if($count==0){ ?> 
+						first<?php 
+					} elseif($count==0) { ?> first
+					<?php }?>" 
+					<?php if($count==0){ ?> 
+							style='width:60%' 
+					<?php }else if($count>0){ ?> 
+							style='width:30%' 
+					<?php } ?>
+					>
+					<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+					<div class='has-editorials'>
+						<?php
+						ob_start();
+						?>{blog-post}<?php
+						$obcontents = ob_get_contents();
+						ob_end_clean();
+						$img = '';
+						$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+						if(preg_match($pattern,	$obcontents, $match)){
+							$img = $match[1];
+						}
+						//$size = getimagesize($img);
+						//$height = $size[1];
+						
+						?>
+						<a class="editorial editorial--sidebar editorial--spotlight" href="/blogs/{url_title}">
+							<div class='editorial-text'>
+								<img src="<?php echo $img ?>"{!--style="height:<?php echo $height.'px'; ?>"--}>
+								<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+									<h2 class='editorial-title'>{title}</h2>
+									<p class='meta-excerpt'>
+										{blog-excerpt}
+									</p>
+									<div class='meta'>
+										<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+										<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+									</div>
+								<?php if($count==1){ echo "</div>"; } ?>
+							</div>
+						</a>
+						
+					</div>
+				</div>
+				{/if}
+				{if channel=="Media"}
+				<div class="grid-item video
+				<?php if($count==0){ ?> 
+					first<?php 
+				} elseif($count==0) { ?> first
+				<?php }?>" 
+				<?php if($count==0){ ?> 
+						style='width:60%' 
+				<?php }else if($count>0){ ?> 
+						style='width:30%' 
+				<?php } ?>
+				>
+					<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+					<div class='has-editorials'>
+						<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+							<div class='editorial-text'>
+								<h4 class='meta-author'>{if media-speaker=="Worship Team"}Worship Video{if:else}{media-speaker}{/if}</h4>
+								
+								<h2 class='editorial-title'>{title}</h2>
+								<div class='editoral-video'>
+									<i class='material-icons'>play_arrow</i>
+								</div>
+								<div class='meta'>
+									<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				{/if}
+			{/exp:playa:children}
+			{/exp:channel:entries}
+			<div class="grid-item blog" style="width:30%">
+				<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>	
+				<div class='has-editorials'>
+					<div class="editorial editorial--sidebar editorial--spotlight">
+						<div class='editorial-text'>
+							<h4 style="margin:0">More Resources</h4>
+								{exp:channel:entries channel="controller" url_title="resources_controller"}
+								{exp:playa:children offset="4" disable="member_data|pagination"}
+								<a href='{if channel=="Media"}/video/{/if}{if channel=="Blogs"}/blogs/{/if}{url_title}'><h5 style="margin:0;"><span class="counter">{count}.</span> {title}</h5></a>
+								{/exp:playa:children}
+								{/exp:channel:entries}
+								</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			{!--featured responses --}
+			<div class="grid-item featured-responses" style="width:40%;" onclick="location.href='/resources/liturgy/';">
+				<div class="sort" style="display:none">1</div>
+				<div class='has-editorials'>
+					
+					<div class="editorial editorial--sidebar editorial--spotlight">
+						<div class='editorial-text'>
+							<h4>Daily Liturgy</h4>
+							{exp:channel:entries channel="liturgy" orderby="date" sort="asc" show_future_entries="yes" 
+							  start_on="2014-{current_time format='%m-%d'} 00:00" 
+							  stop_before="2014-{current_time format='%m-%d'} 23:59" 
+							  search:liturgy-sequence="=Morning" cache="yes" refresh="120"}	
+								<div class="respond-serve-marker heading--s" style="color:black">
+									<span>{title} {if liturgy-translation !="N/A"}{liturgy-translation}{/if}</span> <span>{entry_date format="%F %j"}</span> 
+								</div>
+								<div class="scripture-text">
+									<h2 class="heading heading-m isotitle" style="color:black"><?php echo ucwords(strtolower("{prayer-name}"));?></h2>
+									<p class="tss">
+										<?php
+											ob_start();
+											?>{liturgy-scripture}<?php
+											$obcontents = ob_get_contents();
+											ob_end_clean();
+											$output = '';
+											if (strlen($obcontents)>265){
+												$pos = strpos($obcontents, '<br', 265);
+												if ($pos == false) {
+													{!-- The string '<br' was not found --}
+													$output = $obcontents;
+												} else {
+													{!-- The string '<br' was found --}
+													$output = substr($obcontents, 0, $pos);
+													$output = $output . "<br/>";
+												}
+											}else{
+												$output = $obcontents;
+											}
+
+											echo $output;
+										?>
+									</p>
+								</div>
+								<div class='liturgy-card-options' id="pray{entry_id}" >
+									<a class="favorite btn" href="/_component/favorite-add-loggedin/{entry_id}/" style="color:black">Mark as read</a>					
+								</div>
+							{/exp:channel:entries}
+						</div>
+					</div>
+					
+				</div>			
+			</div>
+			</div>
+			<div class='filter' style="margin-bottom:0;margin-top:60px">
+				<h4 style='font-family: "Archer A", "Archer B", Futura, "Trebuchet MS", Arial, sans-serif;
+				font-weight:700;text-transform:none;
+				margin-top:10px'>Resources about <span class="tag"><a href="/resources/tag/truth">Truth</a></span></h4>
+			</div>
+			
+			<div class="grid-section resources" style="padding-left:0;padding-right:0">
+				<?php $count = 0; ?>
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				<!-- /////							Tag-based content							// -->
+				<!-- ///////////////////////////////////////////////////////////////////////////// -->
+				{exp:tag:entries inclusive="yes" tag="truth" orderby="entry_date" limit="5" sort="desc" paginate="bottom"}
+					{if channel=="Blogs"}
+					<div class="grid-item blog <?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:60%' <?php }else{ ?> style='width:30%' <?php } ?>>
+						<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+						<div class='has-editorials'>
+							<?php
+							ob_start();
+							?>{blog-post}<?php
+							$obcontents = ob_get_contents();
+							ob_end_clean();
+            				$img = '';
+							$pattern = '/<img[^>]+src[\\s=\'"]+([^"\'>\\s]+)/is';
+							if(preg_match($pattern,	$obcontents, $match)){
+								$img = $match[1];
+							}
+							//$size = getimagesize($img);
+							//$height = $size[1];
+							
+							?>
+							<a class="editorial editorial--sidebar editorial--spotlight" href="/blogs/{url_title}">
+								<div class='editorial-text'>
+									<img src="<?php echo $img ?>"{!--style="height:<?php echo $height.'px'; ?>"--}>
+									<?php if($count==1){ ?><div class="editorial-wide-copy"><?php } ?>
+										<h2 class='editorial-title'>{title}</h2>
+										<p class='meta-excerpt'>
+											{blog-excerpt}
+										</p>
+										<div class='meta'>
+											<h4 class='meta-author'>{if blog-author}{blog-author}{if:else}{author}{/if}</h4>
+											<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+										</div>
+									<?php if($count==1){ echo "</div>"; } ?>
+								</div>
+							</a>
+							
+						</div>
+					</div>
+					{/if}
+					{if channel=="Media"}
+					<div class="grid-item video<?php if($count==0){ ?> first<?php } ?>" <?php if($count==0){ ?> style='width:60%' <?php }else{ ?> style='width:30%' <?php } ?>>
+						<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+						<div class='has-editorials'>
+							<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+								<div class='editorial-text'>
+									<h4 class='meta-author'>{if media-speaker=="Worship Team"}Worship Video{if:else}{media-speaker}{/if}</h4>
+									
+									<h2 class='editorial-title'>{title}</h2>
+									<div class='editoral-video'>
+										<i class='material-icons'>play_arrow</i>
+									</div>
+									<div class='meta'>
+										<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					{/if}
+				{/exp:tag:entries}
+			</div>
+			
+			<div class='filter' style="margin-bottom:0;margin-top:60px">
+				<h4 style='font-family: "Archer A", "Archer B", Futura, "Trebuchet MS", Arial, sans-serif;
+				font-weight:700;text-transform:none;
+				margin-top:10px'>Recent <span class="tag"><a href="/resources/videos">Videos</a></span> to Help You Grow</h4>
+
+			</div>
+			
+			<div class="grid-video resources" style="padding-left:0;padding-right:0">
+				<?php $count=0; ?>
+				{!-- live services are category 58 so be sure to exclude those from the loop else the player will break --}
+				{exp:channel:entries channel="media" limit="8" category="not 58"}
+				<div class="grid-item video
+				<?php if($count==0){ ?> 
+					first<?php 
+				} elseif($count==5) { ?> first
+				<?php }?>" 
+				<?php if(($count==0)||($count==4)){ ?> 
+						style='width:50%' 
+				<?php }else if($count>0){ ?> 
+						style='width:25%' 
+				<?php } ?>
+				>
+					<div class="sort" style="display:none"><?php $count++; echo $count; ?></div>
+					<div class='has-editorials'>
+						<a class="editorial{if count==2} editorial--large{/if}{if count==5} editorial--large{/if}" style="background-image: url(/_img/uploads/{media-primary})" href="/video/{url_title}">
+							<div class='editorial-text'>
+								<h4 class='meta-author'>{if media-speaker=="Worship Team"}Worship Video{if:else}{media-speaker}{/if}</h4>
+								
+								<h2 class='editorial-title'>{title}</h2>
+								<div class='editoral-video'>
+									<i class='material-icons'>play_arrow</i>
+								</div>
+								<div class='meta'>
+									<p class='meta-date'>{entry_date format="%F %j, %Y"}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				{/exp:channel:entries}
+			
+			</div>
+			
+			<div class='filter' style="margin-bottom:0;margin-top:60px;clear:left">
+				<h4 style='font-family: "Archer A", "Archer B", Futura, "Trebuchet MS", Arial, sans-serif;
+				font-weight:700;text-transform:none;
+				margin-top:10px'>Additional Resources</h4>
+
+			</div>
+			
+			<div class="grid-last resources" style="padding-left:0;padding-right:0">
+			</div>
+			
+			<div id="lazyload_moreentries"></div>
+		</div>
+	</div>
+</div>
+	
+<div class="clear"></div>
+
+
+
+{embed="_assets/footer"}
+<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+
+
+
+
+
+
+
+
+
+
+

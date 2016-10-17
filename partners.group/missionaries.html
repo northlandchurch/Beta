@@ -1,0 +1,188 @@
+{!-- LIST VIEW --}
+
+{if segment_3 == ''}
+
+	{embed="_assets/header" htmltitle="Missionaries"}
+	{embed="_assets/navbar" active="resources"}
+	
+	<div class='row row--inverted row--page'>
+		<div class='cell well'>
+			<ul class='breadcrumbs'>
+				<li><a href="../../">Home</a></li>
+				<li><a href="../">Partners</a></li>
+			</ul>
+		
+			<div class='g'>
+				<div class="g-b g-b--m--1of1">
+					<h1 class='heading heading--l'>Missionaries</h1>
+					<p class="mbxl tss">
+						Northland is involved with distributing ministry to people outside of our own local, cultural and linguistic sphere of ministry,
+						in accordance with the promise God gave to Abraham (<a href="http://read.ly/Gen12.3.NASB">Genesis 12:3</a>)
+						and the command and expectation of Jesus for the church to make disciples and be His witnesses
+						... in all the world (<a href="http://read.ly/Acts1.8.NASB">Acts 1:8</a>).
+						The missionaries listed here provide opportunities for Northland to connect with other organizations for the development of new partnerships,
+						and also provide direct ministry opportunities for Northlanders through short-term missions trips and distributed journeys.
+					</p>
+				</div>
+			</div>
+
+			<hr class="rule mbl">
+			
+			<div class="g g--dib">
+				{exp:channel:entries channel="staff" category="249" orderby="staff-sort" sort="asc"}
+				<?php
+					$fullfile = "http://www.northlandchurch.net/_img/team/" . "{url_title}" . ".jpg"; //image url
+				?>
+				<div class="deck g-b g-b g-b--s--1of2 g-b--m--1of3">
+					<a href="/partners/missionaries/{url_title}">
+						<div class="card card--deck">
+							<h4 class="deck-title mbxs">{if staff-honorific}{staff-honorific} {/if}{title}</h4>
+							<dl class="dictionary">
+								{if staff-bio}
+								<dd class='dictionary-definition-icon'><i class="fa fa-info-circle"></i></dd>
+								{/if}
+								{if staff-phone}
+								<dd class='dictionary-definition-icon'><i class="fa fa-phone"></i></dd>
+								{/if}
+								{if staff-email}
+								<dd class="dictionary-definition-icon"><i class="fa fa-envelope"></i></dd>
+								{/if}
+								{if staff-twitter}
+								<dd class="dictionary-definition-icon"><i class="fa fa-twitter"></i></dd>
+								{/if}
+								{if staff-facebook}
+								<dd class="dictionary-definition-icon"><i class="fa fa-facebook"></i></dd>
+								{/if}
+								{if staff-blog}
+								<dd class="dictionary-definition-icon"><i class="fa fa-rss"></i></dd>
+								{/if}
+								{if staff-website}
+								<dd class="dictionary-definition-icon"><i class="fa fa-external-link"></i></dd>
+								{/if}
+								{if staff-flickr}
+								<dd class="dictionary-definition-icon"><i class="fa fa-flickr"></i></dd>
+								{/if}
+							</dl>
+						</div><!-- ./card -->
+						<?php
+						//image
+						echo ("<!-- " . $fullfile . "-->");
+						if(@getimagesize($fullfile)) {
+							echo ("<div class='media media--large mbf missionary-photo' style='background-image: url($fullfile)'></div>");
+						}
+						else {
+							echo("<div class='missionary-no-photo'></div>");
+						}
+						?>
+					</a>
+				</div><!-- ./deck -->
+				{/exp:channel:entries}
+			</div><!-- ./g -->
+		</div><!-- ./cell -->
+	</div><!-- ./row -->
+	
+	{embed="_assets/footer"}
+	
+	
+{!-- INDIVIDUAL VIEW --}
+{if:elseif segment_3 != ''}
+	
+	{exp:channel:entries channel="staff" category="249" dynamic="on" limit="1" require_entry="yes"}
+	{if no_results}
+		{redirect="partners/missionaries/"}
+	{/if}
+	
+	{embed="_assets/header" htmltitle="Missionaries: {title}"}
+	{embed="_assets/navbar" active="resources"}
+	<div class='row row--inverted row--page'>
+		<div class='cell well'>
+			<ul class='breadcrumbs'>
+				<li><a href="../../../">Home</a></li>
+				<li><a href="../../">Partners</a></li>
+				<li><a href="../">Missionaries</a></li>
+			</ul>
+			<?php
+				$fullfile = "http://www.northlandchurch.net/_img/team/" . "{url_title}" . ".jpg"; //image url
+				
+				$fullname = "{title}";
+				$fullname = explode(" ", $fullname);
+				$firstname = "";
+				for($i = 0; $i < count($fullname) - 1; $i++){
+					$firstname = $firstname . $fullname[$i] . " ";
+				}
+				$lastname = array_pop($fullname);
+			?>
+			<h1 class='heading heading--italic heading--l title'>{if staff-honorific}{staff-honorific} {/if}{title}</h1>
+			{if staff-title}<h4 class='heading tcs tsxxs dib'>{staff-title}</h4>{/if}
+			<div class='g mtl'>
+			
+				<div class='g-b g-b--m--2of5 mbl'>
+					<?php
+					//image
+					if(@getimagesize($fullfile)) {
+						echo ("<div class='media media--large missionary-photo' style='background-image: url($fullfile)'></div><hr class='rule mbs'>");
+					}
+					else {
+						echo ("<hr class='rule mtf mbs'>");
+					}
+					?>
+					<h2 class='heading--italic heading--m mbs'>
+						Contact 
+						{if staff-honorific}
+							{staff-honorific} <?php echo ($lastname);?>
+						{if:else}
+							<?php echo ($firstname); ?>
+						{/if}
+					</h2>
+					<dl class='dictionary'>
+						{if staff-phone}
+							<dd class='dictionary-definition'>{staff-phone}</dd>
+						{/if}
+						{if staff-email}
+							<dd class='dictionary-definition dictionary-definition-email'><a href="mailto:{staff-email}">{staff-email}</a></dd>
+						{/if}
+						{if staff-website}
+						<dd class='dictionary-definition'>
+							<a href='{staff-website}' target="_blank">Website <i class="fa fa-external-link"></i></a>
+						</dd>
+						{/if}
+						{if staff-twitter}
+							<dd class="dictionary-definition-icon"><a href="{staff-twitter}"><i class="fa fa-twitter"></i></a></dd>
+						{/if}
+						{if staff-facebook}
+							<dd class="dictionary-definition-icon"><a href="{staff-facebook}"><i class="fa fa-facebook"></i></a></dd>
+						{/if}
+						{if staff-blog}
+							<dd class="dictionary-definition-icon"><a href="{staff-blog}"><i class="fa fa-rss"></i></a></dd>
+						{/if}
+						{if staff-flickr}
+							<dd class="dictionary-definition-icon"><a href="{staff-flickr}"><i class="fa fa-flickr"></i></a></dd>
+						{/if}
+					</dl>
+				</div><!-- ./g-b--m--2of5 -->
+				
+				<div class='g-b g-b--m--3of5 fr'>
+					<hr class="rule mtf mbl">
+					{if staff-honorific}
+						<h2 class='heading--italic heading--m mbl'>
+							<i class="fa fa-info-circle"></i>
+							About {staff-honorific} <?php echo ($lastname);?>
+						</h2>
+					{if:else}
+						<h2 class='heading--italic heading--m mbl'>
+							<i class="fa fa-info-circle"></i>
+							About <?php echo ($firstname); ?>
+						</h2>
+					{/if}
+					<div class='bio tss'>{staff-bio}</div>
+				</div><!-- ./g-b--m--3of5 -->
+				
+			</div><!-- ./g -->
+		</div><!-- ./cell -->
+	</div><!-- ./row -->
+	{/exp:channel:entries}
+	{embed="_assets/footer"}
+
+{/if}
+
+

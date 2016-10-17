@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <playlist version="1" xmlns="http://xspf.org/ns/0/"> 
+    <trackList>
+      <track>
+         <location>http://hwcdn.net/r3c3x6t9/fms/website/annc.mp4.smil</location>
+         <meta rel="type">highwinds</meta> 
+         <duration>124</duration>
+      </track>
+      <track>
+          <location>http://hwcdn.net/r3c3x6t9/fms/service/100815_service_stream.mp4.smil</location>
+          <meta rel="type">highwinds</meta> 
+       
+          <autostart>true</autostart>
+      </track>
+      </trackList>
+</playlist>

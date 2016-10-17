@@ -1,0 +1,35 @@
+<?php
+	if (isset($_GET['lat']) && isset($_GET['lng'])) {
+	
+		$json = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=" . $_GET['lat'] . "," . $_GET['lng'] . "&sensor=false");
+		
+		$arr = json_decode($json, true);
+		
+		if ($arr['results']) {
+			$arr2 = $arr['results'][0]['address_components'];
+		}
+		else {
+			die();
+		}
+		
+		$in_us = 0;
+		$city = "";
+		$state = "";
+		$country = "";
+		
+		foreach ($arr2 as $i => $value) {
+			foreach ($arr2[$i]['types'] as $j => $value) {
+				if ($arr2[$i]['types'][$j] == "locality") { $city = $arr2[$i]['long_name']; }
+				else if ($arr2[$i]['types'][$j] == "administrative_area_level_1") { $state = $arr2[$i]['short_name']; }
+				else if ($arr2[$i]['types'][$j] == "country") { $country = $arr2[$i]['long_name']; }				
+			}
+		}
+		
+		if ($country == "United States") {
+			echo $city . ", " . $state;
+		}
+		else {
+			echo $city . ", " . $country;
+		}
+	}	
+?>

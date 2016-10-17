@@ -1,0 +1,225 @@
+{embed="responsive/html_open" htmltitle="{if segment_2 !=''}{exp:channel:entries dynamic="on" limit="1"}{title}{/exp:channel:entries}{if:else}Ministries & Groups{/if}"}
+{embed="responsive/header"}
+{embed="responsive/nav" active="getinvolved"}
+<script type="text/javascript" src="/_assets/js/nacd-class-registration.js"></script>
+{if segment_2 ==''}
+	{embed="_includes/groups"}
+{/if}
+{if segment_2 !=''}	
+	<div id="title-bar">
+		<div class="top"></div>
+		<div class="container_12">
+			<div class="grid_12">
+				<h1>{exp:channel:entries dynamic="on" limit="1"}{title}{/exp:channel:entries}</h1>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="btm"></div>
+	</div>
+
+	<div class="container_12">
+	
+	{exp:calendar:calendars orderby="title" dynamic="on"}
+		{categories offset="1" limit="1"}
+			<?php $whichCat = "{category_id}"; $whichCatName = "{category_name}"; ?>
+		{/categories}
+		<div class="grid_8">
+			<div class="day-block" style="border-bottom:none;">
+				{if event_image}<img class="calendar-img" src="{event_image}" />{/if}
+				
+				{calendar_summary}
+				<p>
+					{if event_details}<strong>Contact:</strong> {event_details}<br />{/if}
+				</p>
+				<p>
+						{if calendar_address}
+							{title} meets at <a href="http://maps.google.com/maps?q={exp:strip_html}{calendar_address}{/exp:strip_html}" target="_blank">{exp:strip_html}{calendar_address}{/exp:strip_html}</a>
+						{/if}
+						{exp:strip_html}
+							{if calendar_address}on{if:elseif calendar_meeting_day}meets on{/if}
+							{if calendar_meeting_day}{calendar_meeting_day}s{/if}
+							{if calendar_meeting_time == "Morning" OR calendar_meeting_time == "Afternoon" OR calendar_meeting_time == "Evening"}in the{if:elseif calendar_meeting_time} at{/if} {calendar_meeting_time}
+						{/exp:strip_html}
+					
+				</p>
+				
+				{if logged_in && (screen_name!="Anonymous Member")}
+			        <a class="favorite" href="#" onclick="registerUserToGroup({entry_id})" style="color:#347197">Click here to join this group</a></span>
+	    	    {if:else}
+	    	    	<a class="user-login" href="#login-register-box" style="color:#347197">Click here to join this group</a>
+	    	    {/if}
+				<div class="marg-b-20"></div>
+			</div>
+		</div>
+		{if calendar_address}
+			<div class="grid_4">
+				<style type="text/css">
+					#map-viewer { 
+						width: 100%;
+						height: 200px;				
+						border-width: 1px;
+						border-color: #000;
+						border-style: solid;
+					}
+					#map-toggle {
+						float: right;
+						margin: 5px 0 10px 0;
+					}		
+					.infoBox {
+						width: 200px;
+						padding: 10px;
+						background-color: #FFF;
+						overflow-x: hidden;	
+						overflow-y: auto;
+					}
+				</style>
+				<script type="text/javascript" src="/_assets/js/markerclusterer_packed.js"></script>
+				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+				<script type="text/javascript" src="/_assets/js/infobox_packed.js"></script>
+				<script type="text/javascript">
+					var map;
+					var markerCluster;
+					var markersarray = [];	
+					var mapOptions;
+							mapOptions = {
+							zoom: 11,
+							scrollwheel: false,
+							center: new google.maps.LatLng({exp:strip_html}{group_latitude}{/exp:strip_html}, {exp:strip_html}{group_longitude}{/exp:strip_html}),
+							mapTypeId: google.maps.MapTypeId.HYBRID,
+							streetViewControl: false,
+							panControl: false,
+							overviewMapControl: false,
+							mapTypeControl: false					
+							};
+	
+					var infobox_options = {
+						alignBottom: true,
+						pixelOffset: new google.maps.Size(-50, -25)
+	
+					};
+					var infoWindow = new InfoBox(infobox_options);
+	
+					$(document).ready(function() {				
+						map = new google.maps.Map(document.getElementById("map-viewer"), mapOptions);						
+	
+						markerCluster = new MarkerClusterer(map, [], { zoomOnClick: false, averageCenter: true, gridSize: 15, ignoreHidden: true });		
+	
+						google.maps.event.addListener(map, 'bounds_changed', function() { UpdateViewportMarkers(); })
+						google.maps.event.addListener(markerCluster, 'click', function(markercluster) { ClusterClicked(markercluster) });
+						google.maps.event.addListener(map, 'zoom_changed', function() { infoWindow.close(); })
+						$(".filter").change(function() { Filter(); });
+	
+						markerCluster.addMarkers(markersarray);	
+						$('.assoc_groups').show();				
+					});
+					
+					function AddMarker(id, lat, lng, infowindowhtml) {
+						if ((lat != 0) && (lng != 0)) {
+							var marker = new google.maps.Marker({position: new google.maps.LatLng(lat,lng), title: id, animation: google.maps.Animation.DROP});		
+							markersarray.push(marker);
+							google.maps.event.addListener(marker, 'click', function() { MarkerClicked(marker); })
+							$('#map-info').append("<div id='" + id + "'>" + infowindowhtml + "</div>");
+						}				
+					}
+	
+					function MarkerClicked(marker) {
+						infoWindow.close();
+						var html_content = "";
+						var title;
+	
+						title = marker.getTitle();
+						html_content = $('#' + title).html();	
+						infoWindow.setContent(html_content);
+	
+						infoWindow.setPosition(marker.getPosition());
+						infoWindow.open(map);	
+					}
+	
+					// Event handler for cluster click	
+					function ClusterClicked(markercluster) {
+						var cluster_markers = [];
+						var html_content = "";
+						infoWindow.close();
+	
+						cluster_markers = markercluster.getMarkers(); // Get markers managed by cluster
+						map.panTo(markercluster.getCenter());
+	
+						if (markercluster.getSize() == 1) {
+							title = cluster_markers[0].getTitle();
+							html_content = $('#' + title).html();	
+							infoWindow.setContent(html_content);									
+						}
+						else if (markercluster.getSize() > 1) {				
+							for (var i = 0; i < cluster_markers.length; i++) {	
+								html_content += "<div>" + $('#' + cluster_markers[i].getTitle()).html() + "</div>";
+							}
+	
+							infoWindow.setContent(html_content);
+						}
+						else {
+						}		
+	
+						infoWindow.setPosition(markercluster.getCenter());
+						infoWindow.open(map);
+					}
+	
+	
+					// Display groups currently in viewport
+					function UpdateViewportMarkers() { 				
+	
+					}	
+	
+					// Find users within a certain latlngbounds (i.e. the current map view)
+					function FindUsersBoundingBox(latlngbounds) {			
+						// latlngbounds is a google.maps.LatLngBounds object
+						var currentviewportidsArray = [];				
+						for(var i = 0; i < markersarray.length; i++) {					
+							if (latlngbounds.contains(markersarray[i].getPosition())) {
+								if (markersarray[i].getTitle()) {
+									currentviewportidsArray.push(markersarray[i].getTitle().toString());
+								}
+							}			
+						}
+						return currentviewportidsArray;
+					}	
+				</script>
+				<script type="text/javascript">AddMarker("{entry_id}", "{exp:strip_html}{group_latitude}{/exp:strip_html}", "{exp:strip_html}{group_longitude}{/exp:strip_html}", "<a href='/group/{url_title}'>{title}</a>");</script>
+				<div id="map-info" style="display:none"></div>
+				<div id="map-viewer"></div>
+				
+			</div>
+		{/if}
+		<div class="grid_12">
+			{if "{calendar-related-orgs:total_children}"==0}
+			{if:else}
+			<h3>{title}' Groups:</h3>
+			<br>
+				{embed="_component/assoc_groups" taggedentries="{exp:tag:entries exclusive='yes'}" relatedgroups="{exp:calendar:calendars orderby='title' dynamic='on'}{exp:playa:child_ids}{/exp:calendar:calendars}"}
+			{/if}
+		</div>
+	{/exp:calendar:calendars}
+	
+	</div>
+	
+	{!--
+	<div id="aside" class="grid_4">
+		<div class="top"></div>
+		<div class="mid">
+		<h3>Upcoming Events:</h3>
+				
+		{if "{calendar-related-orgs:total_children}"==0}
+			{embed="_component/assoc_events" relatedevents="{entry_id}"}
+		{if:else}
+			{embed="_component/assoc_events" relatedevents="{exp:calendar:calendars orderby='title' dynamic='on'}{exp:playa:child_ids}{/exp:calendar:calendars}"}
+		{/if}
+		
+		</div>
+		<div class="btm"></div>
+		--}	
+	</div>
+	</div>
+	<div class="clear marg-b-60">&nbsp;</div>
+{/if}
+
+{embed="_includes/footer"}
+{embed="_includes/html_close"}

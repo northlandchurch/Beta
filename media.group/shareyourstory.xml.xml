@@ -1,0 +1,35 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:jwplayer="http://developer.longtailvideo.com/">
+  
+  <channel>
+    <title>Share Your Story</title>
+
+	<item>
+      <title>First Storytelling Principle</title>
+		<description></description>
+	      <media:group>
+	        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/misc/AliceLesson1.mp4" width="640" />
+			<media:thumbnail url="" />
+	      </media:group>
+      <jwplayer:streamer>rtmp://174.129.245.138:1935/vods3/_definst_</jwplayer:streamer>
+    </item>
+	<item>
+      <title>Second Storytelling Principle</title>
+	      <media:group>
+	        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/misc/AliceLesson2.mp4" width="640" />
+			<media:thumbnail url="" />
+	      </media:group>
+      <jwplayer:streamer>rtmp://174.129.245.138:1935/vods3/_definst_</jwplayer:streamer>
+    </item>
+    <item>
+      <title>Third Storytelling Principle</title>
+	      <media:group>
+	        <media:content bitrate="500" url="mp4:amazons3/nacdvideo/misc/AliceLesson3.mp4" width="640" />
+			<media:thumbnail url="" />
+	      </media:group>
+      <jwplayer:streamer>rtmp://174.129.245.138:1935/vods3/_definst_</jwplayer:streamer>
+    </item>
+
+
+  </channel>
+</rss>

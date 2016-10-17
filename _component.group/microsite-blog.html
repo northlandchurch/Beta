@@ -1,0 +1,11 @@
+{exp:channel:entries channel="blogs" category="516" limit="10" dynamic="off"}
+	<div class="blog-post">
+		<h2><a href="{exp:low_replace find='index.php/'}{title_permalink='blogs'}{/exp:low_replace}">{title}</a></h2>
+		<p class="info">
+			Posted {entry_date format="%F %j, %Y"} &nbsp;|&nbsp; Written by: {if blog-author}{blog-author}{if:else}{author}{/if} 
+		</p>
+
+		<p>{blog-post}</p>
+		<div class="clear"></div>
+	</div>
+{/exp:channel:entries}

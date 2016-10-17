@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				font-family: "museo-sans-1","museo-sans-2", Helvetica, sans-serif;
+				font-size: 80px;
+				background: none;	
+				background-color: #000;
+				color: #FFF;
+			}
+			body, html {
+				overflow:hidden;
+			}
+		</style>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+		<script type="text/javascript">
+			UpdateTimer();
+			
+			$(document).ready(function() {
+				ScaleFontSize();
+			});
+			$(window).resize(function() {
+				ScaleFontSize();
+			});
+			
+			
+			function UpdateTimer() {
+				var today = new Date();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+				
+				var minutes_left = 59 - m + 5;
+				var seconds_left = 60 - s;
+				
+				if (seconds_left == 60) {
+					seconds_left = 0;
+					minutes_left += 1;
+				}
+				
+				if (seconds_left < 10) {
+					seconds_left = "0" + seconds_left;
+				}
+				
+				if (m < 5) {
+					$("#pretext").html("Service will begin momentarily");
+					$("#timer").html("");
+				}
+				else {
+					$("#pretext").html("Service will begin in");
+					$("#timer").html(minutes_left + ":" + seconds_left);
+				}
+
+				setTimeout("UpdateTimer()", 500);
+			}
+			
+			function ScaleFontSize() {
+				fontsize = $(window).width() / 15;
+				timerwidth = $(window).width() / 6;
+				$('body').css('font-size', fontsize);
+				$("#timer").css('width', timerwidth);
+				
+				//$('#visitor_names').css('line-height', fontsize / 10);
+			}
+		</script>
+	</head>	
+	
+	<body>
+		<div style="position: absolute; bottom: 0; width: 100%; margin: 1% 0; text-align: center; font-weight: 500">
+			<div id="pretext" style="display: inline-block"></div>
+			<div id="timer" style="font-weight: 700; display: inline-block; width: 230px; text-align: left"></div>
+		</div>
+		
+		<script type="text/javascript" src="http://use.typekit.com/omz5rgd.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	</body>
+</html>
